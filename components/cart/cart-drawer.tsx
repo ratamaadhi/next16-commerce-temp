@@ -8,13 +8,17 @@ import { ShoppingCart, Trash2, Minus, Plus } from "lucide-react";
 import { useCartStore } from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/strapi";
 import { ProductImage } from "@/components/products/product-image";
+import { useState } from "react";
 
 export function CartDrawer() {
+  const [open, setOpen] = useState(false);
   const { items, removeItem, updateQuantity, getTotal, getItemCount } = useCartStore();
   const itemCount = getItemCount();
 
+  const close = () => setOpen(false);
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger className={buttonVariants({ variant: "ghost", size: "icon" })}>
         <div className="relative">
           <ShoppingCart className="h-5 w-5" />
@@ -43,7 +47,7 @@ export function CartDrawer() {
               <ShoppingCart className="h-7 w-7 text-muted-foreground" />
             </div>
             <p className="text-muted-foreground text-sm">Keranjang kamu masih kosong</p>
-            <Link href="/products" className={buttonVariants({ className: "mt-5" })}>
+            <Link href="/products" className={buttonVariants({ className: "mt-5" })} onClick={close}>
               Mulai Belanja
             </Link>
           </div>
@@ -121,11 +125,12 @@ export function CartDrawer() {
                 <span className="text-sm text-muted-foreground">Subtotal</span>
                 <span className="text-sm font-semibold">{formatPrice(getTotal())}</span>
               </div>
-              <Link href="/checkout" className={buttonVariants({ className: "w-full" })}>
+              <Link href="/checkout" className={buttonVariants({ className: "w-full" })} onClick={close}>
                 Lanjut ke Checkout
               </Link>
               <Link
                 href="/cart"
+                onClick={close}
                 className="block text-center text-xs text-muted-foreground hover:text-foreground transition-colors underline underline-offset-2"
               >
                 Lihat detail keranjang
