@@ -1,0 +1,4477 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {
+    "hyperedges": [
+      {
+        "id": "ecommerce_architecture_stack",
+        "label": "E-Commerce Architecture Stack",
+        "nodes": [
+          "nextjs_16",
+          "strapi_v5",
+          "postgresql_17",
+          "minio_s3",
+          "dokploy_vps",
+          "docker_standalone"
+        ],
+        "relation": "participate_in",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "docs/strapi5-next16-integration.md"
+      },
+      {
+        "id": "hybrid_data_layer",
+        "label": "Hybrid Data Handling Layer",
+        "nodes": [
+          "server_components",
+          "tanstack_react_query",
+          "zustand_cart_store",
+          "http_only_cookie_auth",
+          "auth_route_handlers",
+          "strip_api_client"
+        ],
+        "relation": "participate_in",
+        "confidence": "INFERRED",
+        "confidence_score": 0.85,
+        "source_file": "docs/strapi5-next16-integration.md"
+      },
+      {
+        "id": "development_workflow",
+        "label": "Development Workflow Toolchain",
+        "nodes": [
+          "create_next_app",
+          "pnpm_workspace",
+          "shadcn_ui",
+          "tailwind_css_4",
+          "openapi_typescript_gen"
+        ],
+        "relation": "participate_in",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "docs/strapi5-next16-integration.md"
+      },
+      {
+        "id": "nextjs_app_icons",
+        "label": "Next.js App Static Assets",
+        "nodes": [
+          "public_file_icon",
+          "public_vercel_logo",
+          "public_nextjs_logo",
+          "public_globe_icon",
+          "public_window_icon"
+        ],
+        "relation": "participate_in",
+        "confidence": "INFERRED",
+        "confidence_score": 0.85,
+        "source_file": "public/"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "label": "postcss.config.mjs",
+      "file_type": "code",
+      "source_file": "postcss.config.mjs",
+      "source_location": "L1",
+      "id": "postcss_config_mjs",
+      "community": 27,
+      "norm_label": "postcss.config.mjs"
+    },
+    {
+      "label": "next-env.d.ts",
+      "file_type": "code",
+      "source_file": "next-env.d.ts",
+      "source_location": "L1",
+      "id": "next_env_d_ts",
+      "community": 28,
+      "norm_label": "next-env.d.ts"
+    },
+    {
+      "label": "eslint.config.mjs",
+      "file_type": "code",
+      "source_file": "eslint.config.mjs",
+      "source_location": "L1",
+      "id": "eslint_config_mjs",
+      "community": 29,
+      "norm_label": "eslint.config.mjs"
+    },
+    {
+      "label": "next.config.ts",
+      "file_type": "code",
+      "source_file": "next.config.ts",
+      "source_location": "L1",
+      "id": "next_config_ts",
+      "community": 30,
+      "norm_label": "next.config.ts"
+    },
+    {
+      "label": "strapi.d.ts",
+      "file_type": "code",
+      "source_file": "types/strapi.d.ts",
+      "source_location": "L1",
+      "id": "types_strapi_d_ts",
+      "community": 31,
+      "norm_label": "strapi.d.ts"
+    },
+    {
+      "label": "layout.tsx",
+      "file_type": "code",
+      "source_file": "app/layout.tsx",
+      "source_location": "L1",
+      "id": "app_layout_tsx",
+      "community": 10,
+      "norm_label": "layout.tsx"
+    },
+    {
+      "label": "RootLayout()",
+      "file_type": "code",
+      "source_file": "app/layout.tsx",
+      "source_location": "L21",
+      "id": "app_layout_rootlayout",
+      "community": 10,
+      "norm_label": "rootlayout()"
+    },
+    {
+      "label": "error.tsx",
+      "file_type": "code",
+      "source_file": "app/error.tsx",
+      "source_location": "L1",
+      "id": "app_error_tsx",
+      "community": 17,
+      "norm_label": "error.tsx"
+    },
+    {
+      "label": "Error()",
+      "file_type": "code",
+      "source_file": "app/error.tsx",
+      "source_location": "L5",
+      "id": "app_error_error",
+      "community": 17,
+      "norm_label": "error()"
+    },
+    {
+      "label": "loading.tsx",
+      "file_type": "code",
+      "source_file": "app/loading.tsx",
+      "source_location": "L1",
+      "id": "app_loading_tsx",
+      "community": 32,
+      "norm_label": "loading.tsx"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/page.tsx",
+      "source_location": "L1",
+      "id": "app_page_tsx",
+      "community": 3,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "not-found.tsx",
+      "file_type": "code",
+      "source_file": "app/not-found.tsx",
+      "source_location": "L1",
+      "id": "app_not_found_tsx",
+      "community": 15,
+      "norm_label": "not-found.tsx"
+    },
+    {
+      "label": "NotFound()",
+      "file_type": "code",
+      "source_file": "app/not-found.tsx",
+      "source_location": "L4",
+      "id": "app_not_found_notfound",
+      "community": 15,
+      "norm_label": "notfound()"
+    },
+    {
+      "label": "loading.tsx",
+      "file_type": "code",
+      "source_file": "app/products/loading.tsx",
+      "source_location": "L1",
+      "id": "app_products_loading_tsx",
+      "community": 18,
+      "norm_label": "loading.tsx"
+    },
+    {
+      "label": "ProductsLoading()",
+      "file_type": "code",
+      "source_file": "app/products/loading.tsx",
+      "source_location": "L3",
+      "id": "products_loading_productsloading",
+      "community": 18,
+      "norm_label": "productsloading()"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/products/page.tsx",
+      "source_location": "L1",
+      "id": "app_products_page_tsx",
+      "community": 3,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "ProductsPage()",
+      "file_type": "code",
+      "source_file": "app/products/page.tsx",
+      "source_location": "L17",
+      "id": "products_page_productspage",
+      "community": 3,
+      "norm_label": "productspage()"
+    },
+    {
+      "label": "loading.tsx",
+      "file_type": "code",
+      "source_file": "app/products/[slug]/loading.tsx",
+      "source_location": "L1",
+      "id": "app_products_slug_loading_tsx",
+      "community": 9,
+      "norm_label": "loading.tsx"
+    },
+    {
+      "label": "ProductDetailLoading()",
+      "file_type": "code",
+      "source_file": "app/products/[slug]/loading.tsx",
+      "source_location": "L3",
+      "id": "slug_loading_productdetailloading",
+      "community": 9,
+      "norm_label": "productdetailloading()"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/products/[slug]/page.tsx",
+      "source_location": "L1",
+      "id": "app_products_slug_page_tsx",
+      "community": 3,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "generateMetadata()",
+      "file_type": "code",
+      "source_file": "app/products/[slug]/page.tsx",
+      "source_location": "L11",
+      "id": "slug_page_generatemetadata",
+      "community": 3,
+      "norm_label": "generatemetadata()"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/auth/register/page.tsx",
+      "source_location": "L1",
+      "id": "app_auth_register_page_tsx",
+      "community": 4,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "handleSubmit()",
+      "file_type": "code",
+      "source_file": "app/auth/register/page.tsx",
+      "source_location": "L27",
+      "id": "register_page_handlesubmit",
+      "community": 4,
+      "norm_label": "handlesubmit()"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/auth/login/page.tsx",
+      "source_location": "L1",
+      "id": "app_auth_login_page_tsx",
+      "community": 4,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "handleSubmit()",
+      "file_type": "code",
+      "source_file": "app/auth/login/page.tsx",
+      "source_location": "L26",
+      "id": "login_page_handlesubmit",
+      "community": 4,
+      "norm_label": "handlesubmit()"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/checkout/page.tsx",
+      "source_location": "L1",
+      "id": "app_checkout_page_tsx",
+      "community": 4,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "handleInputChange()",
+      "file_type": "code",
+      "source_file": "app/checkout/page.tsx",
+      "source_location": "L38",
+      "id": "checkout_page_handleinputchange",
+      "community": 4,
+      "norm_label": "handleinputchange()"
+    },
+    {
+      "label": "handleSubmit()",
+      "file_type": "code",
+      "source_file": "app/checkout/page.tsx",
+      "source_location": "L42",
+      "id": "checkout_page_handlesubmit",
+      "community": 4,
+      "norm_label": "handlesubmit()"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/cart/page.tsx",
+      "source_location": "L1",
+      "id": "app_cart_page_tsx",
+      "community": 2,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "app/api/auth/logout/route.ts",
+      "source_location": "L1",
+      "id": "app_api_auth_logout_route_ts",
+      "community": 19,
+      "norm_label": "route.ts"
+    },
+    {
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "app/api/auth/logout/route.ts",
+      "source_location": "L4",
+      "id": "logout_route_post",
+      "community": 19,
+      "norm_label": "post()"
+    },
+    {
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "app/api/auth/register/route.ts",
+      "source_location": "L1",
+      "id": "app_api_auth_register_route_ts",
+      "community": 20,
+      "norm_label": "route.ts"
+    },
+    {
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "app/api/auth/register/route.ts",
+      "source_location": "L6",
+      "id": "register_route_post",
+      "community": 20,
+      "norm_label": "post()"
+    },
+    {
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "app/api/auth/me/route.ts",
+      "source_location": "L1",
+      "id": "app_api_auth_me_route_ts",
+      "community": 21,
+      "norm_label": "route.ts"
+    },
+    {
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "app/api/auth/me/route.ts",
+      "source_location": "L6",
+      "id": "me_route_get",
+      "community": 21,
+      "norm_label": "get()"
+    },
+    {
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "app/api/auth/login/route.ts",
+      "source_location": "L1",
+      "id": "app_api_auth_login_route_ts",
+      "community": 22,
+      "norm_label": "route.ts"
+    },
+    {
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "app/api/auth/login/route.ts",
+      "source_location": "L6",
+      "id": "login_route_post",
+      "community": 22,
+      "norm_label": "post()"
+    },
+    {
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "app/api/orders/route.ts",
+      "source_location": "L1",
+      "id": "app_api_orders_route_ts",
+      "community": 23,
+      "norm_label": "route.ts"
+    },
+    {
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "app/api/orders/route.ts",
+      "source_location": "L6",
+      "id": "orders_route_post",
+      "community": 23,
+      "norm_label": "post()"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/orders/page.tsx",
+      "source_location": "L1",
+      "id": "app_orders_page_tsx",
+      "community": 2,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L1",
+      "id": "app_orders_ordernumber_page_tsx",
+      "community": 2,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "formatPrice()",
+      "file_type": "code",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L114",
+      "id": "ordernumber_page_formatprice",
+      "community": 2,
+      "norm_label": "formatprice()"
+    },
+    {
+      "label": "layout.tsx",
+      "file_type": "code",
+      "source_file": "app/account/layout.tsx",
+      "source_location": "L1",
+      "id": "app_account_layout_tsx",
+      "community": 24,
+      "norm_label": "layout.tsx"
+    },
+    {
+      "label": "AccountLayout()",
+      "file_type": "code",
+      "source_file": "app/account/layout.tsx",
+      "source_location": "L5",
+      "id": "account_layout_accountlayout",
+      "community": 24,
+      "norm_label": "accountlayout()"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/account/page.tsx",
+      "source_location": "L1",
+      "id": "app_account_page_tsx",
+      "community": 33,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/categories/page.tsx",
+      "source_location": "L1",
+      "id": "app_categories_page_tsx",
+      "community": 34,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/categories/[slug]/page.tsx",
+      "source_location": "L1",
+      "id": "app_categories_slug_page_tsx",
+      "community": 15,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "CategoryPage()",
+      "file_type": "code",
+      "source_file": "app/categories/[slug]/page.tsx",
+      "source_location": "L17",
+      "id": "slug_page_categorypage",
+      "community": 15,
+      "norm_label": "categorypage()"
+    },
+    {
+      "label": "providers.tsx",
+      "file_type": "code",
+      "source_file": "providers/providers.tsx",
+      "source_location": "L1",
+      "id": "providers_providers_tsx",
+      "community": 10,
+      "norm_label": "providers.tsx"
+    },
+    {
+      "label": "Providers()",
+      "file_type": "code",
+      "source_file": "providers/providers.tsx",
+      "source_location": "L8",
+      "id": "providers_providers_providers",
+      "community": 10,
+      "norm_label": "providers()"
+    },
+    {
+      "label": "tabs.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/tabs.tsx",
+      "source_location": "L1",
+      "id": "components_ui_tabs_tsx",
+      "community": 0,
+      "norm_label": "tabs.tsx"
+    },
+    {
+      "label": "cn()",
+      "file_type": "code",
+      "source_file": "components/ui/tabs.tsx",
+      "source_location": "L60",
+      "id": "ui_tabs_cn",
+      "community": 0,
+      "norm_label": "cn()"
+    },
+    {
+      "label": "card.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/card.tsx",
+      "source_location": "L1",
+      "id": "components_ui_card_tsx",
+      "community": 0,
+      "norm_label": "card.tsx"
+    },
+    {
+      "label": "cn()",
+      "file_type": "code",
+      "source_file": "components/ui/card.tsx",
+      "source_location": "L14",
+      "id": "ui_card_cn",
+      "community": 0,
+      "norm_label": "cn()"
+    },
+    {
+      "label": "CardAction()",
+      "file_type": "code",
+      "source_file": "components/ui/card.tsx",
+      "source_location": "L59",
+      "id": "ui_card_cardaction",
+      "community": 0,
+      "norm_label": "cardaction()"
+    },
+    {
+      "label": "sheet.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/sheet.tsx",
+      "source_location": "L1",
+      "id": "components_ui_sheet_tsx",
+      "community": 6,
+      "norm_label": "sheet.tsx"
+    },
+    {
+      "label": "Sheet()",
+      "file_type": "code",
+      "source_file": "components/ui/sheet.tsx",
+      "source_location": "L10",
+      "id": "ui_sheet_sheet",
+      "community": 6,
+      "norm_label": "sheet()"
+    },
+    {
+      "label": "SheetTrigger()",
+      "file_type": "code",
+      "source_file": "components/ui/sheet.tsx",
+      "source_location": "L14",
+      "id": "ui_sheet_sheettrigger",
+      "community": 6,
+      "norm_label": "sheettrigger()"
+    },
+    {
+      "label": "SheetClose()",
+      "file_type": "code",
+      "source_file": "components/ui/sheet.tsx",
+      "source_location": "L18",
+      "id": "ui_sheet_sheetclose",
+      "community": 6,
+      "norm_label": "sheetclose()"
+    },
+    {
+      "label": "SheetPortal()",
+      "file_type": "code",
+      "source_file": "components/ui/sheet.tsx",
+      "source_location": "L22",
+      "id": "ui_sheet_sheetportal",
+      "community": 6,
+      "norm_label": "sheetportal()"
+    },
+    {
+      "label": "cn()",
+      "file_type": "code",
+      "source_file": "components/ui/sheet.tsx",
+      "source_location": "L55",
+      "id": "ui_sheet_cn",
+      "community": 6,
+      "norm_label": "cn()"
+    },
+    {
+      "label": "SheetTitle()",
+      "file_type": "code",
+      "source_file": "components/ui/sheet.tsx",
+      "source_location": "L103",
+      "id": "ui_sheet_sheettitle",
+      "community": 6,
+      "norm_label": "sheettitle()"
+    },
+    {
+      "label": "SheetDescription()",
+      "file_type": "code",
+      "source_file": "components/ui/sheet.tsx",
+      "source_location": "L116",
+      "id": "ui_sheet_sheetdescription",
+      "community": 6,
+      "norm_label": "sheetdescription()"
+    },
+    {
+      "label": "label.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/label.tsx",
+      "source_location": "L1",
+      "id": "components_ui_label_tsx",
+      "community": 0,
+      "norm_label": "label.tsx"
+    },
+    {
+      "label": "cn()",
+      "file_type": "code",
+      "source_file": "components/ui/label.tsx",
+      "source_location": "L11",
+      "id": "ui_label_cn",
+      "community": 0,
+      "norm_label": "cn()"
+    },
+    {
+      "label": "sonner.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/sonner.tsx",
+      "source_location": "L1",
+      "id": "components_ui_sonner_tsx",
+      "community": 35,
+      "norm_label": "sonner.tsx"
+    },
+    {
+      "label": "navigation-menu.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/navigation-menu.tsx",
+      "source_location": "L1",
+      "id": "components_ui_navigation_menu_tsx",
+      "community": 0,
+      "norm_label": "navigation-menu.tsx"
+    },
+    {
+      "label": "NavigationMenu()",
+      "file_type": "code",
+      "source_file": "components/ui/navigation-menu.tsx",
+      "source_location": "L7",
+      "id": "ui_navigation_menu_navigationmenu",
+      "community": 0,
+      "norm_label": "navigationmenu()"
+    },
+    {
+      "label": "NavigationMenuList()",
+      "file_type": "code",
+      "source_file": "components/ui/navigation-menu.tsx",
+      "source_location": "L29",
+      "id": "ui_navigation_menu_navigationmenulist",
+      "community": 0,
+      "norm_label": "navigationmenulist()"
+    },
+    {
+      "label": "NavigationMenuItem()",
+      "file_type": "code",
+      "source_file": "components/ui/navigation-menu.tsx",
+      "source_location": "L45",
+      "id": "ui_navigation_menu_navigationmenuitem",
+      "community": 0,
+      "norm_label": "navigationmenuitem()"
+    },
+    {
+      "label": "NavigationMenuTrigger()",
+      "file_type": "code",
+      "source_file": "components/ui/navigation-menu.tsx",
+      "source_location": "L62",
+      "id": "ui_navigation_menu_navigationmenutrigger",
+      "community": 0,
+      "norm_label": "navigationmenutrigger()"
+    },
+    {
+      "label": "NavigationMenuContent()",
+      "file_type": "code",
+      "source_file": "components/ui/navigation-menu.tsx",
+      "source_location": "L79",
+      "id": "ui_navigation_menu_navigationmenucontent",
+      "community": 0,
+      "norm_label": "navigationmenucontent()"
+    },
+    {
+      "label": "NavigationMenuLink()",
+      "file_type": "code",
+      "source_file": "components/ui/navigation-menu.tsx",
+      "source_location": "L124",
+      "id": "ui_navigation_menu_navigationmenulink",
+      "community": 0,
+      "norm_label": "navigationmenulink()"
+    },
+    {
+      "label": "accordion.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/accordion.tsx",
+      "source_location": "L1",
+      "id": "components_ui_accordion_tsx",
+      "community": 13,
+      "norm_label": "accordion.tsx"
+    },
+    {
+      "label": "Accordion()",
+      "file_type": "code",
+      "source_file": "components/ui/accordion.tsx",
+      "source_location": "L6",
+      "id": "ui_accordion_accordion",
+      "community": 13,
+      "norm_label": "accordion()"
+    },
+    {
+      "label": "AccordionItem()",
+      "file_type": "code",
+      "source_file": "components/ui/accordion.tsx",
+      "source_location": "L16",
+      "id": "ui_accordion_accordionitem",
+      "community": 13,
+      "norm_label": "accordionitem()"
+    },
+    {
+      "label": "AccordionTrigger()",
+      "file_type": "code",
+      "source_file": "components/ui/accordion.tsx",
+      "source_location": "L26",
+      "id": "ui_accordion_accordiontrigger",
+      "community": 13,
+      "norm_label": "accordiontrigger()"
+    },
+    {
+      "label": "AccordionContent()",
+      "file_type": "code",
+      "source_file": "components/ui/accordion.tsx",
+      "source_location": "L49",
+      "id": "ui_accordion_accordioncontent",
+      "community": 13,
+      "norm_label": "accordioncontent()"
+    },
+    {
+      "label": "avatar.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/avatar.tsx",
+      "source_location": "L1",
+      "id": "components_ui_avatar_tsx",
+      "community": 0,
+      "norm_label": "avatar.tsx"
+    },
+    {
+      "label": "cn()",
+      "file_type": "code",
+      "source_file": "components/ui/avatar.tsx",
+      "source_location": "L32",
+      "id": "ui_avatar_cn",
+      "community": 0,
+      "norm_label": "cn()"
+    },
+    {
+      "label": "AvatarBadge()",
+      "file_type": "code",
+      "source_file": "components/ui/avatar.tsx",
+      "source_location": "L57",
+      "id": "ui_avatar_avatarbadge",
+      "community": 0,
+      "norm_label": "avatarbadge()"
+    },
+    {
+      "label": "dialog.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/dialog.tsx",
+      "source_location": "L1",
+      "id": "components_ui_dialog_tsx",
+      "community": 11,
+      "norm_label": "dialog.tsx"
+    },
+    {
+      "label": "Dialog()",
+      "file_type": "code",
+      "source_file": "components/ui/dialog.tsx",
+      "source_location": "L10",
+      "id": "ui_dialog_dialog",
+      "community": 11,
+      "norm_label": "dialog()"
+    },
+    {
+      "label": "DialogTrigger()",
+      "file_type": "code",
+      "source_file": "components/ui/dialog.tsx",
+      "source_location": "L14",
+      "id": "ui_dialog_dialogtrigger",
+      "community": 11,
+      "norm_label": "dialogtrigger()"
+    },
+    {
+      "label": "DialogPortal()",
+      "file_type": "code",
+      "source_file": "components/ui/dialog.tsx",
+      "source_location": "L18",
+      "id": "ui_dialog_dialogportal",
+      "community": 11,
+      "norm_label": "dialogportal()"
+    },
+    {
+      "label": "DialogClose()",
+      "file_type": "code",
+      "source_file": "components/ui/dialog.tsx",
+      "source_location": "L22",
+      "id": "ui_dialog_dialogclose",
+      "community": 11,
+      "norm_label": "dialogclose()"
+    },
+    {
+      "label": "cn()",
+      "file_type": "code",
+      "source_file": "components/ui/dialog.tsx",
+      "source_location": "L55",
+      "id": "ui_dialog_cn",
+      "community": 11,
+      "norm_label": "cn()"
+    },
+    {
+      "label": "badge.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/badge.tsx",
+      "source_location": "L1",
+      "id": "components_ui_badge_tsx",
+      "community": 2,
+      "norm_label": "badge.tsx"
+    },
+    {
+      "label": "Badge()",
+      "file_type": "code",
+      "source_file": "components/ui/badge.tsx",
+      "source_location": "L30",
+      "id": "ui_badge_badge",
+      "community": 2,
+      "norm_label": "badge()"
+    },
+    {
+      "label": "table.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/table.tsx",
+      "source_location": "L1",
+      "id": "components_ui_table_tsx",
+      "community": 8,
+      "norm_label": "table.tsx"
+    },
+    {
+      "label": "Table()",
+      "file_type": "code",
+      "source_file": "components/ui/table.tsx",
+      "source_location": "L7",
+      "id": "ui_table_table",
+      "community": 8,
+      "norm_label": "table()"
+    },
+    {
+      "label": "TableHeader()",
+      "file_type": "code",
+      "source_file": "components/ui/table.tsx",
+      "source_location": "L22",
+      "id": "ui_table_tableheader",
+      "community": 8,
+      "norm_label": "tableheader()"
+    },
+    {
+      "label": "TableBody()",
+      "file_type": "code",
+      "source_file": "components/ui/table.tsx",
+      "source_location": "L32",
+      "id": "ui_table_tablebody",
+      "community": 8,
+      "norm_label": "tablebody()"
+    },
+    {
+      "label": "cn()",
+      "file_type": "code",
+      "source_file": "components/ui/table.tsx",
+      "source_location": "L46",
+      "id": "ui_table_cn",
+      "community": 8,
+      "norm_label": "cn()"
+    },
+    {
+      "label": "separator.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/separator.tsx",
+      "source_location": "L1",
+      "id": "components_ui_separator_tsx",
+      "community": 0,
+      "norm_label": "separator.tsx"
+    },
+    {
+      "label": "cn()",
+      "file_type": "code",
+      "source_file": "components/ui/separator.tsx",
+      "source_location": "L16",
+      "id": "ui_separator_cn",
+      "community": 0,
+      "norm_label": "cn()"
+    },
+    {
+      "label": "button.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/button.tsx",
+      "source_location": "L1",
+      "id": "components_ui_button_tsx",
+      "community": 0,
+      "norm_label": "button.tsx"
+    },
+    {
+      "label": "cn()",
+      "file_type": "code",
+      "source_file": "components/ui/button.tsx",
+      "source_location": "L52",
+      "id": "ui_button_cn",
+      "community": 0,
+      "norm_label": "cn()"
+    },
+    {
+      "label": "dropdown-menu.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/dropdown-menu.tsx",
+      "source_location": "L1",
+      "id": "components_ui_dropdown_menu_tsx",
+      "community": 12,
+      "norm_label": "dropdown-menu.tsx"
+    },
+    {
+      "label": "DropdownMenu()",
+      "file_type": "code",
+      "source_file": "components/ui/dropdown-menu.tsx",
+      "source_location": "L9",
+      "id": "ui_dropdown_menu_dropdownmenu",
+      "community": 12,
+      "norm_label": "dropdownmenu()"
+    },
+    {
+      "label": "DropdownMenuPortal()",
+      "file_type": "code",
+      "source_file": "components/ui/dropdown-menu.tsx",
+      "source_location": "L13",
+      "id": "ui_dropdown_menu_dropdownmenuportal",
+      "community": 12,
+      "norm_label": "dropdownmenuportal()"
+    },
+    {
+      "label": "DropdownMenuTrigger()",
+      "file_type": "code",
+      "source_file": "components/ui/dropdown-menu.tsx",
+      "source_location": "L17",
+      "id": "ui_dropdown_menu_dropdownmenutrigger",
+      "community": 12,
+      "norm_label": "dropdownmenutrigger()"
+    },
+    {
+      "label": "cn()",
+      "file_type": "code",
+      "source_file": "components/ui/dropdown-menu.tsx",
+      "source_location": "L44",
+      "id": "ui_dropdown_menu_cn",
+      "community": 12,
+      "norm_label": "cn()"
+    },
+    {
+      "label": "DropdownMenuCheckboxItem()",
+      "file_type": "code",
+      "source_file": "components/ui/dropdown-menu.tsx",
+      "source_location": "L148",
+      "id": "ui_dropdown_menu_dropdownmenucheckboxitem",
+      "community": 12,
+      "norm_label": "dropdownmenucheckboxitem()"
+    },
+    {
+      "label": "select.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L1",
+      "id": "components_ui_select_tsx",
+      "community": 5,
+      "norm_label": "select.tsx"
+    },
+    {
+      "label": "SelectGroup()",
+      "file_type": "code",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L11",
+      "id": "ui_select_selectgroup",
+      "community": 5,
+      "norm_label": "selectgroup()"
+    },
+    {
+      "label": "SelectValue()",
+      "file_type": "code",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L21",
+      "id": "ui_select_selectvalue",
+      "community": 5,
+      "norm_label": "selectvalue()"
+    },
+    {
+      "label": "SelectTrigger()",
+      "file_type": "code",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L31",
+      "id": "ui_select_selecttrigger",
+      "community": 5,
+      "norm_label": "selecttrigger()"
+    },
+    {
+      "label": "SelectContent()",
+      "file_type": "code",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L59",
+      "id": "ui_select_selectcontent",
+      "community": 5,
+      "norm_label": "selectcontent()"
+    },
+    {
+      "label": "SelectLabel()",
+      "file_type": "code",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L98",
+      "id": "ui_select_selectlabel",
+      "community": 5,
+      "norm_label": "selectlabel()"
+    },
+    {
+      "label": "SelectItem()",
+      "file_type": "code",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L111",
+      "id": "ui_select_selectitem",
+      "community": 5,
+      "norm_label": "selectitem()"
+    },
+    {
+      "label": "SelectSeparator()",
+      "file_type": "code",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L139",
+      "id": "ui_select_selectseparator",
+      "community": 5,
+      "norm_label": "selectseparator()"
+    },
+    {
+      "label": "SelectScrollUpButton()",
+      "file_type": "code",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L152",
+      "id": "ui_select_selectscrollupbutton",
+      "community": 5,
+      "norm_label": "selectscrollupbutton()"
+    },
+    {
+      "label": "SelectScrollDownButton()",
+      "file_type": "code",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L171",
+      "id": "ui_select_selectscrolldownbutton",
+      "community": 5,
+      "norm_label": "selectscrolldownbutton()"
+    },
+    {
+      "label": "textarea.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/textarea.tsx",
+      "source_location": "L1",
+      "id": "components_ui_textarea_tsx",
+      "community": 0,
+      "norm_label": "textarea.tsx"
+    },
+    {
+      "label": "cn()",
+      "file_type": "code",
+      "source_file": "components/ui/textarea.tsx",
+      "source_location": "L9",
+      "id": "ui_textarea_cn",
+      "community": 0,
+      "norm_label": "cn()"
+    },
+    {
+      "label": "input.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/input.tsx",
+      "source_location": "L1",
+      "id": "components_ui_input_tsx",
+      "community": 4,
+      "norm_label": "input.tsx"
+    },
+    {
+      "label": "Input()",
+      "file_type": "code",
+      "source_file": "components/ui/input.tsx",
+      "source_location": "L6",
+      "id": "ui_input_input",
+      "community": 4,
+      "norm_label": "input()"
+    },
+    {
+      "label": "skeleton.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/skeleton.tsx",
+      "source_location": "L1",
+      "id": "components_ui_skeleton_tsx",
+      "community": 9,
+      "norm_label": "skeleton.tsx"
+    },
+    {
+      "label": "Skeleton()",
+      "file_type": "code",
+      "source_file": "components/ui/skeleton.tsx",
+      "source_location": "L3",
+      "id": "ui_skeleton_skeleton",
+      "community": 9,
+      "norm_label": "skeleton()"
+    },
+    {
+      "label": "carousel.tsx",
+      "file_type": "code",
+      "source_file": "components/ui/carousel.tsx",
+      "source_location": "L1",
+      "id": "components_ui_carousel_tsx",
+      "community": 14,
+      "norm_label": "carousel.tsx"
+    },
+    {
+      "label": "useCarousel()",
+      "file_type": "code",
+      "source_file": "components/ui/carousel.tsx",
+      "source_location": "L35",
+      "id": "ui_carousel_usecarousel",
+      "community": 14,
+      "norm_label": "usecarousel()"
+    },
+    {
+      "label": "Carousel()",
+      "file_type": "code",
+      "source_file": "components/ui/carousel.tsx",
+      "source_location": "L45",
+      "id": "ui_carousel_carousel",
+      "community": 14,
+      "norm_label": "carousel()"
+    },
+    {
+      "label": "cn()",
+      "file_type": "code",
+      "source_file": "components/ui/carousel.tsx",
+      "source_location": "L146",
+      "id": "ui_carousel_cn",
+      "community": 14,
+      "norm_label": "cn()"
+    },
+    {
+      "label": "CarouselNext()",
+      "file_type": "code",
+      "source_file": "components/ui/carousel.tsx",
+      "source_location": "L205",
+      "id": "ui_carousel_carouselnext",
+      "community": 14,
+      "norm_label": "carouselnext()"
+    },
+    {
+      "label": "product-images.tsx",
+      "file_type": "code",
+      "source_file": "components/products/product-images.tsx",
+      "source_location": "L1",
+      "id": "components_products_product_images_tsx",
+      "community": 2,
+      "norm_label": "product-images.tsx"
+    },
+    {
+      "label": "product-grid.tsx",
+      "file_type": "code",
+      "source_file": "components/products/product-grid.tsx",
+      "source_location": "L1",
+      "id": "components_products_product_grid_tsx",
+      "community": 3,
+      "norm_label": "product-grid.tsx"
+    },
+    {
+      "label": "ProductGrid()",
+      "file_type": "code",
+      "source_file": "components/products/product-grid.tsx",
+      "source_location": "L8",
+      "id": "products_product_grid_productgrid",
+      "community": 3,
+      "norm_label": "productgrid()"
+    },
+    {
+      "label": "specifications-table.tsx",
+      "file_type": "code",
+      "source_file": "components/products/specifications-table.tsx",
+      "source_location": "L1",
+      "id": "components_products_specifications_table_tsx",
+      "community": 8,
+      "norm_label": "specifications-table.tsx"
+    },
+    {
+      "label": "SpecificationsTable()",
+      "file_type": "code",
+      "source_file": "components/products/specifications-table.tsx",
+      "source_location": "L12",
+      "id": "products_specifications_table_specificationstable",
+      "community": 8,
+      "norm_label": "specificationstable()"
+    },
+    {
+      "label": "sort-select.tsx",
+      "file_type": "code",
+      "source_file": "components/products/sort-select.tsx",
+      "source_location": "L1",
+      "id": "components_products_sort_select_tsx",
+      "community": 5,
+      "norm_label": "sort-select.tsx"
+    },
+    {
+      "label": "SortSelect()",
+      "file_type": "code",
+      "source_file": "components/products/sort-select.tsx",
+      "source_location": "L16",
+      "id": "products_sort_select_sortselect",
+      "community": 3,
+      "norm_label": "sortselect()"
+    },
+    {
+      "label": "product-grid-skeleton.tsx",
+      "file_type": "code",
+      "source_file": "components/products/product-grid-skeleton.tsx",
+      "source_location": "L1",
+      "id": "components_products_product_grid_skeleton_tsx",
+      "community": 9,
+      "norm_label": "product-grid-skeleton.tsx"
+    },
+    {
+      "label": "product-image.tsx",
+      "file_type": "code",
+      "source_file": "components/products/product-image.tsx",
+      "source_location": "L1",
+      "id": "components_products_product_image_tsx",
+      "community": 2,
+      "norm_label": "product-image.tsx"
+    },
+    {
+      "label": "ProductImage()",
+      "file_type": "code",
+      "source_file": "components/products/product-image.tsx",
+      "source_location": "L14",
+      "id": "products_product_image_productimage",
+      "community": 2,
+      "norm_label": "productimage()"
+    },
+    {
+      "label": "product-card.tsx",
+      "file_type": "code",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L1",
+      "id": "components_products_product_card_tsx",
+      "community": 2,
+      "norm_label": "product-card.tsx"
+    },
+    {
+      "label": "variant-selector.tsx",
+      "file_type": "code",
+      "source_file": "components/products/variant-selector.tsx",
+      "source_location": "L1",
+      "id": "components_products_variant_selector_tsx",
+      "community": 2,
+      "norm_label": "variant-selector.tsx"
+    },
+    {
+      "label": "category-filter.tsx",
+      "file_type": "code",
+      "source_file": "components/products/category-filter.tsx",
+      "source_location": "L1",
+      "id": "components_products_category_filter_tsx",
+      "community": 3,
+      "norm_label": "category-filter.tsx"
+    },
+    {
+      "label": "CategoryFilter()",
+      "file_type": "code",
+      "source_file": "components/products/category-filter.tsx",
+      "source_location": "L10",
+      "id": "products_category_filter_categoryfilter",
+      "community": 3,
+      "norm_label": "categoryfilter()"
+    },
+    {
+      "label": "product-detail-skeleton.tsx",
+      "file_type": "code",
+      "source_file": "components/products/product-detail-skeleton.tsx",
+      "source_location": "L1",
+      "id": "components_products_product_detail_skeleton_tsx",
+      "community": 9,
+      "norm_label": "product-detail-skeleton.tsx"
+    },
+    {
+      "label": "ProductDetailSkeleton()",
+      "file_type": "code",
+      "source_file": "components/products/product-detail-skeleton.tsx",
+      "source_location": "L3",
+      "id": "products_product_detail_skeleton_productdetailskeleton",
+      "community": 9,
+      "norm_label": "productdetailskeleton()"
+    },
+    {
+      "label": "footer.tsx",
+      "file_type": "code",
+      "source_file": "components/layout/footer.tsx",
+      "source_location": "L1",
+      "id": "components_layout_footer_tsx",
+      "community": 10,
+      "norm_label": "footer.tsx"
+    },
+    {
+      "label": "Footer()",
+      "file_type": "code",
+      "source_file": "components/layout/footer.tsx",
+      "source_location": "L3",
+      "id": "layout_footer_footer",
+      "community": 10,
+      "norm_label": "footer()"
+    },
+    {
+      "label": "header.tsx",
+      "file_type": "code",
+      "source_file": "components/layout/header.tsx",
+      "source_location": "L1",
+      "id": "components_layout_header_tsx",
+      "community": 6,
+      "norm_label": "header.tsx"
+    },
+    {
+      "label": "handleSearch()",
+      "file_type": "code",
+      "source_file": "components/layout/header.tsx",
+      "source_location": "L24",
+      "id": "layout_header_handlesearch",
+      "community": 6,
+      "norm_label": "handlesearch()"
+    },
+    {
+      "label": "pagination.tsx",
+      "file_type": "code",
+      "source_file": "components/common/pagination.tsx",
+      "source_location": "L1",
+      "id": "components_common_pagination_tsx",
+      "community": 25,
+      "norm_label": "pagination.tsx"
+    },
+    {
+      "label": "navigateToPage()",
+      "file_type": "code",
+      "source_file": "components/common/pagination.tsx",
+      "source_location": "L19",
+      "id": "common_pagination_navigatetopage",
+      "community": 25,
+      "norm_label": "navigatetopage()"
+    },
+    {
+      "label": "search-bar.tsx",
+      "file_type": "code",
+      "source_file": "components/common/search-bar.tsx",
+      "source_location": "L1",
+      "id": "components_common_search_bar_tsx",
+      "community": 4,
+      "norm_label": "search-bar.tsx"
+    },
+    {
+      "label": "SearchBar()",
+      "file_type": "code",
+      "source_file": "components/common/search-bar.tsx",
+      "source_location": "L8",
+      "id": "common_search_bar_searchbar",
+      "community": 4,
+      "norm_label": "searchbar()"
+    },
+    {
+      "label": "price.tsx",
+      "file_type": "code",
+      "source_file": "components/common/price.tsx",
+      "source_location": "L1",
+      "id": "components_common_price_tsx",
+      "community": 2,
+      "norm_label": "price.tsx"
+    },
+    {
+      "label": "Price()",
+      "file_type": "code",
+      "source_file": "components/common/price.tsx",
+      "source_location": "L9",
+      "id": "common_price_price",
+      "community": 2,
+      "norm_label": "price()"
+    },
+    {
+      "label": "add-to-cart-button.tsx",
+      "file_type": "code",
+      "source_file": "components/cart/add-to-cart-button.tsx",
+      "source_location": "L1",
+      "id": "components_cart_add_to_cart_button_tsx",
+      "community": 3,
+      "norm_label": "add-to-cart-button.tsx"
+    },
+    {
+      "label": "AddToCartButton()",
+      "file_type": "code",
+      "source_file": "components/cart/add-to-cart-button.tsx",
+      "source_location": "L19",
+      "id": "cart_add_to_cart_button_addtocartbutton",
+      "community": 3,
+      "norm_label": "addtocartbutton()"
+    },
+    {
+      "label": "cart-drawer.tsx",
+      "file_type": "code",
+      "source_file": "components/cart/cart-drawer.tsx",
+      "source_location": "L1",
+      "id": "components_cart_cart_drawer_tsx",
+      "community": 6,
+      "norm_label": "cart-drawer.tsx"
+    },
+    {
+      "label": "review-section.tsx",
+      "file_type": "code",
+      "source_file": "components/reviews/review-section.tsx",
+      "source_location": "L1",
+      "id": "components_reviews_review_section_tsx",
+      "community": 3,
+      "norm_label": "review-section.tsx"
+    },
+    {
+      "label": "ReviewSection()",
+      "file_type": "code",
+      "source_file": "components/reviews/review-section.tsx",
+      "source_location": "L15",
+      "id": "reviews_review_section_reviewsection",
+      "community": 3,
+      "norm_label": "reviewsection()"
+    },
+    {
+      "label": "use-auth.ts",
+      "file_type": "code",
+      "source_file": "hooks/use-auth.ts",
+      "source_location": "L1",
+      "id": "hooks_use_auth_ts",
+      "community": 4,
+      "norm_label": "use-auth.ts"
+    },
+    {
+      "label": "fetchCurrentUser()",
+      "file_type": "code",
+      "source_file": "hooks/use-auth.ts",
+      "source_location": "L23",
+      "id": "hooks_use_auth_fetchcurrentuser",
+      "community": 4,
+      "norm_label": "fetchcurrentuser()"
+    },
+    {
+      "label": "useAuth()",
+      "file_type": "code",
+      "source_file": "hooks/use-auth.ts",
+      "source_location": "L30",
+      "id": "hooks_use_auth_useauth",
+      "community": 4,
+      "norm_label": "useauth()"
+    },
+    {
+      "label": "use-cart.ts",
+      "file_type": "code",
+      "source_file": "hooks/use-cart.ts",
+      "source_location": "L1",
+      "id": "hooks_use_cart_ts",
+      "community": 36,
+      "norm_label": "use-cart.ts"
+    },
+    {
+      "label": "strapi.ts",
+      "file_type": "code",
+      "source_file": "lib/strapi.ts",
+      "source_location": "L1",
+      "id": "lib_strapi_ts",
+      "community": 2,
+      "norm_label": "strapi.ts"
+    },
+    {
+      "label": "StrapiError",
+      "file_type": "code",
+      "source_file": "lib/strapi.ts",
+      "source_location": "L22",
+      "id": "lib_strapi_strapierror",
+      "community": 2,
+      "norm_label": "strapierror"
+    },
+    {
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "lib/strapi.ts",
+      "source_location": "L23",
+      "id": "lib_strapi_strapierror_constructor",
+      "community": 2,
+      "norm_label": ".constructor()"
+    },
+    {
+      "label": "strapiFetch()",
+      "file_type": "code",
+      "source_file": "lib/strapi.ts",
+      "source_location": "L33",
+      "id": "lib_strapi_strapifetch",
+      "community": 3,
+      "norm_label": "strapifetch()"
+    },
+    {
+      "label": "getStrapiMedia()",
+      "file_type": "code",
+      "source_file": "lib/strapi.ts",
+      "source_location": "L80",
+      "id": "lib_strapi_getstrapimedia",
+      "community": 2,
+      "norm_label": "getstrapimedia()"
+    },
+    {
+      "label": "formatPrice()",
+      "file_type": "code",
+      "source_file": "lib/strapi.ts",
+      "source_location": "L85",
+      "id": "lib_strapi_formatprice",
+      "community": 2,
+      "norm_label": "formatprice()"
+    },
+    {
+      "label": "formatDate()",
+      "file_type": "code",
+      "source_file": "lib/strapi.ts",
+      "source_location": "L94",
+      "id": "lib_strapi_formatdate",
+      "community": 2,
+      "norm_label": "formatdate()"
+    },
+    {
+      "label": "utils.ts",
+      "file_type": "code",
+      "source_file": "lib/utils.ts",
+      "source_location": "L1",
+      "id": "lib_utils_ts",
+      "community": 0,
+      "norm_label": "utils.ts"
+    },
+    {
+      "label": "cn()",
+      "file_type": "code",
+      "source_file": "lib/utils.ts",
+      "source_location": "L4",
+      "id": "lib_utils_cn",
+      "community": 0,
+      "norm_label": "cn()"
+    },
+    {
+      "label": "products.ts",
+      "file_type": "code",
+      "source_file": "lib/products.ts",
+      "source_location": "L1",
+      "id": "lib_products_ts",
+      "community": 3,
+      "norm_label": "products.ts"
+    },
+    {
+      "label": "getProducts()",
+      "file_type": "code",
+      "source_file": "lib/products.ts",
+      "source_location": "L39",
+      "id": "lib_products_getproducts",
+      "community": 3,
+      "norm_label": "getproducts()"
+    },
+    {
+      "label": "getProductBySlug()",
+      "file_type": "code",
+      "source_file": "lib/products.ts",
+      "source_location": "L56",
+      "id": "lib_products_getproductbyslug",
+      "community": 3,
+      "norm_label": "getproductbyslug()"
+    },
+    {
+      "label": "getFeaturedProducts()",
+      "file_type": "code",
+      "source_file": "lib/products.ts",
+      "source_location": "L63",
+      "id": "lib_products_getfeaturedproducts",
+      "community": 3,
+      "norm_label": "getfeaturedproducts()"
+    },
+    {
+      "label": "next-commerce-temp Project",
+      "file_type": "code",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "next_commerce_temp",
+      "community": 1,
+      "norm_label": "next-commerce-temp project"
+    },
+    {
+      "label": "Next.js 16",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": null,
+      "source_url": "https://nextjs.org/docs",
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "nextjs_16",
+      "community": 1,
+      "norm_label": "next.js 16"
+    },
+    {
+      "label": "Strapi v5 CMS",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": null,
+      "source_url": "https://docs.strapi.io/",
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "strapi_v5",
+      "community": 7,
+      "norm_label": "strapi v5 cms"
+    },
+    {
+      "label": "PostgreSQL 17",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "postgresql_17",
+      "community": 7,
+      "norm_label": "postgresql 17"
+    },
+    {
+      "label": "MinIO S3 Storage",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "minio_s3",
+      "community": 7,
+      "norm_label": "minio s3 storage"
+    },
+    {
+      "label": "Dokploy VPS",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "dokploy_vps",
+      "community": 1,
+      "norm_label": "dokploy vps"
+    },
+    {
+      "label": "Tailwind CSS 4",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": null,
+      "source_url": "https://tailwindcss.com/docs",
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "tailwind_css_4",
+      "community": 1,
+      "norm_label": "tailwind css 4"
+    },
+    {
+      "label": "shadcn/ui",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": null,
+      "source_url": "https://ui.shadcn.com/",
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "shadcn_ui",
+      "community": 1,
+      "norm_label": "shadcn/ui"
+    },
+    {
+      "label": "Next.js App Router",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "app_router",
+      "community": 1,
+      "norm_label": "next.js app router"
+    },
+    {
+      "label": "Server Components",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "server_components",
+      "community": 1,
+      "norm_label": "server components"
+    },
+    {
+      "label": "Hybrid Data Fetching Strategy",
+      "file_type": "rationale",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "2.3 Strategy Data Fetching: Hybrid",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Server Components for SEO-critical pages (products, categories) \u2014 rendered server-side, no API URL exposure. React Query for client state (cart, session) \u2014 caching, optimistic updates, real-time feel.",
+      "id": "hybrid_data_fetching",
+      "community": 1,
+      "norm_label": "hybrid data fetching strategy"
+    },
+    {
+      "label": "HTTP-Only Cookie Auth",
+      "file_type": "rationale",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "2.4 Auth: HTTP-Only Cookies via Route Handlers",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "JWT from Strapi stored in HTTP-only cookie (inaccessible to JavaScript). Next.js Route Handlers proxy Strapi auth endpoints. Server Components read cookies for session. Anti-XSS \u2014 token not exposed to client JS.",
+      "id": "http_only_cookie_auth",
+      "community": 1,
+      "norm_label": "http-only cookie auth"
+    },
+    {
+      "label": "openapi-typescript Code Generation",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "2.5 API Types: openapi-typescript",
+      "source_url": "https://openapi-ts.dev/",
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "openapi_typescript_gen",
+      "community": 7,
+      "norm_label": "openapi-typescript code generation"
+    },
+    {
+      "label": "Separate Frontend/Backend Repos",
+      "file_type": "rationale",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "2.7 Repo Terpisah",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Frontend and backend can have own CI/CD. No blocking during development. Clean separation of concerns.",
+      "id": "separate_repos",
+      "community": 1,
+      "norm_label": "separate frontend/backend repos"
+    },
+    {
+      "label": "Docker Standalone Container",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "2.6 Docker: Standalone Container",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "docker_standalone",
+      "community": 1,
+      "norm_label": "docker standalone container"
+    },
+    {
+      "label": "Strapi API Client",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "4.1.1 API Client (lib/strapi.ts)",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "strapi_api_client",
+      "community": 7,
+      "norm_label": "strapi api client"
+    },
+    {
+      "label": "Zustand Cart Store",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "4.4.1 Cart Store (React Query)",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "zustand_cart_store",
+      "community": 1,
+      "norm_label": "zustand cart store"
+    },
+    {
+      "label": "TanStack React Query",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": null,
+      "source_url": "https://tanstack.com/query/latest",
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "tanstack_react_query",
+      "community": 1,
+      "norm_label": "tanstack react query"
+    },
+    {
+      "label": "Auth Route Handlers",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "Fase 5: Autentikasi",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "auth_route_handlers",
+      "community": 1,
+      "norm_label": "auth route handlers"
+    },
+    {
+      "label": "Product Content Type",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "3.2 Content Types - Product",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "product_content_type",
+      "community": 7,
+      "norm_label": "product content type"
+    },
+    {
+      "label": "Category Content Type",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "3.2 Content Types - Category",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "category_content_type",
+      "community": 7,
+      "norm_label": "category content type"
+    },
+    {
+      "label": "Cart Content Type",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "3.2 Content Types - Cart",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "cart_content_type",
+      "community": 7,
+      "norm_label": "cart content type"
+    },
+    {
+      "label": "Order Content Type",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "3.2 Content Types - Order",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "order_content_type",
+      "community": 7,
+      "norm_label": "order content type"
+    },
+    {
+      "label": "Review Content Type",
+      "file_type": "code",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "3.2 Content Types - Review",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "review_content_type",
+      "community": 7,
+      "norm_label": "review content type"
+    },
+    {
+      "label": "Next.js Breaking Changes Awareness",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": "1",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "This version of Next.js has breaking changes \u2014 APIs, conventions, and file structure may differ from training data. Must read relevant guide in node_modules/next/dist/docs/ before writing code. Heed deprecation notices.",
+      "id": "nextjs_breaking_changes",
+      "community": 1,
+      "norm_label": "next.js breaking changes awareness"
+    },
+    {
+      "label": "Graphify Knowledge Graph Workflow",
+      "file_type": "code",
+      "source_file": "AGENTS.md",
+      "source_location": "graphify",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "graphify_workflow",
+      "community": 1,
+      "norm_label": "graphify knowledge graph workflow"
+    },
+    {
+      "label": "LLM Coding Behavioral Guidelines",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": "1. Think Before Coding",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Four principles: 1) Think Before Coding \u2014 state assumptions, surface tradeoffs. 2) Simplicity First \u2014 minimum code, no speculation. 3) Surgical Changes \u2014 touch only what you must. 4) Goal-Driven Execution \u2014 define success criteria, loop until verified.",
+      "id": "coding_guidelines",
+      "community": 1,
+      "norm_label": "llm coding behavioral guidelines"
+    },
+    {
+      "label": "pnpm Workspace Configuration",
+      "file_type": "code",
+      "source_file": "pnpm-workspace.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "pnpm_workspace",
+      "community": 1,
+      "norm_label": "pnpm workspace configuration"
+    },
+    {
+      "label": "Vercel",
+      "file_type": "code",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": "https://vercel.com",
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "vercel",
+      "community": 1,
+      "norm_label": "vercel"
+    },
+    {
+      "label": "Geist Font",
+      "file_type": "code",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": "https://vercel.com/font",
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "geist_font",
+      "community": 1,
+      "norm_label": "geist font"
+    },
+    {
+      "label": "create-next-app",
+      "file_type": "code",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "create_next_app",
+      "community": 1,
+      "norm_label": "create-next-app"
+    },
+    {
+      "label": "middleware.ts to proxy.ts Migration",
+      "file_type": "rationale",
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "8. Catatan Penting - point 7",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "In Next.js 16, middleware.ts is deprecated. If middleware is needed (auth guard, redirect), rename to proxy.ts.",
+      "id": "proxy_migration",
+      "community": 1,
+      "norm_label": "middleware.ts to proxy.ts migration"
+    },
+    {
+      "label": "File Icon",
+      "file_type": "image",
+      "source_file": "public/file.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_file_icon",
+      "community": 16,
+      "norm_label": "file icon"
+    },
+    {
+      "label": "Vercel Logo",
+      "file_type": "image",
+      "source_file": "public/vercel.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_vercel_logo",
+      "community": 26,
+      "norm_label": "vercel logo"
+    },
+    {
+      "label": "Next.js Logo",
+      "file_type": "image",
+      "source_file": "public/next.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_nextjs_logo",
+      "community": 26,
+      "norm_label": "next.js logo"
+    },
+    {
+      "label": "Globe Icon",
+      "file_type": "image",
+      "source_file": "public/globe.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_globe_icon",
+      "community": 16,
+      "norm_label": "globe icon"
+    },
+    {
+      "label": "Window Icon",
+      "file_type": "image",
+      "source_file": "public/window.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "public_window_icon",
+      "community": 16,
+      "norm_label": "window icon"
+    }
+  ],
+  "links": [
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/layout.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "app_layout_tsx",
+      "target": "providers_providers_providers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/layout.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_layout_tsx",
+      "target": "layout_footer_footer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/layout.tsx",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "app_layout_tsx",
+      "target": "app_layout_rootlayout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/error.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "app_error_tsx",
+      "target": "app_error_error",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/page.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "app_page_tsx",
+      "target": "lib_products_getfeaturedproducts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/page.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "app_page_tsx",
+      "target": "products_product_grid_productgrid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/not-found.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "app_not_found_tsx",
+      "target": "app_not_found_notfound",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/categories/[slug]/page.tsx",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "slug_page_categorypage",
+      "target": "app_not_found_notfound"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/products/loading.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "app_products_loading_tsx",
+      "target": "products_loading_productsloading",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/products/page.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "app_products_page_tsx",
+      "target": "lib_products_getproducts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/products/page.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "app_products_page_tsx",
+      "target": "products_product_grid_productgrid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/products/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "app_products_page_tsx",
+      "target": "products_category_filter_categoryfilter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/products/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_products_page_tsx",
+      "target": "products_sort_select_sortselect",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/products/page.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "app_products_page_tsx",
+      "target": "products_page_productspage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/products/page.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "products_page_productspage",
+      "target": "lib_products_getproducts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/products/[slug]/loading.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "app_products_slug_loading_tsx",
+      "target": "products_product_detail_skeleton_productdetailskeleton",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/products/[slug]/loading.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "app_products_slug_loading_tsx",
+      "target": "slug_loading_productdetailloading",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/products/[slug]/page.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "app_products_slug_page_tsx",
+      "target": "lib_products_getproductbyslug",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/products/[slug]/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "app_products_slug_page_tsx",
+      "target": "cart_add_to_cart_button_addtocartbutton",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/products/[slug]/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "app_products_slug_page_tsx",
+      "target": "products_specifications_table_specificationstable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/products/[slug]/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_products_slug_page_tsx",
+      "target": "reviews_review_section_reviewsection",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/products/[slug]/page.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "app_products_slug_page_tsx",
+      "target": "lib_strapi_formatprice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/products/[slug]/page.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "app_products_slug_page_tsx",
+      "target": "slug_page_generatemetadata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/products/[slug]/page.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "slug_page_generatemetadata",
+      "target": "lib_products_getproductbyslug"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/auth/register/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "app_auth_register_page_tsx",
+      "target": "hooks_use_auth_useauth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/auth/register/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_auth_register_page_tsx",
+      "target": "ui_input_input",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/auth/register/page.tsx",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "app_auth_register_page_tsx",
+      "target": "register_page_handlesubmit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/auth/login/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "app_auth_login_page_tsx",
+      "target": "hooks_use_auth_useauth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/auth/login/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_auth_login_page_tsx",
+      "target": "ui_input_input",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/auth/login/page.tsx",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "app_auth_login_page_tsx",
+      "target": "login_page_handlesubmit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/checkout/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "app_checkout_page_tsx",
+      "target": "hooks_use_auth_useauth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/checkout/page.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "app_checkout_page_tsx",
+      "target": "ui_input_input",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/checkout/page.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "app_checkout_page_tsx",
+      "target": "lib_strapi_formatprice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/checkout/page.tsx",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "app_checkout_page_tsx",
+      "target": "checkout_page_handleinputchange",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/checkout/page.tsx",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "app_checkout_page_tsx",
+      "target": "checkout_page_handlesubmit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/cart/page.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "app_cart_page_tsx",
+      "target": "lib_strapi_formatprice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/cart/page.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "app_cart_page_tsx",
+      "target": "products_product_image_productimage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/auth/logout/route.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "app_api_auth_logout_route_ts",
+      "target": "logout_route_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/auth/register/route.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "app_api_auth_register_route_ts",
+      "target": "register_route_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/auth/me/route.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "app_api_auth_me_route_ts",
+      "target": "me_route_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/auth/login/route.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "app_api_auth_login_route_ts",
+      "target": "login_route_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/orders/route.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "app_api_orders_route_ts",
+      "target": "orders_route_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "app_orders_page_tsx",
+      "target": "ui_badge_badge",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_orders_page_tsx",
+      "target": "lib_strapi_formatprice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_orders_page_tsx",
+      "target": "lib_strapi_formatdate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "ui_badge_badge",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "lib_strapi_formatprice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "lib_strapi_formatdate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L114",
+      "weight": 1.0,
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "ordernumber_page_formatprice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/account/layout.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "app_account_layout_tsx",
+      "target": "account_layout_accountlayout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/categories/[slug]/page.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "app_categories_slug_page_tsx",
+      "target": "slug_page_categorypage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "providers/providers.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "providers_providers_tsx",
+      "target": "providers_providers_providers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/tabs.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "components_ui_tabs_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/tabs.tsx",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "components_ui_tabs_tsx",
+      "target": "ui_tabs_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/card.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "components_ui_card_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/card.tsx",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "components_ui_card_tsx",
+      "target": "ui_card_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/card.tsx",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "components_ui_card_tsx",
+      "target": "ui_card_cardaction",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/sheet.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "components_ui_sheet_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/sheet.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "components_ui_sheet_tsx",
+      "target": "ui_sheet_sheet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/sheet.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "components_ui_sheet_tsx",
+      "target": "ui_sheet_sheettrigger",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/sheet.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "components_ui_sheet_tsx",
+      "target": "ui_sheet_sheetclose",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/sheet.tsx",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "components_ui_sheet_tsx",
+      "target": "ui_sheet_sheetportal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/sheet.tsx",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "components_ui_sheet_tsx",
+      "target": "ui_sheet_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/sheet.tsx",
+      "source_location": "L103",
+      "weight": 1.0,
+      "source": "components_ui_sheet_tsx",
+      "target": "ui_sheet_sheettitle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/sheet.tsx",
+      "source_location": "L116",
+      "weight": 1.0,
+      "source": "components_ui_sheet_tsx",
+      "target": "ui_sheet_sheetdescription",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/layout/header.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "components_layout_header_tsx",
+      "target": "ui_sheet_sheet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/cart/cart-drawer.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_cart_cart_drawer_tsx",
+      "target": "ui_sheet_sheet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/layout/header.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "components_layout_header_tsx",
+      "target": "ui_sheet_sheettrigger",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/cart/cart-drawer.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_cart_cart_drawer_tsx",
+      "target": "ui_sheet_sheettrigger",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/cart/cart-drawer.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_cart_cart_drawer_tsx",
+      "target": "ui_sheet_sheettitle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/label.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_ui_label_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/label.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "components_ui_label_tsx",
+      "target": "ui_label_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/navigation-menu.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "components_ui_navigation_menu_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/navigation-menu.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "components_ui_navigation_menu_tsx",
+      "target": "ui_navigation_menu_navigationmenu",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/navigation-menu.tsx",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "components_ui_navigation_menu_tsx",
+      "target": "ui_navigation_menu_navigationmenulist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/navigation-menu.tsx",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "components_ui_navigation_menu_tsx",
+      "target": "ui_navigation_menu_navigationmenuitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/navigation-menu.tsx",
+      "source_location": "L62",
+      "weight": 1.0,
+      "source": "components_ui_navigation_menu_tsx",
+      "target": "ui_navigation_menu_navigationmenutrigger",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/navigation-menu.tsx",
+      "source_location": "L79",
+      "weight": 1.0,
+      "source": "components_ui_navigation_menu_tsx",
+      "target": "ui_navigation_menu_navigationmenucontent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/navigation-menu.tsx",
+      "source_location": "L124",
+      "weight": 1.0,
+      "source": "components_ui_navigation_menu_tsx",
+      "target": "ui_navigation_menu_navigationmenulink",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/accordion.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "components_ui_accordion_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/accordion.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "components_ui_accordion_tsx",
+      "target": "ui_accordion_accordion",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/accordion.tsx",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "components_ui_accordion_tsx",
+      "target": "ui_accordion_accordionitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/accordion.tsx",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "components_ui_accordion_tsx",
+      "target": "ui_accordion_accordiontrigger",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/accordion.tsx",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "components_ui_accordion_tsx",
+      "target": "ui_accordion_accordioncontent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/avatar.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "components_ui_avatar_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/avatar.tsx",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "components_ui_avatar_tsx",
+      "target": "ui_avatar_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/avatar.tsx",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "components_ui_avatar_tsx",
+      "target": "ui_avatar_avatarbadge",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/dialog.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "components_ui_dialog_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/dialog.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "components_ui_dialog_tsx",
+      "target": "ui_dialog_dialog",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/dialog.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "components_ui_dialog_tsx",
+      "target": "ui_dialog_dialogtrigger",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/dialog.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "components_ui_dialog_tsx",
+      "target": "ui_dialog_dialogportal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/dialog.tsx",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "components_ui_dialog_tsx",
+      "target": "ui_dialog_dialogclose",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/dialog.tsx",
+      "source_location": "L104",
+      "weight": 1.0,
+      "source": "components_ui_dialog_tsx",
+      "target": "ui_dialog_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/badge.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_ui_badge_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/badge.tsx",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "components_ui_badge_tsx",
+      "target": "ui_badge_badge",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "components_products_product_card_tsx",
+      "target": "ui_badge_badge",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/layout/header.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "components_layout_header_tsx",
+      "target": "ui_badge_badge",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/table.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_ui_table_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/table.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "components_ui_table_tsx",
+      "target": "ui_table_table",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/table.tsx",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "components_ui_table_tsx",
+      "target": "ui_table_tableheader",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/table.tsx",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "components_ui_table_tsx",
+      "target": "ui_table_tablebody",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/table.tsx",
+      "source_location": "L85",
+      "weight": 1.0,
+      "source": "components_ui_table_tsx",
+      "target": "ui_table_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/specifications-table.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "components_products_specifications_table_tsx",
+      "target": "ui_table_table",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/specifications-table.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "components_products_specifications_table_tsx",
+      "target": "ui_table_tablebody",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/separator.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_ui_separator_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/separator.tsx",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "components_ui_separator_tsx",
+      "target": "ui_separator_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/button.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "components_ui_button_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/button.tsx",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "components_ui_button_tsx",
+      "target": "ui_button_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/dropdown-menu.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "components_ui_dropdown_menu_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/dropdown-menu.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "components_ui_dropdown_menu_tsx",
+      "target": "ui_dropdown_menu_dropdownmenu",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/dropdown-menu.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "components_ui_dropdown_menu_tsx",
+      "target": "ui_dropdown_menu_dropdownmenuportal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/dropdown-menu.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "components_ui_dropdown_menu_tsx",
+      "target": "ui_dropdown_menu_dropdownmenutrigger",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/dropdown-menu.tsx",
+      "source_location": "L243",
+      "weight": 1.0,
+      "source": "components_ui_dropdown_menu_tsx",
+      "target": "ui_dropdown_menu_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/dropdown-menu.tsx",
+      "source_location": "L148",
+      "weight": 1.0,
+      "source": "components_ui_dropdown_menu_tsx",
+      "target": "ui_dropdown_menu_dropdownmenucheckboxitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "components_ui_select_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "components_ui_select_tsx",
+      "target": "ui_select_selectgroup",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "components_ui_select_tsx",
+      "target": "ui_select_selectvalue",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "components_ui_select_tsx",
+      "target": "ui_select_selecttrigger",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "components_ui_select_tsx",
+      "target": "ui_select_selectcontent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L98",
+      "weight": 1.0,
+      "source": "components_ui_select_tsx",
+      "target": "ui_select_selectlabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L111",
+      "weight": 1.0,
+      "source": "components_ui_select_tsx",
+      "target": "ui_select_selectitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L139",
+      "weight": 1.0,
+      "source": "components_ui_select_tsx",
+      "target": "ui_select_selectseparator",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L152",
+      "weight": 1.0,
+      "source": "components_ui_select_tsx",
+      "target": "ui_select_selectscrollupbutton",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/select.tsx",
+      "source_location": "L171",
+      "weight": 1.0,
+      "source": "components_ui_select_tsx",
+      "target": "ui_select_selectscrolldownbutton",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/sort-select.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "components_products_sort_select_tsx",
+      "target": "ui_select_selectvalue",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/sort-select.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "components_products_sort_select_tsx",
+      "target": "ui_select_selecttrigger",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/sort-select.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "components_products_sort_select_tsx",
+      "target": "ui_select_selectcontent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/sort-select.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "components_products_sort_select_tsx",
+      "target": "ui_select_selectitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/textarea.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "components_ui_textarea_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/textarea.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "components_ui_textarea_tsx",
+      "target": "ui_textarea_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/input.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "components_ui_input_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/input.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "components_ui_input_tsx",
+      "target": "ui_input_input",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/layout/header.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "components_layout_header_tsx",
+      "target": "ui_input_input",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/common/search-bar.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_common_search_bar_tsx",
+      "target": "ui_input_input",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/skeleton.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "components_ui_skeleton_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/skeleton.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "components_ui_skeleton_tsx",
+      "target": "ui_skeleton_skeleton",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-grid-skeleton.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "components_products_product_grid_skeleton_tsx",
+      "target": "ui_skeleton_skeleton",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-detail-skeleton.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "components_products_product_detail_skeleton_tsx",
+      "target": "ui_skeleton_skeleton",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/carousel.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "components_ui_carousel_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/carousel.tsx",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "components_ui_carousel_tsx",
+      "target": "ui_carousel_usecarousel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/carousel.tsx",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "components_ui_carousel_tsx",
+      "target": "ui_carousel_carousel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/carousel.tsx",
+      "source_location": "L188",
+      "weight": 1.0,
+      "source": "components_ui_carousel_tsx",
+      "target": "ui_carousel_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/carousel.tsx",
+      "source_location": "L205",
+      "weight": 1.0,
+      "source": "components_ui_carousel_tsx",
+      "target": "ui_carousel_carouselnext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/carousel.tsx",
+      "source_location": "L211",
+      "weight": 1.0,
+      "source": "ui_carousel_carouselnext",
+      "target": "ui_carousel_usecarousel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-images.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "components_products_product_images_tsx",
+      "target": "lib_strapi_getstrapimedia",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-images.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_products_product_images_tsx",
+      "target": "products_product_image_productimage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-grid.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "components_products_product_grid_tsx",
+      "target": "products_product_grid_productgrid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/specifications-table.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "components_products_specifications_table_tsx",
+      "target": "products_specifications_table_specificationstable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/sort-select.tsx",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "components_products_sort_select_tsx",
+      "target": "products_sort_select_sortselect",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-image.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "components_products_product_image_tsx",
+      "target": "lib_strapi_getstrapimedia",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-image.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "components_products_product_image_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-image.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "components_products_product_image_tsx",
+      "target": "products_product_image_productimage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_products_product_card_tsx",
+      "target": "products_product_image_productimage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/cart/cart-drawer.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "components_cart_cart_drawer_tsx",
+      "target": "products_product_image_productimage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "components/products/product-image.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "products_product_image_productimage",
+      "target": "lib_strapi_getstrapimedia"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "components_products_product_card_tsx",
+      "target": "lib_strapi_formatprice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/variant-selector.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_products_variant_selector_tsx",
+      "target": "lib_strapi_formatprice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/category-filter.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "components_products_category_filter_tsx",
+      "target": "products_category_filter_categoryfilter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-detail-skeleton.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "components_products_product_detail_skeleton_tsx",
+      "target": "products_product_detail_skeleton_productdetailskeleton",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/layout/footer.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "components_layout_footer_tsx",
+      "target": "layout_footer_footer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/layout/header.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "components_layout_header_tsx",
+      "target": "hooks_use_auth_useauth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/layout/header.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "components_layout_header_tsx",
+      "target": "layout_header_handlesearch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/common/pagination.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "components_common_pagination_tsx",
+      "target": "common_pagination_navigatetopage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/common/search-bar.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "components_common_search_bar_tsx",
+      "target": "common_search_bar_searchbar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/common/price.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "components_common_price_tsx",
+      "target": "lib_strapi_formatprice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/common/price.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "components_common_price_tsx",
+      "target": "common_price_price",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/cart/add-to-cart-button.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "components_cart_add_to_cart_button_tsx",
+      "target": "cart_add_to_cart_button_addtocartbutton",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/cart/cart-drawer.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "components_cart_cart_drawer_tsx",
+      "target": "lib_strapi_formatprice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/reviews/review-section.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "components_reviews_review_section_tsx",
+      "target": "reviews_review_section_reviewsection",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "hooks/use-auth.ts",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "hooks_use_auth_ts",
+      "target": "hooks_use_auth_fetchcurrentuser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "hooks/use-auth.ts",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "hooks_use_auth_ts",
+      "target": "hooks_use_auth_useauth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/strapi.ts",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "lib_strapi_ts",
+      "target": "lib_strapi_strapierror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/strapi.ts",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "lib_strapi_ts",
+      "target": "lib_strapi_strapifetch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/strapi.ts",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "lib_strapi_ts",
+      "target": "lib_strapi_getstrapimedia",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/strapi.ts",
+      "source_location": "L85",
+      "weight": 1.0,
+      "source": "lib_strapi_ts",
+      "target": "lib_strapi_formatprice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/strapi.ts",
+      "source_location": "L94",
+      "weight": 1.0,
+      "source": "lib_strapi_ts",
+      "target": "lib_strapi_formatdate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/strapi.ts",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "lib_strapi_strapierror",
+      "target": "lib_strapi_strapierror_constructor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/products.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "lib_products_ts",
+      "target": "lib_strapi_strapifetch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "lib/products.ts",
+      "source_location": "L48",
+      "weight": 1.0,
+      "source": "lib_products_getproducts",
+      "target": "lib_strapi_strapifetch"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "lib/products.ts",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "lib_products_getproductbyslug",
+      "target": "lib_strapi_strapifetch"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "lib/products.ts",
+      "source_location": "L64",
+      "weight": 1.0,
+      "source": "lib_products_getfeaturedproducts",
+      "target": "lib_strapi_strapifetch"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/utils.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "lib_utils_ts",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/products.ts",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "lib_products_ts",
+      "target": "lib_products_getproducts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/products.ts",
+      "source_location": "L56",
+      "weight": 1.0,
+      "source": "lib_products_ts",
+      "target": "lib_products_getproductbyslug",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/products.ts",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "lib_products_ts",
+      "target": "lib_products_getfeaturedproducts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "next_commerce_temp",
+      "target": "nextjs_16"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "next_commerce_temp",
+      "target": "strapi_v5"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "next_commerce_temp",
+      "target": "create_next_app"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "next_commerce_temp",
+      "target": "geist_font"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "next_commerce_temp",
+      "target": "vercel"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "pnpm-workspace.yaml",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "next_commerce_temp",
+      "target": "pnpm_workspace"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "next_commerce_temp",
+      "target": "nextjs_breaking_changes"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "next_commerce_temp",
+      "target": "graphify_workflow"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "next_commerce_temp",
+      "target": "coding_guidelines"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "2.1 Next.js 16 + App Router",
+      "weight": 1.0,
+      "source": "nextjs_16",
+      "target": "app_router"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "2.1 Next.js 16 + App Router",
+      "weight": 1.0,
+      "source": "nextjs_16",
+      "target": "server_components"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "8. Catatan Penting - point 7",
+      "weight": 1.0,
+      "source": "nextjs_16",
+      "target": "proxy_migration"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "2.2 Tailwind CSS 4 + shadcn/ui",
+      "weight": 1.0,
+      "source": "nextjs_16",
+      "target": "tailwind_css_4"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "2.2 Tailwind CSS 4 + shadcn/ui",
+      "weight": 1.0,
+      "source": "nextjs_16",
+      "target": "shadcn_ui"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "6. Docker Setup",
+      "weight": 1.0,
+      "source": "nextjs_16",
+      "target": "docker_standalone"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "4.0.2 Install Dependencies",
+      "weight": 1.0,
+      "source": "nextjs_16",
+      "target": "tanstack_react_query"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "2.7 Repo Terpisah",
+      "weight": 1.0,
+      "source": "nextjs_16",
+      "target": "separate_repos"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "2.3 Strategy Data Fetching: Hybrid",
+      "weight": 1.0,
+      "source": "nextjs_16",
+      "target": "hybrid_data_fetching"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "2.4 Auth: HTTP-Only Cookies via Route Handlers",
+      "weight": 1.0,
+      "source": "nextjs_16",
+      "target": "http_only_cookie_auth"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "create_next_app",
+      "target": "nextjs_16"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "1. Ringkasan Arsitektur",
+      "weight": 1.0,
+      "source": "strapi_v5",
+      "target": "postgresql_17"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "1. Ringkasan Arsitektur",
+      "weight": 1.0,
+      "source": "strapi_v5",
+      "target": "minio_s3"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "2.5 API Types: openapi-typescript",
+      "weight": 1.0,
+      "source": "strapi_v5",
+      "target": "openapi_typescript_gen"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "4.1.1 API Client",
+      "weight": 1.0,
+      "source": "strapi_v5",
+      "target": "strapi_api_client"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "3.2 Content Types",
+      "weight": 1.0,
+      "source": "strapi_v5",
+      "target": "product_content_type"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "3.2 Content Types",
+      "weight": 1.0,
+      "source": "strapi_v5",
+      "target": "category_content_type"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "3.2 Content Types",
+      "weight": 1.0,
+      "source": "strapi_v5",
+      "target": "cart_content_type"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "3.2 Content Types",
+      "weight": 1.0,
+      "source": "strapi_v5",
+      "target": "order_content_type"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "3.2 Content Types",
+      "weight": 1.0,
+      "source": "strapi_v5",
+      "target": "review_content_type"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "6. Docker Setup",
+      "weight": 1.0,
+      "source": "dokploy_vps",
+      "target": "docker_standalone"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "Fase 5: Autentikasi",
+      "weight": 1.0,
+      "source": "http_only_cookie_auth",
+      "target": "auth_route_handlers"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": "Fase 4: Cart",
+      "weight": 1.0,
+      "source": "zustand_cart_store",
+      "target": "tanstack_react_query"
+    },
+    {
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.7,
+      "source_file": "docs/strapi5-next16-integration.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "nextjs_breaking_changes",
+      "target": "proxy_migration"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.6,
+      "source_file": "public/file.svg",
+      "source_location": null,
+      "weight": 0.6,
+      "source": "public_file_icon",
+      "target": "public_window_icon"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.7,
+      "source_file": "public/vercel.svg",
+      "source_location": null,
+      "weight": 0.7,
+      "source": "public_vercel_logo",
+      "target": "public_nextjs_logo"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.6,
+      "source_file": "public/globe.svg",
+      "source_location": null,
+      "weight": 0.6,
+      "source": "public_globe_icon",
+      "target": "public_window_icon"
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "ecommerce_architecture_stack",
+      "label": "E-Commerce Architecture Stack",
+      "nodes": [
+        "nextjs_16",
+        "strapi_v5",
+        "postgresql_17",
+        "minio_s3",
+        "dokploy_vps",
+        "docker_standalone"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md"
+    },
+    {
+      "id": "hybrid_data_layer",
+      "label": "Hybrid Data Handling Layer",
+      "nodes": [
+        "server_components",
+        "tanstack_react_query",
+        "zustand_cart_store",
+        "http_only_cookie_auth",
+        "auth_route_handlers",
+        "strip_api_client"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "docs/strapi5-next16-integration.md"
+    },
+    {
+      "id": "development_workflow",
+      "label": "Development Workflow Toolchain",
+      "nodes": [
+        "create_next_app",
+        "pnpm_workspace",
+        "shadcn_ui",
+        "tailwind_css_4",
+        "openapi_typescript_gen"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/strapi5-next16-integration.md"
+    },
+    {
+      "id": "nextjs_app_icons",
+      "label": "Next.js App Static Assets",
+      "nodes": [
+        "public_file_icon",
+        "public_vercel_logo",
+        "public_nextjs_logo",
+        "public_globe_icon",
+        "public_window_icon"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "public/"
+    }
+  ],
+  "built_at_commit": "5d2e316051a157964e9542829825c0f2514ad7a7"
+}
