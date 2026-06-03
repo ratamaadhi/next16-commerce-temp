@@ -7,11 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { useCartStore } from "@/hooks/use-cart";
 import { useAuth } from "@/hooks/use-auth";
 import { Input } from "@/components/ui/input";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -27,6 +23,8 @@ export function Header() {
       router.push(`/products?search=${encodeURIComponent(searchQuery)}`);
     }
   };
+
+  console.log("isAuthenticated", isAuthenticated);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -71,7 +69,9 @@ export function Header() {
           )}
 
           <Sheet>
-            <SheetTrigger className={buttonVariants({ variant: "ghost", size: "icon", className: "md:hidden" })}>
+            <SheetTrigger
+              className={buttonVariants({ variant: "ghost", size: "icon", className: "md:hidden" })}
+            >
               <Menu className="h-5 w-5" />
             </SheetTrigger>
             <SheetContent side="left">

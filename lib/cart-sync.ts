@@ -1,5 +1,4 @@
-import { strapiFetch } from "./strapi";
-import { StrapiError } from "./strapi";
+import { strapiFetch, StrapiError } from "./strapi";
 import type { components } from "@/types/strapi";
 import type { CartItem } from "@/hooks/use-cart";
 
@@ -51,17 +50,29 @@ export async function createCart(
     userDocumentId?: string;
     items: CartItem[];
   },
-  token?: string,
+  _token?: string,
 ): Promise<CartResponse> {
   const body: Record<string, unknown> = {};
   if (data.sessionId) body.sessionId = data.sessionId;
   if (data.userDocumentId) body.users_permissions_user = data.userDocumentId;
   body.items = mapItems(data.items);
 
-  return strapiFetch<CartResponse>("/carts", {}, {
+  const res = await fetch("/api/cart", {
     method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ data: body }),
-  }, token);
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => null);
+    throw new StrapiError(
+      err?.error?.error?.message || `Cart API error: ${res.status}`,
+      res.status,
+      err,
+    );
+  }
+
+  return res.json();
 }
 
 export async function updateCart(
@@ -71,26 +82,49 @@ export async function updateCart(
     userDocumentId?: string;
     items?: CartItem[];
   },
-  token?: string,
+  _token?: string,
 ): Promise<CartResponse> {
   const body: Record<string, unknown> = {};
   if (data.sessionId) body.sessionId = data.sessionId;
   if (data.userDocumentId) body.users_permissions_user = data.userDocumentId;
   if (data.items) body.items = mapItems(data.items);
 
-  return strapiFetch<CartResponse>(`/carts/${documentId}`, {}, {
+  const res = await fetch(`/api/cart/${documentId}`, {
     method: "PUT",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ data: body }),
-  }, token);
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => null);
+    throw new StrapiError(
+      err?.error?.error?.message || `Cart API error: ${res.status}`,
+      res.status,
+      err,
+    );
+  }
+
+  return res.json();
 }
 
 export async function deleteCart(
   documentId: string,
-  token?: string,
+  _token?: string,
 ): Promise<number> {
-  return strapiFetch<number>(`/carts/${documentId}`, {}, {
+  const res = await fetch(`/api/cart/${documentId}`, {
     method: "DELETE",
-  }, token);
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => null);
+    throw new StrapiError(
+      err?.error?.error?.message || `Cart API error: ${res.status}`,
+      res.status,
+      err,
+    );
+  }
+
+  return res.json();
 }
 
 interface ResolvedProduct {
@@ -147,7 +181,7 @@ export async function resolveCartItems(
         let product = products.find((p) =>
           p.variants?.some((v) => String(v.id) === item.variantId),
         );
-        let variant = product?.variants?.find((v) => String(v.id) === item.variantId);
+        const variant = product?.variants?.find((v) => String(v.id) === item.variantId);
 
         if (!product) {
           const numId = parseInt(item.variantId, 10);
