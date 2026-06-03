@@ -1,8 +1,6 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { formatPrice } from "@/lib/strapi";
 
 interface Variant {
   id?: number;
@@ -14,11 +12,12 @@ interface Variant {
 
 interface VariantSelectorProps {
   variants: Variant[];
+  selectedIndex: number | null;
+  onSelect: (index: number) => void;
 }
 
-export function VariantSelector({ variants }: VariantSelectorProps) {
-  const [selected, setSelected] = useState<number | null>(null);
-  const current = selected !== null ? variants[selected] : null;
+export function VariantSelector({ variants, selectedIndex, onSelect }: VariantSelectorProps) {
+  const current = selectedIndex !== null ? variants[selectedIndex] : null;
 
   return (
     <div className="space-y-3">
@@ -29,16 +28,11 @@ export function VariantSelector({ variants }: VariantSelectorProps) {
         {variants.map((variant, index) => (
           <Button
             key={variant.name}
-            variant={selected === index ? "default" : "outline"}
+            variant={selectedIndex === index ? "default" : "outline"}
             size="sm"
-            onClick={() => setSelected(index)}
+            onClick={() => onSelect(index)}
           >
             {variant.name}
-            {variant.price > 0 && (
-              <span className="ml-1 text-xs opacity-70">
-                (+{formatPrice(variant.price)})
-              </span>
-            )}
           </Button>
         ))}
       </div>

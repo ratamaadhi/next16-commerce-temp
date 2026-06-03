@@ -1,18 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, User, Search, Menu } from "lucide-react";
+import { User, Search, Menu } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { useCartStore } from "@/hooks/use-cart";
 import { useAuth } from "@/hooks/use-auth";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { CartDrawer } from "@/components/cart/cart-drawer";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export function Header() {
-  const itemCount = useCartStore((s) => s.items.reduce((sum, i) => sum + i.quantity, 0));
   const { isAuthenticated, logout } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
@@ -23,8 +21,6 @@ export function Header() {
       router.push(`/products?search=${encodeURIComponent(searchQuery)}`);
     }
   };
-
-  console.log("isAuthenticated", isAuthenticated);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -47,16 +43,7 @@ export function Header() {
         </form>
 
         <nav className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" onClick={() => router.push("/cart")}>
-            <div className="relative">
-              <ShoppingCart className="h-5 w-5" />
-              {itemCount > 0 && (
-                <Badge className="absolute -top-1.5 -right-1.5 min-w-4 h-4 px-0.5 text-[10px] justify-center">
-                  {itemCount > 99 ? "99+" : itemCount}
-                </Badge>
-              )}
-            </div>
-          </Button>
+          <CartDrawer />
 
           {isAuthenticated ? (
             <Button variant="ghost" size="icon" onClick={() => router.push("/account")}>
