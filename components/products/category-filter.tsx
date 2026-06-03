@@ -23,10 +23,12 @@ export function CategoryFilter({ currentSlug }: CategoryFilterProps) {
   };
 
   const categories = [
-    { slug: "elektronik", name: "Elektronik" },
-    { slug: "fashion", name: "Fashion" },
-    { slug: "makanan-minuman", name: "Makanan & Minuman" },
-    { slug: "kesehatan", name: "Kesehatan" },
+    { slug: "skincare", name: "Skincare" },
+    { slug: "makeup", name: "Makeup" },
+    { slug: "haircare", name: "Haircare" },
+    { slug: "fragrance", name: "Fragrance" },
+    { slug: "body-care", name: "Body Care" },
+    { slug: "beauty-tools", name: "Beauty Tools" },
   ];
 
   return (

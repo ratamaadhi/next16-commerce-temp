@@ -1,14 +1,15 @@
 import Link from "next/link";
+import { Heart } from "lucide-react";
 
 export function Footer() {
   return (
     <footer className="border-t bg-background">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="font-bold text-lg mb-3">Store</h3>
+            <h3 className="font-bold text-lg mb-3 font-[family-name:var(--font-playfair)]">Cyra</h3>
             <p className="text-sm text-muted-foreground">
-              E-commerce store built with Next.js 16 and Strapi v5.
+              Preloved beauty terkurasi dari koleksi pribadi. Belanja bijak, tetap cantik.
             </p>
           </div>
           <div>
@@ -40,8 +41,10 @@ export function Footer() {
             </nav>
           </div>
         </div>
-        <div className="border-t mt-8 pt-4 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} Store. All rights reserved.
+        <div className="border-t mt-8 pt-6 text-center text-sm text-muted-foreground flex items-center justify-center gap-1">
+          <span>&copy; {new Date().getFullYear()} Cyra. Made with</span>
+          <Heart className="h-3 w-3 text-primary fill-primary" />
+          <span>for beauty enthusiasts.</span>
         </div>
       </div>
     </footer>

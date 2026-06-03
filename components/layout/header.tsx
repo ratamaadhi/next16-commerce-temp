@@ -25,8 +25,8 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="font-bold text-xl flex-shrink-0">
-          Store
+        <Link href="/" className="font-bold text-xl flex-shrink-0 font-[family-name:var(--font-playfair)]">
+          Cyra
         </Link>
 
         <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-md mx-4">

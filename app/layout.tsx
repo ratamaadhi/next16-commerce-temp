@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import { cookies } from "next/headers";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Providers } from "@/providers/providers";
@@ -7,15 +7,20 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+});
+
 const STRAPI_URL = process.env.STRAPI_URL!;
 
 export const metadata: Metadata = {
   title: {
-    default: "E-Commerce Store",
-    template: "%s | E-Commerce Store",
+    default: "Cyra — Preloved Beauty",
+    template: "%s | Cyra",
   },
-  description: "E-Commerce store built with Next.js and Strapi",
+  description: "Temukan produk kecantikan preloved terkurasi dari koleksi pribadi Cyra. Asli, terjamin, dan berkualitas.",
 };
 
 export default async function RootLayout({
@@ -43,7 +48,7 @@ export default async function RootLayout({
 
   return (
     <html lang="id">
-      <body className={`${inter.className} min-h-screen flex flex-col`}>
+      <body className={`${inter.variable} ${playfair.variable} min-h-screen flex flex-col`}>
         <Providers dehydratedState={dehydrate(queryClient)}>
           <Header />
           <main className="flex-1">{children}</main>
