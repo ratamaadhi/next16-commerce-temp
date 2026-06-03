@@ -107,6 +107,11 @@ describe("createCart", () => {
       }),
     }, undefined);
   });
+
+  it("throws when strapiFetch fails", async () => {
+    mockStrapiFetch.mockRejectedValueOnce(new Error("Network error"));
+    await expect(createCart({ items: [] })).rejects.toThrow("Network error");
+  });
 });
 
 describe("updateCart", () => {
@@ -118,10 +123,11 @@ describe("updateCart", () => {
     const mockResponse = { data: { documentId: "cart-1", items: [] } };
     mockStrapiFetch.mockResolvedValueOnce(mockResponse);
 
-    await updateCart("cart-1", {
+    const result = await updateCart("cart-1", {
       items: [{ variantId: "v1", quantity: 3 }],
       sessionId: "ses-1",
     });
+    expect(result).toEqual(mockResponse);
     expect(mockStrapiFetch).toHaveBeenCalledWith("/carts/cart-1", {}, {
       method: "PUT",
       body: JSON.stringify({
@@ -146,6 +152,11 @@ describe("updateCart", () => {
       }),
     }, undefined);
   });
+
+  it("throws when strapiFetch fails", async () => {
+    mockStrapiFetch.mockRejectedValueOnce(new Error("Network error"));
+    await expect(updateCart("doc-1", { items: [] })).rejects.toThrow("Network error");
+  });
 });
 
 describe("deleteCart", () => {
@@ -155,10 +166,16 @@ describe("deleteCart", () => {
 
   it("sends delete request for cart documentId", async () => {
     mockStrapiFetch.mockResolvedValueOnce(1);
-    await deleteCart("cart-to-delete");
+    const result = await deleteCart("cart-to-delete");
+    expect(result).toBe(1);
     expect(mockStrapiFetch).toHaveBeenCalledWith("/carts/cart-to-delete", {}, {
       method: "DELETE",
     }, undefined);
+  });
+
+  it("throws when strapiFetch fails", async () => {
+    mockStrapiFetch.mockRejectedValueOnce(new Error("Network error"));
+    await expect(deleteCart("doc-1")).rejects.toThrow("Network error");
   });
 });
 
@@ -202,7 +219,7 @@ describe("resolveCartItems", () => {
     });
   });
 
-  it("returns basic item when product not found for variantId", async () => {
+  it("returns empty array when product not found for variantId", async () => {
     mockStrapiFetch.mockResolvedValueOnce({ data: [], meta: {} });
     const result = await resolveCartItems([{ quantity: "1", variantId: "unknown" }]);
     expect(result).toEqual([]);

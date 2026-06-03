@@ -159,7 +159,8 @@ export async function resolveCartItems(
         } as CartItem;
       })
       .filter(Boolean) as CartItem[];
-  } catch {
+  } catch (error) {
+    console.error("[cart-sync] resolveCartItems failed:", error);
     return [];
   }
 }
