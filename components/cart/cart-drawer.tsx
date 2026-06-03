@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { ShoppingCart, Trash2, Minus, Plus } from "lucide-react";
 import { useCartStore } from "@/hooks/use-cart";
@@ -25,99 +25,110 @@ export function CartDrawer() {
           )}
         </div>
       </SheetTrigger>
-      <SheetContent className="flex flex-col w-full sm:max-w-md">
-        <SheetHeader>
-          <SheetTitle>
-            Keranjang
+      <SheetContent className="flex flex-col w-full sm:max-w-lg p-0">
+        <SheetHeader className="px-6 pt-6 pb-0">
+          <SheetTitle className="text-lg">
+            Keranjang Belanja
             {itemCount > 0 && (
-              <span className="text-muted-foreground font-normal text-sm ml-1">
-                ({itemCount} item)
+              <span className="text-muted-foreground font-normal text-sm ml-1.5">
+                {itemCount} item
               </span>
             )}
           </SheetTitle>
         </SheetHeader>
 
         {!items.length ? (
-          <div className="flex-1 flex flex-col items-center justify-center text-center py-16">
-            <ShoppingCart className="h-12 w-12 text-muted-foreground/40 mb-4" />
-            <p className="text-muted-foreground">Keranjang kosong</p>
-            <Link href="/products" className={buttonVariants({ variant: "outline", className: "mt-4" })}>
+          <div className="flex-1 flex flex-col items-center justify-center text-center px-6">
+            <div className="rounded-full bg-muted size-16 flex items-center justify-center mb-4">
+              <ShoppingCart className="h-7 w-7 text-muted-foreground" />
+            </div>
+            <p className="text-muted-foreground text-sm">Keranjang kamu masih kosong</p>
+            <Link href="/products" className={buttonVariants({ className: "mt-5" })}>
               Mulai Belanja
             </Link>
           </div>
         ) : (
           <>
-            <div className="flex-1 overflow-y-auto space-y-3 py-4">
+            <div className="flex-1 overflow-y-auto px-6 py-5 space-y-4">
               {items.map((item) => (
                 <div
                   key={`${item.productId}-${item.variantId ?? "default"}`}
-                  className="flex gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors group"
+                  className="flex gap-4"
                 >
-                  <div className="relative w-16 h-16 flex-shrink-0 rounded-md overflow-hidden bg-muted">
+                  <div className="relative size-20 flex-shrink-0 rounded-lg overflow-hidden bg-muted">
                     <ProductImage
                       image={item.image}
                       alt={item.name}
                       fill
                       className="object-cover"
-                      sizes="64px"
+                      sizes="80px"
                     />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-1">
-                      <p className="text-sm font-medium line-clamp-1">{item.name}</p>
-                      <button
-                        onClick={() => removeItem(item.productId, item.variantId)}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity p-0.5 text-muted-foreground hover:text-destructive"
-                      >
-                        <Trash2 className="h-3.5 w-3.5" />
-                      </button>
+                  <div className="flex-1 min-w-0 flex flex-col justify-between">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium leading-snug line-clamp-1">{item.name}</p>
+                        {item.variantName && (
+                          <Badge variant="secondary" className="mt-1 text-[10px] font-normal leading-none px-1.5 py-0.5 h-auto">
+                            {item.variantName}
+                          </Badge>
+                        )}
+                      </div>
+                      <p className="text-sm font-semibold whitespace-nowrap">
+                        {formatPrice(item.price * item.quantity)}
+                      </p>
                     </div>
-                    {item.variantName && (
-                      <p className="text-xs text-muted-foreground">{item.variantName}</p>
-                    )}
-                    <div className="flex items-center justify-between mt-1.5">
-                      <div className="flex items-center gap-1">
+
+                    <div className="flex items-center justify-between mt-2">
+                      <div className="inline-flex items-center gap-0.5 border rounded-md">
                         <button
-                          className="p-0.5 text-muted-foreground hover:text-foreground transition-colors"
+                          className="p-1 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors rounded-l-sm"
                           onClick={() =>
                             updateQuantity(item.productId, item.quantity - 1, item.variantId)
                           }
                         >
-                          <Minus className="h-3 w-3" />
+                          <Minus className="size-3.5" />
                         </button>
-                        <span className="w-5 text-center text-xs font-medium tabular-nums">
+                        <span className="w-8 text-center text-xs font-medium tabular-nums select-none">
                           {item.quantity}
                         </span>
                         <button
-                          className="p-0.5 text-muted-foreground hover:text-foreground transition-colors"
+                          className="p-1 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors rounded-r-sm"
                           onClick={() =>
                             updateQuantity(item.productId, item.quantity + 1, item.variantId)
                           }
                         >
-                          <Plus className="h-3 w-3" />
+                          <Plus className="size-3.5" />
                         </button>
                       </div>
-                      <span className="text-xs font-semibold">
-                        {formatPrice(item.price * item.quantity)}
+                      <span className="text-[11px] text-muted-foreground">
+                        {formatPrice(item.price)} / item
                       </span>
+                      <button
+                        onClick={() => removeItem(item.productId, item.variantId)}
+                        className="p-1 text-muted-foreground/50 hover:text-destructive transition-colors"
+                      >
+                        <Trash2 className="size-3.5" />
+                      </button>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
 
-            <Separator />
-
-            <div className="pt-4 space-y-3">
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Subtotal</span>
-                <span className="font-semibold">{formatPrice(getTotal())}</span>
+            <div className="border-t px-6 py-4 space-y-3 bg-muted/30">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-muted-foreground">Subtotal</span>
+                <span className="text-sm font-semibold">{formatPrice(getTotal())}</span>
               </div>
-              <Link href="/checkout" className={buttonVariants({ className: "w-full", size: "lg" })}>
-                Checkout
+              <Link href="/checkout" className={buttonVariants({ className: "w-full" })}>
+                Lanjut ke Checkout
               </Link>
-              <Link href="/cart" className={buttonVariants({ variant: "outline", className: "w-full", size: "sm" })}>
-                Lihat Keranjang
+              <Link
+                href="/cart"
+                className="block text-center text-xs text-muted-foreground hover:text-foreground transition-colors underline underline-offset-2"
+              >
+                Lihat detail keranjang
               </Link>
             </div>
           </>
