@@ -12,7 +12,7 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   return (
     <Link href={`/products/${product.slug}`}>
-      <Card className="group overflow-hidden hover:shadow-lg transition-shadow">
+      <Card className="group overflow-hidden hover:shadow-lg transition-shadow h-full">
         <div className="relative aspect-square overflow-hidden">
           <ProductImage
             image={product.images?.[0]}
@@ -28,7 +28,7 @@ export function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
 
-        <CardContent className="p-4">
+        <CardContent className="p-4 flex-1">
           <h3 className="font-semibold text-lg line-clamp-1">{product.name}</h3>
           {product.shortDescription && (
             <p className="text-muted-foreground text-sm line-clamp-2 mt-1">
