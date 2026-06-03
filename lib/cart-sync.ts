@@ -120,7 +120,7 @@ export async function resolveCartItems(
   variantIds.forEach((vid) => {
     filters[`$or`] = filters[`$or`] || [];
     (filters[`$or`] as Array<Record<string, unknown>>).push({
-      variants: { id: { $eq: parseInt(vid) } },
+      variants: { id: { $eq: vid } },
     });
   });
 
