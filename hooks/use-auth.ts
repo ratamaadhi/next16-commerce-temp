@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 interface AuthUser {
   id: number;
+  documentId: string;
   username: string;
   email: string;
 }

@@ -3,6 +3,7 @@
 import { QueryClient, QueryClientProvider, HydrationBoundary } from "@tanstack/react-query";
 import { useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
+import { CartSync } from "@/components/cart/cart-sync";
 import type { DehydratedState } from "@tanstack/react-query";
 
 export function Providers({
@@ -27,6 +28,7 @@ export function Providers({
   return (
     <QueryClientProvider client={queryClient}>
       <HydrationBoundary state={dehydratedState}>
+        <CartSync />
         {children}
         <Toaster position="top-right" />
       </HydrationBoundary>
