@@ -8,10 +8,18 @@ import { ShoppingCart, Trash2, Minus, Plus } from "lucide-react";
 import { useCartStore } from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/strapi";
 import { ProductImage } from "@/components/products/product-image";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
+
+const subscribe = (callback: () => void) =>
+  useCartStore.persist.onFinishHydration(callback);
+
+const getSnapshot = () => useCartStore.persist.hasHydrated();
+
+const getServerSnapshot = () => false;
 
 export function CartDrawer() {
   const [open, setOpen] = useState(false);
+  const mounted = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const { items, removeItem, updateQuantity, getTotal, getItemCount } = useCartStore();
   const itemCount = getItemCount();
 
@@ -22,7 +30,7 @@ export function CartDrawer() {
       <SheetTrigger className={buttonVariants({ variant: "ghost", size: "icon" })}>
         <div className="relative">
           <ShoppingCart className="h-5 w-5" />
-          {itemCount > 0 && (
+          {mounted && itemCount > 0 && (
             <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center ring-2 ring-background">
               {itemCount > 99 ? "99+" : itemCount}
             </span>
@@ -33,7 +41,7 @@ export function CartDrawer() {
         <SheetHeader className="px-6 pt-6 pb-0">
           <SheetTitle className="text-lg">
             Keranjang Belanja
-            {itemCount > 0 && (
+            {mounted && itemCount > 0 && (
               <span className="text-muted-foreground font-normal text-sm ml-1.5">
                 {itemCount} item
               </span>
@@ -41,13 +49,17 @@ export function CartDrawer() {
           </SheetTitle>
         </SheetHeader>
 
-        {!items.length ? (
+        {!mounted || !items.length ? (
           <div className="flex-1 flex flex-col items-center justify-center text-center px-6">
             <div className="rounded-full bg-muted size-16 flex items-center justify-center mb-4">
               <ShoppingCart className="h-7 w-7 text-muted-foreground" />
             </div>
             <p className="text-muted-foreground text-sm">Keranjang kamu masih kosong</p>
-            <Link href="/products" className={buttonVariants({ className: "mt-5" })} onClick={close}>
+            <Link
+              href="/products"
+              className={buttonVariants({ className: "mt-5" })}
+              onClick={close}
+            >
               Mulai Belanja
             </Link>
           </div>
@@ -73,7 +85,10 @@ export function CartDrawer() {
                       <div className="min-w-0">
                         <p className="text-sm font-medium leading-snug line-clamp-1">{item.name}</p>
                         {item.variantName && (
-                          <Badge variant="secondary" className="mt-1 text-[10px] font-normal leading-none px-1.5 py-0.5 h-auto">
+                          <Badge
+                            variant="secondary"
+                            className="mt-1 text-[10px] font-normal leading-none px-1.5 py-0.5 h-auto"
+                          >
                             {item.variantName}
                           </Badge>
                         )}
@@ -125,7 +140,11 @@ export function CartDrawer() {
                 <span className="text-sm text-muted-foreground">Subtotal</span>
                 <span className="text-sm font-semibold">{formatPrice(getTotal())}</span>
               </div>
-              <Link href="/checkout" className={buttonVariants({ className: "w-full" })} onClick={close}>
+              <Link
+                href="/checkout"
+                className={buttonVariants({ className: "w-full" })}
+                onClick={close}
+              >
                 Lanjut ke Checkout
               </Link>
               <Link
