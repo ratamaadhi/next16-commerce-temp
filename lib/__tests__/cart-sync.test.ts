@@ -77,7 +77,7 @@ describe("createCart", () => {
 
     const result = await createCart({
       sessionId: "ses-1",
-      items: [{ variantId: "variant-1", quantity: 2 }],
+      items: [{ productId: 1, name: "Product", price: 100, quantity: 2, variantId: "v1" }],
     });
     expect(result).toEqual(mockResponse);
     expect(mockStrapiFetch).toHaveBeenCalledWith("/carts", {}, {
@@ -85,7 +85,25 @@ describe("createCart", () => {
       body: JSON.stringify({
         data: {
           sessionId: "ses-1",
-          items: [{ variantId: "variant-1", quantity: "2" }],
+          items: [{ variantId: "v1", quantity: "2" }],
+        },
+      }),
+    }, undefined);
+  });
+
+  it("posts a cart with productId as fallback variantId for variantless products", async () => {
+    const mockResponse = { data: { documentId: "new-cart", items: [] } };
+    mockStrapiFetch.mockResolvedValueOnce(mockResponse);
+
+    const result = await createCart({
+      items: [{ productId: 42, name: "Simple Product", price: 5000, quantity: 1 }],
+    });
+    expect(result).toEqual(mockResponse);
+    expect(mockStrapiFetch).toHaveBeenCalledWith("/carts", {}, {
+      method: "POST",
+      body: JSON.stringify({
+        data: {
+          items: [{ variantId: "42", quantity: "1" }],
         },
       }),
     }, undefined);
@@ -124,7 +142,7 @@ describe("updateCart", () => {
     mockStrapiFetch.mockResolvedValueOnce(mockResponse);
 
     const result = await updateCart("cart-1", {
-      items: [{ variantId: "v1", quantity: 3 }],
+      items: [{ productId: 1, name: "Test", price: 10, quantity: 3, variantId: "v1" }],
       sessionId: "ses-1",
     });
     expect(result).toEqual(mockResponse);
@@ -189,9 +207,9 @@ describe("resolveCartItems", () => {
     expect(result).toEqual([]);
   });
 
-  it("resolves variantId to product details", async () => {
+  it("resolves variantId to product details when variantId matches variant component ID", async () => {
     const strapiItems = [
-      { quantity: "2", variantId: "variant-doc-1" },
+      { quantity: "2", variantId: "5" },
     ];
     const productData = {
       data: [{
@@ -200,7 +218,7 @@ describe("resolveCartItems", () => {
         name: "Test Product",
         price: 10000,
         images: [{ url: "/uploads/img.jpg" }],
-        variants: [{ id: "variant-doc-1", name: "Red", price: 10000, sku: "SKU-1" }],
+        variants: [{ id: 5, name: "Red", price: 10000, sku: "SKU-1" }],
       }],
       meta: {},
     };
@@ -214,14 +232,48 @@ describe("resolveCartItems", () => {
       price: 10000,
       quantity: 2,
       image: "/uploads/img.jpg",
-      variantId: "variant-doc-1",
+      variantId: "5",
       variantName: "Red",
+    });
+  });
+
+  it("resolves variantId as product ID for variantless products", async () => {
+    const strapiItems = [
+      { quantity: "1", variantId: "42" },
+    ];
+    const productData = {
+      data: [{
+        id: 42,
+        documentId: "prod-42",
+        name: "Simple Product",
+        price: 5000,
+        images: [],
+        variants: [],
+      }],
+      meta: {},
+    };
+    mockStrapiFetch.mockResolvedValueOnce(productData);
+
+    const result = await resolveCartItems(strapiItems);
+    expect(result).toHaveLength(1);
+    expect(result[0]).toMatchObject({
+      productId: 42,
+      name: "Simple Product",
+      price: 5000,
+      quantity: 1,
+      variantId: "42",
     });
   });
 
   it("returns empty array when product not found for variantId", async () => {
     mockStrapiFetch.mockResolvedValueOnce({ data: [], meta: {} });
-    const result = await resolveCartItems([{ quantity: "1", variantId: "unknown" }]);
+    const result = await resolveCartItems([{ quantity: "1", variantId: "999" }]);
+    expect(result).toEqual([]);
+  });
+
+  it("returns empty array on API failure", async () => {
+    mockStrapiFetch.mockRejectedValueOnce(new Error("API error"));
+    const result = await resolveCartItems([{ quantity: "1", variantId: "5" }]);
     expect(result).toEqual([]);
   });
 });

@@ -14,10 +14,10 @@ export interface FetchCartParams {
 }
 
 function mapItems(items: CartItem[]): Array<{ variantId: string; quantity: string }> {
-  return items.map((item) => ({
-    variantId: item.variantId ?? "default",
-    quantity: String(item.quantity),
-  }));
+  return items.map((item) => {
+    const vid = item.variantId ? String(item.variantId) : String(item.productId);
+    return { variantId: vid, quantity: String(item.quantity) };
+  });
 }
 
 export async function fetchCart(
@@ -113,16 +113,19 @@ export async function resolveCartItems(
 ): Promise<CartItem[]> {
   if (!strapiItems.length) return [];
 
-  const variantIds = strapiItems.map((i) => i.variantId).filter(Boolean) as string[];
-  if (!variantIds.length) return [];
+  const ids = strapiItems.map((i) => i.variantId).filter(Boolean) as string[];
+  if (!ids.length) return [];
 
-  const filters: Record<string, unknown> = {};
-  variantIds.forEach((vid) => {
-    filters[`$or`] = filters[`$or`] || [];
-    (filters[`$or`] as Array<Record<string, unknown>>).push({
-      variants: { id: { $eq: vid } },
-    });
-  });
+  const variantFilters: Array<Record<string, unknown>> = [];
+  const productIdFilters: Array<Record<string, unknown>> = [];
+
+  for (const vid of ids) {
+    variantFilters.push({ variants: { id: { $eq: vid } } });
+    const numId = parseInt(vid, 10);
+    if (!isNaN(numId)) {
+      productIdFilters.push({ id: { $eq: numId } });
+    }
+  }
 
   interface ProductResponse {
     data: ResolvedProduct[];
@@ -131,7 +134,7 @@ export async function resolveCartItems(
 
   try {
     const response = await strapiFetch<ProductResponse>("/products", {
-      filters: filters["$or"] ? { $or: filters["$or"] } : undefined,
+      filters: { $or: [...variantFilters, ...productIdFilters] },
       populate: ["images", "variants"],
     });
 
@@ -139,14 +142,21 @@ export async function resolveCartItems(
 
     return strapiItems
       .map((item) => {
-        const product = products.find((p) =>
+        if (!item.variantId) return null;
+
+        let product = products.find((p) =>
           p.variants?.some((v) => String(v.id) === item.variantId),
         );
-        if (!product) return null;
+        let variant = product?.variants?.find((v) => String(v.id) === item.variantId);
 
-        const variant = product.variants?.find(
-          (v) => String(v.id) === item.variantId,
-        );
+        if (!product) {
+          const numId = parseInt(item.variantId, 10);
+          if (!isNaN(numId)) {
+            product = products.find((p) => p.id === numId);
+          }
+        }
+
+        if (!product) return null;
 
         return {
           productId: product.id,
