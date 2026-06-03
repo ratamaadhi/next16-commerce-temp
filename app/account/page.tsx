@@ -4,6 +4,7 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { User, Package } from "lucide-react";
+import { LogoutButton } from "@/components/auth/logout-button";
 
 const STRAPI_URL = process.env.STRAPI_URL!;
 
@@ -58,6 +59,10 @@ export default async function AccountPage() {
               </Link>
             </CardContent>
           </Card>
+        </div>
+
+        <div className="pt-6 border-t">
+          <LogoutButton />
         </div>
       </div>
     </main>

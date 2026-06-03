@@ -1,12 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { User, Search, Menu } from "lucide-react";
+import { User, Search, Menu, UserRound, Package, LogOut } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { CartDrawer } from "@/components/cart/cart-drawer";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -46,9 +53,28 @@ export function Header() {
           <CartDrawer />
 
           {isAuthenticated ? (
-            <Button variant="ghost" size="icon" onClick={() => router.push("/account")}>
-              <User className="h-5 w-5" />
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Button variant="ghost" size="icon">
+                  <User className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-44">
+                <DropdownMenuItem onClick={() => router.push("/account")}>
+                  <UserRound className="h-4 w-4" />
+                  Akun Saya
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push("/orders")}>
+                  <Package className="h-4 w-4" />
+                  Pesanan Saya
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem variant="destructive" onClick={() => logout()}>
+                  <LogOut className="h-4 w-4" />
+                  Keluar
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
             <Button variant="ghost" size="sm" onClick={() => router.push("/auth/login")}>
               Masuk

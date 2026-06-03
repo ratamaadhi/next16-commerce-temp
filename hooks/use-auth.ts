@@ -86,6 +86,7 @@ export function useAuth() {
     onSuccess: () => {
       queryClient.setQueryData(["auth-user"], null);
       router.refresh();
+      router.push("/");
     },
   });
 
