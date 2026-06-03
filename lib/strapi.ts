@@ -1,6 +1,6 @@
 import qs from "qs";
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://strapi5-commere.ratama.space";
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
 
 export interface StrapiResponse<T> {
   data: T;
@@ -23,7 +23,7 @@ export class StrapiError extends Error {
   constructor(
     message: string,
     public status: number,
-    public details?: unknown
+    public details?: unknown,
   ) {
     super(message);
     this.name = "StrapiError";
@@ -34,7 +34,7 @@ export async function strapiFetch<T>(
   path: string,
   urlParams: Record<string, unknown> = {},
   options: RequestInit = {},
-  token?: string
+  token?: string,
 ): Promise<T> {
   const queryString = qs.stringify(urlParams, {
     encodeValuesOnly: true,
@@ -60,20 +60,13 @@ export async function strapiFetch<T>(
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => null);
-      throw new StrapiError(
-        `Strapi API error: ${response.statusText}`,
-        response.status,
-        errorData
-      );
+      throw new StrapiError(`Strapi API error: ${response.statusText}`, response.status, errorData);
     }
 
     return response.json();
   } catch (error) {
     if (error instanceof StrapiError) throw error;
-    throw new StrapiError(
-      error instanceof Error ? error.message : "Unknown error",
-      500
-    );
+    throw new StrapiError(error instanceof Error ? error.message : "Unknown error", 500);
   }
 }
 
