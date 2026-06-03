@@ -40,6 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# worktrees
+.worktrees/
+
 graphify-out/manifest.json
 graphify-out/cost.json
 graphify-out/cache/
