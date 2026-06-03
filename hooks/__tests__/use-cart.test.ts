@@ -130,6 +130,7 @@ describe("useCartStore — mergeCart", () => {
 
 describe("useCartStore — replaceCart", () => {
   it("replaces items completely and updates cartDocumentId", () => {
+    useCartStore.getState().setSessionId("session-keep");
     useCartStore.getState().addItem({ productId: 1, name: "A", price: 100 });
     useCartStore.getState().replaceCart("new-doc", [
       { productId: 3, name: "C", price: 300, quantity: 1 },
@@ -137,6 +138,6 @@ describe("useCartStore — replaceCart", () => {
     expect(useCartStore.getState().items).toHaveLength(1);
     expect(useCartStore.getState().items[0].name).toBe("C");
     expect(useCartStore.getState().cartDocumentId).toBe("new-doc");
-    expect(useCartStore.getState().sessionId).toBeNull();
+    expect(useCartStore.getState().sessionId).toBe("session-keep");
   });
 });

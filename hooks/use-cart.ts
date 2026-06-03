@@ -135,7 +135,7 @@ export const useCartStore = create<CartStore>()(
         set({ items: merged, cartDocumentId });
       },
 
-      replaceCart: (cartDocumentId, items) => set({ items, cartDocumentId, sessionId: null }),
+      replaceCart: (cartDocumentId, items) => set({ items, cartDocumentId }),
     }),
     { name: "cart-storage" }
   )
