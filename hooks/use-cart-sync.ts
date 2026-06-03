@@ -14,7 +14,6 @@ function sleep(ms: number): Promise<void> {
 }
 
 export function useCartSync(userDocumentId?: string | null) {
-  const store = useCartStore();
   const syncingRef = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const retryRef = useRef(0);
@@ -25,38 +24,36 @@ export function useCartSync(userDocumentId?: string | null) {
     if (syncingRef.current) return;
     syncingRef.current = true;
 
-    const { items, cartDocumentId, sessionId } = useCartStore.getState();
-
     try {
-      if (!cartDocumentId) {
-        if (items.length === 0) {
-          syncingRef.current = false;
+      for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+        try {
+          const { items, cartDocumentId, sessionId } = useCartStore.getState();
+
+          if (!cartDocumentId) {
+            if (items.length === 0) return;
+            const response = await createCart({ sessionId: sessionId ?? undefined, items });
+            if (response.data?.documentId) {
+              useCartStore.getState().setCartDocumentId(response.data.documentId);
+            }
+          } else if (items.length === 0) {
+            await deleteCart(cartDocumentId);
+            useCartStore.getState().setCartDocumentId(null);
+          } else {
+            await updateCart(cartDocumentId, { sessionId: sessionId ?? undefined, items });
+          }
+          retryRef.current = 0;
           return;
+        } catch {
+          retryRef.current = attempt + 1;
+          if (attempt < MAX_RETRIES) {
+            toast.error("Gagal sync keranjang, mencoba lagi...");
+            await sleep(1000 * (attempt + 1));
+          } else {
+            toast.error("Gagal menyimpan keranjang ke server");
+            retryRef.current = 0;
+          }
         }
-        const response = await createCart({ sessionId: sessionId ?? undefined, items });
-        if (response.data?.documentId) {
-          useCartStore.getState().setCartDocumentId(response.data.documentId);
-        }
-        retryRef.current = 0;
-      } else if (items.length === 0) {
-        await deleteCart(cartDocumentId);
-        useCartStore.getState().setCartDocumentId(null);
-        retryRef.current = 0;
-      } else {
-        await updateCart(cartDocumentId, { sessionId: sessionId ?? undefined, items });
-        retryRef.current = 0;
       }
-    } catch {
-      retryRef.current++;
-      if (retryRef.current <= MAX_RETRIES) {
-        toast.error("Gagal sync keranjang, mencoba lagi...");
-        await sleep(1000 * retryRef.current);
-        syncingRef.current = false;
-        syncToStrapi();
-        return;
-      }
-      toast.error("Gagal menyimpan keranjang ke server");
-      retryRef.current = 0;
     } finally {
       syncingRef.current = false;
     }
@@ -64,18 +61,18 @@ export function useCartSync(userDocumentId?: string | null) {
 
   const hydrate = useCallback(async () => {
     const sessionId = getOrCreateSessionId();
-    store.setSessionId(sessionId);
+    useCartStore.getState().setSessionId(sessionId);
 
     try {
       const cart = await fetchCart({ sessionId });
       if (cart?.documentId && cart.items?.length) {
         const resolved = await resolveCartItems(cart.items);
-        store.replaceCart(cart.documentId, resolved);
+        useCartStore.getState().replaceCart(cart.documentId, resolved);
       }
     } catch {
       // No cart found or error — start fresh
     }
-  }, [store]);
+  }, []);
 
   // Initial hydration
   useEffect(() => {
@@ -95,18 +92,18 @@ export function useCartSync(userDocumentId?: string | null) {
     if (userDocumentId && userDocumentId !== prev) {
       // Login — merge
       (async () => {
-        const sessionId = store.sessionId;
+        const sessionId = useCartStore.getState().sessionId;
         try {
           const serverCart = await fetchCart({ userDocumentId });
           if (serverCart?.documentId && serverCart.items?.length) {
             const resolved = await resolveCartItems(serverCart.items);
-            store.mergeCart(serverCart.documentId, resolved);
+            useCartStore.getState().mergeCart(serverCart.documentId, resolved);
           } else {
             // No server cart — push current cart with user ownership
-            if (store.items.length > 0) {
-              const resp = await createCart({ userDocumentId, items: store.items });
+            if (useCartStore.getState().items.length > 0) {
+              const resp = await createCart({ userDocumentId, items: useCartStore.getState().items });
               if (resp.data?.documentId) {
-                store.setCartDocumentId(resp.data.documentId);
+                useCartStore.getState().setCartDocumentId(resp.data.documentId);
               }
             }
           }
@@ -126,25 +123,25 @@ export function useCartSync(userDocumentId?: string | null) {
     } else if (userDocumentId === null && prev !== null && prev !== undefined) {
       // Logout — switch to guest
       const newSessionId = getOrCreateSessionId();
-      store.setSessionId(newSessionId);
-      store.setCartDocumentId(null);
+      useCartStore.getState().setSessionId(newSessionId);
+      useCartStore.getState().setCartDocumentId(null);
 
       (async () => {
         try {
           const cart = await fetchCart({ sessionId: newSessionId });
           if (cart?.documentId && cart.items?.length) {
             const resolved = await resolveCartItems(cart.items);
-            store.replaceCart(cart.documentId, resolved);
-          } else if (store.items.length > 0) {
-            const resp = await createCart({ sessionId: newSessionId, items: store.items });
+            useCartStore.getState().replaceCart(cart.documentId, resolved);
+          } else if (useCartStore.getState().items.length > 0) {
+            const resp = await createCart({ sessionId: newSessionId, items: useCartStore.getState().items });
             if (resp.data?.documentId) {
-              store.setCartDocumentId(resp.data.documentId);
+              useCartStore.getState().setCartDocumentId(resp.data.documentId);
             }
           }
         } catch { /* ignore */ }
       })();
     }
-  }, [userDocumentId, store, hydrate]);
+  }, [userDocumentId, hydrate]);
 
   // Subscribe to store changes for debounced sync
   useEffect(() => {
