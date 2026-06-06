@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
     }
 
     const data = await response.json();
-    const results: SubdistrictResult[] = Array.isArray(data) ? data : (data.data ?? []);
+    const results: SubdistrictResult[] = data.subdistricts ?? data.data ?? (Array.isArray(data) ? data : []);
 
     return NextResponse.json(results);
   } catch (error) {

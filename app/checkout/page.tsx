@@ -15,7 +15,6 @@ import type { ShippingOption } from "@/lib/shipping";
 import { toast } from "sonner";
 
 const TAX_RATE = 0.11;
-const FREE_SHIPPING_THRESHOLD = 200000;
 
 export default function CheckoutPage() {
   const { items, getTotal, getTotalWeight, clearCart } = useCartStore();
@@ -38,14 +37,24 @@ export default function CheckoutPage() {
   } | null>(null);
 
   const [selectedCourier, setSelectedCourier] = useState<ShippingOption | null>(null);
-  const [shippingCost, setShippingCost] = useState(0);
 
   const subtotal = useMemo(() => getTotal(), [getTotal]);
   const tax = Math.round(subtotal * TAX_RATE);
-  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : shippingCost;
+  const shipping = selectedCourier?.price ?? 0;
   const total = subtotal + tax + shipping;
   const totalWeight = useMemo(() => getTotalWeight(), [getTotalWeight]);
   const dimensions = getDimensionsByWeight(totalWeight);
+
+  const canSubmit = useMemo(() => {
+    if (!isAuthenticated) return false;
+    if (!shippingAddress.firstName.trim()) return false;
+    if (!shippingAddress.lastName.trim()) return false;
+    if (!shippingAddress.phone.trim()) return false;
+    if (!shippingAddress.addressLine1.trim()) return false;
+    if (!selectedSubdistrict?.id) return false;
+    if (!selectedCourier) return false;
+    return true;
+  }, [isAuthenticated, shippingAddress, selectedSubdistrict, selectedCourier]);
 
   useEffect(() => {
     if (!items.length) {
@@ -65,7 +74,12 @@ export default function CheckoutPage() {
       return;
     }
 
-    if (!selectedCourier && subtotal < FREE_SHIPPING_THRESHOLD) {
+    if (!selectedSubdistrict?.id) {
+      toast.error("Silakan pilih kecamatan atau kelurahan");
+      return;
+    }
+
+    if (!selectedCourier) {
       toast.error("Silakan pilih kurir pengiriman");
       return;
     }
@@ -150,11 +164,11 @@ export default function CheckoutPage() {
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-5">
-            <Card>
+            <Card className="overflow-visible">
               <CardHeader className="pb-3">
                 <CardTitle className="text-sm font-semibold">Alamat Pengiriman</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 overflow-visible">
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1.5">
                     <Label className="text-xs">Nama Depan</Label>
@@ -177,7 +191,6 @@ export default function CheckoutPage() {
                   onSelect={(subdistrict) => {
                     setSelectedSubdistrict(subdistrict.id ? subdistrict : null);
                     setSelectedCourier(null);
-                    setShippingCost(0);
                   }}
                 />
               </CardContent>
@@ -191,13 +204,13 @@ export default function CheckoutPage() {
                 <CardContent>
                   <ShippingOptions
                     destinationId={selectedSubdistrict.id}
+                    destinationTitle={selectedSubdistrict.title}
                     weight={totalWeight}
                     length={dimensions.length}
                     width={dimensions.width}
                     height={dimensions.height}
                     onSelect={(option) => {
                       setSelectedCourier(option);
-                      setShippingCost(option?.price ?? 0);
                     }}
                   />
                 </CardContent>
@@ -222,11 +235,11 @@ export default function CheckoutPage() {
               items={items}
               subtotal={subtotal}
               tax={tax}
-              shipping={shipping}
+              selectedCourier={selectedCourier}
               total={total}
-              shippingMethod={selectedCourier?.name}
               isSubmitting={isSubmitting}
               isAuthenticated={isAuthenticated}
+              canSubmit={canSubmit}
             />
           </div>
         </div>

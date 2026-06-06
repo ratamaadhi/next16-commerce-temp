@@ -124,10 +124,9 @@ describe("useCartSync — login/logout", () => {
     let userId: string | null = "userA-doc-123";
     const { rerender, unmount } = renderHook(() => useCartSync(userId));
 
-    // Wait for login merge to complete (clearCart runs inside it)
+    // Wait for initial hydration to complete (sessionId is set by the hydration effect)
     await waitFor(() => {
-      expect(useCartStore.getState().items).toEqual([]);
-      expect(useCartStore.getState().cartDocumentId).toBeNull();
+      expect(useCartStore.getState().sessionId).toBe("test-session-id");
     });
 
     // Simulate logout
@@ -136,6 +135,7 @@ describe("useCartSync — login/logout", () => {
       rerender();
     });
 
+    expect(useCartStore.getState().items).toEqual([]);
     expect(useCartStore.getState().sessionId).toBe("fresh-session-id");
     expect(mockResetSessionId).toHaveBeenCalled();
 

@@ -7,8 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ProductImage } from "@/components/products/product-image";
 import { ShieldCheck, Truck, Package } from "lucide-react";
 import { formatPrice } from "@/lib/strapi";
-
-const FREE_SHIPPING_THRESHOLD = 200000;
+import type { ShippingOption } from "@/lib/shipping";
 
 interface OrderSummaryItem {
   productId: number;
@@ -24,17 +23,14 @@ interface OrderSummaryProps {
   items: OrderSummaryItem[];
   subtotal: number;
   tax: number;
-  shipping: number;
-  shippingMethod?: string;
+  selectedCourier?: ShippingOption | null;
   total: number;
   isSubmitting?: boolean;
   isAuthenticated?: boolean;
+  canSubmit?: boolean;
 }
 
-export function OrderSummary({ items, subtotal, tax, shipping, shippingMethod, total, isSubmitting, isAuthenticated }: OrderSummaryProps) {
-  const remaining = FREE_SHIPPING_THRESHOLD - subtotal;
-  const progressPct = Math.min((subtotal / FREE_SHIPPING_THRESHOLD) * 100, 100);
-
+export function OrderSummary({ items, subtotal, tax, selectedCourier, total, isSubmitting, isAuthenticated, canSubmit }: OrderSummaryProps) {
   return (
     <div className="lg:sticky lg:top-24 lg:self-start">
       <Card>
@@ -101,36 +97,21 @@ export function OrderSummary({ items, subtotal, tax, shipping, shippingMethod, t
               <span>{formatPrice(subtotal)}</span>
             </div>
 
-            <div className="flex justify-between text-xs">
-              <span className="text-muted-foreground flex items-center gap-1">
+            <div className="flex justify-between items-start text-xs gap-2">
+              <div className="flex items-center gap-1 text-muted-foreground shrink-0">
                 <Truck className="size-3" />
                 Ongkir
-                {shippingMethod && shipping > 0 && (
-                  <span className="text-[10px]">({shippingMethod})</span>
-                )}
-              </span>
-              {shipping === 0 ? (
-                <span className="text-green-600 text-[10px] font-medium flex items-center gap-0.5">
-                  GRATIS
-                </span>
+              </div>
+              {selectedCourier ? (
+                <div className="text-right">
+                  <p className="font-medium">{selectedCourier.name}</p>
+                  <p className="text-[10px] text-muted-foreground">{selectedCourier.etdNamed}</p>
+                  <p className="font-semibold tabular-nums">{formatPrice(selectedCourier.price)}</p>
+                </div>
               ) : (
-                <span>{formatPrice(shipping)}</span>
+                <span className="text-muted-foreground italic">Pilih kurir</span>
               )}
             </div>
-
-            {shipping > 0 && (
-              <div className="space-y-1">
-                <div className="relative h-1.5 w-full rounded-full bg-muted overflow-hidden">
-                  <div
-                    className="absolute inset-y-0 left-0 rounded-full bg-primary transition-all"
-                    style={{ width: `${progressPct}%` }}
-                  />
-                </div>
-                <p className="text-[10px] text-muted-foreground">
-                  Gratis ongkir untuk belanja {formatPrice(remaining)} lagi
-                </p>
-              </div>
-            )}
 
             <div className="flex justify-between text-xs">
               <span className="text-muted-foreground">Pajak (11%)</span>
@@ -152,7 +133,7 @@ export function OrderSummary({ items, subtotal, tax, shipping, shippingMethod, t
               type="submit"
               className="w-full"
               size="default"
-              disabled={isSubmitting || !isAuthenticated}
+              disabled={isSubmitting || !canSubmit}
             >
               {isSubmitting ? "Memproses..." : "Buat Pesanan"}
             </Button>

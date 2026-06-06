@@ -1,14 +1,22 @@
 export interface SubdistrictResult {
   id: number;
   name: string;
-  city?: string;
-  province?: string;
+  sub_district_name: string;
+  city_name?: string;
+  province_name?: string;
+  district_name?: string;
+  postal_code?: string;
 }
 
 export interface ShippingOption {
+  service: string;
   name: string;
   price: number;
-  etd?: string;
+  etd: string;
+  etdNamed: string;
+  imageUrl?: string;
+  cod: boolean;
+  group: string;
 }
 
 export function getDimensionsByWeight(totalWeightGrams: number): {
