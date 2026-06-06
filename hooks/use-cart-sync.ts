@@ -14,12 +14,13 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export function useCartSync(userDocumentId?: string | number | null) {
+export function useCartSync(userDocumentId?: string | number | null, isAuthLoading = false) {
   const syncingRef = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const retryRef = useRef(0);
   const initializedRef = useRef(false);
   const prevUserDocRef = useRef<string | number | null | undefined>(undefined);
+  const prevIsAuthLoadingRef = useRef(isAuthLoading);
   const userDocIdRef = useRef(userDocumentId);
   userDocIdRef.current = userDocumentId;
 
@@ -86,42 +87,58 @@ export function useCartSync(userDocumentId?: string | number | null) {
     }
   }, []);
 
-  const hydrate = useCallback(async () => {
+  // Initial hydration — waits for auth state to be known, then fetches the right cart
+  // (by userDocumentId if logged in, by sessionId if guest) so only one API call is made.
+  useEffect(() => {
+    if (isAuthLoading) return;
+    if (initializedRef.current) return;
+    initializedRef.current = true;
+
     const sessionId = getOrCreateSessionId();
     useCartStore.getState().setSessionId(sessionId);
 
-    try {
-      const cart = await fetchCart({ sessionId });
-      if (cart?.documentId && cart.items?.length) {
-        const resolved = await resolveCartItems(cart.items);
-        useCartStore.getState().replaceCart(cart.documentId, resolved);
+    (async () => {
+      try {
+        if (userDocumentId) {
+          const serverCart = await fetchCart({ userDocumentId });
+          if (serverCart?.documentId && serverCart.items?.length) {
+            const resolved = await resolveCartItems(serverCart.items);
+            useCartStore.getState().replaceCart(serverCart.documentId, resolved);
+          }
+        } else {
+          const cart = await fetchCart({ sessionId });
+          if (cart?.documentId && cart.items?.length) {
+            const resolved = await resolveCartItems(cart.items);
+            useCartStore.getState().replaceCart(cart.documentId, resolved);
+          }
+        }
+      } catch {
+        // No cart found or error — start fresh
       }
-    } catch {
-      // No cart found or error — start fresh
-    }
-  }, []);
+    })();
+  }, [isAuthLoading, userDocumentId]);
 
-  // Initial hydration
+  // React to login/logout transitions during an active session
   useEffect(() => {
-    if (!initializedRef.current) {
-      initializedRef.current = true;
-      hydrate();
-    }
-  }, [hydrate]);
+    const wasAuthLoading = prevIsAuthLoadingRef.current;
+    prevIsAuthLoadingRef.current = isAuthLoading;
 
-  // React to login/logout
-  useEffect(() => {
     const prev = prevUserDocRef.current;
     prevUserDocRef.current = userDocumentId ?? null;
 
+    // Skip on initial mount — hydration effect handles the first fetch
+    if (prev === undefined) return;
     if (!initializedRef.current) return;
 
     if (userDocumentId && userDocumentId !== prev) {
-      // Login — merge
+      // Skip when auth just finished loading on page refresh — hydration effect already
+      // fetched the user's cart directly, no merge needed
+      if (wasAuthLoading) return;
+
+      // Actual login during session — merge guest cart with user cart
       (async () => {
         const sessionId = useCartStore.getState().sessionId;
 
-        // Fetch guest cart before clearing local state
         const guestCartData = sessionId
           ? await fetchCart({ sessionId }).catch(() => null)
           : null;
@@ -131,11 +148,10 @@ export function useCartSync(userDocumentId?: string | number | null) {
           const serverCart = await fetchCart({ userDocumentId });
 
           if (serverCart?.documentId && serverCart.items?.length) {
-            // User has existing cart — merge with guest items
             const resolved = await resolveCartItems(serverCart.items);
             let finalItems = resolved;
 
-            if (guestCartData?.items?.length) {
+            if (guestCartData?.items?.length && guestCartData.documentId !== serverCart.documentId) {
               const guestResolved = await resolveCartItems(guestCartData.items);
               for (const guestItem of guestResolved) {
                 const existingIndex = finalItems.findIndex(
@@ -154,7 +170,6 @@ export function useCartSync(userDocumentId?: string | number | null) {
 
             useCartStore.getState().replaceCart(serverCart.documentId, finalItems);
           } else if (guestCartData?.items?.length) {
-            // No server cart — transfer guest items to user
             const resolved = await resolveCartItems(guestCartData.items);
             if (resolved.length > 0) {
               const resp = await createCart({ userDocumentId, items: resolved });
@@ -165,7 +180,6 @@ export function useCartSync(userDocumentId?: string | number | null) {
             }
           }
 
-          // Clean up guest session cart
           if (guestCartData?.documentId) {
             await deleteCart(guestCartData.documentId).catch(() => {});
           }
@@ -176,13 +190,13 @@ export function useCartSync(userDocumentId?: string | number | null) {
           }
         }
       })();
-    } else if (userDocumentId === null && prev !== null && prev !== undefined) {
-      // Logout — switch to guest
+    } else if (userDocumentId === null && prev !== null) {
+      // Logout — switch to guest session
       const newSessionId = resetSessionId();
       useCartStore.getState().setSessionId(newSessionId);
       useCartStore.getState().clearCart();
     }
-  }, [userDocumentId, hydrate]);
+  }, [userDocumentId, isAuthLoading]);
 
   // Subscribe to store changes for debounced sync
   useEffect(() => {
