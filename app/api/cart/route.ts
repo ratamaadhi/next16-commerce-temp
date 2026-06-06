@@ -23,10 +23,10 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify(body),
     });
 
-    const data = await response.json();
+    const data = await response.json().catch(() => null);
 
     if (!response.ok) {
-      return NextResponse.json({ error: data }, { status: response.status });
+      return NextResponse.json({ error: data || response.statusText }, { status: response.status });
     }
 
     return NextResponse.json(data, { status: 201 });

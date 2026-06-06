@@ -4,6 +4,7 @@ import {
   getSessionId,
   setSessionId,
   getOrCreateSessionId,
+  resetSessionId,
 } from "../cart-session";
 
 const SESSION_COOKIE = "cart-session";
@@ -61,6 +62,19 @@ describe("cart-session", () => {
       expect(id).toBeTruthy();
       expect(document.cookie).toContain(`${SESSION_COOKIE}=${id}`);
       expect(getSessionId()).toBe(id);
+    });
+  });
+
+  describe("resetSessionId", () => {
+    it("generates a new session id and overwrites the cookie", () => {
+      setSessionId("old-session-id");
+      expect(getSessionId()).toBe("old-session-id");
+
+      const newId = resetSessionId();
+
+      expect(newId).not.toBe("old-session-id");
+      expect(document.cookie).toContain(`${SESSION_COOKIE}=${newId}`);
+      expect(getSessionId()).toBe(newId);
     });
   });
 });

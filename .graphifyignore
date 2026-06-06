@@ -1,6 +1,8 @@
 # .graphifyignore
 node_modules/
 dist/
+.next/
+.worktrees/
 *.generated.py
 
 # only index src/, ignore everything else

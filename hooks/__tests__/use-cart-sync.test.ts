@@ -10,6 +10,7 @@ vi.mock("../use-cart", async () => {
 
 vi.mock("@/lib/cart-session", () => ({
   getOrCreateSessionId: vi.fn(),
+  resetSessionId: vi.fn(),
 }));
 
 vi.mock("@/lib/cart-sync", () => ({
@@ -21,6 +22,7 @@ vi.mock("@/lib/cart-sync", () => ({
 }));
 
 const mockGetOrCreateSessionId = vi.fn();
+const mockResetSessionId = vi.fn();
 const mockFetchCart = vi.fn();
 const mockCreateCart = vi.fn();
 const mockUpdateCart = vi.fn();
@@ -30,6 +32,7 @@ const mockResolveCartItems = vi.fn();
 beforeEach(() => {
   vi.clearAllMocks();
   vi.mocked(mockGetOrCreateSessionId).mockReturnValue("test-session-id");
+  vi.mocked(mockResetSessionId).mockReturnValue("fresh-session-id");
 
   useCartStore.setState({
     items: [],
@@ -42,6 +45,7 @@ async function setupCartSync(userDocumentId?: string | null) {
   const mod = await import("@/lib/cart-session");
   const sync = await import("@/lib/cart-sync");
   vi.mocked(mod.getOrCreateSessionId).mockImplementation(mockGetOrCreateSessionId);
+  vi.mocked(mod.resetSessionId).mockImplementation(mockResetSessionId);
   vi.mocked(sync.fetchCart).mockImplementation(mockFetchCart);
   vi.mocked(sync.createCart).mockImplementation(mockCreateCart);
   vi.mocked(sync.updateCart).mockImplementation(mockUpdateCart);
@@ -53,10 +57,9 @@ async function setupCartSync(userDocumentId?: string | null) {
 
 describe("useCartSync — initialization", () => {
   it("sets sessionId from cookie on mount", async () => {
-    await act(async () => {
-      await setupCartSync();
-    });
+    const { unmount } = await act(async () => await setupCartSync());
     expect(useCartStore.getState().sessionId).toBe("test-session-id");
+    unmount();
   });
 
   it("hydrates from Strapi when cart exists for sessionId", async () => {
@@ -72,25 +75,70 @@ describe("useCartSync — initialization", () => {
     mockFetchCart.mockResolvedValueOnce(serverCart);
     mockResolveCartItems.mockResolvedValueOnce(resolvedItems);
 
-    await act(async () => {
-      await setupCartSync();
-    });
+    const { unmount } = await act(async () => await setupCartSync());
 
     await waitFor(() => {
       expect(useCartStore.getState().cartDocumentId).toBe("server-cart-doc");
       expect(useCartStore.getState().items).toEqual(resolvedItems);
     });
+
+    unmount();
   });
 
   it("sets empty state when no cart found in Strapi", async () => {
     mockFetchCart.mockResolvedValueOnce(null);
 
-    await act(async () => {
-      await setupCartSync();
-    });
+    const { unmount } = await act(async () => await setupCartSync());
 
     await waitFor(() => {
       expect(useCartStore.getState().cartDocumentId).toBeNull();
+      expect(useCartStore.getState().items).toEqual([]);
     });
+
+    unmount();
+  });
+});
+
+describe("useCartSync — login/logout", () => {
+  it("clears cart on logout to prevent cross-account data leak", async () => {
+    useCartStore.setState({
+      items: [
+        { productId: 1, name: "Product A", price: 100, quantity: 1 },
+      ],
+      sessionId: "userA-session",
+      cartDocumentId: "cart-userA",
+    });
+
+    mockFetchCart.mockResolvedValue(null);
+
+    const mod = await import("@/lib/cart-session");
+    const sync = await import("@/lib/cart-sync");
+    vi.mocked(mod.getOrCreateSessionId).mockImplementation(mockGetOrCreateSessionId);
+    vi.mocked(mod.resetSessionId).mockImplementation(mockResetSessionId);
+    vi.mocked(sync.fetchCart).mockImplementation(mockFetchCart);
+    vi.mocked(sync.createCart).mockImplementation(mockCreateCart);
+    vi.mocked(sync.deleteCart).mockImplementation(mockDeleteCart);
+    vi.mocked(sync.updateCart).mockImplementation(mockUpdateCart);
+    vi.mocked(sync.resolveCartItems).mockImplementation(mockResolveCartItems);
+
+    let userId: string | null = "userA-doc-123";
+    const { rerender, unmount } = renderHook(() => useCartSync(userId));
+
+    // Wait for login merge to complete (clearCart runs inside it)
+    await waitFor(() => {
+      expect(useCartStore.getState().items).toEqual([]);
+      expect(useCartStore.getState().cartDocumentId).toBeNull();
+    });
+
+    // Simulate logout
+    userId = null;
+    await act(async () => {
+      rerender();
+    });
+
+    expect(useCartStore.getState().sessionId).toBe("fresh-session-id");
+    expect(mockResetSessionId).toHaveBeenCalled();
+
+    unmount();
   });
 });

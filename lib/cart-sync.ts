@@ -9,7 +9,7 @@ type ProductCartItemComponent = components["schemas"]["ProductCartItemComponent"
 
 export interface FetchCartParams {
   sessionId?: string;
-  userDocumentId?: string;
+  userDocumentId?: string | number;
 }
 
 function mapItems(items: CartItem[]): Array<{ variantId: string; quantity: string }> {
@@ -19,16 +19,13 @@ function mapItems(items: CartItem[]): Array<{ variantId: string; quantity: strin
   });
 }
 
-export async function fetchCart(
-  params: FetchCartParams,
-  token?: string,
-): Promise<Cart | null> {
+export async function fetchCart(params: FetchCartParams, token?: string): Promise<Cart | null> {
   const filters: Record<string, unknown> = {};
   if (params.sessionId) {
     filters["sessionId"] = { $eq: params.sessionId };
   }
   if (params.userDocumentId) {
-    filters["users_permissions_user"] = { documentId: { $eq: params.userDocumentId } };
+    filters["userDocumentId"] = { $eq: params.userDocumentId };
   }
   try {
     const response = await strapiFetch<CartListResponse>(
@@ -47,14 +44,14 @@ export async function fetchCart(
 export async function createCart(
   data: {
     sessionId?: string;
-    userDocumentId?: string;
+    userDocumentId?: string | number;
     items: CartItem[];
   },
   _token?: string,
 ): Promise<CartResponse> {
   const body: Record<string, unknown> = {};
   if (data.sessionId) body.sessionId = data.sessionId;
-  if (data.userDocumentId) body.users_permissions_user = data.userDocumentId;
+  if (data.userDocumentId) body.userDocumentId = data.userDocumentId;
   body.items = mapItems(data.items);
 
   const res = await fetch("/api/cart", {
@@ -79,14 +76,14 @@ export async function updateCart(
   documentId: string,
   data: {
     sessionId?: string;
-    userDocumentId?: string;
+    userDocumentId?: string | number;
     items?: CartItem[];
   },
   _token?: string,
 ): Promise<CartResponse> {
   const body: Record<string, unknown> = {};
   if (data.sessionId) body.sessionId = data.sessionId;
-  if (data.userDocumentId) body.users_permissions_user = data.userDocumentId;
+  if (data.userDocumentId) body.userDocumentId = data.userDocumentId;
   if (data.items) body.items = mapItems(data.items);
 
   const res = await fetch(`/api/cart/${documentId}`, {
@@ -107,10 +104,7 @@ export async function updateCart(
   return res.json();
 }
 
-export async function deleteCart(
-  documentId: string,
-  _token?: string,
-): Promise<number> {
+export async function deleteCart(documentId: string, _token?: string): Promise<{ ok: true }> {
   const res = await fetch(`/api/cart/${documentId}`, {
     method: "DELETE",
   });

@@ -18,6 +18,7 @@ export default function CheckoutPage() {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const [shippingAddress, setShippingAddress] = useState({
     firstName: "",
@@ -55,6 +56,7 @@ export default function CheckoutPage() {
     }
 
     setIsSubmitting(true);
+    setError(null);
 
     try {
       const response = await fetch("/api/orders", {
@@ -63,7 +65,7 @@ export default function CheckoutPage() {
         body: JSON.stringify({
           items: items.map((item) => ({
             productName: item.name,
-            quantity: item.quantity,
+            quantity: String(item.quantity),
             unitPrice: item.price,
             totalPrice: item.price * item.quantity,
             variantInfo: item.variantName,
@@ -79,13 +81,24 @@ export default function CheckoutPage() {
         }),
       });
 
-      if (!response.ok) throw new Error("Gagal membuat pesanan");
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        const message =
+          errorData?.error?.error?.error?.message ||
+          errorData?.error?.error?.message ||
+          errorData?.error?.message ||
+          "Gagal membuat pesanan";
+        console.error("Checkout error response:", errorData);
+        setError(message);
+        return;
+      }
 
       const order = await response.json();
       clearCart();
       router.push(`/orders/${order.data.orderNumber}`);
-    } catch (error) {
-      console.error("Checkout error:", error);
+    } catch (err) {
+      console.error("Checkout error:", err);
+      setError("Terjadi kesalahan, silakan coba lagi.");
     } finally {
       setIsSubmitting(false);
     }
@@ -151,6 +164,9 @@ export default function CheckoutPage() {
           </div>
 
           <div className="lg:col-span-1">
+            {error && (
+              <p className="text-sm text-red-500 bg-red-50 rounded-md px-3 py-2 mb-3">{error}</p>
+            )}
             <OrderSummary
               items={items}
               subtotal={subtotal}

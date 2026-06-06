@@ -5,7 +5,7 @@ const STRAPI_URL = process.env.STRAPI_URL!;
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: Promise<{ documentId: string }> }
+  { params }: { params: Promise<{ documentId: string }> },
 ) {
   try {
     const { documentId } = await params;
@@ -27,24 +27,21 @@ export async function PUT(
       body: JSON.stringify(body),
     });
 
-    const data = await response.json();
+    const data = await response.json().catch(() => null);
 
     if (!response.ok) {
-      return NextResponse.json({ error: data }, { status: response.status });
+      return NextResponse.json({ error: data || response.statusText }, { status: response.status });
     }
 
     return NextResponse.json(data);
   } catch {
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
 export async function DELETE(
   _req: NextRequest,
-  { params }: { params: Promise<{ documentId: string }> }
+  { params }: { params: Promise<{ documentId: string }> },
 ) {
   try {
     const { documentId } = await params;
@@ -62,16 +59,13 @@ export async function DELETE(
     });
 
     if (!response.ok) {
-      const data = await response.json();
-      return NextResponse.json({ error: data }, { status: response.status });
+      const data = await response.json().catch(() => null);
+      return NextResponse.json({ error: data || response.statusText }, { status: response.status });
     }
 
-    const data = await response.json();
-    return NextResponse.json(data);
+    const data = await response.json().catch(() => null);
+    return NextResponse.json(data ?? { ok: true });
   } catch {
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

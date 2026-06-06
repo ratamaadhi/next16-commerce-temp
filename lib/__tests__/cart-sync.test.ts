@@ -50,7 +50,7 @@ describe("fetchCart", () => {
     const result = await fetchCart({ userDocumentId: "user-xyz" });
     expect(result).toEqual(mockCart);
     expect(mockStrapiFetch.mock.calls[0][1]).toMatchObject({
-      filters: { users_permissions_user: { documentId: { $eq: "user-xyz" } } },
+      filters: { userDocumentId: { $eq: "user-xyz" } },
     });
   });
 
@@ -133,13 +133,13 @@ describe("createCart", () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        data: {
-          users_permissions_user: "user-abc",
-          items: [],
-        },
-      }),
-    });
-  });
+         data: {
+           userDocumentId: "user-abc",
+           items: [],
+         },
+       }),
+     });
+   });
 
   it("throws when API proxy returns error", async () => {
     mockFetch.mockResolvedValueOnce({
@@ -190,13 +190,13 @@ describe("updateCart", () => {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        data: {
-          users_permissions_user: "user-1",
-          items: [],
-        },
-      }),
-    });
-  });
+         data: {
+           userDocumentId: "user-1",
+           items: [],
+         },
+       }),
+     });
+   });
 
   it("throws when API proxy returns error", async () => {
     mockFetch.mockResolvedValueOnce({

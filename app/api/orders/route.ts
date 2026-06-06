@@ -12,11 +12,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const userRes = await fetch(`${STRAPI_URL}/api/users/me`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const userData = await userRes.json();
-
     const body = await req.json();
 
     const orderNumber = `ORD-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
@@ -39,7 +34,6 @@ export async function POST(req: NextRequest) {
           totalAmount: body.totalAmount,
           currency: body.currency || "IDR",
           notes: body.notes,
-          user: userData.id,
           items: body.items,
           shippingAddress: body.shippingAddress,
           billingAddress: body.billingAddress,

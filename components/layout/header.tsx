@@ -54,10 +54,8 @@ export function Header() {
 
           {isAuthenticated ? (
             <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Button variant="ghost" size="icon">
-                  <User className="h-5 w-5" />
-                </Button>
+              <DropdownMenuTrigger className={buttonVariants({ variant: "ghost", size: "icon" })}>
+                <User className="h-5 w-5" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-44">
                 <DropdownMenuItem onClick={() => router.push("/account")}>

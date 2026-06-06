@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useCallback } from "react";
 import { useCartStore } from "./use-cart";
-import { getOrCreateSessionId } from "@/lib/cart-session";
+import { getOrCreateSessionId, resetSessionId } from "@/lib/cart-session";
 import { fetchCart, createCart, updateCart, deleteCart, resolveCartItems } from "@/lib/cart-sync";
+import { StrapiError } from "@/lib/strapi";
 import { toast } from "sonner";
 
 const DEBOUNCE_MS = 500;
@@ -13,12 +14,14 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export function useCartSync(userDocumentId?: string | null) {
+export function useCartSync(userDocumentId?: string | number | null) {
   const syncingRef = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const retryRef = useRef(0);
   const initializedRef = useRef(false);
   const prevUserDocRef = useRef<string | null | undefined>(undefined);
+  const userDocIdRef = useRef(userDocumentId);
+  userDocIdRef.current = userDocumentId;
 
   const syncToStrapi = useCallback(async () => {
     if (syncingRef.current) return;
@@ -28,10 +31,17 @@ export function useCartSync(userDocumentId?: string | null) {
       for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
         try {
           const { items, cartDocumentId, sessionId } = useCartStore.getState();
+          const uid = userDocIdRef.current;
+
+          if (!items) return;
 
           if (!cartDocumentId) {
             if (items.length === 0) return;
-            const response = await createCart({ sessionId: sessionId ?? undefined, items });
+            const response = await createCart({
+              sessionId: sessionId ?? undefined,
+              userDocumentId: uid ?? undefined,
+              items,
+            });
             if (response.data?.documentId) {
               useCartStore.getState().setCartDocumentId(response.data.documentId);
             }
@@ -39,11 +49,28 @@ export function useCartSync(userDocumentId?: string | null) {
             await deleteCart(cartDocumentId);
             useCartStore.getState().setCartDocumentId(null);
           } else {
-            await updateCart(cartDocumentId, { sessionId: sessionId ?? undefined, items });
+            try {
+              await updateCart(cartDocumentId, { sessionId: sessionId ?? undefined, items });
+            } catch (err) {
+              if (err instanceof StrapiError && err.status === 404) {
+                useCartStore.getState().setCartDocumentId(null);
+                const response = await createCart({
+                  sessionId: sessionId ?? undefined,
+                  userDocumentId: uid ?? undefined,
+                  items,
+                });
+                if (response.data?.documentId) {
+                  useCartStore.getState().setCartDocumentId(response.data.documentId);
+                }
+              } else {
+                throw err;
+              }
+            }
           }
           retryRef.current = 0;
           return;
-        } catch {
+        } catch (err) {
+          console.error(`[cart-sync] attempt ${attempt + 1} failed:`, err);
           retryRef.current = attempt + 1;
           if (attempt < MAX_RETRIES) {
             toast.error("Gagal sync keranjang, mencoba lagi...");
@@ -93,53 +120,67 @@ export function useCartSync(userDocumentId?: string | null) {
       // Login — merge
       (async () => {
         const sessionId = useCartStore.getState().sessionId;
+
+        // Fetch guest cart before clearing local state
+        const guestCartData = sessionId
+          ? await fetchCart({ sessionId }).catch(() => null)
+          : null;
+
         try {
+          useCartStore.getState().clearCart();
           const serverCart = await fetchCart({ userDocumentId });
+
           if (serverCart?.documentId && serverCart.items?.length) {
+            // User has existing cart — merge with guest items
             const resolved = await resolveCartItems(serverCart.items);
-            useCartStore.getState().mergeCart(serverCart.documentId, resolved);
-          } else {
-            // No server cart — push current cart with user ownership
-            if (useCartStore.getState().items.length > 0) {
-              const resp = await createCart({ userDocumentId, items: useCartStore.getState().items });
+            let finalItems = resolved;
+
+            if (guestCartData?.items?.length) {
+              const guestResolved = await resolveCartItems(guestCartData.items);
+              for (const guestItem of guestResolved) {
+                const existingIndex = finalItems.findIndex(
+                  (i) => i.productId === guestItem.productId && i.variantId === guestItem.variantId,
+                );
+                if (existingIndex > -1) {
+                  finalItems[existingIndex] = {
+                    ...finalItems[existingIndex],
+                    quantity: finalItems[existingIndex].quantity + guestItem.quantity,
+                  };
+                } else {
+                  finalItems.push({ ...guestItem });
+                }
+              }
+            }
+
+            useCartStore.getState().replaceCart(serverCart.documentId, finalItems);
+          } else if (guestCartData?.items?.length) {
+            // No server cart — transfer guest items to user
+            const resolved = await resolveCartItems(guestCartData.items);
+            if (resolved.length > 0) {
+              const resp = await createCart({ userDocumentId, items: resolved });
               if (resp.data?.documentId) {
                 useCartStore.getState().setCartDocumentId(resp.data.documentId);
+                useCartStore.getState().setItems(resolved);
               }
             }
           }
+
           // Clean up guest session cart
-          if (sessionId) {
-            try {
-              const guestCart = await fetchCart({ sessionId });
-              if (guestCart?.documentId) {
-                await deleteCart(guestCart.documentId);
-              }
-            } catch { /* ignore cleanup failure */ }
+          if (guestCartData?.documentId) {
+            await deleteCart(guestCartData.documentId).catch(() => {});
           }
         } catch {
-          // Fallback: keep current state
+          if (guestCartData?.items?.length) {
+            const resolved = await resolveCartItems(guestCartData.items);
+            useCartStore.getState().setItems(resolved);
+          }
         }
       })();
     } else if (userDocumentId === null && prev !== null && prev !== undefined) {
       // Logout — switch to guest
-      const newSessionId = getOrCreateSessionId();
+      const newSessionId = resetSessionId();
       useCartStore.getState().setSessionId(newSessionId);
-      useCartStore.getState().setCartDocumentId(null);
-
-      (async () => {
-        try {
-          const cart = await fetchCart({ sessionId: newSessionId });
-          if (cart?.documentId && cart.items?.length) {
-            const resolved = await resolveCartItems(cart.items);
-            useCartStore.getState().replaceCart(cart.documentId, resolved);
-          } else if (useCartStore.getState().items.length > 0) {
-            const resp = await createCart({ sessionId: newSessionId, items: useCartStore.getState().items });
-            if (resp.data?.documentId) {
-              useCartStore.getState().setCartDocumentId(resp.data.documentId);
-            }
-          }
-        } catch { /* ignore */ }
-      })();
+      useCartStore.getState().clearCart();
     }
   }, [userDocumentId, hydrate]);
 
