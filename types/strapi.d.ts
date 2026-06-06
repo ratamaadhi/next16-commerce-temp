@@ -2270,8 +2270,6 @@ export interface components {
           /** @example 123456789 */
           inventory?: string;
           lowStockThreshold?: number;
-          /** Format: float */
-          weight?: number;
           images?: {
             id?: string | number;
             documentId?: string;
@@ -2514,6 +2512,7 @@ export interface components {
           }[];
           variants?: components["schemas"]["ProductProductVariantComponent"][];
           specifications?: components["schemas"]["ProductSpecificationComponent"][];
+          dimensions?: components["schemas"]["ProductDimensionsComponent"];
           /** Format: date-time */
           createdAt?: string;
           /** Format: date-time */
@@ -2610,6 +2609,17 @@ export interface components {
       postalCode?: string;
       country?: string;
     };
+    ProductDimensionsComponent: {
+      id?: string | number;
+      /** Format: float */
+      length?: number;
+      /** Format: float */
+      width?: number;
+      /** Format: float */
+      height?: number;
+      /** Format: float */
+      weight?: number;
+    };
     ProductProductVariantComponent: {
       id?: string | number;
       name?: string;
@@ -2619,6 +2629,7 @@ export interface components {
       /** @example 123456789 */
       inventory?: string;
       attributes?: unknown;
+      dimensions?: components["schemas"]["ProductDimensionsComponent"];
     };
     ProductSpecificationComponent: {
       id?: string | number;
@@ -3019,8 +3030,6 @@ export interface components {
             /** @example 123456789 */
             inventory?: string;
             lowStockThreshold?: number;
-            /** Format: float */
-            weight?: number;
             images?: {
               id?: string | number;
               documentId?: string;
@@ -3242,6 +3251,7 @@ export interface components {
             }[];
             variants?: components["schemas"]["ProductProductVariantComponent"][];
             specifications?: components["schemas"]["ProductSpecificationComponent"][];
+            dimensions?: components["schemas"]["ProductDimensionsComponent"];
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -3348,14 +3358,13 @@ export interface components {
         /** @example 123456789 */
         inventory?: string;
         lowStockThreshold?: number;
-        /** Format: float */
-        weight?: number;
         images?: (number | string)[];
         featured?: boolean;
         categories?: (number | string)[];
         reviews?: (number | string)[];
         variants?: components["schemas"]["ProductProductVariantComponent"][];
         specifications?: components["schemas"]["ProductSpecificationComponent"][];
+        dimensions: components["schemas"]["ProductDimensionsComponent"];
         locale?: string;
         localizations?: (number | string)[];
       };
@@ -3387,8 +3396,6 @@ export interface components {
       /** @example 123456789 */
       inventory?: string;
       lowStockThreshold?: number;
-      /** Format: float */
-      weight?: number;
       images?: {
         id?: string | number;
         documentId?: string;
@@ -3764,8 +3771,6 @@ export interface components {
           /** @example 123456789 */
           inventory?: string;
           lowStockThreshold?: number;
-          /** Format: float */
-          weight?: number;
           images?: {
             id?: string | number;
             documentId?: string;
@@ -4008,6 +4013,7 @@ export interface components {
           }[];
           variants?: components["schemas"]["ProductProductVariantComponent"][];
           specifications?: components["schemas"]["ProductSpecificationComponent"][];
+          dimensions?: components["schemas"]["ProductDimensionsComponent"];
           /** Format: date-time */
           createdAt?: string;
           /** Format: date-time */
@@ -4054,6 +4060,7 @@ export interface components {
       }[];
       variants?: components["schemas"]["ProductProductVariantComponent"][];
       specifications?: components["schemas"]["ProductSpecificationComponent"][];
+      dimensions: components["schemas"]["ProductDimensionsComponent"];
       /** Format: date-time */
       createdAt?: string;
       /** Format: date-time */
@@ -4134,8 +4141,6 @@ export interface components {
         /** @example 123456789 */
         inventory?: string;
         lowStockThreshold?: number;
-        /** Format: float */
-        weight?: number;
         images?: {
           id?: string | number;
           documentId?: string;
@@ -4708,6 +4713,7 @@ export interface components {
         }[];
         variants?: components["schemas"]["ProductProductVariantComponent"][];
         specifications?: components["schemas"]["ProductSpecificationComponent"][];
+        dimensions?: components["schemas"]["ProductDimensionsComponent"];
         /** Format: date-time */
         createdAt?: string;
         /** Format: date-time */
