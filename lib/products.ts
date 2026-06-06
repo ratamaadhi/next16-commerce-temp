@@ -21,7 +21,12 @@ export interface ProductData {
   description?: string;
   inventory?: number;
   sku?: string;
-  weight?: number;
+  dimensions?: {
+    length?: number;
+    width?: number;
+    height?: number;
+    weight?: number;
+  };
   images?: StrapiImage[];
   featured?: boolean;
   categories?: ProductData[];
