@@ -141,3 +141,26 @@ describe("useCartStore — replaceCart", () => {
     expect(useCartStore.getState().sessionId).toBe("session-keep");
   });
 });
+
+describe("useCartStore — getTotalWeight", () => {
+  it("sums weight * quantity for all items", () => {
+    useCartStore.getState().addItem({
+      productId: 1, name: "A", price: 100, quantity: 2, weight: 300,
+    });
+    useCartStore.getState().addItem({
+      productId: 2, name: "B", price: 100, quantity: 3, weight: 200,
+    });
+    expect(useCartStore.getState().getTotalWeight()).toBe(1200); // 600 + 600
+  });
+
+  it("uses default 500g when weight is undefined", () => {
+    useCartStore.getState().addItem({
+      productId: 1, name: "A", price: 100, quantity: 2,
+    });
+    expect(useCartStore.getState().getTotalWeight()).toBe(1000);
+  });
+
+  it("returns 0 for empty cart", () => {
+    expect(useCartStore.getState().getTotalWeight()).toBe(0);
+  });
+});

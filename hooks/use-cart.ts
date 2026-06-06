@@ -7,6 +7,7 @@ export interface CartItem {
   productId: number;
   name: string;
   price: number;
+  weight?: number;
   quantity: number;
   image?: string;
   variantId?: string;
@@ -27,6 +28,7 @@ interface CartStore {
   clearCart: () => void;
   getTotal: () => number;
   getItemCount: () => number;
+  getTotalWeight: () => number;
 
   // New sync operations
   setSessionId: (id: string | null) => void;
@@ -88,6 +90,9 @@ export const useCartStore = create<CartStore>()(
 
       getItemCount: () =>
         get().items.reduce((sum, i) => sum + i.quantity, 0),
+
+      getTotalWeight: () =>
+        get().items.reduce((sum, i) => sum + (i.weight ?? 500) * i.quantity, 0),
 
       setSessionId: (id) => set({ sessionId: id }),
 
