@@ -10,14 +10,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { OrderSummary } from "@/components/checkout/order-summary";
 import { SubdistrictSearch } from "@/components/checkout/subdistrict-search";
 import { ShippingOptions } from "@/components/checkout/shipping-options";
-import { getDimensionsByWeight } from "@/lib/shipping";
+import { getCartDimensions } from "@/lib/shipping";
 import type { ShippingOption } from "@/lib/shipping";
 import { toast } from "sonner";
 
 const TAX_RATE = 0.11;
 
 export default function CheckoutPage() {
-  const { items, getTotal, getTotalWeight, clearCart } = useCartStore();
+  const { items, getTotal, clearCart } = useCartStore();
   const { isAuthenticated } = useAuth();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -42,8 +42,7 @@ export default function CheckoutPage() {
   const tax = Math.round(subtotal * TAX_RATE);
   const shipping = selectedCourier?.price ?? 0;
   const total = subtotal + tax + shipping;
-  const totalWeight = useMemo(() => getTotalWeight(), [getTotalWeight]);
-  const dimensions = getDimensionsByWeight(totalWeight);
+  const cartDims = useMemo(() => getCartDimensions(items), [items]);
 
   const canSubmit = useMemo(() => {
     if (!isAuthenticated) return false;
@@ -205,10 +204,10 @@ export default function CheckoutPage() {
                   <ShippingOptions
                     destinationId={selectedSubdistrict.id}
                     destinationTitle={selectedSubdistrict.title}
-                    weight={totalWeight}
-                    length={dimensions.length}
-                    width={dimensions.width}
-                    height={dimensions.height}
+                    weight={cartDims.weight}
+                    length={cartDims.length}
+                    width={cartDims.width}
+                    height={cartDims.height}
                     onSelect={(option) => {
                       setSelectedCourier(option);
                     }}
