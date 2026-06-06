@@ -14,6 +14,7 @@ interface AddToCartButtonProps {
   variantId?: string;
   variantName?: string;
   disabled?: boolean;
+  weight?: number;
 }
 
 export function AddToCartButton({
@@ -24,6 +25,7 @@ export function AddToCartButton({
   variantId,
   variantName,
   disabled,
+  weight,
 }: AddToCartButtonProps) {
   const [quantity, setQuantity] = useState(1);
   const addItem = useCartStore((s) => s.addItem);
@@ -37,6 +39,7 @@ export function AddToCartButton({
       quantity,
       variantId,
       variantName,
+      weight,
     });
     toast.success(`${productName} ditambahkan ke keranjang!`);
     setQuantity(1);
