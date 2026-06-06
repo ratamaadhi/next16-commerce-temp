@@ -3,7 +3,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml .npmrc ./
-RUN npm install -g pnpm@latest-11 && pnpm install
+RUN npm install -g pnpm@latest-11 && pnpm install --ignore-scripts && pnpm rebuild sharp
 
 FROM node:22-alpine AS builder
 WORKDIR /app
