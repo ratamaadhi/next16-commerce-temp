@@ -275,6 +275,46 @@ describe("resolveCartItems", () => {
     });
   });
 
+  it("resolves dimensions from variant with fallback to product", async () => {
+    const strapiItems = [
+      { quantity: "1", variantId: "10" },
+      { quantity: "2", variantId: "11" },
+      { quantity: "1", variantId: "12" },
+    ];
+    const productData = {
+      data: [
+        {
+          id: 1, documentId: "p1", name: "With Both", price: 100,
+          dimensions: { length: 30, width: 20, height: 15, weight: 1500 },
+          variants: [
+            { id: 10, name: "Var A", price: 100, dimensions: { length: 25, width: 15, height: 10, weight: 800 } },
+            { id: 11, name: "Var B", price: 100 },
+          ],
+        },
+        {
+          id: 2, documentId: "p2", name: "No Dims", price: 100,
+          variants: [{ id: 12, name: "Var C", price: 100 }],
+        },
+      ],
+      meta: {},
+    };
+    mockStrapiFetch.mockResolvedValueOnce(productData);
+
+    const result = await resolveCartItems(strapiItems);
+    expect(result).toHaveLength(3);
+
+    expect(result[0].dimensions?.length).toBe(25);
+    expect(result[0].dimensions?.weight).toBe(800);
+    expect(result[0].weight).toBe(800);
+
+    expect(result[1].dimensions?.length).toBe(30);
+    expect(result[1].dimensions?.weight).toBe(1500);
+    expect(result[1].weight).toBe(1500);
+
+    expect(result[2].dimensions).toBeUndefined();
+    expect(result[2].weight).toBe(500);
+  });
+
   it("resolves variantId as product ID for variantless products", async () => {
     const strapiItems = [
       { quantity: "1", variantId: "42" },

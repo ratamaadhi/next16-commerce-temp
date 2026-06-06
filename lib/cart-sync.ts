@@ -126,7 +126,12 @@ interface ResolvedProduct {
   documentId: string;
   name: string;
   price: number;
-  weight?: number;
+  dimensions?: {
+    length?: number;
+    width?: number;
+    height?: number;
+    weight?: number;
+  };
   images?: Array<{ url: string }>;
   variants?: Array<{
     id: number;
@@ -134,6 +139,12 @@ interface ResolvedProduct {
     price: number;
     sku?: string;
     inventory?: number;
+    dimensions?: {
+      length?: number;
+      width?: number;
+      height?: number;
+      weight?: number;
+    };
   }>;
 }
 
@@ -164,7 +175,7 @@ export async function resolveCartItems(
   try {
     const response = await strapiFetch<ProductResponse>("/products", {
       filters: { $or: [...variantFilters, ...productIdFilters] },
-      populate: ["images", "variants"],
+      populate: ["images", "variants", "variants.dimensions", "dimensions"],
     });
 
     const products = response.data ?? [];
@@ -187,6 +198,10 @@ export async function resolveCartItems(
 
         if (!product) return null;
 
+        const variantDims = variant?.dimensions;
+        const productDims = product.dimensions;
+        const resolvedDims = variantDims ?? productDims;
+
         return {
           productId: product.id,
           name: product.name,
@@ -195,7 +210,8 @@ export async function resolveCartItems(
           image: product.images?.[0]?.url,
           variantId: item.variantId,
           variantName: variant?.name,
-          weight: product.weight,
+          weight: resolvedDims?.weight ?? 500,
+          dimensions: resolvedDims,
         } as CartItem;
       })
       .filter(Boolean) as CartItem[];
