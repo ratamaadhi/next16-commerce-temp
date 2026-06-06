@@ -3,15 +3,7 @@ import { getFeaturedProducts } from "@/lib/products";
 import { ProductGrid } from "@/components/products/product-grid";
 import { buttonVariants } from "@/components/ui/button";
 import type { ProductData } from "@/lib/products";
-import {
-  Sparkles,
-  ShieldCheck,
-  Heart,
-  Package,
-  Star,
-  ShoppingBag,
-  ArrowRight,
-} from "lucide-react";
+import { Sparkles, ShieldCheck, Heart, Package, Star, ShoppingBag, ArrowRight } from "lucide-react";
 
 const categories = [
   { slug: "skincare", name: "Skincare", icon: Sparkles },
@@ -65,18 +57,15 @@ export default async function HomePage() {
                 <span>Preloved Beauty Terkurasi</span>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground">
-                Preloved Favorit dari{" "}
-                <span className="text-primary">Cyra</span>
+                <span className="text-primary">Cyra`&apos;`s</span>
+                Preloved
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Temukan produk kecantikan berkualitas yang sudah Cyra kurasi
-                langsung untukmu. Asli, terjamin, dan dengan harga spesial.
+                Temukan produk kecantikan berkualitas yang sudah Cyra kurasi langsung untukmu. Asli,
+                terjamin, dan dengan harga spesial.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Link
-                  href="/products"
-                  className={buttonVariants({ size: "lg" })}
-                >
+                <Link href="/products" className={buttonVariants({ size: "lg" })}>
                   Lihat Koleksi
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -93,27 +82,17 @@ export default async function HomePage() {
               <div className="flex items-center gap-6 pt-4">
                 <div className="flex flex-col">
                   <span className="text-2xl font-bold text-foreground">100%</span>
-                  <span className="text-sm text-muted-foreground">
-                    Produk Asli
-                  </span>
+                  <span className="text-sm text-muted-foreground">Produk Asli</span>
                 </div>
                 <div className="h-10 w-px bg-border" />
                 <div className="flex flex-col">
-                  <span className="text-2xl font-bold text-foreground">
-                    Terkurasi
-                  </span>
-                  <span className="text-sm text-muted-foreground">
-                    Oleh Cyra
-                  </span>
+                  <span className="text-2xl font-bold text-foreground">Terkurasi</span>
+                  <span className="text-sm text-muted-foreground">Oleh Cyra</span>
                 </div>
                 <div className="h-10 w-px bg-border" />
                 <div className="flex flex-col">
-                  <span className="text-2xl font-bold text-foreground">
-                    Preloved
-                  </span>
-                  <span className="text-sm text-muted-foreground">
-                    Berkualitas
-                  </span>
+                  <span className="text-2xl font-bold text-foreground">Preloved</span>
+                  <span className="text-sm text-muted-foreground">Berkualitas</span>
                 </div>
               </div>
             </div>
@@ -131,9 +110,7 @@ export default async function HomePage() {
                     <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
                       <Sparkles className="h-12 w-12 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2 text-foreground">
-                      Koleksi Cyra
-                    </h3>
+                    <h3 className="text-xl font-semibold mb-2 text-foreground">Koleksi Cyra</h3>
                     <p className="text-sm text-muted-foreground">
                       Produk kecantikan preloved terpilih dengan cinta
                     </p>
@@ -153,8 +130,8 @@ export default async function HomePage() {
               Kenapa Preloved dari Cyra?
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Setiap produk yang dijual adalah hasil kurasi pribadi. Cyra hanya
-              membagikan yang terbaik dari koleksinya.
+              Setiap produk yang dijual adalah hasil kurasi pribadi. Cyra hanya membagikan yang
+              terbaik dari koleksinya.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -183,12 +160,8 @@ export default async function HomePage() {
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
                   <item.icon className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-foreground">
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {item.desc}
-                </p>
+                <h3 className="text-xl font-semibold mb-3 text-foreground">{item.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -203,14 +176,9 @@ export default async function HomePage() {
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
                 Jelajahi Kategori
               </h2>
-              <p className="text-muted-foreground">
-                Temukan produk sesuai kebutuhanmu
-              </p>
+              <p className="text-muted-foreground">Temukan produk sesuai kebutuhanmu</p>
             </div>
-            <Link
-              href="/categories"
-              className={buttonVariants({ variant: "ghost" })}
-            >
+            <Link href="/categories" className={buttonVariants({ variant: "ghost" })}>
               Lihat Semua
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
@@ -243,14 +211,9 @@ export default async function HomePage() {
                 <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
                   Produk Unggulan
                 </h2>
-                <p className="text-muted-foreground">
-                  Pilihan terbaik dari koleksi Cyra
-                </p>
+                <p className="text-muted-foreground">Pilihan terbaik dari koleksi Cyra</p>
               </div>
-              <Link
-                href="/products"
-                className={buttonVariants({ variant: "outline" })}
-              >
+              <Link href="/products" className={buttonVariants({ variant: "outline" })}>
                 Lihat Semua
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
@@ -268,8 +231,7 @@ export default async function HomePage() {
               Apa Kata Mereka?
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Testimoni dari teman-teman yang sudah mencoba produk preloved dari
-              Cyra.
+              Testimoni dari teman-teman yang sudah mencoba produk preloved dari Cyra.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -281,10 +243,7 @@ export default async function HomePage() {
               >
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: t.rating }).map((_, r) => (
-                    <Star
-                      key={r}
-                      className="h-4 w-4 fill-primary text-primary"
-                    />
+                    <Star key={r} className="h-4 w-4 fill-primary text-primary" />
                   ))}
                 </div>
                 <p className="text-foreground leading-relaxed mb-6 italic">
@@ -318,8 +277,8 @@ export default async function HomePage() {
                 100% Produk Original
               </h2>
               <p className="text-primary-foreground/80 max-w-xl text-lg">
-                Setiap produk dijamin asli dan sudah melalui pemeriksaan
-                langsung oleh Cyra. Belanja dengan tenang dan percaya diri.
+                Setiap produk dijamin asli dan sudah melalui pemeriksaan langsung oleh Cyra. Belanja
+                dengan tenang dan percaya diri.
               </p>
             </div>
             <Link
