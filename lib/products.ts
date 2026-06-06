@@ -21,6 +21,7 @@ export interface ProductData {
   description?: string;
   inventory?: number;
   sku?: string;
+  weight?: number;
   images?: StrapiImage[];
   featured?: boolean;
   categories?: ProductData[];
@@ -46,7 +47,7 @@ export async function getProducts(page = 1, pageSize = 12, categorySlug?: string
   }
 
   return strapiFetch<ProductsResponse>("/products", {
-    populate: ["images", "categories", "variants"],
+    populate: ["images", "categories", "variants", "weight"],
     filters,
     sort: ["createdAt:desc"],
     pagination: { page, pageSize },
@@ -56,7 +57,7 @@ export async function getProducts(page = 1, pageSize = 12, categorySlug?: string
 export async function getProductBySlug(slug: string) {
   return strapiFetch<ProductsResponse>("/products", {
     filters: { slug: { $eq: slug } },
-    populate: ["images", "categories", "variants", "specifications", "reviews.user"],
+    populate: ["images", "categories", "variants", "specifications", "reviews.user", "weight"],
   });
 }
 
