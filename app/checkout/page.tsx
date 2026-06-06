@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/hooks/use-cart";
 import { useAuth } from "@/hooks/use-auth";
@@ -8,13 +8,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { OrderSummary } from "@/components/checkout/order-summary";
+import { SubdistrictSearch } from "@/components/checkout/subdistrict-search";
+import { ShippingOptions } from "@/components/checkout/shipping-options";
+import { getDimensionsByWeight } from "@/lib/shipping";
+import type { ShippingOption } from "@/lib/shipping";
+import { toast } from "sonner";
 
 const TAX_RATE = 0.11;
-const SHIPPING_COST = 15000;
 const FREE_SHIPPING_THRESHOLD = 200000;
 
 export default function CheckoutPage() {
-  const { items, getTotal, clearCart } = useCartStore();
+  const { items, getTotal, getTotalWeight, clearCart } = useCartStore();
   const { isAuthenticated } = useAuth();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,17 +29,23 @@ export default function CheckoutPage() {
     lastName: "",
     phone: "",
     addressLine1: "",
-    city: "",
-    state: "",
-    postalCode: "",
-    country: "Indonesia",
   });
   const [notes, setNotes] = useState("");
 
-  const subtotal = getTotal();
+  const [selectedSubdistrict, setSelectedSubdistrict] = useState<{
+    id: number;
+    title: string;
+  } | null>(null);
+
+  const [selectedCourier, setSelectedCourier] = useState<ShippingOption | null>(null);
+  const [shippingCost, setShippingCost] = useState(0);
+
+  const subtotal = useMemo(() => getTotal(), [getTotal]);
   const tax = Math.round(subtotal * TAX_RATE);
-  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : shippingCost;
   const total = subtotal + tax + shipping;
+  const totalWeight = useMemo(() => getTotalWeight(), [getTotalWeight]);
+  const dimensions = getDimensionsByWeight(totalWeight);
 
   useEffect(() => {
     if (!items.length) {
@@ -55,10 +65,23 @@ export default function CheckoutPage() {
       return;
     }
 
+    if (!selectedCourier && subtotal < FREE_SHIPPING_THRESHOLD) {
+      toast.error("Silakan pilih kurir pengiriman");
+      return;
+    }
+
     setIsSubmitting(true);
     setError(null);
 
     try {
+      const fullAddress = selectedSubdistrict
+        ? `${shippingAddress.addressLine1}, ${selectedSubdistrict.title}`
+        : shippingAddress.addressLine1;
+
+      const shippingNotes = selectedCourier
+        ? `${notes ? notes + " | " : ""}Kurir: ${selectedCourier.name}`
+        : notes;
+
       const response = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -70,9 +93,23 @@ export default function CheckoutPage() {
             totalPrice: item.price * item.quantity,
             variantInfo: item.variantName,
           })),
-          shippingAddress,
-          billingAddress: shippingAddress,
-          notes,
+          shippingAddress: {
+            ...shippingAddress,
+            addressLine1: fullAddress,
+            city: selectedSubdistrict?.title ?? "",
+            state: "",
+            postalCode: "",
+            country: "Indonesia",
+          },
+          billingAddress: {
+            ...shippingAddress,
+            addressLine1: fullAddress,
+            city: selectedSubdistrict?.title ?? "",
+            state: "",
+            postalCode: "",
+            country: "Indonesia",
+          },
+          notes: shippingNotes,
           subtotal,
           tax,
           shippingCost: shipping,
@@ -136,22 +173,36 @@ export default function CheckoutPage() {
                   <Label className="text-xs">Alamat</Label>
                   <Input required value={shippingAddress.addressLine1} onChange={(e) => handleInputChange("addressLine1", e.target.value)} />
                 </div>
-                <div className="grid grid-cols-3 gap-3">
-                  <div className="space-y-1.5">
-                    <Label className="text-xs">Kota</Label>
-                    <Input required value={shippingAddress.city} onChange={(e) => handleInputChange("city", e.target.value)} />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label className="text-xs">Provinsi</Label>
-                    <Input required value={shippingAddress.state} onChange={(e) => handleInputChange("state", e.target.value)} />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label className="text-xs">Kode Pos</Label>
-                    <Input required value={shippingAddress.postalCode} onChange={(e) => handleInputChange("postalCode", e.target.value)} />
-                  </div>
-                </div>
+                <SubdistrictSearch
+                  onSelect={(subdistrict) => {
+                    setSelectedSubdistrict(subdistrict.id ? subdistrict : null);
+                    setSelectedCourier(null);
+                    setShippingCost(0);
+                  }}
+                />
               </CardContent>
             </Card>
+
+            {selectedSubdistrict && selectedSubdistrict.id > 0 && (
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-semibold">Ongkos Kirim</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ShippingOptions
+                    destinationId={selectedSubdistrict.id}
+                    weight={totalWeight}
+                    length={dimensions.length}
+                    width={dimensions.width}
+                    height={dimensions.height}
+                    onSelect={(option) => {
+                      setSelectedCourier(option);
+                      setShippingCost(option?.price ?? 0);
+                    }}
+                  />
+                </CardContent>
+              </Card>
+            )}
 
             <Card>
               <CardHeader className="pb-3">
@@ -173,6 +224,7 @@ export default function CheckoutPage() {
               tax={tax}
               shipping={shipping}
               total={total}
+              shippingMethod={selectedCourier?.name}
               isSubmitting={isSubmitting}
               isAuthenticated={isAuthenticated}
             />
