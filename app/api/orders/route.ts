@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
           paymentStatus: "pending",
           subtotal: body.subtotal,
           tax: 0,
-          shippingCost: 0,
+          shippingCost: body.shippingCost ?? 0,
           discount: 0,
           totalAmount: body.totalAmount,
           currency: body.currency || "IDR",
