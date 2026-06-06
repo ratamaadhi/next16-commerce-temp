@@ -19,7 +19,7 @@ export function useCartSync(userDocumentId?: string | number | null) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const retryRef = useRef(0);
   const initializedRef = useRef(false);
-  const prevUserDocRef = useRef<string | null | undefined>(undefined);
+  const prevUserDocRef = useRef<string | number | null | undefined>(undefined);
   const userDocIdRef = useRef(userDocumentId);
   userDocIdRef.current = userDocumentId;
 
