@@ -25,12 +25,13 @@ interface OrderSummaryProps {
   subtotal: number;
   tax: number;
   shipping: number;
+  shippingMethod?: string;
   total: number;
   isSubmitting?: boolean;
   isAuthenticated?: boolean;
 }
 
-export function OrderSummary({ items, subtotal, tax, shipping, total, isSubmitting, isAuthenticated }: OrderSummaryProps) {
+export function OrderSummary({ items, subtotal, tax, shipping, shippingMethod, total, isSubmitting, isAuthenticated }: OrderSummaryProps) {
   const remaining = FREE_SHIPPING_THRESHOLD - subtotal;
   const progressPct = Math.min((subtotal / FREE_SHIPPING_THRESHOLD) * 100, 100);
 
@@ -104,6 +105,9 @@ export function OrderSummary({ items, subtotal, tax, shipping, total, isSubmitti
               <span className="text-muted-foreground flex items-center gap-1">
                 <Truck className="size-3" />
                 Ongkir
+                {shippingMethod && shipping > 0 && (
+                  <span className="text-[10px]">({shippingMethod})</span>
+                )}
               </span>
               {shipping === 0 ? (
                 <span className="text-green-600 text-[10px] font-medium flex items-center gap-0.5">
