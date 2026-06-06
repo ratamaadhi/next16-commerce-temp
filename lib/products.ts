@@ -47,7 +47,7 @@ export async function getProducts(page = 1, pageSize = 12, categorySlug?: string
   }
 
   return strapiFetch<ProductsResponse>("/products", {
-    populate: ["images", "categories", "variants", "weight"],
+    populate: ["images", "categories", "variants"],
     filters,
     sort: ["createdAt:desc"],
     pagination: { page, pageSize },
@@ -57,7 +57,7 @@ export async function getProducts(page = 1, pageSize = 12, categorySlug?: string
 export async function getProductBySlug(slug: string) {
   return strapiFetch<ProductsResponse>("/products", {
     filters: { slug: { $eq: slug } },
-    populate: ["images", "categories", "variants", "specifications", "reviews.user", "weight"],
+    populate: ["images", "categories", "variants", "specifications", "reviews.user"],
   });
 }
 

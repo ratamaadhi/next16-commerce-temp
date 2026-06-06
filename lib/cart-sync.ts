@@ -164,7 +164,7 @@ export async function resolveCartItems(
   try {
     const response = await strapiFetch<ProductResponse>("/products", {
       filters: { $or: [...variantFilters, ...productIdFilters] },
-      populate: ["images", "variants", "weight"],
+      populate: ["images", "variants"],
     });
 
     const products = response.data ?? [];
