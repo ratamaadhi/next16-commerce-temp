@@ -164,3 +164,32 @@ describe("useCartStore — getTotalWeight", () => {
     expect(useCartStore.getState().getTotalWeight()).toBe(0);
   });
 });
+
+describe("useCartStore — getTotalWeight with dimensions", () => {
+  it("prefers dimensions.weight over flat weight", () => {
+    useCartStore.getState().setItems([
+      {
+        productId: 1, name: "A", price: 100, quantity: 2,
+        weight: 100, dimensions: { weight: 300 },
+      },
+    ]);
+    expect(useCartStore.getState().getTotalWeight()).toBe(600);
+  });
+
+  it("falls back to flat weight when dimensions has no weight", () => {
+    useCartStore.getState().setItems([
+      {
+        productId: 1, name: "A", price: 100, quantity: 2,
+        weight: 300, dimensions: { length: 20, width: 15, height: 10 },
+      },
+    ]);
+    expect(useCartStore.getState().getTotalWeight()).toBe(600);
+  });
+
+  it("falls back to 500 when neither dimensions.weight nor weight exists", () => {
+    useCartStore.getState().setItems([
+      { productId: 1, name: "A", price: 100, quantity: 2 },
+    ]);
+    expect(useCartStore.getState().getTotalWeight()).toBe(1000);
+  });
+});

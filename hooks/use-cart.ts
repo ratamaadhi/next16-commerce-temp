@@ -8,6 +8,12 @@ export interface CartItem {
   name: string;
   price: number;
   weight?: number;
+  dimensions?: {
+    length?: number;
+    width?: number;
+    height?: number;
+    weight?: number;
+  };
   quantity: number;
   image?: string;
   variantId?: string;
@@ -92,7 +98,11 @@ export const useCartStore = create<CartStore>()(
         get().items.reduce((sum, i) => sum + i.quantity, 0),
 
       getTotalWeight: () =>
-        get().items.reduce((sum, i) => sum + (i.weight ?? 500) * i.quantity, 0),
+        get().items.reduce(
+          (sum, i) =>
+            sum + (i.dimensions?.weight ?? i.weight ?? 500) * i.quantity,
+          0,
+        ),
 
       setSessionId: (id) => set({ sessionId: id }),
 
