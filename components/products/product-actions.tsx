@@ -49,7 +49,7 @@ export function ProductActions({ product, variants }: ProductActionsProps) {
         image={product.images?.[0]?.url}
         variantId={selected?.id?.toString()}
         variantName={selected?.name}
-        weight={product.weight}
+        dimensions={product.dimensions}
         disabled={
           (selected?.inventory ?? product.inventory ?? 0) <= 0
         }
