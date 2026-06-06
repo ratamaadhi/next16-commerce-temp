@@ -38,7 +38,7 @@ export default function CheckoutPage() {
 
   const [selectedCourier, setSelectedCourier] = useState<ShippingOption | null>(null);
 
-  const subtotal = useMemo(() => getTotal(), [getTotal]);
+  const subtotal = getTotal();
   const tax = Math.round(subtotal * TAX_RATE);
   const shipping = selectedCourier?.price ?? 0;
   const total = subtotal + tax + shipping;
