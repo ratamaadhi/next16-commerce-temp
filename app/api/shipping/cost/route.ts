@@ -13,9 +13,9 @@ interface RawShippingItem {
 }
 
 const API_URL = "https://prd-kaj-srvc-dshbd-api-ext.kiriminaja.com/api/dm/v1/shipping/express";
-const API_KEY = "base64:RG/ODAHrZ33diOUid/6oRzkUEu1WBVnjKoqgSqle0gA=";
-const AUTH_TOKEN = "Bearer 31106721|4waTRjcj0ZDevak4CKx46GAniyboU4fYrSPiEvbAe45ff6cc";
-const DEVICE_ID = "U2FsdGVkX1-U4uV821rGO7TNJgiY2eH2ls7Izfik";
+const API_KEY = process.env.KIRIMINAJA_API_KEY!;
+const AUTH_TOKEN = process.env.KIRIMINAJA_AUTH_TOKEN!;
+const DEVICE_ID = process.env.KIRIMINAJA_DEVICE_ID!;
 
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
