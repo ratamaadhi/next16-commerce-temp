@@ -44,7 +44,7 @@ export async function fetchCart(params: FetchCartParams, token?: string): Promis
 export async function createCart(
   data: {
     sessionId?: string;
-    userDocumentId?: string | number;
+    userDocumentId?: string | number | null;
     items: CartItem[];
   },
   _token?: string,
@@ -76,7 +76,7 @@ export async function updateCart(
   documentId: string,
   data: {
     sessionId?: string;
-    userDocumentId?: string | number;
+    userDocumentId?: string | number | null;
     items?: CartItem[];
   },
   _token?: string,
