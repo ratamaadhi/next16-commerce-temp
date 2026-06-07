@@ -51,7 +51,7 @@ export function useCartSync(userDocumentId?: string | number | null, isAuthLoadi
             useCartStore.getState().setCartDocumentId(null);
           } else {
             try {
-              await updateCart(cartDocumentId, { sessionId: sessionId ?? undefined, items });
+              await updateCart(cartDocumentId, { sessionId: sessionId ?? undefined, userDocumentId: uid ?? undefined, items });
             } catch (err) {
               if (err instanceof StrapiError && err.status === 404) {
                 useCartStore.getState().setCartDocumentId(null);
