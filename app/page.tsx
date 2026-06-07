@@ -1,18 +1,9 @@
 import Link from "next/link";
-import { getFeaturedProducts } from "@/lib/products";
+import { getFeaturedProducts, type ProductData } from "@/lib/products";
+import { getCategories, type CategoryData } from "@/lib/categories";
 import { ProductGrid } from "@/components/products/product-grid";
 import { buttonVariants } from "@/components/ui/button";
-import type { ProductData } from "@/lib/products";
-import { Sparkles, ShieldCheck, Heart, Package, Star, ShoppingBag, ArrowRight } from "lucide-react";
-
-const categories = [
-  { slug: "skincare", name: "Skincare", icon: Sparkles },
-  { slug: "makeup", name: "Makeup", icon: Heart },
-  { slug: "haircare", name: "Haircare", icon: Star },
-  { slug: "fragrance", name: "Fragrance", icon: Sparkles },
-  { slug: "body-care", name: "Body Care", icon: Heart },
-  { slug: "beauty-tools", name: "Beauty Tools", icon: Package },
-];
+import { Sparkles, ShieldCheck, Heart, Star, ShoppingBag, ArrowRight } from "lucide-react";
 
 const testimonials = [
   {
@@ -42,6 +33,14 @@ export default async function HomePage() {
     featuredProducts = response.data;
   } catch {
     featuredProducts = [];
+  }
+
+  let categories: CategoryData[] = [];
+  try {
+    const catResponse = await getCategories();
+    categories = catResponse.data;
+  } catch {
+    categories = [];
   }
 
   return (
@@ -190,10 +189,7 @@ export default async function HomePage() {
                 href={`/products?category=${cat.slug}`}
                 className="group flex flex-col items-center gap-4 p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-md transition-all animate-fade-in-up"
               >
-                <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-                  <cat.icon className="h-7 w-7 text-primary" />
-                </div>
-                <span className="font-medium text-foreground group-hover:text-primary transition-colors">
+                <span className="font-medium text-foreground group-hover:text-primary transition-colors text-center">
                   {cat.name}
                 </span>
               </Link>

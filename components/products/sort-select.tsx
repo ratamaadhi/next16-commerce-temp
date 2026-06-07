@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -21,20 +22,23 @@ export function SortSelect({ currentSort }: SortSelectProps) {
     if (!value) return;
     const params = new URLSearchParams(searchParams.toString());
     params.set("sort", value);
+    params.delete("page");
     router.push(`/products?${params.toString()}`);
   };
 
   return (
     <Select value={currentSort || "terbaru"} onValueChange={handleSort}>
       <SelectTrigger className="w-40">
-        <SelectValue placeholder="Urutkan" />
+        <SelectValue placeholder="Urutkan" className="capitalize" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="terbaru">Terbaru</SelectItem>
-        <SelectItem value="termurah">Termurah</SelectItem>
-        <SelectItem value="termahal">Termahal</SelectItem>
-        <SelectItem value="nama-az">Nama A-Z</SelectItem>
-        <SelectItem value="nama-za">Nama Z-A</SelectItem>
+        <SelectGroup>
+          <SelectItem value="terbaru">Terbaru</SelectItem>
+          <SelectItem value="termurah">Termurah</SelectItem>
+          <SelectItem value="termahal">Termahal</SelectItem>
+          <SelectItem value="nama-az">Nama A-Z</SelectItem>
+          <SelectItem value="nama-za">Nama Z-A</SelectItem>
+        </SelectGroup>
       </SelectContent>
     </Select>
   );

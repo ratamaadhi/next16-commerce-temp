@@ -1,53 +1,41 @@
 "use client";
 
 import Link from "next/link";
-import { User, Search, Menu, UserRound, Package, LogOut } from "lucide-react";
+import { Menu, UserRound, Package, LogOut } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
-import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { CartDrawer } from "@/components/cart/cart-drawer";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
+import { SearchBar } from "@/components/common/search-bar";
 
 export function Header() {
-  const { isAuthenticated, logout } = useAuth();
-  const [searchQuery, setSearchQuery] = useState("");
+  const { isAuthenticated, user, logout } = useAuth();
   const router = useRouter();
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/products?search=${encodeURIComponent(searchQuery)}`);
-    }
-  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="font-bold text-xl flex-shrink-0 font-[family-name:var(--font-playfair)]">
+        <Link
+          href="/"
+          className="font-bold text-xl flex-shrink-0 font-[family-name:var(--font-playfair)]"
+        >
           Cyra
         </Link>
 
-        <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-md mx-4">
-          <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Cari produk..."
-              className="pl-10"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-        </form>
+        <div className="hidden md:flex flex-1 max-w-md mx-4">
+          <SearchBar />
+        </div>
 
         <nav className="flex items-center gap-2">
           <CartDrawer />
@@ -55,9 +43,23 @@ export function Header() {
           {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger className={buttonVariants({ variant: "ghost", size: "icon" })}>
-                <User className="h-5 w-5" />
+                <Avatar size="sm">
+                  <AvatarFallback>{user?.username?.charAt(0)?.toUpperCase()}</AvatarFallback>
+                </Avatar>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-44">
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel className="flex items-center gap-3 p-2 font-normal">
+                    <Avatar size="default">
+                      <AvatarFallback>{user?.username?.charAt(0)?.toUpperCase()}</AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium text-foreground">{user?.username}</span>
+                      <span className="text-xs text-muted-foreground">{user?.email}</span>
+                    </div>
+                  </DropdownMenuLabel>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => router.push("/account")}>
                   <UserRound className="h-4 w-4" />
                   Akun Saya

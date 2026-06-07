@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 
 interface CategoryFilterProps {
   currentSlug?: string;
+  categories: { slug: string; name: string }[];
 }
 
-export function CategoryFilter({ currentSlug }: CategoryFilterProps) {
+export function CategoryFilter({ currentSlug, categories }: CategoryFilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -21,15 +22,6 @@ export function CategoryFilter({ currentSlug }: CategoryFilterProps) {
     params.delete("page");
     router.push(`/products?${params.toString()}`);
   };
-
-  const categories = [
-    { slug: "skincare", name: "Skincare" },
-    { slug: "makeup", name: "Makeup" },
-    { slug: "haircare", name: "Haircare" },
-    { slug: "fragrance", name: "Fragrance" },
-    { slug: "body-care", name: "Body Care" },
-    { slug: "beauty-tools", name: "Beauty Tools" },
-  ];
 
   return (
     <div className="flex flex-wrap gap-2">
@@ -46,6 +38,7 @@ export function CategoryFilter({ currentSlug }: CategoryFilterProps) {
           variant={currentSlug === cat.slug ? "default" : "outline"}
           size="sm"
           onClick={() => handleFilter(cat.slug)}
+          className="capitalize"
         >
           {cat.name}
         </Button>

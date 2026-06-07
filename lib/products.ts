@@ -42,7 +42,15 @@ export interface ProductsResponse {
   meta: { pagination: { page: number; pageSize: number; pageCount: number; total: number } };
 }
 
-export async function getProducts(page = 1, pageSize = 12, categorySlug?: string) {
+const SORT_MAP: Record<string, string[]> = {
+  terbaru: ["createdAt:desc"],
+  termurah: ["price:asc"],
+  termahal: ["price:desc"],
+  "nama-az": ["name:asc"],
+  "nama-za": ["name:desc"],
+};
+
+export async function getProducts(page = 1, pageSize = 12, categorySlug?: string, sort?: string, search?: string) {
   const filters: Record<string, unknown> = {
     publishedAt: { $notNull: true },
   };
@@ -51,10 +59,14 @@ export async function getProducts(page = 1, pageSize = 12, categorySlug?: string
     filters["categories"] = { slug: { $eq: categorySlug } };
   }
 
+  if (search) {
+    filters["name"] = { $containsi: search };
+  }
+
   return strapiFetch<ProductsResponse>("/products", {
     populate: ["images", "categories", "variants"],
     filters,
-    sort: ["createdAt:desc"],
+    sort: SORT_MAP[sort ?? "terbaru"],
     pagination: { page, pageSize },
   });
 }
