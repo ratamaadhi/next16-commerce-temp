@@ -40,7 +40,7 @@ export function useCartSync(userDocumentId?: string | number | null, isAuthLoadi
             if (items.length === 0) return;
             const response = await createCart({
               sessionId: sessionId ?? undefined,
-              userDocumentId: uid ?? undefined,
+              userDocumentId: uid ?? null,
               items,
             });
             if (response.data?.documentId) {
@@ -51,13 +51,13 @@ export function useCartSync(userDocumentId?: string | number | null, isAuthLoadi
             useCartStore.getState().setCartDocumentId(null);
           } else {
             try {
-              await updateCart(cartDocumentId, { sessionId: sessionId ?? undefined, userDocumentId: uid ?? undefined, items });
+              await updateCart(cartDocumentId, { sessionId: sessionId ?? undefined, userDocumentId: uid ?? null, items });
             } catch (err) {
               if (err instanceof StrapiError && err.status === 404) {
                 useCartStore.getState().setCartDocumentId(null);
                 const response = await createCart({
                   sessionId: sessionId ?? undefined,
-                  userDocumentId: uid ?? undefined,
+                  userDocumentId: uid ?? null,
                   items,
                 });
                 if (response.data?.documentId) {

@@ -51,7 +51,7 @@ export async function createCart(
 ): Promise<CartResponse> {
   const body: Record<string, unknown> = {};
   if (data.sessionId) body.sessionId = data.sessionId;
-  if (data.userDocumentId) body.userDocumentId = data.userDocumentId;
+  if (data.userDocumentId !== undefined) body.userDocumentId = data.userDocumentId;
   body.items = mapItems(data.items);
 
   const res = await fetch("/api/cart", {
@@ -83,7 +83,7 @@ export async function updateCart(
 ): Promise<CartResponse> {
   const body: Record<string, unknown> = {};
   if (data.sessionId) body.sessionId = data.sessionId;
-  if (data.userDocumentId) body.userDocumentId = data.userDocumentId;
+  if (data.userDocumentId !== undefined) body.userDocumentId = data.userDocumentId;
   if (data.items) body.items = mapItems(data.items);
 
   const res = await fetch(`/api/cart/${documentId}`, {
