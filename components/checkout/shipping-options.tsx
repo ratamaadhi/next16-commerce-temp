@@ -174,7 +174,7 @@ export function ShippingOptions({
       <Tabs value={effectiveTab} onValueChange={setActiveTab} className="flex-col gap-0">
         <TabsList
           variant="line"
-          className="flex w-full h-auto justify-start rounded-none p-0 bg-transparent border-b gap-0"
+          className="flex w-full h-auto justify-start rounded-none p-0 bg-transparent border-b gap-0 overflow-x-auto"
         >
           {sortedGroups.map((group) => (
             <TabsTrigger

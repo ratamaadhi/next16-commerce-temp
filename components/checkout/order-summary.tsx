@@ -97,6 +97,11 @@ export function OrderSummary({ items, subtotal, tax, selectedCourier, total, isS
               <span>{formatPrice(subtotal)}</span>
             </div>
 
+            <div className="flex justify-between text-xs">
+              <span className="text-muted-foreground">Pajak (11%)</span>
+              <span>{formatPrice(tax)}</span>
+            </div>
+
             <div className="flex justify-between items-start text-xs gap-2">
               <div className="flex items-center gap-1 text-muted-foreground shrink-0">
                 <Truck className="size-3" />
@@ -112,11 +117,6 @@ export function OrderSummary({ items, subtotal, tax, selectedCourier, total, isS
                 <span className="text-muted-foreground italic">Pilih kurir</span>
               )}
             </div>
-
-            <div className="flex justify-between text-xs">
-              <span className="text-muted-foreground">Pajak (11%)</span>
-              <span>{formatPrice(tax)}</span>
-            </div>
           </div>
 
           <Separator />
@@ -128,7 +128,7 @@ export function OrderSummary({ items, subtotal, tax, selectedCourier, total, isS
             </div>
           </div>
 
-          <div className="px-4 pb-4 pt-3 space-y-2">
+          <div className="px-4 pt-3 space-y-2">
             <Button
               type="submit"
               className="w-full"
