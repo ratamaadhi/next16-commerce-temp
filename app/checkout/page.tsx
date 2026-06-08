@@ -103,6 +103,7 @@ export default function CheckoutPage() {
             unitPrice: item.price,
             totalPrice: item.price * item.quantity,
             variantInfo: item.variantName,
+            imageUrl: item.image ?? undefined,
           })),
           shippingAddress: {
             ...shippingAddress,

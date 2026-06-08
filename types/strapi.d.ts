@@ -2596,6 +2596,7 @@ export interface components {
       unitPrice?: number;
       /** Format: float */
       totalPrice?: number;
+      imageUrl?: string;
     };
     CommonAddressComponent: {
       id?: string | number;

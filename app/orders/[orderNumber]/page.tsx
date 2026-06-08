@@ -60,8 +60,16 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
             <div className="divide-y">
               {order.items?.map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
-                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-muted text-xs font-medium text-muted-foreground">
-                    {item.productName?.slice(0, 2).toUpperCase() ?? "?"}
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-muted text-xs font-medium text-muted-foreground overflow-hidden">
+                    {item.imageUrl ? (
+                      <img
+                        src={item.imageUrl}
+                        alt={item.productName ?? ""}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      item.productName?.slice(0, 2).toUpperCase() ?? "?"
+                    )}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-sm text-foreground truncate">

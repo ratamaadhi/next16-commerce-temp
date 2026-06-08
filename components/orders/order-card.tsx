@@ -50,10 +50,18 @@ export function OrderCard({ order }: OrderCardProps) {
             {order.items?.slice(0, 4).map((item, idx) => (
               <div
                 key={idx}
-                className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-background bg-muted text-xs font-medium text-muted-foreground"
+                className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-background bg-muted text-xs font-medium text-muted-foreground overflow-hidden"
                 title={item.productName}
               >
-                {item.productName?.slice(0, 2).toUpperCase() ?? "?"}
+                {item.imageUrl ? (
+                  <img
+                    src={item.imageUrl}
+                    alt={item.productName ?? ""}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  item.productName?.slice(0, 2).toUpperCase() ?? "?"
+                )}
               </div>
             ))}
             {itemCount > 4 && (
