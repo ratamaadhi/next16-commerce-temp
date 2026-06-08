@@ -159,3 +159,12 @@
 .animate-delay-400 {
   animation-delay: 0.4s;
 }
+
+/* Hide scrollbar across browsers */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
