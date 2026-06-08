@@ -1,22 +1,14 @@
 import { cookies } from "next/headers";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { formatPrice, formatDate } from "@/lib/strapi";
 import { getOrderByNumber } from "@/lib/orders";
 import type { Order } from "@/lib/orders";
-import { ArrowLeft } from "lucide-react";
-
-const STATUS_COLORS: Record<string, string> = {
-  pending: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-  processing: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-  shipped: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
-  delivered: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-  cancelled: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
-};
+import { getStatusBadgeClass } from "@/components/orders/constants";
+import { OrderTimeline } from "@/components/orders/order-timeline";
+import { ArrowLeft, MapPin } from "lucide-react";
 
 interface OrderDetailPageProps {
   params: Promise<{ orderNumber: string }>;
@@ -36,120 +28,149 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
 
   return (
     <main className="container mx-auto px-4 py-8 max-w-4xl">
-      <div className="flex items-center gap-4 mb-6">
+      {/* Header */}
+      <div className="flex flex-wrap items-center gap-3 mb-6">
         <Link
           href="/orders"
-          className={buttonVariants({ variant: "ghost", size: "sm" })}
+          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
-          <ArrowLeft className="h-4 w-4 mr-1" />
+          <ArrowLeft className="h-4 w-4" />
           Kembali
         </Link>
-        <h1 className="text-2xl font-bold">Pesanan #{orderNumber}</h1>
-        <Badge className={STATUS_COLORS[order.orderStatus ?? ""] || ""}>
+        <h1 className="text-2xl font-bold text-foreground">Pesanan #{orderNumber}</h1>
+        <Badge variant="outline" className={getStatusBadgeClass(order.orderStatus ?? "")}>
           {order.orderStatus}
         </Badge>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Item Pesanan</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {order.items?.map((item, index) => (
-                  <div key={index} className="flex justify-between text-sm">
-                    <div>
-                      <p className="font-medium">{item.productName}</p>
-                      {item.variantInfo && (
-                        <p className="text-muted-foreground">{item.variantInfo}</p>
-                      )}
-                      <p className="text-muted-foreground">
-                        {formatPrice(item.unitPrice ?? 0)} x {item.quantity}
-                      </p>
-                    </div>
-                    <p className="font-medium">{formatPrice(item.totalPrice ?? 0)}</p>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+      {/* Hero Timeline */}
+      <div className="mb-6">
+        <OrderTimeline orderStatus={order.orderStatus} />
+      </div>
 
+      {/* Two column layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left: items, shipping, notes */}
+        <div className="lg:col-span-2 space-y-4">
+          {/* Items */}
+          <div className="rounded-xl border bg-card p-5">
+            <h3 className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-4">
+              Item Pesanan ({order.items?.length ?? 0})
+            </h3>
+            <div className="divide-y">
+              {order.items?.map((item, idx) => (
+                <div key={idx} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-muted text-xs font-medium text-muted-foreground">
+                    {item.productName?.slice(0, 2).toUpperCase() ?? "?"}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-sm text-foreground truncate">
+                      {item.productName}
+                    </p>
+                    {item.variantInfo && (
+                      <p className="text-xs text-muted-foreground">{item.variantInfo}</p>
+                    )}
+                    <p className="text-xs text-muted-foreground">
+                      {formatPrice(item.unitPrice ?? 0)} x {item.quantity}
+                    </p>
+                  </div>
+                  <p className="font-medium text-sm text-foreground whitespace-nowrap">
+                    {formatPrice(item.totalPrice ?? 0)}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Shipping Address */}
           {order.shippingAddress && (
-            <Card>
-              <CardHeader>
-                <CardTitle>Alamat Pengiriman</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm">
-                <p>{order.shippingAddress.firstName} {order.shippingAddress.lastName}</p>
-                <p className="text-muted-foreground">{order.shippingAddress.phone}</p>
-                <p className="text-muted-foreground">{order.shippingAddress.addressLine1}</p>
-                <p className="text-muted-foreground">
-                  {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.postalCode}
-                </p>
-                <p className="text-muted-foreground">{order.shippingAddress.country}</p>
-              </CardContent>
-            </Card>
+            <div className="rounded-xl border bg-card p-5">
+              <h3 className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-3">
+                Alamat Pengiriman
+              </h3>
+              <div className="flex gap-2">
+                <MapPin className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                <div className="text-sm text-foreground space-y-0.5">
+                  <p className="font-medium">
+                    {order.shippingAddress.firstName} {order.shippingAddress.lastName}
+                  </p>
+                  <p className="text-muted-foreground">{order.shippingAddress.phone}</p>
+                  <p className="text-muted-foreground">{order.shippingAddress.addressLine1}</p>
+                  <p className="text-muted-foreground">
+                    {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.postalCode}
+                  </p>
+                  <p className="text-muted-foreground">{order.shippingAddress.country}</p>
+                </div>
+              </div>
+            </div>
           )}
 
+          {/* Notes */}
           {order.notes && (
-            <Card>
-              <CardHeader>
-                <CardTitle>Catatan</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">{order.notes}</p>
-              </CardContent>
-            </Card>
+            <div className="rounded-xl border bg-card p-5">
+              <h3 className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">
+                Catatan
+              </h3>
+              <p className="text-sm text-muted-foreground">{order.notes}</p>
+            </div>
           )}
         </div>
 
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Ringkasan</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex justify-between text-sm">
+        {/* Right: summary */}
+        <div className="lg:col-span-1">
+          <div className="rounded-xl border bg-card p-5 lg:sticky lg:top-24">
+            <h3 className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-4">
+              Ringkasan
+            </h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
                 <span className="text-muted-foreground">Tanggal</span>
                 <span>{formatDate(order.createdAt ?? "")}</span>
               </div>
               <Separator />
-              <div className="flex justify-between text-sm">
+              <div className="flex justify-between">
                 <span className="text-muted-foreground">Subtotal</span>
                 <span>{formatPrice(order.subtotal ?? 0, order.currency)}</span>
               </div>
               {(order.tax ?? 0) > 0 && (
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between">
                   <span className="text-muted-foreground">Pajak</span>
                   <span>{formatPrice(order.tax ?? 0, order.currency)}</span>
                 </div>
               )}
               {(order.shippingCost ?? 0) > 0 && (
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Ongkir</span>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Ongkos Kirim</span>
                   <span>{formatPrice(order.shippingCost ?? 0, order.currency)}</span>
                 </div>
               )}
               {(order.discount ?? 0) > 0 && (
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between text-green-600">
                   <span className="text-muted-foreground">Diskon</span>
-                  <span className="text-green-600">-{formatPrice(order.discount ?? 0, order.currency)}</span>
+                  <span>-{formatPrice(order.discount ?? 0, order.currency)}</span>
                 </div>
               )}
               <Separator />
-              <div className="flex justify-between font-bold text-lg">
+              <div className="flex justify-between text-base font-bold">
                 <span>Total</span>
-                <span>{formatPrice(order.totalAmount ?? 0, order.currency)}</span>
+                <span className="text-primary">{formatPrice(order.totalAmount ?? 0, order.currency)}</span>
               </div>
               <Separator />
-              <div className="flex justify-between text-sm">
+              <div className="flex justify-between">
                 <span className="text-muted-foreground">Pembayaran</span>
-                <span>{order.paymentStatus}</span>
+                <Badge
+                  variant="outline"
+                  className={
+                    order.paymentStatus === "paid"
+                      ? "bg-green-50 text-green-700 border-green-200"
+                      : "bg-amber-50 text-amber-700 border-amber-200"
+                  }
+                >
+                  {order.paymentStatus}
+                </Badge>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       </div>
     </main>
