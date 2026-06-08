@@ -29,6 +29,7 @@ export interface ProductData {
   };
   images?: StrapiImage[];
   featured?: boolean;
+  condition?: "like_new" | "gently_used" | "well_loved";
   categories?: ProductData[];
   variants?: Array<{ id?: number; name: string; sku?: string; price: number; inventory?: number }>;
   specifications?: Array<{ label: string; value: string }>;
