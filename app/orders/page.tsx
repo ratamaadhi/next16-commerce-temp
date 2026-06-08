@@ -5,31 +5,8 @@ import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { formatPrice, formatDate } from "@/lib/strapi";
-
-const STRAPI_URL = process.env.STRAPI_URL!;
-
-interface OrderItem {
-  productName: string;
-  quantity: number;
-  unitPrice: number;
-  totalPrice: number;
-  variantInfo?: string;
-}
-
-interface Order {
-  id: number;
-  documentId: string;
-  orderNumber: string;
-  orderStatus: string;
-  totalAmount: number;
-  currency: string;
-  createdAt: string;
-  items: OrderItem[];
-}
-
-interface OrdersResponse {
-  data: Order[];
-}
+import { getOrders } from "@/lib/orders";
+import type { Order } from "@/lib/orders";
 
 const STATUS_COLORS: Record<string, string> = {
   pending: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
@@ -45,17 +22,14 @@ export default async function OrdersPage() {
 
   if (!token) redirect("/auth/login");
 
-  const res = await fetch(
-    `${STRAPI_URL}/api/orders?populate=*&sort=createdAt:desc&pagination[pageSize]=50`,
-    { headers: { Authorization: `Bearer ${token}` } }
-  );
-  const response: OrdersResponse = await res.json();
+  const { data: orders } = await getOrders(token);
+  console.log("orders", orders);
 
   return (
     <main className="container mx-auto px-4 py-8 max-w-4xl">
       <h1 className="text-2xl font-bold mb-6">Pesanan Saya</h1>
 
-      {!response.data?.length ? (
+      {!orders?.length ? (
         <Card>
           <CardContent className="text-center py-12">
             <p className="text-muted-foreground mb-4">Belum ada pesanan</p>
@@ -66,7 +40,7 @@ export default async function OrdersPage() {
         </Card>
       ) : (
         <div className="space-y-4">
-          {response.data.map((order) => (
+          {orders.map((order) => (
             <Card key={order.id}>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-lg">
@@ -77,20 +51,20 @@ export default async function OrdersPage() {
                     #{order.orderNumber}
                   </Link>
                 </CardTitle>
-                <Badge className={STATUS_COLORS[order.orderStatus] || ""}>
+                <Badge className={STATUS_COLORS[order.orderStatus ?? ""] || ""}>
                   {order.orderStatus}
                 </Badge>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between text-sm">
                   <div>
-                    <p className="text-muted-foreground">
-                      {formatDate(order.createdAt)}
-                    </p>
+                    <p className="text-muted-foreground">{formatDate(order.createdAt ?? "")}</p>
                     <p>{order.items?.length || 0} item</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold">{formatPrice(order.totalAmount, order.currency)}</p>
+                    <p className="font-bold">
+                      {formatPrice(order.totalAmount ?? 0, order.currency)}
+                    </p>
                     <Link
                       href={`/orders/${order.orderNumber}`}
                       className="text-sm text-primary hover:underline"

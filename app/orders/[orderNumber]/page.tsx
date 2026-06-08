@@ -6,50 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { formatPrice, formatDate } from "@/lib/strapi";
+import { getOrderByNumber } from "@/lib/orders";
+import type { Order } from "@/lib/orders";
 import { ArrowLeft } from "lucide-react";
-
-const STRAPI_URL = process.env.STRAPI_URL!;
-
-interface OrderItem {
-  productName: string;
-  quantity: number;
-  unitPrice: number;
-  totalPrice: number;
-  variantInfo?: string;
-}
-
-interface ShippingAddress {
-  firstName: string;
-  lastName: string;
-  phone: string;
-  addressLine1: string;
-  city: string;
-  state: string;
-  postalCode: string;
-  country: string;
-}
-
-interface Order {
-  id: number;
-  documentId: string;
-  orderNumber: string;
-  orderStatus: string;
-  paymentStatus: string;
-  totalAmount: number;
-  currency: string;
-  createdAt: string;
-  items: OrderItem[];
-  shippingAddress?: ShippingAddress;
-  notes?: string;
-  subtotal: number;
-  tax: number;
-  shippingCost: number;
-  discount: number;
-}
-
-interface OrdersResponse {
-  data: Order[];
-}
 
 const STATUS_COLORS: Record<string, string> = {
   pending: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
@@ -70,12 +29,8 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
 
   if (!token) redirect("/auth/login");
 
-  const res = await fetch(
-    `${STRAPI_URL}/api/orders?filters[orderNumber][$eq]=${orderNumber}&populate=*`,
-    { headers: { Authorization: `Bearer ${token}` } }
-  );
-  const response: OrdersResponse = await res.json();
-  const order = response.data?.[0];
+  const { data: orders } = await getOrderByNumber(orderNumber, token);
+  const order = orders?.[0];
 
   if (!order) notFound();
 
@@ -90,7 +45,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
           Kembali
         </Link>
         <h1 className="text-2xl font-bold">Pesanan #{orderNumber}</h1>
-        <Badge className={STATUS_COLORS[order.orderStatus] || ""}>
+        <Badge className={STATUS_COLORS[order.orderStatus ?? ""] || ""}>
           {order.orderStatus}
         </Badge>
       </div>
@@ -111,10 +66,10 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
                         <p className="text-muted-foreground">{item.variantInfo}</p>
                       )}
                       <p className="text-muted-foreground">
-                        {formatPrice(item.unitPrice)} x {item.quantity}
+                        {formatPrice(item.unitPrice ?? 0)} x {item.quantity}
                       </p>
                     </div>
-                    <p className="font-medium">{formatPrice(item.totalPrice)}</p>
+                    <p className="font-medium">{formatPrice(item.totalPrice ?? 0)}</p>
                   </div>
                 ))}
               </div>
@@ -158,35 +113,35 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
             <CardContent className="space-y-3">
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Tanggal</span>
-                <span>{formatDate(order.createdAt)}</span>
+                <span>{formatDate(order.createdAt ?? "")}</span>
               </div>
               <Separator />
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Subtotal</span>
-                <span>{formatPrice(order.subtotal, order.currency)}</span>
+                <span>{formatPrice(order.subtotal ?? 0, order.currency)}</span>
               </div>
-              {order.tax > 0 && (
+              {(order.tax ?? 0) > 0 && (
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Pajak</span>
-                  <span>{formatPrice(order.tax, order.currency)}</span>
+                  <span>{formatPrice(order.tax ?? 0, order.currency)}</span>
                 </div>
               )}
-              {order.shippingCost > 0 && (
+              {(order.shippingCost ?? 0) > 0 && (
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Ongkir</span>
-                  <span>{formatPrice(order.shippingCost, order.currency)}</span>
+                  <span>{formatPrice(order.shippingCost ?? 0, order.currency)}</span>
                 </div>
               )}
-              {order.discount > 0 && (
+              {(order.discount ?? 0) > 0 && (
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Diskon</span>
-                  <span className="text-green-600">-{formatPrice(order.discount, order.currency)}</span>
+                  <span className="text-green-600">-{formatPrice(order.discount ?? 0, order.currency)}</span>
                 </div>
               )}
               <Separator />
               <div className="flex justify-between font-bold text-lg">
                 <span>Total</span>
-                <span>{formatPrice(order.totalAmount, order.currency)}</span>
+                <span>{formatPrice(order.totalAmount ?? 0, order.currency)}</span>
               </div>
               <Separator />
               <div className="flex justify-between text-sm">

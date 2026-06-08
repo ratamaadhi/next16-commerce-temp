@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-
-const STRAPI_URL = process.env.STRAPI_URL!;
+import { createOrder, StrapiError } from "@/lib/orders";
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,42 +15,36 @@ export async function POST(req: NextRequest) {
 
     const orderNumber = `ORD-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
 
-    const response = await fetch(`${STRAPI_URL}/api/orders`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+    const order = await createOrder(
+      {
+        orderNumber,
+        orderStatus: "pending",
+        paymentStatus: "pending",
+        subtotal: body.subtotal,
+        tax: body.tax ?? 0,
+        shippingCost: body.shippingCost ?? 0,
+        discount: body.discount ?? 0,
+        totalAmount: body.totalAmount,
+        currency: body.currency || "IDR",
+        notes: body.notes,
+        items: body.items,
+        shippingAddress: body.shippingAddress,
+        billingAddress: body.billingAddress,
       },
-      body: JSON.stringify({
-        data: {
-          orderNumber,
-          orderStatus: "pending",
-          paymentStatus: "pending",
-          subtotal: body.subtotal,
-          tax: 0,
-          shippingCost: body.shippingCost ?? 0,
-          discount: 0,
-          totalAmount: body.totalAmount,
-          currency: body.currency || "IDR",
-          notes: body.notes,
-          items: body.items,
-          shippingAddress: body.shippingAddress,
-          billingAddress: body.billingAddress,
-        },
-      }),
-    });
+      token,
+    );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      return NextResponse.json({ error: errorData }, { status: response.status });
-    }
-
-    const order = await response.json();
     return NextResponse.json(order, { status: 201 });
-  } catch {
+  } catch (error) {
+    if (error instanceof StrapiError) {
+      return NextResponse.json(
+        { error: error.message, details: error.details },
+        { status: error.status },
+      );
+    }
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
