@@ -3,7 +3,6 @@
 import { OrderEmptyState } from "@/components/orders/order-empty-state";
 
 export default function OrdersError({
-  error,
   reset,
 }: {
   error: Error & { digest?: string };

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { getStrapiMedia } from "@/lib/strapi";
 import { ProductImage } from "@/components/products/product-image";
 import type { StrapiImage } from "@/lib/products";
 

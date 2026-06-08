@@ -54,13 +54,13 @@ export function ShippingOptions({
   useEffect(() => {
     if (!destinationId) return;
 
-    setSelected(null);
-    setOptions([]);
-    setHasFetched(false);
-    setActiveTab(null);
     onSelect(null);
 
     async function fetchCost() {
+      setSelected(null);
+      setOptions([]);
+      setHasFetched(false);
+      setActiveTab(null);
       setIsLoading(true);
       setError(null);
       try {
@@ -87,8 +87,7 @@ export function ShippingOptions({
     }
 
     fetchCost();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [destinationId, weight, length, width, height, retryTrigger]);
+  }, [retryTrigger]); // eslint-disable-line react-hooks/exhaustive-deps -- key on parent handles prop-change resets
 
   const grouped = useMemo(() =>
     options.reduce<Record<string, ShippingOption[]>>((acc, opt) => {

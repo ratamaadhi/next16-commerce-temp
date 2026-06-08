@@ -47,7 +47,6 @@ export async function createCart(
     userDocumentId?: string | number | null;
     items: CartItem[];
   },
-  _token?: string,
 ): Promise<CartResponse> {
   const body: Record<string, unknown> = {};
   if (data.sessionId) body.sessionId = data.sessionId;
@@ -79,7 +78,6 @@ export async function updateCart(
     userDocumentId?: string | number | null;
     items?: CartItem[];
   },
-  _token?: string,
 ): Promise<CartResponse> {
   const body: Record<string, unknown> = {};
   if (data.sessionId) body.sessionId = data.sessionId;
@@ -104,7 +102,7 @@ export async function updateCart(
   return res.json();
 }
 
-export async function deleteCart(documentId: string, _token?: string): Promise<{ ok: true }> {
+export async function deleteCart(documentId: string): Promise<{ ok: true }> {
   const res = await fetch(`/api/cart/${documentId}`, {
     method: "DELETE",
   });

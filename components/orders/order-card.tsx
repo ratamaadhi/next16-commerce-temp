@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { formatPrice, formatDate } from "@/lib/strapi";
 import { getStatusBadgeClass, ORDER_STATUS_TITLES } from "./constants";
 import type { Order } from "@/lib/orders";
+import Image from "next/image";
 import { Package, Calendar } from "lucide-react";
 
 interface OrderCardProps {
@@ -50,14 +51,16 @@ export function OrderCard({ order }: OrderCardProps) {
             {order.items?.slice(0, 4).map((item, idx) => (
               <div
                 key={idx}
-                className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-background bg-muted text-xs font-medium text-muted-foreground overflow-hidden"
+                className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-background bg-muted text-xs font-medium text-muted-foreground overflow-hidden relative"
                 title={item.productName}
               >
                 {item.imageUrl ? (
-                  <img
+                  <Image
                     src={item.imageUrl}
                     alt={item.productName ?? ""}
-                    className="h-full w-full object-cover"
+                    fill
+                    sizes="40px"
+                    className="object-cover"
                   />
                 ) : (
                   item.productName?.slice(0, 2).toUpperCase() ?? "?"

@@ -5,9 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { formatPrice, formatDate } from "@/lib/strapi";
 import { getOrderByNumber } from "@/lib/orders";
-import type { Order } from "@/lib/orders";
 import { getStatusBadgeClass, ORDER_STATUS_TITLES } from "@/components/orders/constants";
 import { OrderTimeline } from "@/components/orders/order-timeline";
+import Image from "next/image";
 import { ArrowLeft, MapPin } from "lucide-react";
 
 interface OrderDetailPageProps {
@@ -60,12 +60,14 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
             <div className="divide-y">
               {order.items?.map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
-                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-muted text-xs font-medium text-muted-foreground overflow-hidden">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-muted text-xs font-medium text-muted-foreground overflow-hidden relative">
                     {item.imageUrl ? (
-                      <img
+                      <Image
                         src={item.imageUrl}
                         alt={item.productName ?? ""}
-                        className="h-full w-full object-cover"
+                        fill
+                        sizes="48px"
+                        className="object-cover"
                       />
                     ) : (
                       item.productName?.slice(0, 2).toUpperCase() ?? "?"

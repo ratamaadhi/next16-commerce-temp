@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, startTransition } from "react";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
@@ -42,7 +42,7 @@ export function SubdistrictSearch({ onSelect }: SubdistrictSearchProps) {
     if (timerRef.current) clearTimeout(timerRef.current);
 
     if (query.length < 3) {
-      setResults([]);
+      startTransition(() => setResults([]));
       return;
     }
 

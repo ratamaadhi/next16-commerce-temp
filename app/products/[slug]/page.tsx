@@ -4,6 +4,7 @@ import { ProductImages } from "@/components/products/product-images";
 import { ProductActions } from "@/components/products/product-actions";
 import { SpecificationsTable } from "@/components/products/specifications-table";
 import { ReviewSection } from "@/components/reviews/review-section";
+import ReactMarkdown from "react-markdown";
 import type { Metadata } from "next";
 
 export async function generateMetadata({
@@ -49,7 +50,7 @@ export default async function ProductDetailPage({
       {product.description && (
         <div className="mt-8 prose max-w-none">
           <h2 className="text-lg font-semibold mb-2">Deskripsi</h2>
-          <div dangerouslySetInnerHTML={{ __html: product.description }} />
+          <ReactMarkdown>{product.description}</ReactMarkdown>
         </div>
       )}
 

@@ -22,7 +22,10 @@ export function useCartSync(userDocumentId?: string | number | null, isAuthLoadi
   const prevUserDocRef = useRef<string | number | null | undefined>(undefined);
   const prevIsAuthLoadingRef = useRef(isAuthLoading);
   const userDocIdRef = useRef(userDocumentId);
-  userDocIdRef.current = userDocumentId;
+
+  useEffect(() => {
+    userDocIdRef.current = userDocumentId;
+  }, [userDocumentId]);
 
   const syncToStrapi = useCallback(async () => {
     if (syncingRef.current) return;
@@ -149,7 +152,7 @@ export function useCartSync(userDocumentId?: string | number | null, isAuthLoadi
 
           if (serverCart?.documentId && serverCart.items?.length) {
             const resolved = await resolveCartItems(serverCart.items);
-            let finalItems = resolved;
+            const finalItems = resolved;
 
             if (guestCartData?.items?.length && guestCartData.documentId !== serverCart.documentId) {
               const guestResolved = await resolveCartItems(guestCartData.items);

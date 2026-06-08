@@ -206,6 +206,7 @@ export default function CheckoutPage() {
                 </CardHeader>
                 <CardContent>
                   <ShippingOptions
+                    key={`${selectedSubdistrict.id}-${cartDims.weight}-${cartDims.length}-${cartDims.width}-${cartDims.height}`}
                     destinationId={selectedSubdistrict.id}
                     destinationTitle={selectedSubdistrict.title}
                     weight={cartDims.weight}
