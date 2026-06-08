@@ -21,7 +21,6 @@ export default function CheckoutPage() {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const [shippingAddress, setShippingAddress] = useState({
     firstName: "",
@@ -84,7 +83,6 @@ export default function CheckoutPage() {
     }
 
     setIsSubmitting(true);
-    setError(null);
 
     try {
       const fullAddress = selectedSubdistrict
@@ -139,16 +137,17 @@ export default function CheckoutPage() {
           errorData?.error?.message ||
           "Gagal membuat pesanan";
         console.error("Checkout error response:", errorData);
-        setError(message);
+        toast.error(message);
         return;
       }
 
       const order = await response.json();
       clearCart();
+      toast.success("Pesanan berhasil dibuat!");
       router.push(`/orders/${order.data.orderNumber}`);
     } catch (err) {
       console.error("Checkout error:", err);
-      setError("Terjadi kesalahan, silakan coba lagi.");
+      toast.error("Terjadi kesalahan, silakan coba lagi.");
     } finally {
       setIsSubmitting(false);
     }
@@ -227,9 +226,6 @@ export default function CheckoutPage() {
           </div>
 
           <div className="lg:col-span-1">
-            {error && (
-              <p className="text-sm text-red-500 bg-red-50 rounded-md px-3 py-2 mb-3">{error}</p>
-            )}
             <OrderSummary
               items={items}
               subtotal={subtotal}
