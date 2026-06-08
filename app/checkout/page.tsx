@@ -143,7 +143,11 @@ export default function CheckoutPage() {
       }
 
       const order = await response.json();
+      const cartDocId = useCartStore.getState().cartDocumentId;
       clearCart();
+      if (cartDocId) {
+        fetch(`/api/cart/${cartDocId}`, { method: "DELETE" }).catch(() => {});
+      }
       toast.success("Pesanan berhasil dibuat!");
       router.push(`/orders/${order.data.orderNumber}`);
     } catch (err) {
