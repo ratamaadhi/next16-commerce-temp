@@ -58,7 +58,7 @@ export function OrderFilterBar() {
             key={status}
             onClick={() => handleStatusClick(status)}
             className={cn(
-              "flex-shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium border transition-colors duration-200",
+              "flex-shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium border transition-colors duration-200 cursor-pointer",
               currentStatus === status
                 ? "bg-primary text-primary-foreground border-primary"
                 : "bg-background text-muted-foreground border-border hover:border-primary/50 hover:text-foreground",
@@ -82,7 +82,7 @@ export function OrderFilterBar() {
         {searchValue && (
           <button
             onClick={handleClearSearch}
-            className="absolute right-2 top-1/2 -translate-y-1/2 h-5 w-5 rounded-full hover:bg-muted flex items-center justify-center transition-colors"
+            className="absolute right-2 top-1/2 -translate-y-1/2 h-5 w-5 rounded-full hover:bg-muted flex items-center justify-center transition-colors cursor-pointer"
           >
             <X className="h-3 w-3 text-muted-foreground" />
           </button>

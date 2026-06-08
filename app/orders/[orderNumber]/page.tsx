@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { formatPrice, formatDate } from "@/lib/strapi";
 import { getOrderByNumber } from "@/lib/orders";
 import type { Order } from "@/lib/orders";
-import { getStatusBadgeClass } from "@/components/orders/constants";
+import { getStatusBadgeClass, ORDER_STATUS_TITLES } from "@/components/orders/constants";
 import { OrderTimeline } from "@/components/orders/order-timeline";
 import { ArrowLeft, MapPin } from "lucide-react";
 
@@ -39,7 +39,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
         </Link>
         <h1 className="text-2xl font-bold text-foreground">Pesanan #{orderNumber}</h1>
         <Badge variant="outline" className={getStatusBadgeClass(order.orderStatus ?? "")}>
-          {order.orderStatus}
+          {ORDER_STATUS_TITLES[order.orderStatus ?? ""] ?? order.orderStatus}
         </Badge>
       </div>
 

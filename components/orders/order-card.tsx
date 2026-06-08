@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { formatPrice, formatDate } from "@/lib/strapi";
-import { getStatusBadgeClass } from "./constants";
+import { getStatusBadgeClass, ORDER_STATUS_TITLES } from "./constants";
 import type { Order } from "@/lib/orders";
 import { Package, Calendar } from "lucide-react";
 
@@ -23,7 +23,7 @@ export function OrderCard({ order }: OrderCardProps) {
               #{order.orderNumber}
             </span>
             <Badge variant="outline" className={`ml-2 ${getStatusBadgeClass(order.orderStatus ?? "")}`}>
-              {order.orderStatus}
+              {ORDER_STATUS_TITLES[order.orderStatus ?? ""] ?? order.orderStatus}
             </Badge>
           </div>
           <span className="font-bold text-foreground group-hover:text-primary transition-colors duration-200">

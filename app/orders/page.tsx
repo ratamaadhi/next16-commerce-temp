@@ -1,10 +1,10 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { Suspense } from "react";
 import { getOrders } from "@/lib/orders";
 import { OrderFilterBar } from "@/components/orders/order-filter-bar";
 import { OrderCard } from "@/components/orders/order-card";
-import { OrderListSkeleton } from "@/components/orders/order-skeleton";
 import { OrderEmptyState } from "@/components/orders/order-empty-state";
 
 interface OrdersPageProps {
@@ -57,7 +57,16 @@ export default async function OrdersPage({ searchParams }: OrdersPageProps) {
       </Suspense>
 
       {!filtered?.length ? (
-        <OrderEmptyState type={hasActiveFilter ? "filter-empty" : "empty"} />
+        <div className="space-y-4">
+          <OrderEmptyState type={hasActiveFilter ? "filter-empty" : "empty"} />
+          {hasActiveFilter && (
+            <div className="text-center">
+              <Link href="/orders" className="text-sm text-primary hover:underline">
+                Hapus Semua Filter
+              </Link>
+            </div>
+          )}
+        </div>
       ) : (
         <div className="space-y-3">
           {filtered.map((order, idx) => (
