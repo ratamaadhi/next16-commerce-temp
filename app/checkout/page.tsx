@@ -99,10 +99,13 @@ export default function CheckoutPage() {
         body: JSON.stringify({
           items: items.map((item) => ({
             productName: item.name,
+            productDocumentId: item.productDocumentId,
+            productSku: item.productSku,
             quantity: String(item.quantity),
             unitPrice: item.price,
             totalPrice: item.price * item.quantity,
             variantInfo: item.variantName,
+            variantSku: item.variantSku,
             imageUrl: item.image ?? undefined,
           })),
           shippingAddress: {
