@@ -111,7 +111,7 @@ export function OrderPaymentSection({
         setSnapToken(token);
       }
 
-      const snap = (window as unknown as {
+      const snap = (window as any).snap as {
         pay: (
           token: string,
           callbacks?: {
@@ -121,7 +121,7 @@ export function OrderPaymentSection({
             onClose?: () => void;
           },
         ) => void;
-      });
+      };
 
       snap.pay(token, {
         onSuccess: () => {
