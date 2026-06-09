@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createOrder, StrapiError } from "@/lib/orders";
-import { decrementInventory } from "@/lib/inventory";
 
 export async function POST(req: NextRequest) {
   try {
@@ -34,17 +33,6 @@ export async function POST(req: NextRequest) {
       },
       token,
     );
-
-    const inventoryItems = (body.items as Array<Record<string, unknown>>).map(
-      (item) => ({
-        productDocumentId: String(item.productDocumentId),
-        variantSku: item.variantSku ? String(item.variantSku) : undefined,
-        quantity: parseInt(String(item.quantity), 10),
-      }),
-    );
-    decrementInventory(inventoryItems, token).catch((err) => {
-      console.error("[orders] Failed to decrement inventory:", err);
-    });
 
     return NextResponse.json(order, { status: 201 });
   } catch (error) {

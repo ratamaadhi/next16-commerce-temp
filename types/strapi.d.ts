@@ -2432,6 +2432,12 @@ export interface components {
                 /** Format: float */
                 totalAmount?: number;
                 currency?: string;
+                midtransTransactionId?: string;
+                midtransTransactionStatus?: string;
+                midtransPaymentType?: string;
+                midtransSnapToken?: string;
+                /** Format: date-time */
+                paidAt?: string;
                 notes?: string;
                 adminNotes?: string;
                 trackingNumber?: string;
@@ -2590,6 +2596,8 @@ export interface components {
       productName?: string;
       productSku?: string;
       variantInfo?: string;
+      productDocumentId?: string;
+      variantSku?: string;
       /** @example 123456789 */
       quantity?: string;
       /** Format: float */
@@ -2655,6 +2663,12 @@ export interface components {
         /** Format: float */
         totalAmount?: number;
         currency?: string;
+        midtransTransactionId?: string;
+        midtransTransactionStatus?: string;
+        midtransPaymentType?: string;
+        midtransSnapToken?: string;
+        /** Format: date-time */
+        paidAt?: string;
         notes?: string;
         adminNotes?: string;
         trackingNumber?: string;
@@ -2701,6 +2715,12 @@ export interface components {
       /** Format: float */
       totalAmount?: number;
       currency?: string;
+      midtransTransactionId?: string;
+      midtransTransactionStatus?: string;
+      midtransPaymentType?: string;
+      midtransSnapToken?: string;
+      /** Format: date-time */
+      paidAt?: string;
       notes?: string;
       adminNotes?: string;
       trackingNumber?: string;
@@ -2970,6 +2990,12 @@ export interface components {
           /** Format: float */
           totalAmount?: number;
           currency?: string;
+          midtransTransactionId?: string;
+          midtransTransactionStatus?: string;
+          midtransPaymentType?: string;
+          midtransSnapToken?: string;
+          /** Format: date-time */
+          paidAt?: string;
           notes?: string;
           adminNotes?: string;
           trackingNumber?: string;
@@ -3934,6 +3960,12 @@ export interface components {
                 /** Format: float */
                 totalAmount?: number;
                 currency?: string;
+                midtransTransactionId?: string;
+                midtransTransactionStatus?: string;
+                midtransPaymentType?: string;
+                midtransSnapToken?: string;
+                /** Format: date-time */
+                paidAt?: string;
                 notes?: string;
                 adminNotes?: string;
                 trackingNumber?: string;
@@ -4634,6 +4666,12 @@ export interface components {
               /** Format: float */
               totalAmount?: number;
               currency?: string;
+              midtransTransactionId?: string;
+              midtransTransactionStatus?: string;
+              midtransPaymentType?: string;
+              midtransSnapToken?: string;
+              /** Format: date-time */
+              paidAt?: string;
               notes?: string;
               adminNotes?: string;
               trackingNumber?: string;
