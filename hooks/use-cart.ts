@@ -5,6 +5,8 @@ import { persist } from "zustand/middleware";
 
 export interface CartItem {
   productId: number;
+  productDocumentId?: string;
+  productSku?: string;
   name: string;
   price: number;
   weight?: number;
@@ -18,6 +20,7 @@ export interface CartItem {
   image?: string;
   variantId?: string;
   variantName?: string;
+  variantSku?: string;
 }
 
 interface CartStore {
