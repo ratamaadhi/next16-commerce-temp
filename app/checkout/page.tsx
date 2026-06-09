@@ -153,7 +153,7 @@ export default function CheckoutPage() {
         fetch(`/api/cart/${cartDocId}`, { method: "DELETE" }).catch(() => {});
       }
       toast.success("Pesanan berhasil dibuat!");
-      router.push(`/orders/${order.data.orderNumber}`);
+      window.location.href = `/orders/${order.data.orderNumber}`;
     } catch (err) {
       console.error("Checkout error:", err);
       toast.error("Terjadi kesalahan, silakan coba lagi.");
