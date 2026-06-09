@@ -2649,7 +2649,7 @@ export interface components {
     };
     OrderRequest: {
       data: {
-        orderNumber: string;
+        orderNumber?: string;
         /** @enum {string} */
         orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "cancelled" | "refunded";
         /** @enum {string} */

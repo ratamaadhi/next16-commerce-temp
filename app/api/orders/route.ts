@@ -3,20 +3,16 @@ import { cookies } from "next/headers";
 import { createOrder, StrapiError } from "@/lib/orders";
 import { strapiFetch } from "@/lib/strapi";
 
-async function resolveItemDocumentIds(
-  items: Array<Record<string, unknown>>,
-  token: string,
-) {
+async function resolveItemDocumentIds(items: Array<Record<string, unknown>>, token: string) {
   return Promise.all(
     items.map(async (item) => {
       if (item.productDocumentId) return item;
       const productId = String(item.productId);
       if (!productId) return item;
       try {
-        const res = await strapiFetch<{ data: { documentId: string }[] }>(
-          "/products",
-          { filters: { id: { $eq: productId } } },
-        );
+        const res = await strapiFetch<{ data: { documentId: string }[] }>("/products", {
+          filters: { id: { $eq: productId } },
+        });
         const docId = res.data?.[0]?.documentId;
         if (!docId) return item;
         return { ...item, productDocumentId: docId };
@@ -42,7 +38,6 @@ export async function POST(req: NextRequest) {
 
     const order = await createOrder(
       {
-        orderNumber: "",
         orderStatus: "pending",
         paymentStatus: "pending",
         subtotal: body.subtotal,
@@ -67,9 +62,6 @@ export async function POST(req: NextRequest) {
         { status: error.status },
       );
     }
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
