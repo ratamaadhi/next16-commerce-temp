@@ -1,5 +1,17 @@
 import { strapiFetch } from "./strapi";
 
+interface StrapiImageFormat {
+  url: string;
+  width: number;
+  height: number;
+  name: string;
+  hash: string;
+  ext: string;
+  mime: string;
+  size: number;
+  sizeInBytes: number;
+}
+
 export interface StrapiImage {
   id?: number;
   documentId?: string;
@@ -8,6 +20,12 @@ export interface StrapiImage {
   url: string;
   width?: number;
   height?: number;
+  formats?: {
+    large?: StrapiImageFormat;
+    medium?: StrapiImageFormat;
+    small?: StrapiImageFormat;
+    thumbnail?: StrapiImageFormat;
+  };
 }
 
 export interface ProductData {

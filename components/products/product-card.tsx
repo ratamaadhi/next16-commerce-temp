@@ -31,7 +31,7 @@ export function ProductCard({ product }: ProductCardProps) {
         className={cn(
           "group/card flex flex-col overflow-hidden h-full transition-all duration-300 ease-out",
           "hover:-translate-y-1 hover:shadow-lg",
-          "ring-1 ring-border/50 hover:ring-primary/20"
+          "ring-1 ring-border/50 hover:ring-primary/20",
         )}
       >
         {/* Image Section */}
@@ -39,7 +39,11 @@ export function ProductCard({ product }: ProductCardProps) {
           <Link href={`/products/${product.slug}`} className="block h-full" tabIndex={-1}>
             {activeImage ? (
               <Image
-                src={getStrapiMedia(activeImage.url)}
+                src={getStrapiMedia(
+                  activeImage?.formats?.large?.url ??
+                    activeImage?.formats?.medium?.url ??
+                    activeImage.url,
+                )}
                 alt={activeImage.alternativeText || product.name}
                 fill
                 className="object-cover transition-transform duration-400 ease-out group-hover/card:scale-105"
@@ -54,11 +58,11 @@ export function ProductCard({ product }: ProductCardProps) {
             {/* Badges */}
             <div className="absolute top-2 left-2 flex flex-col gap-1.5">
               {product.featured && (
-                <Badge variant="outline" className="text-xs border-primary/40 text-primary">Featured</Badge>
+                <Badge variant="outline" className="text-xs border-primary/40 text-primary">
+                  Featured
+                </Badge>
               )}
-              {product.condition && (
-                <ProductConditionBadge condition={product.condition} />
-              )}
+              {product.condition && <ProductConditionBadge condition={product.condition} />}
             </div>
             <div className="absolute top-2 right-2">
               {hasDiscount && (
@@ -91,7 +95,7 @@ export function ProductCard({ product }: ProductCardProps) {
               "hidden md:flex items-center gap-2 rounded-full",
               "bg-white/90 hover:bg-white text-foreground shadow-md",
               "px-4 py-2 text-sm font-medium",
-              "opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 ease-out"
+              "opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 ease-out",
             )}
           >
             <Eye className="h-4 w-4" />
@@ -116,18 +120,18 @@ export function ProductCard({ product }: ProductCardProps) {
             </h3>
             {product.condition && (
               <p className="text-xs text-muted-foreground mt-0.5">
-                {product.condition === "like_new" ? "Like New" : product.condition === "gently_used" ? "Gently Used" : "Well Loved"}
+                {product.condition === "like_new"
+                  ? "Like New"
+                  : product.condition === "gently_used"
+                    ? "Gently Used"
+                    : "Well Loved"}
               </p>
             )}
           </div>
         </Link>
       </Card>
 
-      <QuickViewModal
-        product={product}
-        open={isModalOpen}
-        onOpenChange={setIsModalOpen}
-      />
+      <QuickViewModal product={product} open={isModalOpen} onOpenChange={setIsModalOpen} />
     </>
   );
 }

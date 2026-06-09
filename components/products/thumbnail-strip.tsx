@@ -18,7 +18,7 @@ export function ThumbnailStrip({ images, activeIndex, onSelect }: ThumbnailStrip
     <div
       className={cn(
         "flex gap-1.5 px-3 sm:px-4 py-2",
-        images.length > 4 && "overflow-x-auto scrollbar-none snap-x snap-mandatory"
+        images.length > 4 && "overflow-x-auto scrollbar-none snap-x snap-mandatory",
       )}
     >
       {images.map((image, index) => (
@@ -34,11 +34,11 @@ export function ThumbnailStrip({ images, activeIndex, onSelect }: ThumbnailStrip
             "relative h-10 w-10 sm:h-12 sm:w-12 shrink-0 overflow-hidden rounded-md border-2 transition-all duration-300 ease-out snap-start",
             activeIndex === index
               ? "border-primary ring-1 ring-primary/30"
-              : "border-transparent hover:border-primary/50"
+              : "border-transparent hover:border-primary/50",
           )}
         >
           <Image
-            src={getStrapiMedia(image.url)}
+            src={getStrapiMedia(image.formats?.thumbnail?.url ?? image.url)}
             alt={image.alternativeText || `Image ${index + 1}`}
             fill
             className="object-cover"
