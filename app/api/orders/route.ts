@@ -38,13 +38,11 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
 
-    const orderNumber = `ORD-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
-
     const items = await resolveItemDocumentIds(body.items, token);
 
     const order = await createOrder(
       {
-        orderNumber,
+        orderNumber: "",
         orderStatus: "pending",
         paymentStatus: "pending",
         subtotal: body.subtotal,

@@ -56,6 +56,8 @@ export function ShippingOptions({
 
     onSelect(null);
 
+    const abortController = new AbortController();
+
     async function fetchCost() {
       setSelected(null);
       setOptions([]);
@@ -73,21 +75,31 @@ export function ShippingOptions({
         });
         if (destinationTitle) params.set("destinationTitle", destinationTitle);
 
-        const res = await fetch(`/api/shipping/cost?${params}`);
+        const res = await fetch(`/api/shipping/cost?${params}`, {
+          signal: abortController.signal,
+        });
         if (!res.ok) throw new Error("Shipping cost fetch failed");
         const data = await res.json();
         if (data.error) throw new Error(data.error);
+        if (abortController.signal.aborted) return;
         setOptions(Array.isArray(data) ? data : []);
         setHasFetched(true);
-      } catch {
+      } catch (err) {
+        if (err instanceof DOMException && err.name === "AbortError") return;
         setError("Gagal mengambil ongkos kirim");
       } finally {
-        setIsLoading(false);
+        if (!abortController.signal.aborted) {
+          setIsLoading(false);
+        }
       }
     }
 
     fetchCost();
-  }, [retryTrigger]); // eslint-disable-line react-hooks/exhaustive-deps -- key on parent handles prop-change resets
+
+    return () => {
+      abortController.abort();
+    };
+  }, [destinationId, weight, length, width, height, destinationTitle, retryTrigger]);
 
   const grouped = useMemo(() =>
     options.reduce<Record<string, ShippingOption[]>>((acc, opt) => {
