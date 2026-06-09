@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import Image from "next/image";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
@@ -51,12 +51,20 @@ export function ShippingOptions({
   const [hasFetched, setHasFetched] = useState(false);
   const [retryTrigger, setRetryTrigger] = useState(0);
 
+  const onSelectRef = useRef(onSelect);
+  useEffect(() => {
+    onSelectRef.current = onSelect;
+  });
+
+  const epochRef = useRef(0);
+
   useEffect(() => {
     if (!destinationId) return;
 
-    onSelect(null);
+    onSelectRef.current(null);
 
     const abortController = new AbortController();
+    const epoch = ++epochRef.current;
 
     async function fetchCost() {
       setSelected(null);
@@ -81,14 +89,15 @@ export function ShippingOptions({
         if (!res.ok) throw new Error("Shipping cost fetch failed");
         const data = await res.json();
         if (data.error) throw new Error(data.error);
-        if (abortController.signal.aborted) return;
+        if (epochRef.current !== epoch) return;
         setOptions(Array.isArray(data) ? data : []);
         setHasFetched(true);
       } catch (err) {
         if (err instanceof DOMException && err.name === "AbortError") return;
+        if (epochRef.current !== epoch) return;
         setError("Gagal mengambil ongkos kirim");
       } finally {
-        if (!abortController.signal.aborted) {
+        if (epochRef.current === epoch) {
           setIsLoading(false);
         }
       }

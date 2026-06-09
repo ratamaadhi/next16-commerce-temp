@@ -2701,7 +2701,7 @@ export interface components {
     Order: {
       id?: string | number;
       documentId?: string;
-      orderNumber: string;
+      orderNumber?: string;
       /** @enum {string} */
       orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "cancelled" | "refunded";
       /** @enum {string} */
