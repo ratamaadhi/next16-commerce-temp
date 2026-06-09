@@ -8,6 +8,10 @@ export async function GET(
 ) {
   try {
     const { orderNumber } = await params;
+    if (!orderNumber) {
+      return NextResponse.json({ error: "Missing order number" }, { status: 400 });
+    }
+
     const cookieStore = await cookies();
     const token = cookieStore.get("token")?.value;
 
@@ -32,7 +36,8 @@ export async function GET(
     }
 
     return NextResponse.json({ data: order });
-  } catch {
+  } catch (error) {
+    console.error("[GET /orders/orderNumber]", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 },

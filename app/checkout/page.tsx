@@ -100,6 +100,7 @@ export default function CheckoutPage() {
           items: items.map((item) => ({
             productName: item.name,
             productDocumentId: item.productDocumentId,
+            productId: item.productId,
             productSku: item.productSku,
             quantity: String(item.quantity),
             unitPrice: item.price,

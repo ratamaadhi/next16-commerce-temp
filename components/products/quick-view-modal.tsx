@@ -169,11 +169,13 @@ export function QuickViewModal({ product, open, onOpenChange }: QuickViewModalPr
             <div className="mt-6 space-y-3">
               <AddToCartButton
                 productId={product.id}
+                productDocumentId={product.documentId}
                 productName={product.name}
                 price={displayPrice}
                 image={product.images?.[0]?.url}
                 variantId={selected?.id?.toString()}
                 variantName={selected?.name}
+                variantSku={selected?.sku}
                 dimensions={product.dimensions}
                 disabled={isOutOfStock}
               />

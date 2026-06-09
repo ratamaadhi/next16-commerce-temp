@@ -44,11 +44,13 @@ export function ProductActions({ product, variants }: ProductActionsProps) {
 
       <AddToCartButton
         productId={product.id}
+        productDocumentId={product.documentId}
         productName={product.name}
         price={displayPrice}
         image={product.images?.[0]?.url}
         variantId={selected?.id?.toString()}
         variantName={selected?.name}
+        variantSku={selected?.sku}
         dimensions={product.dimensions}
         disabled={
           (selected?.inventory ?? product.inventory ?? 0) <= 0

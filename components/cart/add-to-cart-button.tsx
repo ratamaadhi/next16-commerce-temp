@@ -8,11 +8,13 @@ import { toast } from "sonner";
 
 interface AddToCartButtonProps {
   productId: number;
+  productDocumentId: string;
   productName: string;
   price: number;
   image?: string;
   variantId?: string;
   variantName?: string;
+  variantSku?: string;
   disabled?: boolean;
   weight?: number;
   dimensions?: {
@@ -25,11 +27,13 @@ interface AddToCartButtonProps {
 
 export function AddToCartButton({
   productId,
+  productDocumentId,
   productName,
   price,
   image,
   variantId,
   variantName,
+  variantSku,
   disabled,
   weight,
   dimensions,
@@ -40,12 +44,15 @@ export function AddToCartButton({
   const handleAddToCart = () => {
     addItem({
       productId,
+      productDocumentId,
+      productSku: undefined,
       name: productName,
       price,
       image,
       quantity,
       variantId,
       variantName,
+      variantSku,
       weight,
       dimensions,
     });

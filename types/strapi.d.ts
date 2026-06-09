@@ -1856,6 +1856,8 @@ export interface components {
     };
     ProductCartItemComponent: {
       id?: string | number;
+      productDocumentId?: string;
+      variantSku?: string;
       /** @example 123456789 */
       quantity?: string;
       variantId?: string;

@@ -12,10 +12,15 @@ export interface FetchCartParams {
   userDocumentId?: string | number;
 }
 
-function mapItems(items: CartItem[]): Array<{ variantId: string; quantity: string }> {
+function mapItems(items: CartItem[]): Array<{
+  variantId: string;
+  quantity: string;
+  productDocumentId?: string;
+  variantSku?: string;
+}> {
   return items.map((item) => {
     const vid = item.variantId ? String(item.variantId) : String(item.productId);
-    return { variantId: vid, quantity: String(item.quantity) };
+    return { variantId: vid, quantity: String(item.quantity), productDocumentId: item.productDocumentId, variantSku: item.variantSku };
   });
 }
 
@@ -203,7 +208,7 @@ export async function resolveCartItems(
 
         return {
           productId: product.id,
-          productDocumentId: product.documentId,
+          productDocumentId: item.productDocumentId ?? product.documentId,
           productSku: product.sku,
           name: product.name,
           price: variant?.price ?? product.price,
@@ -211,7 +216,7 @@ export async function resolveCartItems(
           image: product.images?.[0]?.url,
           variantId: item.variantId,
           variantName: variant?.name,
-          variantSku: variant?.sku,
+          variantSku: item.variantSku ?? variant?.sku,
           weight: resolvedDims?.weight ?? 500,
           dimensions: resolvedDims,
         } as CartItem;
