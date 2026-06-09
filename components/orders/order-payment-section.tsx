@@ -32,7 +32,7 @@ function loadSnapScript(): Promise<void> {
       reject(new Error("Window not available"));
       return;
     }
-    if ((window as Record<string, unknown>).snap) {
+    if ("snap" in window) {
       resolve();
       return;
     }
@@ -111,7 +111,7 @@ export function OrderPaymentSection({
         setSnapToken(token);
       }
 
-      const snap = (window as Record<string, unknown>).snap as {
+      const snap = (window as unknown as {
         pay: (
           token: string,
           callbacks?: {
@@ -121,7 +121,7 @@ export function OrderPaymentSection({
             onClose?: () => void;
           },
         ) => void;
-      };
+      });
 
       snap.pay(token, {
         onSuccess: () => {
