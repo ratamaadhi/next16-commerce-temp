@@ -85,12 +85,17 @@ export function formatPrice(price: number, currency = "IDR"): string {
 }
 
 export function formatDate(dateString: string): string {
-  return new Intl.DateTimeFormat("id-ID", {
+  const date = new Date(dateString);
+  const datePart = new Intl.DateTimeFormat("id-ID", {
     year: "numeric",
-    month: "long",
+    month: "short",
     day: "numeric",
+    timeZone: "Asia/Jakarta",
+  }).format(date);
+  const timePart = new Intl.DateTimeFormat("id-ID", {
     hour: "2-digit",
     minute: "2-digit",
     timeZone: "Asia/Jakarta",
-  }).format(new Date(dateString));
+  }).format(date);
+  return `${datePart}, ${timePart} WIB`;
 }
