@@ -123,6 +123,7 @@ interface ResolvedProduct {
   id: number;
   documentId: string;
   name: string;
+  sku?: string;
   price: number;
   dimensions?: {
     length?: number;
@@ -202,12 +203,15 @@ export async function resolveCartItems(
 
         return {
           productId: product.id,
+          productDocumentId: product.documentId,
+          productSku: product.sku,
           name: product.name,
           price: variant?.price ?? product.price,
           quantity: parseInt(item.quantity ?? "1", 10),
           image: product.images?.[0]?.url,
           variantId: item.variantId,
           variantName: variant?.name,
+          variantSku: variant?.sku,
           weight: resolvedDims?.weight ?? 500,
           dimensions: resolvedDims,
         } as CartItem;
