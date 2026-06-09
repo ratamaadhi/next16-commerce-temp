@@ -7,6 +7,7 @@ import { formatPrice, formatDate } from "@/lib/strapi";
 import { getOrderByNumber } from "@/lib/orders";
 import { getStatusBadgeClass, ORDER_STATUS_TITLES } from "@/components/orders/constants";
 import { OrderTimeline } from "@/components/orders/order-timeline";
+import { OrderPaymentSection } from "@/components/orders/order-payment-section";
 import Image from "next/image";
 import { ArrowLeft, MapPin } from "lucide-react";
 
@@ -166,19 +167,13 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
                 <span className="text-primary">{formatPrice(order.totalAmount ?? 0, order.currency)}</span>
               </div>
               <Separator />
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Pembayaran</span>
-                <Badge
-                  variant="outline"
-                  className={
-                    order.paymentStatus === "paid"
-                      ? "bg-green-50 text-green-700 border-green-200"
-                      : "bg-amber-50 text-amber-700 border-amber-200"
-                  }
-                >
-                  {order.paymentStatus}
-                </Badge>
-              </div>
+              <OrderPaymentSection
+                orderNumber={orderNumber}
+                paymentStatus={order.paymentStatus ?? "pending"}
+                totalAmount={order.totalAmount ?? 0}
+                currency={order.currency}
+                snapToken={order.midtransSnapToken ?? null}
+              />
             </div>
           </div>
         </div>
