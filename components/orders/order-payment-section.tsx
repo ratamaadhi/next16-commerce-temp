@@ -21,8 +21,7 @@ const POLL_MAX = 10;
 
 function getSnapScriptUrl(): string {
   return (
-    process.env.NEXT_PUBLIC_MIDTRANS_SNAP_URL ||
-    "https://app.sandbox.midtrans.com/snap/snap.js"
+    process.env.NEXT_PUBLIC_MIDTRANS_SNAP_URL || "https://app.sandbox.midtrans.com/snap/snap.js"
   );
 }
 
@@ -38,10 +37,7 @@ function loadSnapScript(): Promise<void> {
     }
     const script = document.createElement("script");
     script.src = getSnapScriptUrl();
-    script.setAttribute(
-      "data-client-key",
-      process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY || "",
-    );
+    script.setAttribute("data-client-key", process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY || "");
     script.onload = () => resolve();
     script.onerror = () => reject(new Error("Failed to load Snap.js"));
     document.head.appendChild(script);
@@ -60,11 +56,7 @@ async function regenerateToken(orderNumber: string): Promise<string> {
   return data.snapToken || data.token || data.data?.midtransSnapToken || "";
 }
 
-function pollPaymentStatus(
-  orderNumber: string,
-  onPaid: () => void,
-  onTimeout: () => void,
-) {
+function pollPaymentStatus(orderNumber: string, onPaid: () => void, onTimeout: () => void) {
   let attempts = 0;
   const interval = setInterval(async () => {
     attempts++;
@@ -137,9 +129,7 @@ export function OrderPaymentSection({
             () => {
               setPolling(false);
               router.refresh();
-              toast.info(
-                "Pembayaran sedang diproses. Refresh halaman untuk status terbaru.",
-              );
+              toast.info("Pembayaran sedang diproses. Refresh halaman untuk status terbaru.");
             },
           );
         },
@@ -168,14 +158,11 @@ export function OrderPaymentSection({
           }
         },
         onClose: () => {
-          toast.info(
-            "Popup pembayaran ditutup. Anda dapat membayar kembali nanti.",
-          );
+          toast.info("Popup pembayaran ditutup. Anda dapat membayar kembali nanti.");
         },
       });
     } catch (err) {
-      const message =
-        err instanceof Error ? err.message : "Gagal memuat pembayaran";
+      const message = err instanceof Error ? err.message : "Gagal memuat pembayaran";
       toast.error(message);
     } finally {
       setLoading(false);
@@ -187,10 +174,7 @@ export function OrderPaymentSection({
       <div className="space-y-2 text-sm">
         <div className="flex justify-between">
           <span className="text-muted-foreground">Pembayaran</span>
-          <Badge
-            variant="outline"
-            className="bg-green-50 text-green-700 border-green-200"
-          >
+          <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
             Lunas
           </Badge>
         </div>
@@ -203,10 +187,7 @@ export function OrderPaymentSection({
       <div className="space-y-2 text-sm">
         <div className="flex justify-between">
           <span className="text-muted-foreground">Pembayaran</span>
-          <Badge
-            variant="outline"
-            className="bg-amber-50 text-amber-700 border-amber-200"
-          >
+          <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200">
             <Loader2 className="mr-1 h-3 w-3 animate-spin" />
             Memproses...
           </Badge>
@@ -234,21 +215,19 @@ export function OrderPaymentSection({
       </div>
       <Button onClick={handlePay} disabled={loading} className="w-full" size="lg">
         {loading ? (
-          <>
+          <span className="flex items-center">
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Memproses...
-          </>
+          </span>
         ) : (
-          <>
+          <span className="flex items-center">
             {isFailed ? (
               <RefreshCw className="mr-2 h-4 w-4" />
             ) : (
               <CreditCard className="mr-2 h-4 w-4" />
             )}
-            {isFailed
-              ? "Coba Bayar Lagi"
-              : `Bayar Sekarang — ${formatPrice(totalAmount, currency)}`}
-          </>
+            {isFailed ? "Coba Bayar Lagi" : "Bayar Sekarang"}
+          </span>
         )}
       </Button>
     </div>
