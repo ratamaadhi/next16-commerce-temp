@@ -165,7 +165,7 @@ export default function CheckoutPage() {
   if (!items.length) return null;
 
   return (
-    <main className="container mx-auto px-4 py-8 max-w-4xl">
+    <main className="container mx-auto px-4 py-8 max-w-5xl">
       <h1 className="text-xl font-semibold mb-6">Checkout</h1>
 
       <form onSubmit={handleSubmit}>

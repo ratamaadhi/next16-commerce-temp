@@ -28,7 +28,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
   if (!order) notFound();
 
   return (
-    <main className="container mx-auto px-4 py-8 max-w-4xl">
+    <main className="container mx-auto px-4 py-8 max-w-5xl">
       {/* Header */}
       <div className="flex flex-wrap items-center gap-3 mb-6">
         <Link

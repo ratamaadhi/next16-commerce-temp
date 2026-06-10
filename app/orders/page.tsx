@@ -40,7 +40,7 @@ export default async function OrdersPage({ searchParams }: OrdersPageProps) {
   const hasActiveFilter = status !== "" || q !== "";
 
   return (
-    <main className="container mx-auto px-4 py-8 max-w-4xl">
+    <main className="container mx-auto px-4 py-8 max-w-5xl">
       <div className="flex items-center justify-between mb-5">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Pesanan Saya</h1>
