@@ -12,9 +12,12 @@ export function OrderTimeline({ orderStatus, className }: OrderTimelineProps) {
   if (steps.length === 0) return null;
 
   const completedCount = steps.filter((s) => s.completed).length;
-  const progressPercent = steps.length > 1
-    ? Math.round((completedCount / (steps.length - 1)) * 100)
-    : completedCount > 0 ? 100 : 0;
+  const progressPercent =
+    steps.length > 1
+      ? Math.min(Math.round((completedCount / (steps.length - 1)) * 100), 100)
+      : completedCount > 0
+        ? 100
+        : 0;
 
   return (
     <div className={cn("bg-card rounded-xl border p-6", className)}>
@@ -27,7 +30,7 @@ export function OrderTimeline({ orderStatus, className }: OrderTimelineProps) {
         {/* Progress fill */}
         <div
           className="absolute top-4 left-[calc(12.5%)] h-0.5 bg-primary transition-all duration-700 ease-out"
-          style={{ width: `${progressPercent}%` }}
+          style={{ width: `${progressPercent * 0.75}%` }}
         />
         {/* Steps */}
         <div className="relative flex justify-between">
@@ -50,7 +53,7 @@ export function OrderTimeline({ orderStatus, className }: OrderTimelineProps) {
               <span
                 className={cn(
                   "mt-2 text-xs font-medium transition-colors duration-300",
-                  (step.completed || step.active) ? "text-foreground" : "text-muted-foreground",
+                  step.completed || step.active ? "text-foreground" : "text-muted-foreground",
                 )}
               >
                 {ORDER_STATUS_TITLES[step.key] ?? step.key}
