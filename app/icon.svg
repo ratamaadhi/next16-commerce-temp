@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <circle cx="16" cy="16" r="16" fill="#D4A373"/>
+  <text
+    x="17"
+    y="23"
+    text-anchor="middle"
+    font-family="Georgia, 'Playfair Display', serif"
+    font-size="21"
+    font-weight="700"
+    fill="white"
+  >C</text>
+</svg>
