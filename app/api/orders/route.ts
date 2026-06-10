@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { createOrder, StrapiError } from "@/lib/orders";
 import { strapiFetch } from "@/lib/strapi";
 
-async function resolveItemDocumentIds(items: Array<Record<string, unknown>>, token: string) {
+async function resolveItemDocumentIds(items: Array<Record<string, unknown>>) {
   return Promise.all(
     items.map(async (item) => {
       if (item.productDocumentId) return item;
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
 
-    const items = await resolveItemDocumentIds(body.items, token);
+    const items = await resolveItemDocumentIds(body.items);
 
     const order = await createOrder(
       {

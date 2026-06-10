@@ -4,7 +4,6 @@ import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { formatPrice } from "@/lib/strapi";
 import { Loader2, CreditCard, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 
@@ -82,8 +81,6 @@ function pollPaymentStatus(orderNumber: string, onPaid: () => void, onTimeout: (
 export function OrderPaymentSection({
   orderNumber,
   paymentStatus,
-  totalAmount,
-  currency = "IDR",
   snapToken: initialToken,
 }: OrderPaymentSectionProps) {
   const router = useRouter();
@@ -103,17 +100,21 @@ export function OrderPaymentSection({
         setSnapToken(token);
       }
 
-      const snap = (window as any).snap as {
-        pay: (
-          token: string,
-          callbacks?: {
-            onSuccess?: (result: unknown) => void;
-            onPending?: (result: unknown) => void;
-            onError?: (result: unknown) => void;
-            onClose?: () => void;
-          },
-        ) => void;
-      };
+      const snap = (
+        window as Window & {
+          snap: {
+            pay: (
+              token: string,
+              callbacks?: {
+                onSuccess?: (result: unknown) => void;
+                onPending?: (result: unknown) => void;
+                onError?: (result: unknown) => void;
+                onClose?: () => void;
+              },
+            ) => void;
+          };
+        }
+      ).snap;
 
       snap.pay(token, {
         onSuccess: () => {

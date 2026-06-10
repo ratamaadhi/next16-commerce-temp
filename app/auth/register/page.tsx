@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Label } from "@/components/ui/label";
 import {
   Card,
@@ -14,26 +14,42 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function RegisterPage() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const { register, isRegistering } = useAuth();
+  const { user, isAuthenticated, register, isRegistering } = useAuth();
   const router = useRouter();
+  const [validationError, setValidationError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-
-    try {
-      await register({ username, email, password });
+  useEffect(() => {
+    if (isAuthenticated && user) {
       router.push("/");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Registrasi gagal");
     }
+  }, [isAuthenticated, user, router]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setValidationError("");
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const username = data.get("username") as string;
+    const email = data.get("email") as string;
+    const password = data.get("password") as string;
+    const confirmPassword = data.get("confirmPassword") as string;
+
+    if (password.length < 6) {
+      setValidationError("Password minimal 6 karakter");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setValidationError("Password tidak cocok");
+      return;
+    }
+
+    register({ username, email, password });
   };
 
   return (
@@ -45,18 +61,17 @@ export default function RegisterPage() {
             <CardDescription>Buat akun baru untuk mulai berbelanja</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {error && (
+            {validationError && (
               <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-md">
-                {error}
+                {validationError}
               </div>
             )}
             <div className="space-y-2">
               <Label htmlFor="username">Username</Label>
               <Input
                 id="username"
+                name="username"
                 placeholder="nama pengguna"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
                 required
               />
             </div>
@@ -64,23 +79,28 @@ export default function RegisterPage() {
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
+                name="email"
                 type="email"
                 placeholder="email@contoh.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
-              <Input
+              <PasswordInput
                 id="password"
-                type="password"
+                name="password"
                 placeholder="Minimal 6 karakter"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 required
-                minLength={6}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="confirmPassword">Konfirmasi Password</Label>
+              <PasswordInput
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="••••••••"
+                required
               />
             </div>
           </CardContent>

@@ -2,6 +2,7 @@
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface AuthUser {
   id: number;
@@ -57,6 +58,11 @@ export function useAuth() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth-user"] });
       router.refresh();
+      toast.success("Login berhasil!");
+      router.push("/");
+    },
+    onError: (err: Error) => {
+      toast.error(err.message || "Login gagal");
     },
   });
 
@@ -76,6 +82,11 @@ export function useAuth() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth-user"] });
       router.refresh();
+      toast.success("Registrasi berhasil!");
+      router.push("/");
+    },
+    onError: (err: Error) => {
+      toast.error(err.message || "Registrasi gagal");
     },
   });
 
@@ -95,10 +106,8 @@ export function useAuth() {
     isLoading,
     isAuthenticated: !!user,
     error,
-    login: loginMutation.mutate,
-    loginAsync: loginMutation.mutateAsync,
-    register: registerMutation.mutate,
-    registerAsync: registerMutation.mutateAsync,
+    login: loginMutation.mutateAsync,
+    register: registerMutation.mutateAsync,
     logout: logoutMutation.mutate,
     isLoggingIn: loginMutation.isPending,
     isRegistering: registerMutation.isPending,
