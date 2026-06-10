@@ -101,7 +101,7 @@ export function OrderPaymentSection({
       }
 
       const snap = (
-        window as Window & {
+        window as unknown as {
           snap: {
             pay: (
               token: string,
