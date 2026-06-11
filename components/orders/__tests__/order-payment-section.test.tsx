@@ -44,6 +44,7 @@ function renderSection(
     paymentStatus: string;
     totalAmount: number;
     snapToken: string | null;
+    autoPay?: boolean;
   }> = {},
 ) {
   return render(
@@ -52,6 +53,7 @@ function renderSection(
       paymentStatus={overrides.paymentStatus ?? "pending"}
       totalAmount={overrides.totalAmount ?? 50000}
       snapToken={overrides.snapToken ?? "test-snap-token"}
+      autoPay={overrides.autoPay}
     />,
   );
 }
