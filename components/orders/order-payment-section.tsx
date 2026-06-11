@@ -101,7 +101,6 @@ export function OrderPaymentSection({
   const [snapToken, setSnapToken] = useState<string | null>(initialToken);
   const [polling, setPolling] = useState(false);
   const [paid, setPaid] = useState(paymentStatus === "paid");
-  const [retrying, setRetrying] = useState(false);
   const pollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const hasAutoPaid = useRef(false);
 
@@ -208,7 +207,6 @@ export function OrderPaymentSection({
 
   const handleRetry = useCallback(async () => {
     setLoading(true);
-    setRetrying(true);
     try {
       const res = await fetch(`/api/orders/${orderNumber}/retry`, {
         method: "POST",
@@ -226,7 +224,6 @@ export function OrderPaymentSection({
         err instanceof Error ? err.message : "Gagal memproses retry";
       toast.error(message);
       setLoading(false);
-      setRetrying(false);
     }
   }, [orderNumber]);
 
