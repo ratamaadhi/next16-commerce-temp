@@ -191,13 +191,18 @@ export async function resolveCartItems(
         let product = products.find((p) =>
           p.variants?.some((v) => String(v.id) === item.variantId),
         );
-        const variant = product?.variants?.find((v) => String(v.id) === item.variantId);
+        let variant = product?.variants?.find((v) => String(v.id) === item.variantId);
 
         if (!product) {
           const numId = parseInt(item.variantId, 10);
           if (!isNaN(numId)) {
             product = products.find((p) => p.id === numId);
           }
+        }
+
+        if (item.productDocumentId && product?.documentId !== item.productDocumentId) {
+          product = products.find((p) => p.documentId === item.productDocumentId);
+          variant = product?.variants?.find((v) => String(v.id) === item.variantId);
         }
 
         if (!product) return null;
