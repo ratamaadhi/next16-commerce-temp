@@ -31,7 +31,7 @@ interface CartStore {
   cartDocumentId: string | null;
 
   // Existing operations
-  addItem: (item: Omit<CartItem, "quantity"> & { quantity?: number }) => void;
+  addItem: (item: Omit<CartItem, "quantity"> & { quantity?: number }, hasVariants?: boolean) => boolean;
   removeItem: (productId: number, variantId?: string) => void;
   updateQuantity: (productId: number, quantity: number, variantId?: string) => void;
   clearCart: () => void;
@@ -55,7 +55,10 @@ export const useCartStore = create<CartStore>()(
       sessionId: null,
       cartDocumentId: null,
 
-      addItem: (item) => {
+      addItem: (item, hasVariants) => {
+        if (hasVariants && !item.variantId) {
+          return false;
+        }
         const { items } = get();
         const existingIndex = items.findIndex(
           (i) => i.productId === item.productId && i.variantId === item.variantId
@@ -68,6 +71,7 @@ export const useCartStore = create<CartStore>()(
         } else {
           set({ items: [...items, { ...item, quantity: item.quantity || 1 }] });
         }
+        return true;
       },
 
       removeItem: (productId, variantId) => {

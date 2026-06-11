@@ -16,6 +16,7 @@ interface AddToCartButtonProps {
   variantName?: string;
   variantSku?: string;
   disabled?: boolean;
+  needsVariant?: boolean;
   weight?: number;
   dimensions?: {
     length?: number;
@@ -35,6 +36,7 @@ export function AddToCartButton({
   variantName,
   variantSku,
   disabled,
+  needsVariant,
   weight,
   dimensions,
 }: AddToCartButtonProps) {
@@ -42,20 +44,27 @@ export function AddToCartButton({
   const addItem = useCartStore((s) => s.addItem);
 
   const handleAddToCart = () => {
-    addItem({
-      productId,
-      productDocumentId,
-      productSku: undefined,
-      name: productName,
-      price,
-      image,
-      quantity,
-      variantId,
-      variantName,
-      variantSku,
-      weight,
-      dimensions,
-    });
+    const added = addItem(
+      {
+        productId,
+        productDocumentId,
+        productSku: undefined,
+        name: productName,
+        price,
+        image,
+        quantity,
+        variantId,
+        variantName,
+        variantSku,
+        weight,
+        dimensions,
+      },
+      needsVariant,
+    );
+    if (!added) {
+      toast.error("Silakan pilih variant terlebih dahulu");
+      return;
+    }
     toast.success(`${productName} ditambahkan ke keranjang!`);
     setQuantity(1);
   };
@@ -88,7 +97,7 @@ export function AddToCartButton({
         size="lg"
       >
         <ShoppingCart className="mr-2 h-5 w-5" />
-        {disabled ? "Stok Habis" : "Tambah ke Keranjang"}
+        {disabled && needsVariant ? "Pilih Variant" : disabled ? "Stok Habis" : "Tambah ke Keranjang"}
       </Button>
     </div>
   );

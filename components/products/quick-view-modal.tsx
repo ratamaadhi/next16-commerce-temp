@@ -33,6 +33,8 @@ export function QuickViewModal({ product, open, onOpenChange }: QuickViewModalPr
   const variants = product.variants ?? [];
   const selected = selectedVariant !== null ? variants[selectedVariant] : null;
   const displayPrice = selected?.price ?? product.price;
+  const hasVariants = variants.length > 0;
+  const needsVariant = hasVariants && selectedVariant === null;
   const hasDiscount = product.compareAtPrice != null && product.compareAtPrice > displayPrice;
   const inventory = selected?.inventory ?? product.inventory ?? 0;
   const isOutOfStock = inventory <= 0;
@@ -177,7 +179,8 @@ export function QuickViewModal({ product, open, onOpenChange }: QuickViewModalPr
                 variantName={selected?.name}
                 variantSku={selected?.sku}
                 dimensions={product.dimensions}
-                disabled={isOutOfStock}
+                needsVariant={needsVariant}
+                disabled={needsVariant || isOutOfStock}
               />
 
               <Link

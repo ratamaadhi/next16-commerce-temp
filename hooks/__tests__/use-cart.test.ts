@@ -165,6 +165,45 @@ describe("useCartStore — getTotalWeight", () => {
   });
 });
 
+describe("useCartStore — addItem variant validation", () => {
+  it("rejects when hasVariants is true and no variantId provided", () => {
+    const result = useCartStore.getState().addItem(
+      { productId: 1, name: "A", price: 100 },
+      true,
+    );
+    expect(result).toBe(false);
+    expect(useCartStore.getState().items).toHaveLength(0);
+  });
+
+  it("adds item when hasVariants is true and variantId is provided", () => {
+    const result = useCartStore.getState().addItem(
+      { productId: 1, name: "A", price: 100, variantId: "v1" },
+      true,
+    );
+    expect(result).toBe(true);
+    expect(useCartStore.getState().items).toHaveLength(1);
+  });
+
+  it("adds item when hasVariants is false and no variantId (backward compat)", () => {
+    const result = useCartStore.getState().addItem(
+      { productId: 1, name: "A", price: 100 },
+      false,
+    );
+    expect(result).toBe(true);
+    expect(useCartStore.getState().items).toHaveLength(1);
+  });
+
+  it("adds item when hasVariants is omitted and no variantId (backward compat)", () => {
+    const result = useCartStore.getState().addItem({
+      productId: 1,
+      name: "A",
+      price: 100,
+    });
+    expect(result).toBe(true);
+    expect(useCartStore.getState().items).toHaveLength(1);
+  });
+});
+
 describe("useCartStore — getTotalWeight with dimensions", () => {
   it("prefers dimensions.weight over flat weight", () => {
     useCartStore.getState().setItems([

@@ -15,6 +15,8 @@ export function ProductActions({ product, variants }: ProductActionsProps) {
   const [selectedVariant, setSelectedVariant] = useState<number | null>(null);
   const selected = selectedVariant !== null ? variants?.[selectedVariant] : null;
   const displayPrice = selected?.price ?? product.price;
+  const hasVariants = !!(variants && variants.length > 0);
+  const needsVariant = hasVariants && selectedVariant === null;
 
   return (
     <div className="space-y-6">
@@ -52,8 +54,9 @@ export function ProductActions({ product, variants }: ProductActionsProps) {
         variantName={selected?.name}
         variantSku={selected?.sku}
         dimensions={product.dimensions}
+        needsVariant={needsVariant}
         disabled={
-          (selected?.inventory ?? product.inventory ?? 0) <= 0
+          needsVariant || (selected?.inventory ?? product.inventory ?? 0) <= 0
         }
       />
     </div>
