@@ -130,6 +130,7 @@ interface ResolvedProduct {
   name: string;
   sku?: string;
   price: number;
+  inventory?: number;
   dimensions?: {
     length?: number;
     width?: number;
