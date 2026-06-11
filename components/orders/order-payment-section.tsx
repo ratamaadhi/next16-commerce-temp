@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,6 +13,7 @@ interface OrderPaymentSectionProps {
   totalAmount: number;
   currency?: string;
   snapToken: string | null;
+  autoPay?: boolean;
 }
 
 const POLL_INTERVAL = 5000;
@@ -93,6 +94,7 @@ export function OrderPaymentSection({
   orderNumber,
   paymentStatus,
   snapToken: initialToken,
+  autoPay,
 }: OrderPaymentSectionProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -100,6 +102,7 @@ export function OrderPaymentSection({
   const [polling, setPolling] = useState(false);
   const [paid, setPaid] = useState(paymentStatus === "paid");
   const pollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const hasAutoPaid = useRef(false);
 
   const stopPolling = useCallback(() => {
     if (pollIntervalRef.current !== null) {
@@ -193,6 +196,13 @@ export function OrderPaymentSection({
       setLoading(false);
     }
   }, [snapToken, orderNumber, router, stopPolling]);
+
+  useEffect(() => {
+    if (autoPay && snapToken && !hasAutoPaid.current) {
+      hasAutoPaid.current = true;
+      handlePay();
+    }
+  }, []);
 
   if (paid) {
     return (
