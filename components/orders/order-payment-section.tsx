@@ -101,6 +101,7 @@ export function OrderPaymentSection({
   const [snapToken, setSnapToken] = useState<string | null>(initialToken);
   const [polling, setPolling] = useState(false);
   const [paid, setPaid] = useState(paymentStatus === "paid");
+  const [retrying, setRetrying] = useState(false);
   const pollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const hasAutoPaid = useRef(false);
 
@@ -205,6 +206,30 @@ export function OrderPaymentSection({
     }
   }, []);
 
+  const handleRetry = useCallback(async () => {
+    setLoading(true);
+    setRetrying(true);
+    try {
+      const res = await fetch(`/api/orders/${orderNumber}/retry`, {
+        method: "POST",
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Gagal memproses retry");
+      }
+      const data = await res.json();
+      const newOrderNumber = data.data?.orderNumber;
+      if (!newOrderNumber) throw new Error("Gagal memproses retry");
+      window.location.href = `/orders/${newOrderNumber}?autoPay=true`;
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Gagal memproses retry";
+      toast.error(message);
+      setLoading(false);
+      setRetrying(false);
+    }
+  }, [orderNumber]);
+
   if (paid) {
     return (
       <div className="space-y-2 text-sm">
@@ -249,7 +274,11 @@ export function OrderPaymentSection({
           {isFailed ? "Gagal" : "Pending"}
         </Badge>
       </div>
-      <Button onClick={handlePay} disabled={loading} className="w-full" size="lg">
+      <Button
+        onClick={isFailed ? handleRetry : handlePay}
+        disabled={loading}
+        className="w-full"
+        size="lg">
         {loading ? (
           <span className="flex items-center">
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
