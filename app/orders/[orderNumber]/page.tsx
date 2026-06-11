@@ -13,10 +13,12 @@ import { ArrowLeft, MapPin } from "lucide-react";
 
 interface OrderDetailPageProps {
   params: Promise<{ orderNumber: string }>;
+  searchParams: Promise<{ autoPay?: string }>;
 }
 
-export default async function OrderDetailPage({ params }: OrderDetailPageProps) {
+export default async function OrderDetailPage({ params, searchParams }: OrderDetailPageProps) {
   const { orderNumber } = await params;
+  const { autoPay } = await searchParams;
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
@@ -173,6 +175,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
                 totalAmount={order.totalAmount ?? 0}
                 currency={order.currency}
                 snapToken={order.midtransSnapToken ?? null}
+                autoPay={autoPay === "true"}
               />
             </div>
           </div>
