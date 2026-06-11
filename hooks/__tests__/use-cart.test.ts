@@ -165,6 +165,131 @@ describe("useCartStore — getTotalWeight", () => {
   });
 });
 
+describe("useCartStore — addItem stock validation", () => {
+  it("rejects when quantity exceeds maxQuantity on new item", () => {
+    const result = useCartStore.getState().addItem({
+      productId: 1, name: "A", price: 100, quantity: 5, maxQuantity: 3,
+    });
+    expect(result).toBe(false);
+    expect(useCartStore.getState().items).toHaveLength(0);
+  });
+
+  it("accepts when quantity equals maxQuantity", () => {
+    const result = useCartStore.getState().addItem({
+      productId: 1, name: "A", price: 100, quantity: 3, maxQuantity: 3,
+    });
+    expect(result).toBe(true);
+    expect(useCartStore.getState().items[0].quantity).toBe(3);
+  });
+
+  it("accepts when quantity is within maxQuantity", () => {
+    const result = useCartStore.getState().addItem({
+      productId: 1, name: "A", price: 100, quantity: 2, maxQuantity: 5,
+    });
+    expect(result).toBe(true);
+  });
+
+  it("rejects when existing item + new quantity exceeds maxQuantity", () => {
+    useCartStore.getState().addItem({
+      productId: 1, name: "A", price: 100, quantity: 2, maxQuantity: 3,
+    });
+    const result = useCartStore.getState().addItem({
+      productId: 1, name: "A", price: 100, quantity: 2, maxQuantity: 3,
+    });
+    expect(result).toBe(false);
+    expect(useCartStore.getState().items[0].quantity).toBe(2);
+  });
+
+  it("works without maxQuantity for backward compatibility", () => {
+    const result = useCartStore.getState().addItem({
+      productId: 1, name: "A", price: 100, quantity: 99,
+    });
+    expect(result).toBe(true);
+    expect(useCartStore.getState().items[0].quantity).toBe(99);
+  });
+});
+
+describe("useCartStore — mergeItems stock capping", () => {
+  it("caps merged quantity to maxQuantity when incoming would exceed", () => {
+    useCartStore.getState().setItems([{
+      productId: 1, name: "A", price: 100, variantId: "v1", quantity: 2, maxQuantity: 3,
+    }]);
+    const incoming = [
+      { productId: 1, name: "A", price: 100, variantId: "v1", quantity: 3, maxQuantity: 3 },
+    ];
+    useCartStore.getState().mergeItems(incoming);
+    const item = useCartStore.getState().items[0];
+    expect(item.quantity).toBe(3);
+  });
+
+  it("sums quantities when under maxQuantity", () => {
+    useCartStore.getState().setItems([{
+      productId: 1, name: "A", price: 100, quantity: 1, maxQuantity: 10,
+    }]);
+    useCartStore.getState().mergeItems([
+      { productId: 1, name: "A", price: 100, quantity: 3, maxQuantity: 10 },
+    ]);
+    expect(useCartStore.getState().items[0].quantity).toBe(4);
+  });
+
+  it("works without maxQuantity for backward compatibility", () => {
+    useCartStore.getState().addItem({
+      productId: 1, name: "A", price: 100, quantity: 1,
+    });
+    useCartStore.getState().mergeItems([
+      { productId: 1, name: "A", price: 100, quantity: 5 },
+    ]);
+    expect(useCartStore.getState().items[0].quantity).toBe(6);
+  });
+});
+
+describe("useCartStore — mergeCart stock capping", () => {
+  it("caps merged quantity to maxQuantity", () => {
+    useCartStore.getState().addItem({
+      productId: 1, name: "A", price: 100, variantId: "v1", quantity: 2,
+    });
+    useCartStore.getState().mergeCart("doc-1", [
+      { productId: 1, name: "A", price: 100, variantId: "v1", quantity: 4, maxQuantity: 3 },
+    ]);
+    const item = useCartStore.getState().items[0];
+    expect(item.quantity).toBe(3);
+  });
+});
+
+describe("useCartStore — updateQuantity stock validation", () => {
+  it("caps quantity to maxQuantity when exceeded", () => {
+    useCartStore.getState().setItems([{
+      productId: 1, name: "A", price: 100, quantity: 2, maxQuantity: 3,
+    }]);
+    useCartStore.getState().updateQuantity(1, 10);
+    expect(useCartStore.getState().items[0].quantity).toBe(3);
+  });
+
+  it("allows quantity within maxQuantity", () => {
+    useCartStore.getState().setItems([{
+      productId: 1, name: "A", price: 100, quantity: 1, maxQuantity: 5,
+    }]);
+    useCartStore.getState().updateQuantity(1, 4);
+    expect(useCartStore.getState().items[0].quantity).toBe(4);
+  });
+
+  it("removes item when quantity is 0 (regardless of maxQuantity)", () => {
+    useCartStore.getState().setItems([{
+      productId: 1, name: "A", price: 100, quantity: 2, maxQuantity: 5,
+    }]);
+    useCartStore.getState().updateQuantity(1, 0);
+    expect(useCartStore.getState().items).toHaveLength(0);
+  });
+
+  it("works without maxQuantity for backward compatibility", () => {
+    useCartStore.getState().addItem({
+      productId: 1, name: "A", price: 100, quantity: 1,
+    });
+    useCartStore.getState().updateQuantity(1, 999);
+    expect(useCartStore.getState().items[0].quantity).toBe(999);
+  });
+});
+
 describe("useCartStore — addItem variant validation", () => {
   it("rejects when hasVariants is true and no variantId provided", () => {
     const result = useCartStore.getState().addItem(

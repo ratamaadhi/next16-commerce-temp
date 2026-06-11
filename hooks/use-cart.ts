@@ -17,6 +17,7 @@ export interface CartItem {
     weight?: number;
   };
   quantity: number;
+  maxQuantity?: number;
   image?: string;
   variantId?: string;
   variantName?: string;
@@ -65,11 +66,18 @@ export const useCartStore = create<CartStore>()(
         );
 
         if (existingIndex > -1) {
+          const existing = items[existingIndex];
+          const newQty = existing.quantity + (item.quantity || 1);
+          const maxQty = item.maxQuantity ?? existing.maxQuantity;
+          if (maxQty !== undefined && newQty > maxQty) return false;
           const newItems = [...items];
-          newItems[existingIndex].quantity += item.quantity || 1;
+          newItems[existingIndex] = { ...newItems[existingIndex], quantity: newQty };
           set({ items: newItems });
         } else {
-          set({ items: [...items, { ...item, quantity: item.quantity || 1 }] });
+          const maxQty = item.maxQuantity;
+          const qty = item.quantity || 1;
+          if (maxQty !== undefined && qty > maxQty) return false;
+          set({ items: [...items, { ...item, quantity: qty }] });
         }
         return true;
       },
@@ -88,11 +96,11 @@ export const useCartStore = create<CartStore>()(
           return;
         }
         set({
-          items: get().items.map((i) =>
-            i.productId === productId && i.variantId === variantId
-              ? { ...i, quantity }
-              : i
-          ),
+          items: get().items.map((i) => {
+            if (i.productId !== productId || i.variantId !== variantId) return i;
+            const capped = i.maxQuantity !== undefined ? Math.min(quantity, i.maxQuantity) : quantity;
+            return { ...i, quantity: capped };
+          }),
         });
       },
 
@@ -126,9 +134,11 @@ export const useCartStore = create<CartStore>()(
             (i) => i.productId === inc.productId && i.variantId === inc.variantId
           );
           if (idx > -1) {
+            const sum = merged[idx].quantity + inc.quantity;
+            const maxQty = merged[idx].maxQuantity ?? inc.maxQuantity;
             merged[idx] = {
               ...merged[idx],
-              quantity: merged[idx].quantity + inc.quantity,
+              quantity: maxQty !== undefined ? Math.min(sum, maxQty) : sum,
             };
           } else {
             merged.push({ ...inc });
@@ -146,9 +156,11 @@ export const useCartStore = create<CartStore>()(
             (i) => i.productId === localItem.productId && i.variantId === localItem.variantId
           );
           if (idx > -1) {
+            const sum = merged[idx].quantity + localItem.quantity;
+            const maxQty = merged[idx].maxQuantity;
             merged[idx] = {
               ...merged[idx],
-              quantity: merged[idx].quantity + localItem.quantity,
+              quantity: maxQty !== undefined ? Math.min(sum, maxQty) : sum,
             };
           } else {
             merged.push({ ...localItem });

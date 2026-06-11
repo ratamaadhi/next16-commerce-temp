@@ -206,6 +206,8 @@ export async function resolveCartItems(
         const productDims = product.dimensions;
         const resolvedDims = variantDims ?? productDims;
 
+        const inventory = variant?.inventory ?? product.inventory;
+
         return {
           productId: product.id,
           productDocumentId: item.productDocumentId ?? product.documentId,
@@ -213,6 +215,7 @@ export async function resolveCartItems(
           name: product.name,
           price: variant?.price ?? product.price,
           quantity: parseInt(item.quantity ?? "1", 10),
+          ...(inventory !== undefined ? { maxQuantity: inventory } : {}),
           image: product.images?.[0]?.url,
           variantId: item.variantId,
           variantName: variant?.name,

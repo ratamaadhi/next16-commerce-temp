@@ -180,6 +180,7 @@ export function QuickViewModal({ product, open, onOpenChange }: QuickViewModalPr
                 variantSku={selected?.sku}
                 dimensions={product.dimensions}
                 needsVariant={needsVariant}
+                maxQuantity={inventory > 0 ? inventory : undefined}
                 disabled={needsVariant || isOutOfStock}
               />
 

@@ -275,6 +275,45 @@ describe("resolveCartItems", () => {
     });
   });
 
+  it("sets maxQuantity from variant inventory", async () => {
+    const strapiItems = [{ quantity: "1", variantId: "5" }];
+    mockStrapiFetch.mockResolvedValueOnce({
+      data: [{
+        id: 1, documentId: "p1", name: "Test", price: 100,
+        variants: [{ id: 5, name: "Red", price: 100, inventory: 3 }],
+      }],
+      meta: {},
+    });
+    const result = await resolveCartItems(strapiItems);
+    expect(result[0].maxQuantity).toBe(3);
+  });
+
+  it("sets maxQuantity from product inventory when no variants", async () => {
+    const strapiItems = [{ quantity: "1", variantId: "42" }];
+    mockStrapiFetch.mockResolvedValueOnce({
+      data: [{
+        id: 42, documentId: "p42", name: "Simple", price: 100, inventory: 5,
+        variants: [],
+      }],
+      meta: {},
+    });
+    const result = await resolveCartItems(strapiItems);
+    expect(result[0].maxQuantity).toBe(5);
+  });
+
+  it("omits maxQuantity when inventory is undefined", async () => {
+    const strapiItems = [{ quantity: "1", variantId: "5" }];
+    mockStrapiFetch.mockResolvedValueOnce({
+      data: [{
+        id: 1, documentId: "p1", name: "Test", price: 100,
+        variants: [{ id: 5, name: "Red", price: 100 }],
+      }],
+      meta: {},
+    });
+    const result = await resolveCartItems(strapiItems);
+    expect(result[0].maxQuantity).toBeUndefined();
+  });
+
   it("resolves dimensions from variant with fallback to product", async () => {
     const strapiItems = [
       { quantity: "1", variantId: "10" },

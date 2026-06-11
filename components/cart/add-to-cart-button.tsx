@@ -24,6 +24,7 @@ interface AddToCartButtonProps {
     height?: number;
     weight?: number;
   };
+  maxQuantity?: number;
 }
 
 export function AddToCartButton({
@@ -39,6 +40,7 @@ export function AddToCartButton({
   needsVariant,
   weight,
   dimensions,
+  maxQuantity,
 }: AddToCartButtonProps) {
   const [quantity, setQuantity] = useState(1);
   const addItem = useCartStore((s) => s.addItem);
@@ -56,6 +58,7 @@ export function AddToCartButton({
         variantId,
         variantName,
         variantSku,
+        maxQuantity,
         weight,
         dimensions,
       },
@@ -68,6 +71,8 @@ export function AddToCartButton({
     toast.success(`${productName} ditambahkan ke keranjang!`);
     setQuantity(1);
   };
+
+  const atMax = maxQuantity !== undefined && quantity >= maxQuantity;
 
   return (
     <div className="space-y-3">
@@ -85,7 +90,7 @@ export function AddToCartButton({
           variant="outline"
           size="icon"
           onClick={() => setQuantity(quantity + 1)}
-          disabled={disabled}
+          disabled={disabled || atMax}
         >
           <Plus className="h-4 w-4" />
         </Button>

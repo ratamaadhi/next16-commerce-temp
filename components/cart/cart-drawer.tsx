@@ -112,10 +112,11 @@ export function CartDrawer() {
                           {item.quantity}
                         </span>
                         <button
-                          className="p-1 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors rounded-r-sm"
+                          className="p-1 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors rounded-r-sm disabled:opacity-30 disabled:cursor-not-allowed"
                           onClick={() =>
                             updateQuantity(item.productId, item.quantity + 1, item.variantId)
                           }
+                          disabled={item.maxQuantity !== undefined && item.quantity >= item.maxQuantity}
                         >
                           <Plus className="size-3.5" />
                         </button>

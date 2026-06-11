@@ -55,6 +55,7 @@ export function ProductActions({ product, variants }: ProductActionsProps) {
         variantSku={selected?.sku}
         dimensions={product.dimensions}
         needsVariant={needsVariant}
+        maxQuantity={Number(selected?.inventory ?? product.inventory) || undefined}
         disabled={
           needsVariant || (selected?.inventory ?? product.inventory ?? 0) <= 0
         }
