@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -15,8 +15,8 @@ interface OrderPaymentSectionProps {
   snapToken: string | null;
 }
 
-const POLL_INTERVAL = 3000;
-const POLL_MAX = 10;
+const POLL_INTERVAL = 5000;
+const POLL_MAX = 3;
 
 function getSnapScriptUrl(): string {
   return (
@@ -55,7 +55,15 @@ async function regenerateToken(orderNumber: string): Promise<string> {
   return data.snapToken || data.token || data.data?.midtransSnapToken || "";
 }
 
-function pollPaymentStatus(orderNumber: string, onPaid: () => void, onTimeout: () => void) {
+function pollPaymentStatus(
+  orderNumber: string,
+  onPaid: () => void,
+  onTimeout: () => void,
+  intervalRef: { current: ReturnType<typeof setInterval> | null },
+) {
+  if (intervalRef.current !== null) {
+    clearInterval(intervalRef.current);
+  }
   let attempts = 0;
   const interval = setInterval(async () => {
     attempts++;
@@ -66,6 +74,7 @@ function pollPaymentStatus(orderNumber: string, onPaid: () => void, onTimeout: (
       const status = data?.data?.paymentStatus;
       if (status === "paid") {
         clearInterval(interval);
+        intervalRef.current = null;
         onPaid();
       }
     } catch {
@@ -73,9 +82,11 @@ function pollPaymentStatus(orderNumber: string, onPaid: () => void, onTimeout: (
     }
     if (attempts >= POLL_MAX) {
       clearInterval(interval);
+      intervalRef.current = null;
       onTimeout();
     }
   }, POLL_INTERVAL);
+  intervalRef.current = interval;
 }
 
 export function OrderPaymentSection({
@@ -88,8 +99,18 @@ export function OrderPaymentSection({
   const [snapToken, setSnapToken] = useState<string | null>(initialToken);
   const [polling, setPolling] = useState(false);
   const [paid, setPaid] = useState(paymentStatus === "paid");
+  const pollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const stopPolling = useCallback(() => {
+    if (pollIntervalRef.current !== null) {
+      clearInterval(pollIntervalRef.current);
+      pollIntervalRef.current = null;
+    }
+    setPolling(false);
+  }, []);
 
   const handlePay = useCallback(async () => {
+    stopPolling();
     setLoading(true);
     try {
       await loadSnapScript();
@@ -132,6 +153,7 @@ export function OrderPaymentSection({
               router.refresh();
               toast.info("Pembayaran sedang diproses. Refresh halaman untuk status terbaru.");
             },
+            pollIntervalRef,
           );
         },
         onPending: () => {
@@ -146,6 +168,7 @@ export function OrderPaymentSection({
             () => {
               setPolling(false);
             },
+            pollIntervalRef,
           );
         },
         onError: async () => {
@@ -159,6 +182,7 @@ export function OrderPaymentSection({
           }
         },
         onClose: () => {
+          stopPolling();
           toast.info("Popup pembayaran ditutup. Anda dapat membayar kembali nanti.");
         },
       });
@@ -168,7 +192,7 @@ export function OrderPaymentSection({
     } finally {
       setLoading(false);
     }
-  }, [snapToken, orderNumber, router]);
+  }, [snapToken, orderNumber, router, stopPolling]);
 
   if (paid) {
     return (
