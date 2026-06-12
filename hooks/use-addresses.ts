@@ -7,8 +7,9 @@ import type { Address, AddressFormData, AddressListResponse } from "@/types/addr
 async function fetchAddresses(): Promise<Address[]> {
   const res = await fetch("/api/addresses");
   if (!res.ok) throw new Error("Failed to fetch addresses");
-  const data: AddressListResponse = await res.json();
-  return data.data;
+  const data = await res.json();
+  const list = Array.isArray(data) ? data : data?.data;
+  return list ?? [];
 }
 
 async function createAddress(data: AddressFormData): Promise<Address> {
