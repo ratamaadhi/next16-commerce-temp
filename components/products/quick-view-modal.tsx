@@ -4,12 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { formatPrice, getStrapiMedia } from "@/lib/strapi";
 import { cn } from "@/lib/utils";
 import { ProductConditionBadge } from "@/components/products/product-condition-badge";
@@ -102,7 +97,7 @@ export function QuickViewModal({ product, open, onOpenChange }: QuickViewModalPr
                     onClick={() => setImageIndex(i)}
                     className={cn(
                       "h-2 w-2 rounded-full transition-all duration-300",
-                      i === imageIndex ? "bg-primary w-4" : "bg-white/70 hover:bg-white"
+                      i === imageIndex ? "bg-primary w-4" : "bg-white/70 hover:bg-white",
                     )}
                   />
                 ))}
@@ -110,9 +105,7 @@ export function QuickViewModal({ product, open, onOpenChange }: QuickViewModalPr
             )}
 
             <div className="absolute top-3 left-3 flex gap-2">
-              {product.condition && (
-                <ProductConditionBadge condition={product.condition} />
-              )}
+              {product.condition && <ProductConditionBadge condition={product.condition} />}
               {hasDiscount && (
                 <ProductDiscountBadge
                   originalPrice={product.compareAtPrice!}
@@ -132,9 +125,7 @@ export function QuickViewModal({ product, open, onOpenChange }: QuickViewModalPr
               </div>
 
               <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-bold text-primary">
-                  {formatPrice(displayPrice)}
-                </span>
+                <span className="text-2xl font-bold text-primary">{formatPrice(displayPrice)}</span>
                 {hasDiscount && (
                   <span className="text-sm text-muted-foreground line-through">
                     {formatPrice(product.compareAtPrice!)}
@@ -143,9 +134,7 @@ export function QuickViewModal({ product, open, onOpenChange }: QuickViewModalPr
               </div>
 
               {product.shortDescription && (
-                <DialogDescription>
-                  {product.shortDescription}
-                </DialogDescription>
+                <DialogDescription>{product.shortDescription}</DialogDescription>
               )}
 
               {variants.length > 0 && (
@@ -157,14 +146,10 @@ export function QuickViewModal({ product, open, onOpenChange }: QuickViewModalPr
               )}
 
               {variants.length === 0 && isLowStock && (
-                <p className="text-sm text-amber-600 font-medium">
-                  Tersisa {inventory} unit
-                </p>
+                <p className="text-sm text-amber-600 font-medium">Tersisa {inventory} unit</p>
               )}
               {variants.length === 0 && isOutOfStock && (
-                <p className="text-sm text-destructive font-medium">
-                  Stok Habis
-                </p>
+                <p className="text-sm text-destructive font-medium">Stok Habis</p>
               )}
             </div>
 
@@ -174,7 +159,7 @@ export function QuickViewModal({ product, open, onOpenChange }: QuickViewModalPr
                 productDocumentId={product.documentId}
                 productName={product.name}
                 price={displayPrice}
-                image={product.images?.[0]?.url}
+                image={product.images?.[0]?.formats?.small?.url ?? product.images?.[0]?.url}
                 variantId={selected?.id?.toString()}
                 variantName={selected?.name}
                 variantSku={selected?.sku}

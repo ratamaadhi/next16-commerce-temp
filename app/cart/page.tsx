@@ -67,7 +67,10 @@ export default function CartPage() {
                   <div className="min-w-0">
                     <p className="text-sm font-medium leading-snug line-clamp-1">{item.name}</p>
                     {item.variantName && (
-                      <Badge variant="secondary" className="mt-0.5 text-[10px] font-normal leading-none px-1.5 py-0.5 h-auto">
+                      <Badge
+                        variant="secondary"
+                        className="mt-0.5 text-[10px] font-normal leading-none px-1.5 py-0.5 h-auto"
+                      >
                         {item.variantName}
                       </Badge>
                     )}
@@ -81,7 +84,9 @@ export default function CartPage() {
                   <div className="inline-flex items-center gap-0.5 border rounded-md">
                     <button
                       className="p-1 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors rounded-l-sm"
-                      onClick={() => updateQuantity(item.productId, item.quantity - 1, item.variantId)}
+                      onClick={() =>
+                        updateQuantity(item.productId, item.quantity - 1, item.variantId)
+                      }
                     >
                       <Minus className="size-3.5" />
                     </button>
@@ -90,7 +95,9 @@ export default function CartPage() {
                     </span>
                     <button
                       className="p-1 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors rounded-r-sm disabled:opacity-30 disabled:cursor-not-allowed"
-                      onClick={() => updateQuantity(item.productId, item.quantity + 1, item.variantId)}
+                      onClick={() =>
+                        updateQuantity(item.productId, item.quantity + 1, item.variantId)
+                      }
                       disabled={item.maxQuantity !== undefined && item.quantity >= item.maxQuantity}
                     >
                       <Plus className="size-3.5" />

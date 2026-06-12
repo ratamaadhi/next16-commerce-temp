@@ -49,16 +49,14 @@ export function ProductActions({ product, variants }: ProductActionsProps) {
         productDocumentId={product.documentId}
         productName={product.name}
         price={displayPrice}
-        image={product.images?.[0]?.url}
+        image={product.images?.[0]?.formats?.small?.url ?? product.images?.[0]?.url}
         variantId={selected?.id?.toString()}
         variantName={selected?.name}
         variantSku={selected?.sku}
         dimensions={product.dimensions}
         needsVariant={needsVariant}
         maxQuantity={Number(selected?.inventory ?? product.inventory) || undefined}
-        disabled={
-          needsVariant || (selected?.inventory ?? product.inventory ?? 0) <= 0
-        }
+        disabled={needsVariant || (selected?.inventory ?? product.inventory ?? 0) <= 0}
       />
     </div>
   );
