@@ -2,7 +2,7 @@
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import type { Address, AddressFormData, AddressListResponse } from "@/types/address";
+import type { Address, AddressFormData } from "@/types/address";
 
 async function fetchAddresses(): Promise<Address[]> {
   const res = await fetch("/api/addresses");

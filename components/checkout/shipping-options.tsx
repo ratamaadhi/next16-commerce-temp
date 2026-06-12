@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 import type { ShippingOption } from "@/lib/shipping";
 
 interface ShippingOptionsProps {
-  destinationId: number;
+  destinationId: number | string;
   destinationTitle?: string;
   weight: number;
   length: number;

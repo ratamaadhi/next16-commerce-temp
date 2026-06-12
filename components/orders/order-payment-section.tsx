@@ -197,13 +197,12 @@ export function OrderPaymentSection({
     }
   }, [snapToken, orderNumber, router, stopPolling]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (autoPay && snapToken && !hasAutoPaid.current) {
       hasAutoPaid.current = true;
       handlePay();
     }
-  }, []);
+  }, [autoPay, snapToken, handlePay]);
 
   const handleRetry = useCallback(async () => {
     setLoading(true);

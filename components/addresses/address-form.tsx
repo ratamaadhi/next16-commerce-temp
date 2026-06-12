@@ -1,10 +1,12 @@
 "use client";
 
-import { useId } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import { SubdistrictSearch } from "@/components/checkout/subdistrict-search";
+import type { SubdistrictResult } from "@/lib/shipping";
 import type { AddressFormData } from "@/types/address";
 
 interface AddressFormProps {
@@ -14,13 +16,29 @@ interface AddressFormProps {
   submitLabel?: string;
 }
 
+function buildInitialSubdistrict(data?: Partial<AddressFormData>): SubdistrictResult | null {
+  if (data?.subdistrictId) {
+    return {
+      id: Number(data.subdistrictId),
+      name: [data.city, data.state].filter(Boolean).join(", ") || "Alamat tersimpan",
+      sub_district_name: "",
+      city_name: data.city ?? "",
+      province_name: data.state ?? "",
+      postal_code: data.postalCode ?? "",
+    };
+  }
+  return null;
+}
+
 export function AddressForm({
   initialData,
   onSubmit,
   isSubmitting = false,
   submitLabel = "Simpan",
 }: AddressFormProps) {
-  const id = useId();
+  const [selectedSubdistrict, setSelectedSubdistrict] = useState<SubdistrictResult | null>(
+    buildInitialSubdistrict(initialData),
+  );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,23 +51,24 @@ export function AddressForm({
       lastName: get("lastName"),
       phone: get("phone"),
       addressLine1: get("addressLine1"),
-      city: get("city"),
-      state: get("state"),
-      postalCode: get("postalCode"),
+      city: selectedSubdistrict?.city_name ?? initialData?.city ?? "",
+      state: selectedSubdistrict?.province_name ?? initialData?.state ?? "",
+      postalCode: selectedSubdistrict?.postal_code ?? initialData?.postalCode ?? "",
       country: "Indonesia",
       isDefault: formEls["isDefault"]?.checked ?? false,
+      subdistrictId: selectedSubdistrict?.id.toString() ?? initialData?.subdistrictId ?? "",
     };
     await onSubmit(data);
   };
 
   return (
-    <form id={id} onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-1.5">
-        <Label className="text-xs" htmlFor={`${id}-label`}>
+        <Label className="text-xs" htmlFor="addr-label">
           Label (opsional)
         </Label>
         <Input
-          id={`${id}-label`}
+          id="addr-label"
           name="label"
           defaultValue={initialData?.label ?? ""}
           placeholder="Contoh: Rumah, Kantor"
@@ -58,22 +77,22 @@ export function AddressForm({
 
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1.5">
-          <Label className="text-xs" htmlFor={`${id}-firstName`}>
+          <Label className="text-xs" htmlFor="addr-firstName">
             Nama Depan
           </Label>
           <Input
-            id={`${id}-firstName`}
+            id="addr-firstName"
             name="firstName"
             required
             defaultValue={initialData?.firstName ?? ""}
           />
         </div>
         <div className="space-y-1.5">
-          <Label className="text-xs" htmlFor={`${id}-lastName`}>
+          <Label className="text-xs" htmlFor="addr-lastName">
             Nama Belakang
           </Label>
           <Input
-            id={`${id}-lastName`}
+            id="addr-lastName"
             name="lastName"
             required
             defaultValue={initialData?.lastName ?? ""}
@@ -82,11 +101,11 @@ export function AddressForm({
       </div>
 
       <div className="space-y-1.5">
-        <Label className="text-xs" htmlFor={`${id}-phone`}>
+        <Label className="text-xs" htmlFor="addr-phone">
           Telepon
         </Label>
         <Input
-          id={`${id}-phone`}
+          id="addr-phone"
           name="phone"
           type="tel"
           required
@@ -95,58 +114,23 @@ export function AddressForm({
       </div>
 
       <div className="space-y-1.5">
-        <Label className="text-xs" htmlFor={`${id}-addressLine1`}>
+        <Label className="text-xs" htmlFor="addr-addressLine1">
           Alamat
         </Label>
         <Input
-          id={`${id}-addressLine1`}
+          id="addr-addressLine1"
           name="addressLine1"
           required
           defaultValue={initialData?.addressLine1 ?? ""}
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
-        <div className="space-y-1.5">
-          <Label className="text-xs" htmlFor={`${id}-city`}>
-            Kota
-          </Label>
-          <Input
-            id={`${id}-city`}
-            name="city"
-            defaultValue={initialData?.city ?? ""}
-          />
-        </div>
-        <div className="space-y-1.5">
-          <Label className="text-xs" htmlFor={`${id}-state`}>
-            Provinsi
-          </Label>
-          <Input
-            id={`${id}-state`}
-            name="state"
-            defaultValue={initialData?.state ?? ""}
-          />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        <div className="space-y-1.5">
-          <Label className="text-xs" htmlFor={`${id}-postalCode`}>
-            Kode Pos
-          </Label>
-          <Input
-            id={`${id}-postalCode`}
-            name="postalCode"
-            defaultValue={initialData?.postalCode ?? ""}
-          />
-        </div>
-        <div className="space-y-1.5">
-          <Label className="text-xs" htmlFor={`${id}-country-display`}>
-            Negara
-          </Label>
-          <Input id={`${id}-country-display`} value="Indonesia" disabled />
-        </div>
-      </div>
+      <SubdistrictSearch
+        initialSubdistrict={selectedSubdistrict}
+        onSelect={(subdistrict) =>
+          setSelectedSubdistrict(subdistrict?.id ? subdistrict : null)
+        }
+      />
 
       <label className="flex items-center gap-2 text-sm cursor-pointer">
         <input

@@ -14,8 +14,9 @@ import { OrderSummary } from "@/components/checkout/order-summary";
 import { SubdistrictSearch } from "@/components/checkout/subdistrict-search";
 import { ShippingOptions } from "@/components/checkout/shipping-options";
 import { getCartDimensions } from "@/lib/shipping";
-import type { ShippingOption } from "@/lib/shipping";
+import type { ShippingOption, SubdistrictResult } from "@/lib/shipping";
 import { toast } from "sonner";
+import { MapPin } from "lucide-react";
 
 const TAX_RATE = 0.11;
 
@@ -25,21 +26,37 @@ export default function CheckoutPage() {
   const { addresses, createAddress } = useAddresses();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
-  const [saveAddress, setSaveAddress] = useState(false);
-
-  const [shippingAddress, setShippingAddress] = useState({
+  const [userChosenAddressId, setUserChosenAddressId] = useState<string | null>(null);
+  const [isAddingNewAddress, setIsAddingNewAddress] = useState(false);
+  const [manualAddress, setManualAddress] = useState({
     firstName: "",
     lastName: "",
     phone: "",
     addressLine1: "",
   });
+  const [saveAddress, setSaveAddress] = useState(false);
+
+  const defaultAddressId = addresses.find((a) => a.isDefault)?.documentId ?? null;
+  const selectedAddressId = userChosenAddressId ?? defaultAddressId;
+
+  const shippingAddress = useMemo(() => {
+    if (!isAddingNewAddress && selectedAddressId) {
+      const addr = addresses.find((a) => a.documentId === selectedAddressId);
+      if (addr) {
+        return {
+          firstName: addr.firstName,
+          lastName: addr.lastName,
+          phone: addr.phone,
+          addressLine1: addr.addressLine1,
+        };
+      }
+    }
+    return manualAddress;
+  }, [selectedAddressId, addresses, manualAddress, isAddingNewAddress]);
+
   const [notes, setNotes] = useState("");
 
-  const [selectedSubdistrict, setSelectedSubdistrict] = useState<{
-    id: number;
-    title: string;
-  } | null>(null);
+  const [selectedSubdistrict, setSelectedSubdistrict] = useState<SubdistrictResult | null>(null);
 
   const [selectedCourier, setSelectedCourier] = useState<ShippingOption | null>(null);
 
@@ -50,17 +67,25 @@ export default function CheckoutPage() {
   const cartDims = useMemo(() => getCartDimensions(items), [items]);
 
   useEffect(() => {
-    if (addresses.length > 0 && selectedAddressId === null) {
-      const defaultAddr = addresses.find((a) => a.isDefault) ?? addresses[0];
-      setSelectedAddressId(defaultAddr.documentId);
-      setShippingAddress({
-        firstName: defaultAddr.firstName,
-        lastName: defaultAddr.lastName,
-        phone: defaultAddr.phone,
-        addressLine1: defaultAddr.addressLine1,
-      });
+    if (isAddingNewAddress || !selectedAddressId) {
+      return;
     }
-  }, [addresses, selectedAddressId]);
+    const addr = addresses.find((a) => a.documentId === selectedAddressId);
+    if (addr?.subdistrictId) {
+      setSelectedSubdistrict({
+        id: Number(addr.subdistrictId),
+        name: addr.city || addr.state || "Alamat tersimpan",
+        sub_district_name: "",
+        city_name: addr.city,
+        province_name: addr.state,
+        postal_code: addr.postalCode,
+      });
+      setSelectedCourier(null);
+    } else {
+      setSelectedSubdistrict(null);
+      setSelectedCourier(null);
+    }
+  }, [selectedAddressId, isAddingNewAddress, addresses]);
 
   const canSubmit = useMemo(() => {
     if (!isAuthenticated) return false;
@@ -79,27 +104,26 @@ export default function CheckoutPage() {
     }
   }, [items.length, router]);
 
-  const handleSelectAddress = (address: Address | null) => {
-    if (address) {
-      setSelectedAddressId(address.documentId);
-      setSaveAddress(false);
-      setShippingAddress({
-        firstName: address.firstName,
-        lastName: address.lastName,
-        phone: address.phone,
-        addressLine1: address.addressLine1,
-      });
-    } else {
-      setSelectedAddressId(null);
-      setSaveAddress(true);
-      setShippingAddress({ firstName: "", lastName: "", phone: "", addressLine1: "" });
-    }
+  const handleSelectAddress = (address: Address) => {
+    setUserChosenAddressId(address.documentId);
+    setIsAddingNewAddress(false);
+    setSaveAddress(false);
+  };
+
+  const handleAddNew = () => {
+    setIsAddingNewAddress(true);
+    setSaveAddress(true);
+    setSelectedSubdistrict(null);
+    setSelectedCourier(null);
+    setManualAddress({ firstName: "", lastName: "", phone: "", addressLine1: "" });
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setShippingAddress((prev) => ({ ...prev, [field]: value }));
-    setSelectedAddressId(null);
+    setManualAddress((prev) => ({ ...prev, [field]: value }));
+    setIsAddingNewAddress(true);
     setSaveAddress(true);
+    setSelectedSubdistrict(null);
+    setSelectedCourier(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -122,9 +146,9 @@ export default function CheckoutPage() {
 
     setIsSubmitting(true);
 
-    if (isAuthenticated && saveAddress && selectedAddressId === null) {
-      const fullAddress = selectedSubdistrict
-        ? `${shippingAddress.addressLine1}, ${selectedSubdistrict.title}`
+    if (isAuthenticated && saveAddress && isAddingNewAddress) {
+      const fullAddress = selectedSubdistrict?.sub_district_name
+        ? `${shippingAddress.addressLine1}, ${selectedSubdistrict.sub_district_name}`
         : shippingAddress.addressLine1;
       createAddress({
         label: "",
@@ -132,17 +156,21 @@ export default function CheckoutPage() {
         lastName: shippingAddress.lastName,
         phone: shippingAddress.phone,
         addressLine1: fullAddress,
-        city: selectedSubdistrict?.title ?? "",
-        state: "",
-        postalCode: "",
+        city: selectedSubdistrict?.city_name ?? "",
+        state: selectedSubdistrict?.province_name ?? "",
+        postalCode: selectedSubdistrict?.postal_code ?? "",
         country: "Indonesia",
         isDefault: false,
-      }).catch(() => {});
+        subdistrictId: selectedSubdistrict?.id.toString(),
+      }).catch((err) => {
+        console.error(err);
+        debugger;
+      });
     }
 
     try {
-      const fullAddress = selectedSubdistrict
-        ? `${shippingAddress.addressLine1}, ${selectedSubdistrict.title}`
+      const fullAddress = selectedSubdistrict?.sub_district_name
+        ? `${shippingAddress.addressLine1}, ${selectedSubdistrict.sub_district_name}`
         : shippingAddress.addressLine1;
 
       const shippingNotes = selectedCourier
@@ -168,17 +196,17 @@ export default function CheckoutPage() {
           shippingAddress: {
             ...shippingAddress,
             addressLine1: fullAddress,
-            city: selectedSubdistrict?.title ?? "",
-            state: "",
-            postalCode: "",
+            city: selectedSubdistrict?.city_name ?? "",
+            state: selectedSubdistrict?.province_name ?? "",
+            postalCode: selectedSubdistrict?.postal_code ?? "",
             country: "Indonesia",
           },
           billingAddress: {
             ...shippingAddress,
             addressLine1: fullAddress,
-            city: selectedSubdistrict?.title ?? "",
-            state: "",
-            postalCode: "",
+            city: selectedSubdistrict?.city_name ?? "",
+            state: selectedSubdistrict?.province_name ?? "",
+            postalCode: selectedSubdistrict?.postal_code ?? "",
             country: "Indonesia",
           },
           notes: shippingNotes,
@@ -228,54 +256,110 @@ export default function CheckoutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-5">
             <Card className="overflow-visible">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-sm font-semibold">Alamat Pengiriman</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4 overflow-visible">
-          {isAuthenticated && addresses.length > 0 && (
-            <AddressSelector
-              addresses={addresses}
-              selectedId={selectedAddressId}
-              onSelect={handleSelectAddress}
-              onAddNew={() => handleSelectAddress(null)}
-            />
-          )}
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-semibold">Alamat Pengiriman</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4 overflow-visible">
+                {isAuthenticated && addresses.length > 0 && (
+                  <AddressSelector
+                    addresses={addresses}
+                    selectedId={selectedAddressId}
+                    onSelect={handleSelectAddress}
+                    onAddNew={handleAddNew}
+                    isAddingNew={isAddingNewAddress}
+                  />
+                )}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1.5">
                     <Label className="text-xs">Nama Depan</Label>
-                    <Input required value={shippingAddress.firstName} onChange={(e) => handleInputChange("firstName", e.target.value)} />
+                    <Input
+                      required
+                      value={shippingAddress.firstName}
+                      onChange={(e) => handleInputChange("firstName", e.target.value)}
+                    />
                   </div>
                   <div className="space-y-1.5">
                     <Label className="text-xs">Nama Belakang</Label>
-                    <Input required value={shippingAddress.lastName} onChange={(e) => handleInputChange("lastName", e.target.value)} />
+                    <Input
+                      required
+                      value={shippingAddress.lastName}
+                      onChange={(e) => handleInputChange("lastName", e.target.value)}
+                    />
                   </div>
                 </div>
                 <div className="space-y-1.5">
                   <Label className="text-xs">Telepon</Label>
-                  <Input required type="tel" value={shippingAddress.phone} onChange={(e) => handleInputChange("phone", e.target.value)} />
+                  <Input
+                    required
+                    type="tel"
+                    value={shippingAddress.phone}
+                    onChange={(e) => handleInputChange("phone", e.target.value)}
+                  />
                 </div>
                 <div className="space-y-1.5">
                   <Label className="text-xs">Alamat</Label>
-                  <Input required value={shippingAddress.addressLine1} onChange={(e) => handleInputChange("addressLine1", e.target.value)} />
+                  <Input
+                    required
+                    value={shippingAddress.addressLine1}
+                    onChange={(e) => handleInputChange("addressLine1", e.target.value)}
+                  />
                 </div>
-        <SubdistrictSearch
-          onSelect={(subdistrict) => {
-            setSelectedSubdistrict(subdistrict.id ? subdistrict : null);
-            setSelectedCourier(null);
-          }}
-        />
-        {isAuthenticated && saveAddress && (
-          <label className="flex items-center gap-2 text-sm cursor-pointer">
-            <input
-              type="checkbox"
-              checked={saveAddress}
-              onChange={(e) => setSaveAddress(e.target.checked)}
-              className="size-4 rounded border-border accent-primary"
-            />
-            <span>Simpan alamat untuk penggunaan berikutnya</span>
-          </label>
-        )}
-      </CardContent>
+                {isAddingNewAddress ||
+                !selectedAddressId ||
+                !addresses.find((a) => a.documentId === selectedAddressId)?.subdistrictId ? (
+                  <SubdistrictSearch
+                    onSelect={(subdistrict) => {
+                      setSelectedSubdistrict(subdistrict?.id ? subdistrict : null);
+                      setSelectedCourier(null);
+                    }}
+                  />
+                ) : (
+                  <div className="space-y-1.5">
+                    <Label className="text-xs">Kecamatan / Kelurahan</Label>
+                    <div className="flex items-center justify-between h-9 px-3 py-2 rounded-md border border-input bg-muted/30 text-xs">
+                      <span className="flex items-center gap-1.5 min-w-0">
+                        <MapPin className="size-3 shrink-0 text-muted-foreground" />
+                        <span className="truncate">
+                          {selectedSubdistrict?.city_name}
+                          {selectedSubdistrict?.province_name
+                            ? `, ${selectedSubdistrict.province_name}`
+                            : ""}
+                        </span>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setUserChosenAddressId(null);
+                          setIsAddingNewAddress(true);
+                          setSaveAddress(true);
+                          setSelectedSubdistrict(null);
+                          setSelectedCourier(null);
+                          setManualAddress({
+                            firstName: "",
+                            lastName: "",
+                            phone: "",
+                            addressLine1: "",
+                          });
+                        }}
+                        className="text-primary hover:underline text-xs shrink-0 ml-2"
+                      >
+                        Ubah
+                      </button>
+                    </div>
+                  </div>
+                )}
+                {isAuthenticated && saveAddress && (
+                  <label className="flex items-center gap-2 text-sm cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={saveAddress}
+                      onChange={(e) => setSaveAddress(e.target.checked)}
+                      className="size-4 rounded border-border accent-primary"
+                    />
+                    <span>Simpan alamat untuk penggunaan berikutnya</span>
+                  </label>
+                )}
+              </CardContent>
             </Card>
 
             {selectedSubdistrict && selectedSubdistrict.id > 0 && (
@@ -287,7 +371,7 @@ export default function CheckoutPage() {
                   <ShippingOptions
                     key={`${selectedSubdistrict.id}-${cartDims.weight}-${cartDims.length}-${cartDims.width}-${cartDims.height}`}
                     destinationId={selectedSubdistrict.id}
-                    destinationTitle={selectedSubdistrict.title}
+                    destinationTitle={selectedSubdistrict.name}
                     weight={cartDims.weight}
                     length={cartDims.length}
                     width={cartDims.width}
@@ -305,7 +389,11 @@ export default function CheckoutPage() {
                 <CardTitle className="text-sm font-semibold">Catatan</CardTitle>
               </CardHeader>
               <CardContent>
-                <Input placeholder="Catatan untuk pesanan (opsional)" value={notes} onChange={(e) => setNotes(e.target.value)} />
+                <Input
+                  placeholder="Catatan untuk pesanan (opsional)"
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                />
               </CardContent>
             </Card>
           </div>

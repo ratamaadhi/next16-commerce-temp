@@ -17,25 +17,23 @@ import { cn } from "@/lib/utils";
 import type { SubdistrictResult } from "@/lib/shipping";
 
 interface SubdistrictSearchProps {
-  onSelect: (result: { id: number; title: string }) => void;
+  onSelect: (result: SubdistrictResult | null) => void;
+  initialSubdistrict?: SubdistrictResult | null;
 }
 
 function formatFullLocation(r: SubdistrictResult): string {
-  const parts = [
-    r.sub_district_name,
-    r.district_name,
-    r.city_name,
-    r.province_name,
-  ].filter(Boolean);
+  const parts = [r.sub_district_name, r.district_name, r.city_name, r.province_name].filter(
+    Boolean,
+  );
   return parts.join(", ");
 }
 
-export function SubdistrictSearch({ onSelect }: SubdistrictSearchProps) {
+export function SubdistrictSearch({ onSelect, initialSubdistrict = null }: SubdistrictSearchProps) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SubdistrictResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [selected, setSelected] = useState<SubdistrictResult | null>(null);
+  const [selected, setSelected] = useState<SubdistrictResult | null>(initialSubdistrict);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -71,7 +69,7 @@ export function SubdistrictSearch({ onSelect }: SubdistrictSearchProps) {
   function handleSelect(result: SubdistrictResult) {
     setSelected(result);
     setOpen(false);
-    onSelect({ id: result.id, title: result.name });
+    onSelect(result);
   }
 
   const displayValue = selected ? formatFullLocation(selected) : "";
@@ -103,7 +101,7 @@ export function SubdistrictSearch({ onSelect }: SubdistrictSearchProps) {
                 setQuery(val);
                 if (selected) {
                   setSelected(null);
-                  onSelect({ id: 0, title: "" });
+                  onSelect(null);
                 }
               }}
             />
@@ -137,9 +135,7 @@ export function SubdistrictSearch({ onSelect }: SubdistrictSearchProps) {
                           )}
                         />
                         <div className="min-w-0">
-                          <p className="text-xs font-medium leading-tight">
-                            {r.sub_district_name}
-                          </p>
+                          <p className="text-xs font-medium leading-tight">{r.sub_district_name}</p>
                           <p className="text-[10px] text-muted-foreground mt-1 leading-tight">
                             {[r.district_name, r.city_name, r.province_name]
                               .filter(Boolean)

@@ -11,8 +11,8 @@ interface AccountTabsProps {
 
 export function AccountTabs({ profileContent, addressesContent }: AccountTabsProps) {
   return (
-    <Tabs defaultValue="profile">
-      <TabsList className="mb-6">
+    <Tabs defaultValue="profile" orientation="horizontal" className="flex-col w-full">
+      <TabsList className="mb-2">
         <TabsTrigger value="profile">
           <User className="size-4" />
           Profil

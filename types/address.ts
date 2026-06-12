@@ -11,6 +11,7 @@ export interface Address {
   postalCode: string;
   country: string;
   isDefault: boolean;
+  subdistrictId: string;
 }
 
 export interface AddressFormData {
@@ -24,6 +25,7 @@ export interface AddressFormData {
   postalCode: string;
   country: string;
   isDefault: boolean;
+  subdistrictId: string;
 }
 
 export interface AddressListResponse {
