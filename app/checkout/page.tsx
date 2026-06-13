@@ -66,26 +66,23 @@ export default function CheckoutPage() {
   const total = subtotal + tax + shipping;
   const cartDims = useMemo(() => getCartDimensions(items), [items]);
 
-  useEffect(() => {
-    if (isAddingNewAddress || !selectedAddressId) {
-      return;
-    }
+  const autoSubdistrict = useMemo<SubdistrictResult | null>(() => {
+    if (isAddingNewAddress || !selectedAddressId) return null;
     const addr = addresses.find((a) => a.documentId === selectedAddressId);
     if (addr?.subdistrictId) {
-      setSelectedSubdistrict({
+      return {
         id: Number(addr.subdistrictId),
         name: addr.city || addr.state || "Alamat tersimpan",
         sub_district_name: "",
         city_name: addr.city,
         province_name: addr.state,
         postal_code: addr.postalCode,
-      });
-      setSelectedCourier(null);
-    } else {
-      setSelectedSubdistrict(null);
-      setSelectedCourier(null);
+      };
     }
+    return null;
   }, [selectedAddressId, isAddingNewAddress, addresses]);
+
+  const effectiveSubdistrict = selectedSubdistrict ?? autoSubdistrict;
 
   const canSubmit = useMemo(() => {
     if (!isAuthenticated) return false;
@@ -93,10 +90,10 @@ export default function CheckoutPage() {
     if (!shippingAddress.lastName.trim()) return false;
     if (!shippingAddress.phone.trim()) return false;
     if (!shippingAddress.addressLine1.trim()) return false;
-    if (!selectedSubdistrict?.id) return false;
+    if (!effectiveSubdistrict?.id) return false;
     if (!selectedCourier) return false;
     return true;
-  }, [isAuthenticated, shippingAddress, selectedSubdistrict, selectedCourier]);
+  }, [isAuthenticated, shippingAddress, effectiveSubdistrict, selectedCourier]);
 
   useEffect(() => {
     if (!items.length) {
@@ -108,6 +105,8 @@ export default function CheckoutPage() {
     setUserChosenAddressId(address.documentId);
     setIsAddingNewAddress(false);
     setSaveAddress(false);
+    setSelectedSubdistrict(null);
+    setSelectedCourier(null);
   };
 
   const handleAddNew = () => {
@@ -134,7 +133,7 @@ export default function CheckoutPage() {
       return;
     }
 
-    if (!selectedSubdistrict?.id) {
+    if (!effectiveSubdistrict?.id) {
       toast.error("Silakan pilih kecamatan atau kelurahan");
       return;
     }
@@ -147,8 +146,8 @@ export default function CheckoutPage() {
     setIsSubmitting(true);
 
     if (isAuthenticated && saveAddress && isAddingNewAddress) {
-      const fullAddress = selectedSubdistrict?.sub_district_name
-        ? `${shippingAddress.addressLine1}, ${selectedSubdistrict.sub_district_name}`
+      const fullAddress = effectiveSubdistrict?.sub_district_name
+        ? `${shippingAddress.addressLine1}, ${effectiveSubdistrict.sub_district_name}`
         : shippingAddress.addressLine1;
       createAddress({
         label: "",
@@ -156,12 +155,12 @@ export default function CheckoutPage() {
         lastName: shippingAddress.lastName,
         phone: shippingAddress.phone,
         addressLine1: fullAddress,
-        city: selectedSubdistrict?.city_name ?? "",
-        state: selectedSubdistrict?.province_name ?? "",
-        postalCode: selectedSubdistrict?.postal_code ?? "",
+        city: effectiveSubdistrict?.city_name ?? "",
+        state: effectiveSubdistrict?.province_name ?? "",
+        postalCode: effectiveSubdistrict?.postal_code ?? "",
         country: "Indonesia",
         isDefault: false,
-        subdistrictId: selectedSubdistrict?.id.toString(),
+        subdistrictId: effectiveSubdistrict?.id.toString(),
       }).catch((err) => {
         console.error(err);
         debugger;
@@ -169,8 +168,8 @@ export default function CheckoutPage() {
     }
 
     try {
-      const fullAddress = selectedSubdistrict?.sub_district_name
-        ? `${shippingAddress.addressLine1}, ${selectedSubdistrict.sub_district_name}`
+      const fullAddress = effectiveSubdistrict?.sub_district_name
+        ? `${shippingAddress.addressLine1}, ${effectiveSubdistrict.sub_district_name}`
         : shippingAddress.addressLine1;
 
       const shippingNotes = selectedCourier
@@ -196,17 +195,17 @@ export default function CheckoutPage() {
           shippingAddress: {
             ...shippingAddress,
             addressLine1: fullAddress,
-            city: selectedSubdistrict?.city_name ?? "",
-            state: selectedSubdistrict?.province_name ?? "",
-            postalCode: selectedSubdistrict?.postal_code ?? "",
+            city: effectiveSubdistrict?.city_name ?? "",
+            state: effectiveSubdistrict?.province_name ?? "",
+            postalCode: effectiveSubdistrict?.postal_code ?? "",
             country: "Indonesia",
           },
           billingAddress: {
             ...shippingAddress,
             addressLine1: fullAddress,
-            city: selectedSubdistrict?.city_name ?? "",
-            state: selectedSubdistrict?.province_name ?? "",
-            postalCode: selectedSubdistrict?.postal_code ?? "",
+            city: effectiveSubdistrict?.city_name ?? "",
+            state: effectiveSubdistrict?.province_name ?? "",
+            postalCode: effectiveSubdistrict?.postal_code ?? "",
             country: "Indonesia",
           },
           notes: shippingNotes,
@@ -320,9 +319,9 @@ export default function CheckoutPage() {
                       <span className="flex items-center gap-1.5 min-w-0">
                         <MapPin className="size-3 shrink-0 text-muted-foreground" />
                         <span className="truncate">
-                          {selectedSubdistrict?.city_name}
-                          {selectedSubdistrict?.province_name
-                            ? `, ${selectedSubdistrict.province_name}`
+                          {effectiveSubdistrict?.city_name}
+                          {effectiveSubdistrict?.province_name
+                            ? `, ${effectiveSubdistrict.province_name}`
                             : ""}
                         </span>
                       </span>
@@ -362,16 +361,16 @@ export default function CheckoutPage() {
               </CardContent>
             </Card>
 
-            {selectedSubdistrict && selectedSubdistrict.id > 0 && (
+            {effectiveSubdistrict && effectiveSubdistrict.id > 0 && (
               <Card>
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-semibold">Ongkos Kirim</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ShippingOptions
-                    key={`${selectedSubdistrict.id}-${cartDims.weight}-${cartDims.length}-${cartDims.width}-${cartDims.height}`}
-                    destinationId={selectedSubdistrict.id}
-                    destinationTitle={selectedSubdistrict.name}
+                    key={`${effectiveSubdistrict.id}-${cartDims.weight}-${cartDims.length}-${cartDims.width}-${cartDims.height}`}
+                    destinationId={effectiveSubdistrict.id}
+                    destinationTitle={effectiveSubdistrict.name}
                     weight={cartDims.weight}
                     length={cartDims.length}
                     width={cartDims.width}

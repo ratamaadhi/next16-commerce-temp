@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, ChevronRight, MapPin } from "lucide-react";
+import { Plus, MapPin } from "lucide-react";
 import { AddressPickerSheet } from "@/components/addresses/address-picker-sheet";
 import type { Address } from "@/types/address";
 import { sortAddressesByDefault } from "@/lib/utils/address";
