@@ -9,6 +9,7 @@ import { getStatusBadgeClass, ORDER_STATUS_TITLES } from "@/components/orders/co
 import { OrderTimeline } from "@/components/orders/order-timeline";
 import { OrderPaymentSection } from "@/components/orders/order-payment-section";
 import Image from "next/image";
+import { ReviewDialog } from "@/components/reviews/review-dialog";
 import { ArrowLeft, MapPin } from "lucide-react";
 
 interface OrderDetailPageProps {
@@ -62,34 +63,45 @@ export default async function OrderDetailPage({ params, searchParams }: OrderDet
             </h3>
             <div className="divide-y">
               {order.items?.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
-                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-muted text-xs font-medium text-muted-foreground overflow-hidden relative">
-                    {item.imageUrl ? (
-                      <Image
-                        src={item.imageUrl}
-                        alt={item.productName ?? ""}
-                        fill
-                        sizes="48px"
-                        className="object-cover"
+                <div key={idx} className="py-3 first:pt-0 last:pb-0">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-muted text-xs font-medium text-muted-foreground overflow-hidden relative">
+                      {item.imageUrl ? (
+                        <Image
+                          src={item.imageUrl}
+                          alt={item.productName ?? ""}
+                          fill
+                          sizes="48px"
+                          className="object-cover"
+                        />
+                      ) : (
+                        item.productName?.slice(0, 2).toUpperCase() ?? "?"
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-sm text-foreground truncate">
+                        {item.productName}
+                      </p>
+                      {item.variantInfo && (
+                        <p className="text-xs text-muted-foreground">{item.variantInfo}</p>
+                      )}
+                      <p className="text-xs text-muted-foreground">
+                        {formatPrice(item.unitPrice ?? 0)} x {item.quantity}
+                      </p>
+                    </div>
+                    <p className="font-medium text-sm text-foreground whitespace-nowrap">
+                      {formatPrice(item.totalPrice ?? 0)}
+                    </p>
+                  </div>
+                  {order.orderStatus === "delivered" && item.productDocumentId && (
+                    <div className="mt-2">
+                      <ReviewDialog
+                        productDocumentId={item.productDocumentId}
+                        productName={item.productName}
+                        orderNumber={orderNumber}
                       />
-                    ) : (
-                      item.productName?.slice(0, 2).toUpperCase() ?? "?"
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-sm text-foreground truncate">
-                      {item.productName}
-                    </p>
-                    {item.variantInfo && (
-                      <p className="text-xs text-muted-foreground">{item.variantInfo}</p>
-                    )}
-                    <p className="text-xs text-muted-foreground">
-                      {formatPrice(item.unitPrice ?? 0)} x {item.quantity}
-                    </p>
-                  </div>
-                  <p className="font-medium text-sm text-foreground whitespace-nowrap">
-                    {formatPrice(item.totalPrice ?? 0)}
-                  </p>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
