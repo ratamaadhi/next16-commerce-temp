@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Star } from "lucide-react";
+import { Star, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { ReviewItem } from "@/lib/reviews";
 
@@ -45,10 +45,7 @@ export function ReviewList({ reviews }: ReviewListProps) {
               />
             ))}
             {review.verified && (
-              <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400">
-                <span className="size-1 rounded-full bg-emerald-500" />
-                Verified Purchase
-              </span>
+              <BadgeCheck className="ml-1 size-3.5 text-muted-foreground" aria-label="Verified Purchase" />
             )}
           </div>
           <h4 className="font-semibold text-sm text-foreground">{review.title}</h4>
