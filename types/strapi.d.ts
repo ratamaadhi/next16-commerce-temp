@@ -1627,6 +1627,118 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/orders/{documentId}/cancel": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post: operations["post/orders/{documentId}/cancel"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/orders/{documentId}/regenerate-snap-token": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post: operations["post/orders/{documentId}/regenerateSnapToken"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/orders/{documentId}/retry": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post: operations["post/orders/{documentId}/retry"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/midtrans/webhook": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post: operations["post/midtrans/webhook"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/users/me/addresses": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations["get/users/me/addresses"];
+    put?: never;
+    post: operations["post/users/me/addresses"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/users/me/addresses/{documentId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations["get/users/me/addresses/{documentId}"];
+    put: operations["put/users/me/addresses/{documentId}"];
+    post?: never;
+    delete: operations["delete/users/me/addresses/{documentId}"];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/users/me/addresses/{documentId}/make-default": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch: operations["patch/users/me/addresses/{documentId}/make-default"];
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1935,7 +2047,7 @@ export interface components {
             | "cancelled"
             | "refunded";
           /** @enum {string} */
-          paymentStatus?: "pending" | "paid" | "failed" | "refunded";
+          paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
           /** Format: float */
           subtotal?: number;
           /** Format: float */
@@ -3237,7 +3349,7 @@ export interface components {
                   | "cancelled"
                   | "refunded";
                 /** @enum {string} */
-                paymentStatus?: "pending" | "paid" | "failed" | "refunded";
+                paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
                 /** Format: float */
                 subtotal?: number;
                 /** Format: float */
@@ -3458,7 +3570,7 @@ export interface components {
         /** @enum {string} */
         orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "cancelled" | "refunded";
         /** @enum {string} */
-        paymentStatus?: "pending" | "paid" | "failed" | "refunded";
+        paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
         /** Format: float */
         subtotal: number;
         /** Format: float */
@@ -3513,7 +3625,7 @@ export interface components {
       /** @enum {string} */
       orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "cancelled" | "refunded";
       /** @enum {string} */
-      paymentStatus?: "pending" | "paid" | "failed" | "refunded";
+      paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
       /** Format: float */
       subtotal: number;
       /** Format: float */
@@ -3546,7 +3658,7 @@ export interface components {
         /** @enum {string} */
         orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "cancelled" | "refunded";
         /** @enum {string} */
-        paymentStatus?: "pending" | "paid" | "failed" | "refunded";
+        paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
         /** Format: float */
         subtotal?: number;
         /** Format: float */
@@ -4801,7 +4913,7 @@ export interface components {
                   | "cancelled"
                   | "refunded";
                 /** @enum {string} */
-                paymentStatus?: "pending" | "paid" | "failed" | "refunded";
+                paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
                 /** Format: float */
                 subtotal?: number;
                 /** Format: float */
@@ -5551,7 +5663,7 @@ export interface components {
                 | "cancelled"
                 | "refunded";
               /** @enum {string} */
-              paymentStatus?: "pending" | "paid" | "failed" | "refunded";
+              paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
               /** Format: float */
               subtotal?: number;
               /** Format: float */
@@ -8000,6 +8112,571 @@ export interface operations {
       };
       /** @description Forbidden */
       403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "post/orders/{documentId}/cancel": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Document ID of the order to cancel */
+        documentId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Order cancelled successfully */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["OrderResponse"];
+        };
+      };
+      /** @description Bad Request – order cannot be cancelled or refund required */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "post/orders/{documentId}/regenerateSnapToken": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Document ID of the order */
+        documentId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Snap token regenerated successfully. Returns snapToken and redirectUrl. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": {
+            snapToken?: string;
+            redirectUrl?: string;
+          };
+        };
+      };
+      /** @description Bad Request – order cancelled/refunded or payment already processed */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "post/orders/{documentId}/retry": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Document ID of the failed order to retry */
+        documentId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description New order created successfully as a retry of a failed payment */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["OrderResponse"];
+        };
+      };
+      /** @description Bad Request – order payment did not fail, max retry exceeded, or insufficient stock */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "post/midtrans/webhook": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description Order number (ORD-xxx) */
+          order_id?: string;
+          transaction_id?: string;
+          /** @description settlement, capture, pending, deny, expire, cancel, refund, partial_refund */
+          transaction_status?: string;
+          payment_type?: string;
+          gross_amount?: string;
+          status_code?: string;
+          signature_key?: string;
+        };
+      };
+    };
+    responses: {
+      /** @description Webhook acknowledged */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": {
+            /** @example ok */
+            status?: string;
+            message?: string;
+          };
+        };
+      };
+      /** @description Invalid signature */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "get/users/me/addresses": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description List of user addresses */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AddressListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "post/users/me/addresses": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AddressRequest"];
+      };
+    };
+    responses: {
+      /** @description Address created */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AddressResponse"];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "get/users/me/addresses/{documentId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Document ID of the address */
+        documentId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Address details */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AddressResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "put/users/me/addresses/{documentId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Document ID of the address */
+        documentId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AddressRequest"];
+      };
+    };
+    responses: {
+      /** @description Address updated */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AddressResponse"];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "delete/users/me/addresses/{documentId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Document ID of the address */
+        documentId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Address deleted */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AddressResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "patch/users/me/addresses/{documentId}/make-default": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Document ID of the address to set as default */
+        documentId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Address set as default */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AddressResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
         headers: {
           [name: string]: unknown;
         };

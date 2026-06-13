@@ -4,12 +4,23 @@ import { useState, useCallback, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, CreditCard, RefreshCw } from "lucide-react";
+import { Loader2, CreditCard, RefreshCw, XCircle } from "lucide-react";
 import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface OrderPaymentSectionProps {
   orderNumber: string;
   paymentStatus: string;
+  orderStatus: string;
   totalAmount: number;
   currency?: string;
   snapToken: string | null;
@@ -93,6 +104,7 @@ function pollPaymentStatus(
 export function OrderPaymentSection({
   orderNumber,
   paymentStatus,
+  orderStatus,
   snapToken: initialToken,
   autoPay,
 }: OrderPaymentSectionProps) {
@@ -103,6 +115,8 @@ export function OrderPaymentSection({
   const [paid, setPaid] = useState(paymentStatus === "paid");
   const pollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const hasAutoPaid = useRef(false);
+  const [cancelOpen, setCancelOpen] = useState(false);
+  const [cancelling, setCancelling] = useState(false);
 
   const stopPolling = useCallback(() => {
     if (pollIntervalRef.current !== null) {
@@ -226,6 +240,29 @@ export function OrderPaymentSection({
     }
   }, [orderNumber]);
 
+  const handleCancel = useCallback(async () => {
+    setCancelling(true);
+    try {
+      const res = await fetch(`/api/orders/${orderNumber}/cancel`, {
+        method: "POST",
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Gagal membatalkan pesanan");
+      }
+      toast.success("Pesanan berhasil dibatalkan");
+      router.refresh();
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Gagal membatalkan pesanan";
+      console.error("[cancelOrder]", err);
+      toast.error(message);
+    } finally {
+      setCancelling(false);
+      setCancelOpen(false);
+    }
+  }, [orderNumber, router]);
+
   if (paid) {
     return (
       <div className="space-y-2 text-sm">
@@ -233,6 +270,19 @@ export function OrderPaymentSection({
           <span className="text-muted-foreground">Pembayaran</span>
           <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
             Lunas
+          </Badge>
+        </div>
+      </div>
+    );
+  }
+
+  if (paymentStatus === "cancelled") {
+    return (
+      <div className="space-y-2 text-sm">
+        <div className="flex justify-between">
+          <span className="text-muted-foreground">Pembayaran</span>
+          <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200">
+            Dibatalkan
           </Badge>
         </div>
       </div>
@@ -254,43 +304,99 @@ export function OrderPaymentSection({
   }
 
   const isFailed = paymentStatus === "failed";
+  const isCancelled = orderStatus === "cancelled";
+
+  const showCancel = !isCancelled && orderStatus === "pending" && paymentStatus === "pending";
 
   return (
-    <div className="space-y-3 text-sm">
-      <div className="flex justify-between">
-        <span className="text-muted-foreground">Pembayaran</span>
-        <Badge
-          variant="outline"
-          className={
-            isFailed
-              ? "bg-red-50 text-red-700 border-red-200"
-              : "bg-amber-50 text-amber-700 border-amber-200"
-          }
-        >
-          {isFailed ? "Gagal" : "Pending"}
-        </Badge>
-      </div>
-      <Button
-        onClick={isFailed ? handleRetry : handlePay}
-        disabled={loading}
-        className="w-full"
-        size="lg">
-        {loading ? (
-          <span className="flex items-center">
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Memproses...
-          </span>
-        ) : (
-          <span className="flex items-center">
-            {isFailed ? (
-              <RefreshCw className="mr-2 h-4 w-4" />
+    <>
+      <div className="space-y-3 text-sm">
+        <div className="flex justify-between">
+          <span className="text-muted-foreground">Pembayaran</span>
+          <Badge
+            variant="outline"
+            className={
+              isFailed
+                ? "bg-red-50 text-red-700 border-red-200"
+                : "bg-amber-50 text-amber-700 border-amber-200"
+            }
+          >
+            {isFailed ? "Gagal" : "Pending"}
+          </Badge>
+        </div>
+        {!isCancelled && (
+          <Button
+            onClick={isFailed ? handleRetry : handlePay}
+            disabled={loading}
+            className="w-full"
+            size="lg">
+            {loading ? (
+              <span className="flex items-center">
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Memproses...
+              </span>
             ) : (
-              <CreditCard className="mr-2 h-4 w-4" />
+              <span className="flex items-center">
+                {isFailed ? (
+                  <RefreshCw className="mr-2 h-4 w-4" />
+                ) : (
+                  <CreditCard className="mr-2 h-4 w-4" />
+                )}
+                {isFailed ? "Coba Bayar Lagi" : "Bayar Sekarang"}
+              </span>
             )}
-            {isFailed ? "Coba Bayar Lagi" : "Bayar Sekarang"}
-          </span>
+          </Button>
         )}
-      </Button>
-    </div>
+        {showCancel && (
+          <Button
+            variant="destructive"
+            className="w-full"
+            size="lg"
+            disabled={cancelling}
+            onClick={() => setCancelOpen(true)}
+          >
+            {cancelling ? (
+              <span className="flex items-center">
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Membatalkan...
+              </span>
+            ) : (
+              <span className="flex items-center">
+                <XCircle className="mr-2 h-4 w-4" />
+                Batalkan Pesanan
+              </span>
+            )}
+          </Button>
+        )}
+      </div>
+      <AlertDialog open={cancelOpen} onOpenChange={setCancelOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Batalkan Pesanan</AlertDialogTitle>
+            <AlertDialogDescription>
+              Apakah Anda yakin ingin membatalkan pesanan ini? Tindakan ini tidak
+              dapat dibatalkan.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={cancelling}>Kembali</AlertDialogCancel>
+            <AlertDialogAction
+              disabled={cancelling}
+              onClick={handleCancel}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {cancelling ? (
+                <span className="flex items-center">
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Membatalkan...
+                </span>
+              ) : (
+                "Ya, Batalkan"
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }

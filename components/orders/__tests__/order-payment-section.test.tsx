@@ -42,6 +42,7 @@ function renderSection(
   overrides: Partial<{
     orderNumber: string;
     paymentStatus: string;
+    orderStatus: string;
     totalAmount: number;
     snapToken: string | null;
     autoPay?: boolean;
@@ -51,6 +52,7 @@ function renderSection(
     <OrderPaymentSection
       orderNumber={overrides.orderNumber ?? "ORD-001"}
       paymentStatus={overrides.paymentStatus ?? "pending"}
+      orderStatus={overrides.orderStatus ?? "pending"}
       totalAmount={overrides.totalAmount ?? 50000}
       snapToken={overrides.snapToken ?? "test-snap-token"}
       autoPay={overrides.autoPay}
@@ -181,6 +183,13 @@ describe("OrderPaymentSection — retry flow", () => {
     await waitFor(() => {
       expect(snap.pay).not.toHaveBeenCalled();
     });
+  });
+
+  it("does not render retry/pay button when order status is cancelled", () => {
+    renderSection({ paymentStatus: "failed", orderStatus: "cancelled" });
+    expect(screen.getByText("Gagal")).toBeInTheDocument();
+    expect(screen.queryByText("Coba Bayar Lagi")).not.toBeInTheDocument();
+    expect(screen.queryByText("Bayar Sekarang")).not.toBeInTheDocument();
   });
 });
 

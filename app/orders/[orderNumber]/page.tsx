@@ -172,6 +172,7 @@ export default async function OrderDetailPage({ params, searchParams }: OrderDet
               <OrderPaymentSection
                 orderNumber={orderNumber}
                 paymentStatus={order.paymentStatus ?? "pending"}
+                orderStatus={order.orderStatus ?? "pending"}
                 totalAmount={order.totalAmount ?? 0}
                 currency={order.currency}
                 snapToken={order.midtransSnapToken ?? null}
