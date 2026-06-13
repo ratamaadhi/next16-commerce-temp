@@ -165,7 +165,7 @@ describe("createOrder", () => {
     expect(mockStrapiFetch).toHaveBeenCalledWith(
       "/orders",
       {},
-      { method: "POST", body: JSON.stringify(orderData) },
+      { method: "POST", body: JSON.stringify({ data: orderData }) },
       mockToken,
     );
   });

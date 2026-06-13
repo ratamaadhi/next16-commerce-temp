@@ -40,7 +40,7 @@ export async function createOrder(
     {},
     {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify({ data }),
     },
     token,
   );
