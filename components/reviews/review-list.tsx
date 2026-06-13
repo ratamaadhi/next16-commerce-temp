@@ -45,7 +45,10 @@ export function ReviewList({ reviews }: ReviewListProps) {
               />
             ))}
             {review.verified && (
-              <BadgeCheck className="ml-1 size-3.5 text-muted-foreground" aria-label="Verified Purchase" />
+              <span className="ml-1.5 inline-flex items-center gap-0.5 rounded-full bg-muted/50 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                Verified
+                <BadgeCheck className="size-3" />
+              </span>
             )}
           </div>
           <h4 className="font-semibold text-sm text-foreground">{review.title}</h4>
