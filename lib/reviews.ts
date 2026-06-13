@@ -37,7 +37,7 @@ export async function createReview(
     {},
     {
       method: "POST",
-      body: JSON.stringify({ data }),
+      body: JSON.stringify(data),
     },
     token,
   );

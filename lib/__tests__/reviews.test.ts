@@ -44,7 +44,7 @@ describe("createReview", () => {
     expect(mockStrapiFetch).toHaveBeenCalledWith(
       "/reviews",
       {},
-      { method: "POST", body: JSON.stringify({ data: mockReviewData }) },
+      { method: "POST", body: JSON.stringify(mockReviewData) },
       mockToken,
     );
   });
