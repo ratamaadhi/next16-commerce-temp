@@ -24,7 +24,7 @@ const mockReviewData = {
   rating: 5,
   title: "Great product",
   comment: "Really love this!",
-  reviewStatus: "pending",
+  reviewStatus: "pending" as const,
   product: "prod-doc-1",
 };
 
