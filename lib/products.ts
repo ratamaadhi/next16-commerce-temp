@@ -102,7 +102,7 @@ export async function getProductBySlug(slug: string) {
         filters: {
           reviewStatus: { $eq: "approved" },
         },
-        populate: ["user"],
+        populate: { user: true },
       },
     },
   });
