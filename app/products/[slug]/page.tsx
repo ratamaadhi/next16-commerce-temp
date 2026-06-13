@@ -4,6 +4,7 @@ import { ProductImages } from "@/components/products/product-images";
 import { ProductActions } from "@/components/products/product-actions";
 import { SpecificationsTable } from "@/components/products/specifications-table";
 import { ReviewSection } from "@/components/reviews/review-section";
+import type { ReviewItem } from "@/lib/reviews";
 import ReactMarkdown from "react-markdown";
 import type { Metadata } from "next";
 
@@ -38,6 +39,7 @@ export default async function ProductDetailPage({
 
   const variants = product.variants ?? [];
   const specifications = product.specifications ?? [];
+  const reviews = (product.reviews ?? []) as ReviewItem[];
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -62,7 +64,7 @@ export default async function ProductDetailPage({
 
       <div className="mt-12 pt-8 border-t">
         <h2 className="text-2xl font-bold mb-6">Ulasan</h2>
-        <ReviewSection />
+        <ReviewSection reviews={reviews} />
       </div>
     </main>
   );
