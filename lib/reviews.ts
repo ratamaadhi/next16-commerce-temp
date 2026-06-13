@@ -10,6 +10,7 @@ export interface ReviewSubmission {
   comment: string;
   productDocumentId: string;
   orderNumber: string;
+  isAnonymous?: boolean;
 }
 
 export interface ReviewItem {
@@ -26,6 +27,8 @@ export interface ReviewItem {
     documentId?: string;
     username?: string;
   };
+  isAnonymous?: boolean;
+  displayName?: string;
 }
 
 export async function createReview(

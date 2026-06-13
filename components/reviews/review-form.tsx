@@ -20,6 +20,7 @@ export function ReviewForm({ productDocumentId, orderNumber, onSuccess, onClose 
   const [rating, setRating] = useState(0);
   const [title, setTitle] = useState("");
   const [comment, setComment] = useState("");
+  const [isAnonymous, setIsAnonymous] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const canSubmit = rating > 0 && title.trim().length > 0 && comment.trim().length > 0;
@@ -39,6 +40,7 @@ export function ReviewForm({ productDocumentId, orderNumber, onSuccess, onClose 
           comment: comment.trim(),
           productDocumentId,
           orderNumber,
+          isAnonymous,
         }),
       });
 
@@ -96,6 +98,17 @@ export function ReviewForm({ productDocumentId, orderNumber, onSuccess, onClose 
           disabled={isSubmitting}
         />
       </div>
+
+      <label className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer">
+        <input
+          type="checkbox"
+          checked={isAnonymous}
+          onChange={(e) => setIsAnonymous(e.target.checked)}
+          disabled={isSubmitting}
+          className="size-4 rounded border-border accent-primary"
+        />
+        <span>Sebagai anonim</span>
+      </label>
 
       <Button type="submit" className="w-full" disabled={!canSubmit || isSubmitting}>
         {isSubmitting ? (

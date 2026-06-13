@@ -2115,6 +2115,8 @@ export interface components {
           reviewStatus?: "pending" | "approved" | "rejected";
           /** @example 123456789 */
           helpful?: string;
+          isAnonymous?: boolean;
+          displayName?: string;
           product?: {
             id?: string | number;
             documentId?: string;
@@ -3263,6 +3265,8 @@ export interface components {
             reviewStatus?: "pending" | "approved" | "rejected";
             /** @example 123456789 */
             helpful?: string;
+            isAnonymous?: boolean;
+            displayName?: string;
             product?: {
               id?: string | number;
               documentId?: string;
@@ -3940,6 +3944,8 @@ export interface components {
             reviewStatus?: "pending" | "approved" | "rejected";
             /** @example 123456789 */
             helpful?: string;
+            isAnonymous?: boolean;
+            displayName?: string;
             product?: {
               id?: string | number;
               documentId?: string;
@@ -4827,6 +4833,8 @@ export interface components {
             reviewStatus?: "pending" | "approved" | "rejected";
             /** @example 123456789 */
             helpful?: string;
+            isAnonymous?: boolean;
+            displayName?: string;
             product?: {
               id?: string | number;
               documentId?: string;
@@ -5137,6 +5145,8 @@ export interface components {
         reviewStatus?: "pending" | "approved" | "rejected";
         /** @example 123456789 */
         helpful?: string;
+        isAnonymous?: boolean;
+        displayName?: string;
         /** @example string or id */
         product?: number | string;
         /** @example string or id */
@@ -5167,6 +5177,8 @@ export interface components {
       reviewStatus?: "pending" | "approved" | "rejected";
       /** @example 123456789 */
       helpful?: string;
+      isAnonymous?: boolean;
+      displayName?: string;
       product?: {
         id?: string | number;
         documentId?: string;
@@ -5577,6 +5589,8 @@ export interface components {
           reviewStatus?: "pending" | "approved" | "rejected";
           /** @example 123456789 */
           helpful?: string;
+          isAnonymous?: boolean;
+          displayName?: string;
           product?: {
             id?: string | number;
             documentId?: string;

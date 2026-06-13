@@ -30,7 +30,7 @@ export function ReviewList({ reviews }: ReviewListProps) {
         <div
           key={review.documentId ?? review.id}
           className="rounded-lg border bg-card p-4 space-y-2 animate-in fade-in slide-in-from-bottom-2"
-          style={{ animationDelay: `${idx % PER_PAGE * 75}ms`, animationFillMode: "backwards" }}
+          style={{ animationDelay: `${(idx % PER_PAGE) * 75}ms`, animationFillMode: "backwards" }}
         >
           <div className="flex items-center gap-1">
             {[1, 2, 3, 4, 5].map((star) => (
@@ -45,7 +45,7 @@ export function ReviewList({ reviews }: ReviewListProps) {
               />
             ))}
             {review.verified && (
-              <span className="ml-1.5 inline-flex items-center gap-0.5 rounded-full bg-muted/50 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+              <span className="ml-1.5 inline-flex items-center gap-0.5 rounded-full bg-secondary/80 px-1.5 py-0.5 text-[10px] text-secondary-foreground">
                 Verified
                 <BadgeCheck className="size-3" />
               </span>
@@ -54,7 +54,7 @@ export function ReviewList({ reviews }: ReviewListProps) {
           <h4 className="font-semibold text-sm text-foreground">{review.title}</h4>
           <p className="text-sm text-muted-foreground leading-relaxed">{review.comment}</p>
           <div className="flex items-center justify-between text-xs text-muted-foreground">
-            <span>{review.user?.username || "Anonim"}</span>
+            <span>{review.isAnonymous ? "Anonim" : (review.displayName || review.user?.username || "Anonim")}</span>
             <span>
               {new Date(review.createdAt).toLocaleDateString("id-ID", {
                 year: "numeric",
@@ -68,11 +68,7 @@ export function ReviewList({ reviews }: ReviewListProps) {
 
       {hasMore && (
         <div className="flex justify-center pt-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setVisible((prev) => prev + PER_PAGE)}
-          >
+          <Button variant="outline" size="sm" onClick={() => setVisible((prev) => prev + PER_PAGE)}>
             Muat lebih banyak ({reviews.length - visible} ulasan)
           </Button>
         </div>

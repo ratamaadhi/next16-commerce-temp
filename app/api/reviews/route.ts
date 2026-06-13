@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createReview, type ReviewSubmission, StrapiError } from "@/lib/reviews";
+import type { components } from "@/types/strapi";
 
 const STRAPI_URL = process.env.STRAPI_URL!;
 
@@ -80,7 +81,8 @@ export async function POST(req: NextRequest) {
         comment: body.comment,
         reviewStatus: "pending",
         product: body.productDocumentId,
-      },
+        ...(body.isAnonymous !== undefined ? { isAnonymous: body.isAnonymous } : {}),
+      } as components["schemas"]["ReviewRequest"]["data"],
       token,
     );
 

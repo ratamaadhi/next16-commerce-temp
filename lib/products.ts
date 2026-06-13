@@ -51,7 +51,7 @@ export interface ProductData {
   categories?: ProductData[];
   variants?: Array<{ id?: number; name: string; sku?: string; price: number; inventory?: number }>;
   specifications?: Array<{ label: string; value: string }>;
-  reviews?: Array<{ id: number; rating: number; title: string; comment: string; verified: boolean; createdAt: string; user?: { username: string } }>;
+  reviews?: Array<{ id: number; rating: number; title: string; comment: string; verified: boolean; createdAt: string; user?: { username: string }; isAnonymous?: boolean; displayName?: string }>;
   publishedAt?: string;
   createdAt?: string;
 }
