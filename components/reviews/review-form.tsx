@@ -20,7 +20,7 @@ export function ReviewForm({ productDocumentId, orderNumber, onSuccess, onClose 
   const [rating, setRating] = useState(0);
   const [title, setTitle] = useState("");
   const [comment, setComment] = useState("");
-  const [isAnonymous, setIsAnonymous] = useState(false);
+  const [isAnonymous, setIsAnonymous] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const canSubmit = rating > 0 && title.trim().length > 0 && comment.trim().length > 0;
