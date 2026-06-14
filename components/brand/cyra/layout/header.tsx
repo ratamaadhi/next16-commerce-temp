@@ -28,7 +28,7 @@ export function Header() {
       <div className="container mx-auto px-4 flex h-16 items-center justify-between gap-4">
         <Link
           href="/"
-          className="font-bold text-xl flex-shrink-0 font-[family-name:var(--font-playfair)]"
+          className="font-bold text-xl flex-shrink-0 font-[family-name:var(--font-heading)]"
         >
           Cyra
         </Link>

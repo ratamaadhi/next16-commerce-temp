@@ -268,7 +268,7 @@ export function OrderPaymentSection({
       <div className="space-y-2 text-sm">
         <div className="flex justify-between">
           <span className="text-muted-foreground">Pembayaran</span>
-          <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+          <Badge variant="outline" className="bg-emerald-100 text-emerald-700 border-emerald-200">
             Lunas
           </Badge>
         </div>
@@ -281,7 +281,7 @@ export function OrderPaymentSection({
       <div className="space-y-2 text-sm">
         <div className="flex justify-between">
           <span className="text-muted-foreground">Pembayaran</span>
-          <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200">
+          <Badge variant="outline" className="bg-destructive/10 text-destructive border-destructive/20">
             Dibatalkan
           </Badge>
         </div>
@@ -294,7 +294,7 @@ export function OrderPaymentSection({
       <div className="space-y-2 text-sm">
         <div className="flex justify-between">
           <span className="text-muted-foreground">Pembayaran</span>
-          <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200">
+          <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
             <Loader2 className="mr-1 h-3 w-3 animate-spin" />
             Memproses...
           </Badge>
@@ -317,8 +317,8 @@ export function OrderPaymentSection({
             variant="outline"
             className={
               isFailed
-                ? "bg-red-50 text-red-700 border-red-200"
-                : "bg-amber-50 text-amber-700 border-amber-200"
+                ? "bg-destructive/10 text-destructive border-destructive/20"
+                : "bg-muted text-muted-foreground border-border"
             }
           >
             {isFailed ? "Gagal" : "Pending"}

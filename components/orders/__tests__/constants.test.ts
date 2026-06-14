@@ -29,29 +29,29 @@ describe("ORDER_STATUS_TITLES", () => {
 });
 
 describe("getStatusBadgeClass", () => {
-  it("returns amber classes for pending", () => {
-    expect(getStatusBadgeClass("pending")).toContain("bg-amber-50");
-    expect(getStatusBadgeClass("pending")).toContain("text-amber-700");
+  it("returns muted classes for pending", () => {
+    expect(getStatusBadgeClass("pending")).toContain("bg-muted");
+    expect(getStatusBadgeClass("pending")).toContain("text-muted-foreground");
   });
 
-  it("returns blue classes for processing", () => {
-    expect(getStatusBadgeClass("processing")).toContain("bg-blue-50");
-    expect(getStatusBadgeClass("processing")).toContain("text-blue-700");
+  it("returns primary classes for processing", () => {
+    expect(getStatusBadgeClass("processing")).toContain("bg-primary");
+    expect(getStatusBadgeClass("processing")).toContain("text-primary");
   });
 
-  it("returns purple classes for shipped", () => {
-    expect(getStatusBadgeClass("shipped")).toContain("bg-purple-50");
-    expect(getStatusBadgeClass("shipped")).toContain("text-purple-700");
+  it("returns accent classes for shipped", () => {
+    expect(getStatusBadgeClass("shipped")).toContain("bg-accent");
+    expect(getStatusBadgeClass("shipped")).toContain("text-accent");
   });
 
-  it("returns green classes for delivered", () => {
-    expect(getStatusBadgeClass("delivered")).toContain("bg-green-50");
-    expect(getStatusBadgeClass("delivered")).toContain("text-green-700");
+  it("returns emerald classes for delivered", () => {
+    expect(getStatusBadgeClass("delivered")).toContain("bg-emerald");
+    expect(getStatusBadgeClass("delivered")).toContain("text-emerald");
   });
 
-  it("returns red classes for cancelled", () => {
-    expect(getStatusBadgeClass("cancelled")).toContain("bg-red-50");
-    expect(getStatusBadgeClass("cancelled")).toContain("text-red-700");
+  it("returns destructive classes for cancelled", () => {
+    expect(getStatusBadgeClass("cancelled")).toContain("bg-destructive");
+    expect(getStatusBadgeClass("cancelled")).toContain("text-destructive");
   });
 
   it("returns gray classes for unknown status", () => {

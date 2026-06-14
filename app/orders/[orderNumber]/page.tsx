@@ -170,7 +170,7 @@ export default async function OrderDetailPage({ params, searchParams }: OrderDet
                 </div>
               )}
               {(order.discount ?? 0) > 0 && (
-                <div className="flex justify-between text-green-600">
+                <div className="flex justify-between text-emerald-600 dark:text-emerald-400">
                   <span className="text-muted-foreground">Diskon</span>
                   <span>-{formatPrice(order.discount ?? 0, order.currency)}</span>
                 </div>

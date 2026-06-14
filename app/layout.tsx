@@ -1,10 +1,5 @@
 import { headers } from "next/headers";
-import {
-  Inter,
-  Playfair_Display,
-  Plus_Jakarta_Sans,
-  Cormorant_Garamond,
-} from "next/font/google";
+import { Inter, Playfair_Display, Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
 import { cookies } from "next/headers";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Providers } from "@/providers/providers";
@@ -24,18 +19,14 @@ const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
 });
-const cormorant = Cormorant_Garamond({
+const cormorant = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-cormorant",
+  variable: "--font-monospace",
 });
 
 const STRAPI_URL = process.env.STRAPI_URL!;
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
   let user = null;
@@ -56,17 +47,20 @@ export default async function RootLayout({
 
   const headersList = await headers();
   const rawBrand = headersList.get("x-brand-id") || "cyra";
-  const brand: BrandId =
-    rawBrand in brandConfigs ? (rawBrand as BrandId) : "cyra";
+  const brand: BrandId = rawBrand in brandConfigs ? (rawBrand as BrandId) : "cyra";
+
+  const isDark = brand === "noir";
 
   return (
-    <html lang="id" suppressHydrationWarning>
-      <body
-        className={`${inter.variable} ${playfair.variable} ${jakarta.variable} ${cormorant.variable} min-h-screen flex flex-col`}
-      >
+    <html
+      lang="id"
+      className={`brand-${brand}${isDark ? " dark" : ""} ${playfair.variable} ${jakarta.variable} ${cormorant.variable}`}
+      suppressHydrationWarning
+    >
+      <body className={`${inter.variable} min-h-screen flex flex-col`}>
         <Providers dehydratedState={dehydrate(queryClient)}>
           <BrandProvider brand={brand}>
-            <div className={`brand-${brand}`}>
+            <div>
               <BrandHeader brand={brand} />
               <main className="flex-1">{children}</main>
               <BrandFooter brand={brand} />

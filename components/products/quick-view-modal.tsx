@@ -119,7 +119,7 @@ export function QuickViewModal({ product, open, onOpenChange }: QuickViewModalPr
           <div className="flex flex-col flex-1 p-4 sm:p-6 overflow-y-auto">
             <div className="flex-1 space-y-4">
               <div>
-                <DialogTitle className="text-lg sm:text-xl font-[family-name:var(--font-playfair)] font-semibold">
+                <DialogTitle className="text-lg sm:text-xl font-[family-name:var(--font-heading)] font-semibold">
                   {product.name}
                 </DialogTitle>
               </div>
@@ -146,7 +146,9 @@ export function QuickViewModal({ product, open, onOpenChange }: QuickViewModalPr
               )}
 
               {variants.length === 0 && isLowStock && (
-                <p className="text-sm text-amber-600 font-medium">Tersisa {inventory} unit</p>
+                <p className="text-sm text-muted-foreground font-medium">
+                  Tersisa {inventory} unit
+                </p>
               )}
               {variants.length === 0 && isOutOfStock && (
                 <p className="text-sm text-destructive font-medium">Stok Habis</p>

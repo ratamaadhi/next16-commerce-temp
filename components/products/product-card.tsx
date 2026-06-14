@@ -75,7 +75,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
             {/* Price Overlay */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent p-3 sm:p-4 pt-8">
-              <p className="text-white font-bold text-lg sm:text-xl font-[family-name:var(--font-playfair)]">
+              <p className="text-white font-bold text-lg sm:text-xl font-[family-name:var(--font-heading)]">
                 {formatPrice(product.price)}
               </p>
               {hasDiscount && (
@@ -93,7 +93,7 @@ export function ProductCard({ product }: ProductCardProps) {
             className={cn(
               "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
               "hidden md:flex items-center gap-2 rounded-full",
-              "bg-white/90 hover:bg-white text-foreground shadow-md",
+              "bg-background/90 hover:bg-background text-foreground shadow-md",
               "px-4 py-2 text-sm font-medium",
               "opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 ease-out",
             )}
@@ -115,7 +115,7 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Content Link */}
         <Link href={`/products/${product.slug}`} className="flex-1">
           <div className="p-3 sm:p-4 pt-2 sm:pt-3">
-            <h3 className="font-[family-name:var(--font-playfair)] font-semibold text-base sm:text-lg line-clamp-1 text-foreground">
+            <h3 className="font-[family-name:var(--font-heading)] font-semibold text-base sm:text-lg line-clamp-1 text-foreground">
               {product.name}
             </h3>
             {product.condition && (

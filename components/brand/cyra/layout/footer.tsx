@@ -7,7 +7,7 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="font-bold text-lg mb-3 font-[family-name:var(--font-playfair)]">Cyra</h3>
+            <h3 className="font-bold text-lg mb-3 font-[family-name:var(--font-heading)]">Cyra</h3>
             <p className="text-sm text-muted-foreground">
               Preloved beauty terkurasi dari koleksi pribadi. Belanja bijak, tetap cantik.
             </p>

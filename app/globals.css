@@ -54,9 +54,41 @@
     @apply bg-background text-foreground;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading, var(--font-playfair));
   }
+}
+
+.brand-cyra h1,
+.brand-cyra h2,
+.brand-cyra h3,
+.brand-cyra h4,
+.brand-cyra h5,
+.brand-cyra h6 {
+  font-family: var(--font-playfair);
+}
+
+.brand-lumina h1,
+.brand-lumina h2,
+.brand-lumina h3,
+.brand-lumina h4,
+.brand-lumina h5,
+.brand-lumina h6 {
+  font-family: var(--font-jakarta);
+}
+
+.brand-noir h1,
+.brand-noir h2,
+.brand-noir h3,
+.brand-noir h4,
+.brand-noir h5,
+.brand-noir h6 {
+  font-family: var(--font-monospace);
 }
 
 /* Prose styling for markdown rendered content */
@@ -163,7 +195,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
