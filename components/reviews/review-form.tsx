@@ -16,7 +16,12 @@ interface ReviewFormProps {
   onClose: () => void;
 }
 
-export function ReviewForm({ productDocumentId, orderNumber, onSuccess, onClose }: ReviewFormProps) {
+export function ReviewForm({
+  productDocumentId,
+  orderNumber,
+  onSuccess,
+  onClose,
+}: ReviewFormProps) {
   const [rating, setRating] = useState(0);
   const [title, setTitle] = useState("");
   const [comment, setComment] = useState("");
@@ -68,13 +73,23 @@ export function ReviewForm({ productDocumentId, orderNumber, onSuccess, onClose 
         <StarRatingInput value={rating} onChange={setRating} disabled={isSubmitting} />
         {rating > 0 && (
           <p className="text-xs text-muted-foreground">
-            {rating === 5 ? "Luar Biasa!" : rating === 4 ? "Bagus!" : rating === 3 ? "Cukup" : rating === 2 ? "Kurang" : "Buruk"}
+            {rating === 5
+              ? "Luar Biasa!"
+              : rating === 4
+                ? "Bagus!"
+                : rating === 3
+                  ? "Cukup"
+                  : rating === 2
+                    ? "Kurang"
+                    : "Buruk"}
           </p>
         )}
       </div>
 
       <div className="space-y-1.5">
-        <Label className="text-xs" htmlFor="review-title">Judul Review</Label>
+        <Label className="text-xs" htmlFor="review-title">
+          Judul Review
+        </Label>
         <Input
           id="review-title"
           value={title}
@@ -87,7 +102,9 @@ export function ReviewForm({ productDocumentId, orderNumber, onSuccess, onClose 
       </div>
 
       <div className="space-y-1.5">
-        <Label className="text-xs" htmlFor="review-comment">Ulasan Anda</Label>
+        <Label className="text-xs" htmlFor="review-comment">
+          Ulasan Anda
+        </Label>
         <Textarea
           id="review-comment"
           value={comment}

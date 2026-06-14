@@ -2117,6 +2117,10 @@ export interface components {
           helpful?: string;
           isAnonymous?: boolean;
           displayName?: string;
+          user?: {
+            id?: string | number;
+            documentId?: string;
+          };
           product?: {
             id?: string | number;
             documentId?: string;
@@ -2348,13 +2352,13 @@ export interface components {
                 documentId?: string;
               }[];
             }[];
+            variants?: components["schemas"]["ProductProductVariantComponent"][];
+            specifications?: components["schemas"]["ProductSpecificationComponent"][];
+            dimensions?: components["schemas"]["ProductDimensionsComponent"];
             reviews?: {
               id?: string | number;
               documentId?: string;
             }[];
-            variants?: components["schemas"]["ProductProductVariantComponent"][];
-            specifications?: components["schemas"]["ProductSpecificationComponent"][];
-            dimensions?: components["schemas"]["ProductDimensionsComponent"];
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -2374,10 +2378,6 @@ export interface components {
               id?: string | number;
               documentId?: string;
             }[];
-          };
-          user?: {
-            id?: string | number;
-            documentId?: string;
           };
           /** Format: date-time */
           createdAt?: string;
@@ -3254,6 +3254,9 @@ export interface components {
             id?: string | number;
             documentId?: string;
           }[];
+          variants?: components["schemas"]["ProductProductVariantComponent"][];
+          specifications?: components["schemas"]["ProductSpecificationComponent"][];
+          dimensions?: components["schemas"]["ProductDimensionsComponent"];
           reviews?: {
             id?: string | number;
             documentId?: string;
@@ -3267,10 +3270,6 @@ export interface components {
             helpful?: string;
             isAnonymous?: boolean;
             displayName?: string;
-            product?: {
-              id?: string | number;
-              documentId?: string;
-            };
             user?: {
               id?: string | number;
               documentId?: string;
@@ -3473,6 +3472,10 @@ export interface components {
                 documentId?: string;
               }[];
             };
+            product?: {
+              id?: string | number;
+              documentId?: string;
+            };
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -3493,9 +3496,6 @@ export interface components {
               documentId?: string;
             }[];
           }[];
-          variants?: components["schemas"]["ProductProductVariantComponent"][];
-          specifications?: components["schemas"]["ProductSpecificationComponent"][];
-          dimensions?: components["schemas"]["ProductDimensionsComponent"];
           /** Format: date-time */
           createdAt?: string;
           /** Format: date-time */
@@ -3946,6 +3946,10 @@ export interface components {
             helpful?: string;
             isAnonymous?: boolean;
             displayName?: string;
+            user?: {
+              id?: string | number;
+              documentId?: string;
+            };
             product?: {
               id?: string | number;
               documentId?: string;
@@ -4177,13 +4181,13 @@ export interface components {
                   documentId?: string;
                 }[];
               }[];
+              variants?: components["schemas"]["ProductProductVariantComponent"][];
+              specifications?: components["schemas"]["ProductSpecificationComponent"][];
+              dimensions?: components["schemas"]["ProductDimensionsComponent"];
               reviews?: {
                 id?: string | number;
                 documentId?: string;
               }[];
-              variants?: components["schemas"]["ProductProductVariantComponent"][];
-              specifications?: components["schemas"]["ProductSpecificationComponent"][];
-              dimensions?: components["schemas"]["ProductDimensionsComponent"];
               /** Format: date-time */
               createdAt?: string;
               /** Format: date-time */
@@ -4203,10 +4207,6 @@ export interface components {
                 id?: string | number;
                 documentId?: string;
               }[];
-            };
-            user?: {
-              id?: string | number;
-              documentId?: string;
             };
             /** Format: date-time */
             createdAt?: string;
@@ -4359,10 +4359,10 @@ export interface components {
         images?: (number | string)[];
         featured?: boolean;
         categories?: (number | string)[];
-        reviews?: (number | string)[];
         variants?: components["schemas"]["ProductProductVariantComponent"][];
         specifications?: components["schemas"]["ProductSpecificationComponent"][];
         dimensions: components["schemas"]["ProductDimensionsComponent"];
+        reviews?: (number | string)[];
         locale?: string;
         localizations?: (number | string)[];
       };
@@ -4822,6 +4822,9 @@ export interface components {
             id?: string | number;
             documentId?: string;
           }[];
+          variants?: components["schemas"]["ProductProductVariantComponent"][];
+          specifications?: components["schemas"]["ProductSpecificationComponent"][];
+          dimensions?: components["schemas"]["ProductDimensionsComponent"];
           reviews?: {
             id?: string | number;
             documentId?: string;
@@ -4835,10 +4838,6 @@ export interface components {
             helpful?: string;
             isAnonymous?: boolean;
             displayName?: string;
-            product?: {
-              id?: string | number;
-              documentId?: string;
-            };
             user?: {
               id?: string | number;
               documentId?: string;
@@ -5041,6 +5040,10 @@ export interface components {
                 documentId?: string;
               }[];
             };
+            product?: {
+              id?: string | number;
+              documentId?: string;
+            };
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -5061,9 +5064,6 @@ export interface components {
               documentId?: string;
             }[];
           }[];
-          variants?: components["schemas"]["ProductProductVariantComponent"][];
-          specifications?: components["schemas"]["ProductSpecificationComponent"][];
-          dimensions?: components["schemas"]["ProductDimensionsComponent"];
           /** Format: date-time */
           createdAt?: string;
           /** Format: date-time */
@@ -5104,13 +5104,13 @@ export interface components {
           documentId?: string;
         }[];
       }[];
+      variants?: components["schemas"]["ProductProductVariantComponent"][];
+      specifications?: components["schemas"]["ProductSpecificationComponent"][];
+      dimensions: components["schemas"]["ProductDimensionsComponent"];
       reviews?: {
         id?: string | number;
         documentId?: string;
       }[];
-      variants?: components["schemas"]["ProductProductVariantComponent"][];
-      specifications?: components["schemas"]["ProductSpecificationComponent"][];
-      dimensions: components["schemas"]["ProductDimensionsComponent"];
       /** Format: date-time */
       createdAt?: string;
       /** Format: date-time */
@@ -5148,9 +5148,9 @@ export interface components {
         isAnonymous?: boolean;
         displayName?: string;
         /** @example string or id */
-        product?: number | string;
-        /** @example string or id */
         user?: number | string;
+        /** @example string or id */
+        product?: number | string;
         locale?: string;
         localizations?: (number | string)[];
       };
@@ -5179,178 +5179,91 @@ export interface components {
       helpful?: string;
       isAnonymous?: boolean;
       displayName?: string;
-      product?: {
+      user?: {
         id?: string | number;
         documentId?: string;
-        name?: string;
-        slug?: string;
-        shortDescription?: string;
-        description?: string;
-        /** Format: float */
-        price?: number;
-        /** Format: float */
-        compareAtPrice?: number;
-        sku?: string;
-        barcode?: string;
-        /** @example 123456789 */
-        inventory?: string;
-        lowStockThreshold?: number;
-        images?: {
+        username?: string;
+        /** Format: email */
+        email?: string;
+        provider?: string;
+        resetPasswordToken?: string;
+        confirmationToken?: string;
+        confirmed?: boolean;
+        blocked?: boolean;
+        role?: {
           id?: string | number;
           documentId?: string;
           name?: string;
-          alternativeText?: string;
-          caption?: string;
-          focalPoint?: unknown;
-          width?: number;
-          height?: number;
-          formats?: unknown;
-          hash?: string;
-          ext?: string;
-          mime?: string;
-          /** Format: float */
-          size?: number;
-          url?: string;
-          previewUrl?: string;
-          provider?: string;
-          provider_metadata?: unknown;
-          related?: {
+          description?: string;
+          type?: string;
+          permissions?: {
             id?: string | number;
             documentId?: string;
-          }[];
-          folder?: {
-            id?: string | number;
-            documentId?: string;
-            name?: string;
-            pathId?: number;
-            parent?: {
+            action?: string;
+            role?: {
               id?: string | number;
               documentId?: string;
             };
-            children?: {
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+            /** Format: date-time */
+            publishedAt?: string;
+            createdBy?: {
               id?: string | number;
               documentId?: string;
-            }[];
-            files?: {
-              id?: string | number;
-              documentId?: string;
-              name?: string;
-              alternativeText?: string;
-              caption?: string;
-              focalPoint?: unknown;
-              width?: number;
-              height?: number;
-              formats?: unknown;
-              hash?: string;
-              ext?: string;
-              mime?: string;
-              /** Format: float */
-              size?: number;
-              url?: string;
-              previewUrl?: string;
-              provider?: string;
-              provider_metadata?: unknown;
-              related?: {
+              firstname?: string;
+              lastname?: string;
+              username?: string;
+              /** Format: email */
+              email?: string;
+              resetPasswordToken?: string;
+              registrationToken?: string;
+              isActive?: boolean;
+              roles?: {
                 id?: string | number;
                 documentId?: string;
-              }[];
-              folder?: {
-                id?: string | number;
-                documentId?: string;
-              };
-              folderPath?: string;
-              /** Format: date-time */
-              createdAt?: string;
-              /** Format: date-time */
-              updatedAt?: string;
-              /** Format: date-time */
-              publishedAt?: string;
-              createdBy?: {
-                id?: string | number;
-                documentId?: string;
-                firstname?: string;
-                lastname?: string;
-                username?: string;
-                /** Format: email */
-                email?: string;
-                resetPasswordToken?: string;
-                registrationToken?: string;
-                isActive?: boolean;
-                roles?: {
+                name?: string;
+                code?: string;
+                description?: string;
+                users?: {
                   id?: string | number;
                   documentId?: string;
-                  name?: string;
-                  code?: string;
-                  description?: string;
-                  users?: {
+                }[];
+                permissions?: {
+                  id?: string | number;
+                  documentId?: string;
+                  action?: string;
+                  actionParameters?: unknown;
+                  subject?: string;
+                  properties?: unknown;
+                  conditions?: unknown;
+                  role?: {
                     id?: string | number;
                     documentId?: string;
-                  }[];
-                  permissions?: {
+                  };
+                  apiToken?: {
                     id?: string | number;
                     documentId?: string;
-                    action?: string;
-                    actionParameters?: unknown;
-                    subject?: string;
-                    properties?: unknown;
-                    conditions?: unknown;
-                    role?: {
+                    name?: string;
+                    description?: string;
+                    /** @enum {string} */
+                    kind?: "content-api" | "admin";
+                    /** @enum {string} */
+                    type?: "read-only" | "full-access" | "custom";
+                    accessKey?: string;
+                    encryptedKey?: string;
+                    /** Format: date-time */
+                    lastUsedAt?: string;
+                    permissions?: {
                       id?: string | number;
                       documentId?: string;
-                    };
-                    apiToken?: {
-                      id?: string | number;
-                      documentId?: string;
-                      name?: string;
-                      description?: string;
-                      /** @enum {string} */
-                      kind?: "content-api" | "admin";
-                      /** @enum {string} */
-                      type?: "read-only" | "full-access" | "custom";
-                      accessKey?: string;
-                      encryptedKey?: string;
-                      /** Format: date-time */
-                      lastUsedAt?: string;
-                      permissions?: {
-                        id?: string | number;
-                        documentId?: string;
-                        action?: string;
-                        token?: {
-                          id?: string | number;
-                          documentId?: string;
-                        };
-                        /** Format: date-time */
-                        createdAt?: string;
-                        /** Format: date-time */
-                        updatedAt?: string;
-                        /** Format: date-time */
-                        publishedAt?: string;
-                        createdBy?: {
-                          id?: string | number;
-                          documentId?: string;
-                        };
-                        updatedBy?: {
-                          id?: string | number;
-                          documentId?: string;
-                        };
-                        locale?: string;
-                        localizations?: {
-                          id?: string | number;
-                          documentId?: string;
-                        }[];
-                      }[];
-                      adminPermissions?: {
-                        id?: string | number;
-                        documentId?: string;
-                      }[];
-                      adminUserOwner?: {
+                      action?: string;
+                      token?: {
                         id?: string | number;
                         documentId?: string;
                       };
-                      /** Format: date-time */
-                      expiresAt?: string;
-                      /** @example 123456789 */
-                      lifespan?: string;
                       /** Format: date-time */
                       createdAt?: string;
                       /** Format: date-time */
@@ -5370,7 +5283,19 @@ export interface components {
                         id?: string | number;
                         documentId?: string;
                       }[];
+                    }[];
+                    adminPermissions?: {
+                      id?: string | number;
+                      documentId?: string;
+                    }[];
+                    adminUserOwner?: {
+                      id?: string | number;
+                      documentId?: string;
                     };
+                    /** Format: date-time */
+                    expiresAt?: string;
+                    /** @example 123456789 */
+                    lifespan?: string;
                     /** Format: date-time */
                     createdAt?: string;
                     /** Format: date-time */
@@ -5390,7 +5315,7 @@ export interface components {
                       id?: string | number;
                       documentId?: string;
                     }[];
-                  }[];
+                  };
                   /** Format: date-time */
                   createdAt?: string;
                   /** Format: date-time */
@@ -5411,12 +5336,6 @@ export interface components {
                     documentId?: string;
                   }[];
                 }[];
-                apiTokens?: {
-                  id?: string | number;
-                  documentId?: string;
-                }[];
-                blocked?: boolean;
-                preferedLanguage?: string;
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -5436,6 +5355,22 @@ export interface components {
                   id?: string | number;
                   documentId?: string;
                 }[];
+              }[];
+              apiTokens?: {
+                id?: string | number;
+                documentId?: string;
+              }[];
+              blocked?: boolean;
+              preferedLanguage?: string;
+              /** Format: date-time */
+              createdAt?: string;
+              /** Format: date-time */
+              updatedAt?: string;
+              /** Format: date-time */
+              publishedAt?: string;
+              createdBy?: {
+                id?: string | number;
+                documentId?: string;
               };
               updatedBy?: {
                 id?: string | number;
@@ -5446,17 +5381,6 @@ export interface components {
                 id?: string | number;
                 documentId?: string;
               }[];
-            }[];
-            path?: string;
-            /** Format: date-time */
-            createdAt?: string;
-            /** Format: date-time */
-            updatedAt?: string;
-            /** Format: date-time */
-            publishedAt?: string;
-            createdBy?: {
-              id?: string | number;
-              documentId?: string;
             };
             updatedBy?: {
               id?: string | number;
@@ -5467,8 +5391,11 @@ export interface components {
               id?: string | number;
               documentId?: string;
             }[];
-          };
-          folderPath?: string;
+          }[];
+          users?: {
+            id?: string | number;
+            documentId?: string;
+          }[];
           /** Format: date-time */
           createdAt?: string;
           /** Format: date-time */
@@ -5488,76 +5415,57 @@ export interface components {
             id?: string | number;
             documentId?: string;
           }[];
-        }[];
-        featured?: boolean;
-        categories?: {
+        };
+        orders?: {
           id?: string | number;
           documentId?: string;
-          name?: string;
-          slug?: string;
-          description?: string;
-          image?: {
-            id?: string | number;
-            documentId?: string;
-            name?: string;
-            alternativeText?: string;
-            caption?: string;
-            focalPoint?: unknown;
-            width?: number;
-            height?: number;
-            formats?: unknown;
-            hash?: string;
-            ext?: string;
-            mime?: string;
-            /** Format: float */
-            size?: number;
-            url?: string;
-            previewUrl?: string;
-            provider?: string;
-            provider_metadata?: unknown;
-            related?: {
-              id?: string | number;
-              documentId?: string;
-            }[];
-            folder?: {
-              id?: string | number;
-              documentId?: string;
-            };
-            folderPath?: string;
-            /** Format: date-time */
-            createdAt?: string;
-            /** Format: date-time */
-            updatedAt?: string;
-            /** Format: date-time */
-            publishedAt?: string;
-            createdBy?: {
-              id?: string | number;
-              documentId?: string;
-            };
-            updatedBy?: {
-              id?: string | number;
-              documentId?: string;
-            };
-            locale?: string;
-            localizations?: {
-              id?: string | number;
-              documentId?: string;
-            }[];
-          };
-          /** @example 123456789 */
-          order?: string;
-          children?: {
-            id?: string | number;
-            documentId?: string;
-          }[];
-          parent?: {
+          orderNumber?: string;
+          /** @enum {string} */
+          orderStatus?:
+            | "pending"
+            | "processing"
+            | "shipped"
+            | "delivered"
+            | "cancelled"
+            | "refunded";
+          /** @enum {string} */
+          paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
+          /** Format: float */
+          subtotal?: number;
+          /** Format: float */
+          tax?: number;
+          /** Format: float */
+          shippingCost?: number;
+          /** Format: float */
+          discount?: number;
+          /** Format: float */
+          totalAmount?: number;
+          currency?: string;
+          midtransTransactionId?: string;
+          midtransTransactionStatus?: string;
+          midtransPaymentType?: string;
+          midtransSnapToken?: string;
+          /** Format: date-time */
+          paidAt?: string;
+          notes?: string;
+          adminNotes?: string;
+          trackingNumber?: string;
+          /** Format: date-time */
+          shippedAt?: string;
+          /** Format: date-time */
+          deliveredAt?: string;
+          retryCount?: number;
+          originalOrder?: {
             id?: string | number;
             documentId?: string;
           };
-          products?: {
+          user?: {
             id?: string | number;
             documentId?: string;
-          }[];
+          };
+          items?: components["schemas"]["ProductOrderItemComponent"][];
+          shippingAddress?: components["schemas"]["CommonAddressComponent"];
+          billingAddress?: components["schemas"]["CommonAddressComponent"];
           /** Format: date-time */
           createdAt?: string;
           /** Format: date-time */
@@ -5591,35 +5499,111 @@ export interface components {
           helpful?: string;
           isAnonymous?: boolean;
           displayName?: string;
-          product?: {
-            id?: string | number;
-            documentId?: string;
-          };
           user?: {
             id?: string | number;
             documentId?: string;
-            username?: string;
-            /** Format: email */
-            email?: string;
-            provider?: string;
-            resetPasswordToken?: string;
-            confirmationToken?: string;
-            confirmed?: boolean;
-            blocked?: boolean;
-            role?: {
+          };
+          product?: {
+            id?: string | number;
+            documentId?: string;
+            name?: string;
+            slug?: string;
+            shortDescription?: string;
+            description?: string;
+            /** Format: float */
+            price?: number;
+            /** Format: float */
+            compareAtPrice?: number;
+            sku?: string;
+            barcode?: string;
+            /** @example 123456789 */
+            inventory?: string;
+            lowStockThreshold?: number;
+            images?: {
               id?: string | number;
               documentId?: string;
               name?: string;
-              description?: string;
-              type?: string;
-              permissions?: {
+              alternativeText?: string;
+              caption?: string;
+              focalPoint?: unknown;
+              width?: number;
+              height?: number;
+              formats?: unknown;
+              hash?: string;
+              ext?: string;
+              mime?: string;
+              /** Format: float */
+              size?: number;
+              url?: string;
+              previewUrl?: string;
+              provider?: string;
+              provider_metadata?: unknown;
+              related?: {
                 id?: string | number;
                 documentId?: string;
-                action?: string;
-                role?: {
+              }[];
+              folder?: {
+                id?: string | number;
+                documentId?: string;
+                name?: string;
+                pathId?: number;
+                parent?: {
                   id?: string | number;
                   documentId?: string;
                 };
+                children?: {
+                  id?: string | number;
+                  documentId?: string;
+                }[];
+                files?: {
+                  id?: string | number;
+                  documentId?: string;
+                  name?: string;
+                  alternativeText?: string;
+                  caption?: string;
+                  focalPoint?: unknown;
+                  width?: number;
+                  height?: number;
+                  formats?: unknown;
+                  hash?: string;
+                  ext?: string;
+                  mime?: string;
+                  /** Format: float */
+                  size?: number;
+                  url?: string;
+                  previewUrl?: string;
+                  provider?: string;
+                  provider_metadata?: unknown;
+                  related?: {
+                    id?: string | number;
+                    documentId?: string;
+                  }[];
+                  folder?: {
+                    id?: string | number;
+                    documentId?: string;
+                  };
+                  folderPath?: string;
+                  /** Format: date-time */
+                  createdAt?: string;
+                  /** Format: date-time */
+                  updatedAt?: string;
+                  /** Format: date-time */
+                  publishedAt?: string;
+                  createdBy?: {
+                    id?: string | number;
+                    documentId?: string;
+                  };
+                  updatedBy?: {
+                    id?: string | number;
+                    documentId?: string;
+                  };
+                  locale?: string;
+                  localizations?: {
+                    id?: string | number;
+                    documentId?: string;
+                  }[];
+                }[];
+                path?: string;
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -5639,81 +5623,8 @@ export interface components {
                   id?: string | number;
                   documentId?: string;
                 }[];
-              }[];
-              users?: {
-                id?: string | number;
-                documentId?: string;
-              }[];
-              /** Format: date-time */
-              createdAt?: string;
-              /** Format: date-time */
-              updatedAt?: string;
-              /** Format: date-time */
-              publishedAt?: string;
-              createdBy?: {
-                id?: string | number;
-                documentId?: string;
               };
-              updatedBy?: {
-                id?: string | number;
-                documentId?: string;
-              };
-              locale?: string;
-              localizations?: {
-                id?: string | number;
-                documentId?: string;
-              }[];
-            };
-            orders?: {
-              id?: string | number;
-              documentId?: string;
-              orderNumber?: string;
-              /** @enum {string} */
-              orderStatus?:
-                | "pending"
-                | "processing"
-                | "shipped"
-                | "delivered"
-                | "cancelled"
-                | "refunded";
-              /** @enum {string} */
-              paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
-              /** Format: float */
-              subtotal?: number;
-              /** Format: float */
-              tax?: number;
-              /** Format: float */
-              shippingCost?: number;
-              /** Format: float */
-              discount?: number;
-              /** Format: float */
-              totalAmount?: number;
-              currency?: string;
-              midtransTransactionId?: string;
-              midtransTransactionStatus?: string;
-              midtransPaymentType?: string;
-              midtransSnapToken?: string;
-              /** Format: date-time */
-              paidAt?: string;
-              notes?: string;
-              adminNotes?: string;
-              trackingNumber?: string;
-              /** Format: date-time */
-              shippedAt?: string;
-              /** Format: date-time */
-              deliveredAt?: string;
-              retryCount?: number;
-              originalOrder?: {
-                id?: string | number;
-                documentId?: string;
-              };
-              user?: {
-                id?: string | number;
-                documentId?: string;
-              };
-              items?: components["schemas"]["ProductOrderItemComponent"][];
-              shippingAddress?: components["schemas"]["CommonAddressComponent"];
-              billingAddress?: components["schemas"]["CommonAddressComponent"];
+              folderPath?: string;
               /** Format: date-time */
               createdAt?: string;
               /** Format: date-time */
@@ -5734,48 +5645,101 @@ export interface components {
                 documentId?: string;
               }[];
             }[];
+            featured?: boolean;
+            categories?: {
+              id?: string | number;
+              documentId?: string;
+              name?: string;
+              slug?: string;
+              description?: string;
+              image?: {
+                id?: string | number;
+                documentId?: string;
+                name?: string;
+                alternativeText?: string;
+                caption?: string;
+                focalPoint?: unknown;
+                width?: number;
+                height?: number;
+                formats?: unknown;
+                hash?: string;
+                ext?: string;
+                mime?: string;
+                /** Format: float */
+                size?: number;
+                url?: string;
+                previewUrl?: string;
+                provider?: string;
+                provider_metadata?: unknown;
+                related?: {
+                  id?: string | number;
+                  documentId?: string;
+                }[];
+                folder?: {
+                  id?: string | number;
+                  documentId?: string;
+                };
+                folderPath?: string;
+                /** Format: date-time */
+                createdAt?: string;
+                /** Format: date-time */
+                updatedAt?: string;
+                /** Format: date-time */
+                publishedAt?: string;
+                createdBy?: {
+                  id?: string | number;
+                  documentId?: string;
+                };
+                updatedBy?: {
+                  id?: string | number;
+                  documentId?: string;
+                };
+                locale?: string;
+                localizations?: {
+                  id?: string | number;
+                  documentId?: string;
+                }[];
+              };
+              /** @example 123456789 */
+              order?: string;
+              children?: {
+                id?: string | number;
+                documentId?: string;
+              }[];
+              parent?: {
+                id?: string | number;
+                documentId?: string;
+              };
+              products?: {
+                id?: string | number;
+                documentId?: string;
+              }[];
+              /** Format: date-time */
+              createdAt?: string;
+              /** Format: date-time */
+              updatedAt?: string;
+              /** Format: date-time */
+              publishedAt?: string;
+              createdBy?: {
+                id?: string | number;
+                documentId?: string;
+              };
+              updatedBy?: {
+                id?: string | number;
+                documentId?: string;
+              };
+              locale?: string;
+              localizations?: {
+                id?: string | number;
+                documentId?: string;
+              }[];
+            }[];
+            variants?: components["schemas"]["ProductProductVariantComponent"][];
+            specifications?: components["schemas"]["ProductSpecificationComponent"][];
+            dimensions?: components["schemas"]["ProductDimensionsComponent"];
             reviews?: {
               id?: string | number;
               documentId?: string;
-            }[];
-            addresses?: {
-              id?: string | number;
-              documentId?: string;
-              label?: string;
-              isDefault?: boolean;
-              firstName?: string;
-              lastName?: string;
-              phone?: string;
-              addressLine1?: string;
-              addressLine2?: string;
-              city?: string;
-              state?: string;
-              postalCode?: string;
-              country?: string;
-              user?: {
-                id?: string | number;
-                documentId?: string;
-              };
-              subdistrictId?: string;
-              /** Format: date-time */
-              createdAt?: string;
-              /** Format: date-time */
-              updatedAt?: string;
-              /** Format: date-time */
-              publishedAt?: string;
-              createdBy?: {
-                id?: string | number;
-                documentId?: string;
-              };
-              updatedBy?: {
-                id?: string | number;
-                documentId?: string;
-              };
-              locale?: string;
-              localizations?: {
-                id?: string | number;
-                documentId?: string;
-              }[];
             }[];
             /** Format: date-time */
             createdAt?: string;
@@ -5817,9 +5781,45 @@ export interface components {
             documentId?: string;
           }[];
         }[];
-        variants?: components["schemas"]["ProductProductVariantComponent"][];
-        specifications?: components["schemas"]["ProductSpecificationComponent"][];
-        dimensions?: components["schemas"]["ProductDimensionsComponent"];
+        addresses?: {
+          id?: string | number;
+          documentId?: string;
+          label?: string;
+          isDefault?: boolean;
+          firstName?: string;
+          lastName?: string;
+          phone?: string;
+          addressLine1?: string;
+          addressLine2?: string;
+          city?: string;
+          state?: string;
+          postalCode?: string;
+          country?: string;
+          user?: {
+            id?: string | number;
+            documentId?: string;
+          };
+          subdistrictId?: string;
+          /** Format: date-time */
+          createdAt?: string;
+          /** Format: date-time */
+          updatedAt?: string;
+          /** Format: date-time */
+          publishedAt?: string;
+          createdBy?: {
+            id?: string | number;
+            documentId?: string;
+          };
+          updatedBy?: {
+            id?: string | number;
+            documentId?: string;
+          };
+          locale?: string;
+          localizations?: {
+            id?: string | number;
+            documentId?: string;
+          }[];
+        }[];
         /** Format: date-time */
         createdAt?: string;
         /** Format: date-time */
@@ -5840,7 +5840,7 @@ export interface components {
           documentId?: string;
         }[];
       };
-      user?: {
+      product?: {
         id?: string | number;
         documentId?: string;
       };
