@@ -1,3 +1,4 @@
+import React from "react";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { getFeaturedProducts, type ProductData } from "@/lib/products";
@@ -25,11 +26,11 @@ import { TestimonialsSection as NoirTestimonials } from "@/components/brand/noir
 import { PromoBannerSection as NoirPromo } from "@/components/brand/noir/landing/promo-banner";
 
 type SectionMap = {
-  Hero: () => JSX.Element;
-  Why?: () => JSX.Element;
-  Categories?: (props: { categories: CategoryData[] }) => JSX.Element;
-  Testimonials?: () => JSX.Element;
-  Promo?: () => JSX.Element;
+  Hero: () => React.ReactNode;
+  Why?: () => React.ReactNode;
+  Categories?: (props: { categories: CategoryData[] }) => React.ReactNode;
+  Testimonials?: () => React.ReactNode;
+  Promo?: () => React.ReactNode;
 };
 
 const sections: Record<BrandId, SectionMap> = {
