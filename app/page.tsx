@@ -1,17 +1,68 @@
+import { headers } from "next/headers";
 import Link from "next/link";
 import { getFeaturedProducts, type ProductData } from "@/lib/products";
 import { getCategories, type CategoryData } from "@/lib/categories";
 import { ProductGrid } from "@/components/products/product-grid";
 import { buttonVariants } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { HeroSection } from "@/components/landing/hero";
-import { WhyCyraSection } from "@/components/landing/why-cyra";
-import { CategoriesSection } from "@/components/landing/categories";
-import { TestimonialsSection } from "@/components/landing/testimonials";
-import { PromoBannerSection } from "@/components/landing/promo-banner";
-import { FadeInSection } from "@/components/landing/section-animation";
+import type { BrandId } from "@/types/brand";
+import { brandConfigs } from "@/lib/brand-config";
+
+import { HeroSection as CyraHero } from "@/components/brand/cyra/landing/hero";
+import { WhyCyraSection } from "@/components/brand/cyra/landing/why-cyra";
+import { CategoriesSection as CyraCategories } from "@/components/brand/cyra/landing/categories";
+import { TestimonialsSection as CyraTestimonials } from "@/components/brand/cyra/landing/testimonials";
+import { PromoBannerSection as CyraPromo } from "@/components/brand/cyra/landing/promo-banner";
+import { FadeInSection } from "@/components/brand/cyra/landing/section-animation";
+
+import { HeroSection as LuminaHero } from "@/components/brand/lumina/landing/hero";
+import { CategoriesSection as LuminaCategories } from "@/components/brand/lumina/landing/categories";
+import { TestimonialsSection as LuminaTestimonials } from "@/components/brand/lumina/landing/testimonials";
+import { PromoBannerSection as LuminaPromo } from "@/components/brand/lumina/landing/promo-banner";
+
+import { HeroSection as NoirHero } from "@/components/brand/noir/landing/hero";
+import { TestimonialsSection as NoirTestimonials } from "@/components/brand/noir/landing/testimonials";
+import { PromoBannerSection as NoirPromo } from "@/components/brand/noir/landing/promo-banner";
+
+type SectionMap = {
+  Hero: () => JSX.Element;
+  Why?: () => JSX.Element;
+  Categories?: (props: { categories: CategoryData[] }) => JSX.Element;
+  Testimonials?: () => JSX.Element;
+  Promo?: () => JSX.Element;
+};
+
+const sections: Record<BrandId, SectionMap> = {
+  cyra: {
+    Hero: () => <CyraHero />,
+    Why: () => <WhyCyraSection />,
+    Categories: ({ categories }: { categories: CategoryData[] }) => (
+      <CyraCategories categories={categories} />
+    ),
+    Testimonials: () => <CyraTestimonials />,
+    Promo: () => <CyraPromo />,
+  },
+  lumina: {
+    Hero: () => <LuminaHero />,
+    Categories: ({ categories }: { categories: CategoryData[] }) => (
+      <LuminaCategories categories={categories} />
+    ),
+    Testimonials: () => <LuminaTestimonials />,
+    Promo: () => <LuminaPromo />,
+  },
+  noir: {
+    Hero: () => <NoirHero />,
+    Testimonials: () => <NoirTestimonials />,
+    Promo: () => <NoirPromo />,
+  },
+};
 
 export default async function HomePage() {
+  const headersList = await headers();
+  const rawBrand = headersList.get("x-brand-id") || "cyra";
+  const brand: BrandId =
+    rawBrand in brandConfigs ? (rawBrand as BrandId) : "cyra";
+
   let featuredProducts: ProductData[] = [];
   try {
     const response = await getFeaturedProducts();
@@ -28,13 +79,15 @@ export default async function HomePage() {
     categories = [];
   }
 
+  const S = sections[brand];
+
   return (
     <main className="flex flex-col">
-      <HeroSection />
+      <S.Hero />
 
-      <WhyCyraSection />
+      {S.Why?.()}
 
-      <CategoriesSection categories={categories} />
+      {S.Categories && <S.Categories categories={categories} />}
 
       {featuredProducts.length > 0 && (
         <FadeInSection>
@@ -46,10 +99,13 @@ export default async function HomePage() {
                     Produk Unggulan
                   </h2>
                   <p className="text-muted-foreground text-base sm:text-lg">
-                    Pilihan terbaik dari koleksi Cyra
+                    Pilihan terbaik dari koleksi {brandConfigs[brand].name}
                   </p>
                 </div>
-                <Link href="/products" className={buttonVariants({ variant: "outline" })}>
+                <Link
+                  href="/products"
+                  className={buttonVariants({ variant: "outline" })}
+                >
                   Lihat Semua
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -60,9 +116,9 @@ export default async function HomePage() {
         </FadeInSection>
       )}
 
-      <TestimonialsSection />
+      {S.Testimonials?.()}
 
-      <PromoBannerSection />
+      {S.Promo?.()}
     </main>
   );
 }

@@ -1,76 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
-:root {
-  --background: #FFFBF7;
-  --foreground: #2D2A26;
-  --card: #FFFFFF;
-  --card-foreground: #2D2A26;
-  --popover: #FFFFFF;
-  --popover-foreground: #2D2A26;
-  --primary: #D4A373;
-  --primary-foreground: #FFFFFF;
-  --secondary: #F3E5E0;
-  --secondary-foreground: #5C4A42;
-  --muted: #F8F1EE;
-  --muted-foreground: #8C7B74;
-  --accent: #E8B4B8;
-  --accent-foreground: #FFFFFF;
-  --destructive: #E57373;
-  --destructive-foreground: #FFFFFF;
-  --border: #E8DDD8;
-  --input: #E8DDD8;
-  --ring: #D4A373;
-  --chart-1: #E8B4B8;
-  --chart-2: #D4A373;
-  --chart-3: #B8A99A;
-  --chart-4: #C8A2C8;
-  --chart-5: #A5C9CA;
-  --radius: 0.625rem;
-  --sidebar: #FFFBF7;
-  --sidebar-foreground: #2D2A26;
-  --sidebar-primary: #D4A373;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F3E5E0;
-  --sidebar-accent-foreground: #5C4A42;
-  --sidebar-border: #E8DDD8;
-  --sidebar-ring: #D4A373;
-}
-
-.dark {
-  --background: #2D2A26;
-  --foreground: #FFFBF7;
-  --card: #3C3632;
-  --card-foreground: #FFFBF7;
-  --popover: #3C3632;
-  --popover-foreground: #FFFBF7;
-  --primary: #D4A373;
-  --primary-foreground: #2D2A26;
-  --secondary: #4A433F;
-  --secondary-foreground: #FFFBF7;
-  --muted: #4A433F;
-  --muted-foreground: #A89F99;
-  --accent: #E8B4B8;
-  --accent-foreground: #2D2A26;
-  --destructive: #E57373;
-  --destructive-foreground: #FFFFFF;
-  --border: #4A433F;
-  --input: #4A433F;
-  --ring: #D4A373;
-  --chart-1: #E8B4B8;
-  --chart-2: #D4A373;
-  --chart-3: #B8A99A;
-  --chart-4: #C8A2C8;
-  --chart-5: #A5C9CA;
-  --sidebar: #3C3632;
-  --sidebar-foreground: #FFFBF7;
-  --sidebar-primary: #D4A373;
-  --sidebar-primary-foreground: #2D2A26;
-  --sidebar-accent: #4A433F;
-  --sidebar-accent-foreground: #FFFBF7;
-  --sidebar-border: #4A433F;
-  --sidebar-ring: #D4A373;
-}
+@import "./styles/brand-cyra.css";
+@import "./styles/brand-lumina.css";
+@import "./styles/brand-noir.css";
 
 @theme inline {
   --color-background: var(--background);
@@ -109,7 +41,7 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-sans, var(--font-inter));
   --font-mono: var(--font-geist-mono);
 }
 
@@ -120,11 +52,10 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-inter), Arial, Helvetica, sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-playfair), Georgia, serif;
+    font-family: var(--font-heading, var(--font-playfair));
   }
 }
 
