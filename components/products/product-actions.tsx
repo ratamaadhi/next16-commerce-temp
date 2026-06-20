@@ -66,32 +66,39 @@ export function ProductActions({ product, variants }: ProductActionsProps) {
         />
       )}
 
-      <AddToCartButton
-        productId={product.id}
-        productDocumentId={product.documentId}
-        productName={product.name}
-        price={displayPrice}
-        image={product.images?.[0]?.formats?.small?.url ?? product.images?.[0]?.url}
-        variantId={selected?.id?.toString()}
-        variantName={selected?.name}
-        variantSku={selected?.sku}
-        dimensions={product.dimensions}
-        needsVariant={needsVariant}
-        maxQuantity={Number(selected?.inventory ?? product.inventory) || undefined}
-        disabled={needsVariant || (selected?.inventory ?? product.inventory ?? 0) <= 0}
-      />
+      <div className="flex flex-col md:flex-row md:items-end gap-3">
+        <div className="md:flex-1">
+          <AddToCartButton
+            productId={product.id}
+            productDocumentId={product.documentId}
+            productName={product.name}
+            price={displayPrice}
+            image={product.images?.[0]?.formats?.small?.url ?? product.images?.[0]?.url}
+            variantId={selected?.id?.toString()}
+            variantName={selected?.name}
+            variantSku={selected?.sku}
+            dimensions={product.dimensions}
+            needsVariant={needsVariant}
+            maxQuantity={Number(selected?.inventory ?? product.inventory) || undefined}
+            disabled={needsVariant || (selected?.inventory ?? product.inventory ?? 0) <= 0}
+          />
+        </div>
 
-      {whatsappNumber && (
-        <a
-          href={buildWhatsAppUrl(whatsappNumber, product.name)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(buttonVariants({ variant: "outline" }), "w-full gap-2")}
-        >
-          <WhatsAppIcon />
-          Tanyakan Produk
-        </a>
-      )}
+        {whatsappNumber && (
+          <a
+            href={buildWhatsAppUrl(whatsappNumber, product.name)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "lg" }),
+              "w-full md:w-[30%] md:shrink-0 gap-2",
+            )}
+          >
+            <WhatsAppIcon />
+            Tanyakan Produk
+          </a>
+        )}
+      </div>
     </div>
   );
 }
