@@ -30,7 +30,7 @@ export function Providers({
       <HydrationBoundary state={dehydratedState}>
         <CartSync />
         {children}
-        <Toaster position="top-right" />
+        <Toaster position="bottom-right" />
       </HydrationBoundary>
     </QueryClientProvider>
   );
