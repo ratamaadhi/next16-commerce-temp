@@ -87,7 +87,7 @@ export async function getProducts(page = 1, pageSize = 12, categorySlug?: string
     filters,
     sort: SORT_MAP[sort ?? "terbaru"],
     pagination: { page, pageSize },
-  });
+  }, {}, undefined, 60);
 }
 
 export async function getProductBySlug(slug: string) {
@@ -105,7 +105,7 @@ export async function getProductBySlug(slug: string) {
         populate: { user: true },
       },
     },
-  });
+  }, {}, undefined, 120);
 }
 
 export async function getFeaturedProducts() {
@@ -114,5 +114,5 @@ export async function getFeaturedProducts() {
     populate: ["images", "categories"],
     pagination: { pageSize: 8 },
     sort: ["createdAt:desc"],
-  });
+  }, {}, undefined, 60);
 }
