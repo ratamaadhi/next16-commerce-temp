@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import { Heart } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
 
 export function Footer() {
+  const { isAuthenticated, logout } = useAuth();
+
   return (
     <footer className="border-t bg-background">
       <div className="container mx-auto px-4 py-12">
@@ -9,7 +14,7 @@ export function Footer() {
           <div>
             <h3 className="font-bold text-lg mb-3 font-[family-name:var(--font-playfair)]">Cyra</h3>
             <p className="text-sm text-muted-foreground">
-              Preloved beauty terkurasi dari koleksi pribadi. Belanja bijak, tetap cantik.
+              Preloved beauty terpilih dari koleksi pribadi. Belanja bijak, tetap cantik.
             </p>
           </div>
           <div>
@@ -29,15 +34,35 @@ export function Footer() {
           <div>
             <h3 className="font-semibold mb-3">Akun</h3>
             <nav className="flex flex-col gap-2 text-sm text-muted-foreground">
-              <Link href="/auth/login" className="hover:text-foreground transition-colors">
-                Masuk
-              </Link>
-              <Link href="/auth/register" className="hover:text-foreground transition-colors">
-                Daftar
-              </Link>
-              <Link href="/orders" className="hover:text-foreground transition-colors">
-                Pesanan Saya
-              </Link>
+              {isAuthenticated ? (
+                <>
+                  <Link href="/account" className="hover:text-foreground transition-colors">
+                    Akun Saya
+                  </Link>
+                  <Link href="/orders" className="hover:text-foreground transition-colors">
+                    Pesanan Saya
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => logout()}
+                    className="text-left hover:text-foreground transition-colors cursor-pointer"
+                  >
+                    Keluar
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link href="/auth/login" className="hover:text-foreground transition-colors">
+                    Masuk
+                  </Link>
+                  <Link href="/auth/register" className="hover:text-foreground transition-colors">
+                    Daftar
+                  </Link>
+                  <Link href="/orders" className="hover:text-foreground transition-colors">
+                    Pesanan Saya
+                  </Link>
+                </>
+              )}
             </nav>
           </div>
         </div>

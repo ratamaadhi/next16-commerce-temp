@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     default: "Cyra — Preloved Beauty",
     template: "%s | Cyra",
   },
-  description: "Temukan produk kecantikan preloved terkurasi dari koleksi pribadi Cyra. Asli, terjamin, dan berkualitas.",
+  description: "Temukan produk kecantikan preloved terpilih dari koleksi pribadi Cyra. Asli, terjamin, dan berkualitas.",
 };
 
 export default async function RootLayout({

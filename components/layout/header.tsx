@@ -5,7 +5,13 @@ import { Menu, UserRound, Package, LogOut } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
 import { CartDrawer } from "@/components/cart/cart-drawer";
 import { MobileSearch } from "@/components/common/mobile-search";
 import { SearchBar } from "@/components/common/search-bar";
@@ -31,17 +37,14 @@ export function Header() {
       "px-3 py-1.5 text-sm font-medium transition-colors duration-200 whitespace-nowrap",
       pathname === href || pathname.startsWith(href + "/")
         ? "text-primary"
-        : "text-foreground hover:text-primary"
+        : "text-foreground hover:text-primary",
     );
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 flex h-16 items-center gap-6 relative">
         <div className="flex flex-1 items-center gap-6 min-w-0">
-          <Link
-            href="/"
-            className="font-bold text-xl font-[family-name:var(--font-playfair)]"
-          >
+          <Link href="/" className="font-bold text-xl font-[family-name:var(--font-playfair)]">
             Cyra
           </Link>
 
@@ -129,22 +132,28 @@ export function Header() {
                 <span className="text-xl font-bold font-[family-name:var(--font-playfair)]">
                   Cyra
                 </span>
-                <p className="text-xs text-muted-foreground mt-1">Preloved Beauty Terkurasi</p>
+                <p className="text-xs text-muted-foreground mt-1">Preloved Beauty Pilihan</p>
               </div>
 
               <nav className="flex flex-col px-4 pt-4 flex-1">
                 <Link
                   href="/products"
-                  className={cn("py-3 px-2 text-base font-medium transition-colors duration-200",
-                    pathname === "/products" || pathname.startsWith("/products/") ? "text-primary" : "text-foreground hover:text-primary"
+                  className={cn(
+                    "py-3 px-2 text-base font-medium transition-colors duration-200",
+                    pathname === "/products" || pathname.startsWith("/products/")
+                      ? "text-primary"
+                      : "text-foreground hover:text-primary",
                   )}
                 >
                   Semua Produk
                 </Link>
                 <Link
                   href="/categories"
-                  className={cn("py-3 px-2 text-base font-medium transition-colors duration-200",
-                    pathname === "/categories" || pathname.startsWith("/categories/") ? "text-primary" : "text-foreground hover:text-primary"
+                  className={cn(
+                    "py-3 px-2 text-base font-medium transition-colors duration-200",
+                    pathname === "/categories" || pathname.startsWith("/categories/")
+                      ? "text-primary"
+                      : "text-foreground hover:text-primary",
                   )}
                 >
                   Kategori
@@ -154,16 +163,22 @@ export function Header() {
                   <div className="mt-6 pt-6 border-t border-border flex flex-col">
                     <Link
                       href="/orders"
-                      className={cn("py-3 px-2 text-base font-medium transition-colors duration-200",
-                        pathname === "/orders" ? "text-primary" : "text-foreground hover:text-primary"
+                      className={cn(
+                        "py-3 px-2 text-base font-medium transition-colors duration-200",
+                        pathname === "/orders"
+                          ? "text-primary"
+                          : "text-foreground hover:text-primary",
                       )}
                     >
                       Pesanan Saya
                     </Link>
                     <Link
                       href="/account"
-                      className={cn("py-3 px-2 text-base font-medium transition-colors duration-200",
-                        pathname === "/account" ? "text-primary" : "text-foreground hover:text-primary"
+                      className={cn(
+                        "py-3 px-2 text-base font-medium transition-colors duration-200",
+                        pathname === "/account"
+                          ? "text-primary"
+                          : "text-foreground hover:text-primary",
                       )}
                     >
                       Akun
@@ -189,7 +204,7 @@ export function Header() {
 
               <div className="px-6 py-6">
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Temukan koleksi preloved terkurasi — fashion & kecantikan berkualitas untuk Anda.
+                  Temukan koleksi preloved terpilih — fashion & kecantikan berkualitas untuk Anda.
                 </p>
               </div>
             </SheetContent>
