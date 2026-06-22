@@ -25,12 +25,12 @@ export async function getCategories() {
     populate: ["image"],
     sort: ["order:asc", "name:asc"],
     pagination: { pageSize: 100 },
-  });
+  }, {}, undefined, 3600);
 }
 
 export async function getCategoryBySlug(slug: string) {
   return strapiFetch<CategoriesResponse>("/categories", {
     filters: { slug: { $eq: slug } },
     populate: ["image"],
-  });
+  }, {}, undefined, 3600);
 }

@@ -12,21 +12,15 @@ import { PromoBannerSection } from "@/components/landing/promo-banner";
 import { FadeInSection } from "@/components/landing/section-animation";
 
 export default async function HomePage() {
-  let featuredProducts: ProductData[] = [];
-  try {
-    const response = await getFeaturedProducts();
-    featuredProducts = response.data;
-  } catch {
-    featuredProducts = [];
-  }
+  const [featuredResult, categoriesResult] = await Promise.allSettled([
+    getFeaturedProducts(),
+    getCategories(),
+  ]);
 
-  let categories: CategoryData[] = [];
-  try {
-    const catResponse = await getCategories();
-    categories = catResponse.data;
-  } catch {
-    categories = [];
-  }
+  const featuredProducts: ProductData[] =
+    featuredResult.status === "fulfilled" ? featuredResult.value.data : [];
+  const categories: CategoryData[] =
+    categoriesResult.status === "fulfilled" ? categoriesResult.value.data : [];
 
   return (
     <main className="flex flex-col">
