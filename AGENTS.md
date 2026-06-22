@@ -16,6 +16,13 @@ Rules:
 
 
 
+## Commits
+
+- Always use [Conventional Commits](https://www.conventionalcommits.org/): `<type>(<scope>): <subject>` where type is one of `feat`, `fix`, `chore`, `perf`, `refactor`, `docs`, `test`, `build`, `ci`, `style`.
+- Subject line must be **≤ 50 characters**. Use the body (separated by blank line) for extra context.
+- Write subject in imperative mood ("add", not "added"); no trailing period.
+- Keep commits atomic: one logical change per commit.
+
 Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
