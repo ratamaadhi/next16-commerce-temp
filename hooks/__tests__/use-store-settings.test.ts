@@ -8,8 +8,10 @@ function makeWrapper() {
   const qc = new QueryClient({
     defaultOptions: { queries: { retry: false } },
   });
-  return ({ children }: { children: React.ReactNode }) =>
+  const QueryProvider = ({ children }: { children: React.ReactNode }) =>
     createElement(QueryClientProvider, { client: qc }, children);
+  QueryProvider.displayName = "QueryProvider";
+  return QueryProvider;
 }
 
 beforeEach(() => {

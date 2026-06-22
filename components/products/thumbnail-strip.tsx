@@ -29,6 +29,7 @@ export function ThumbnailStrip({ images, activeIndex, onSelect }: ThumbnailStrip
             e.stopPropagation();
             onSelect(index);
           }}
+          aria-label={`Pilih gambar ${index + 1} dari ${images.length}`}
           aria-current={activeIndex === index ? "true" : undefined}
           className={cn(
             "relative h-10 w-10 sm:h-12 sm:w-12 shrink-0 overflow-hidden rounded-md border-2 transition-all duration-300 ease-out snap-start",
@@ -39,7 +40,7 @@ export function ThumbnailStrip({ images, activeIndex, onSelect }: ThumbnailStrip
         >
           <Image
             src={getStrapiMedia(image.formats?.thumbnail?.url ?? image.url)}
-            alt={image.alternativeText || `Image ${index + 1}`}
+            alt=""
             fill
             className="object-cover"
             sizes="48px"

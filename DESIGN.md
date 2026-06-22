@@ -25,7 +25,7 @@
 --secondary: #F3E5E0
 --secondary-foreground: #5C4A42
 --muted: #F8F1EE
---muted-foreground: #8C7B74
+--muted-foreground: #6B5D57
 --accent: #E8B4B8
 --accent-foreground: #FFFFFF
 --border: #E8DDD8

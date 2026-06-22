@@ -34,18 +34,21 @@ export function ProductImages({ images, productName }: ProductImagesProps) {
       </div>
 
       {images.length > 1 && (
-        <div className="flex gap-2 overflow-x-auto pb-2">
+        <div className="flex gap-2 overflow-x-auto pb-2" role="tablist" aria-label={`Galeri gambar ${productName}`}>
           {images.map((img, index) => (
             <button
               key={img.url}
               onClick={() => setSelectedIndex(index)}
+              role="tab"
+              aria-selected={index === selectedIndex}
+              aria-label={`Lihat gambar ${index + 1} dari ${images.length}`}
               className={`relative w-20 h-20 rounded-md overflow-hidden flex-shrink-0 border-2 transition-colors ${
                 index === selectedIndex ? "border-primary" : "border-transparent hover:border-muted-foreground"
               }`}
             >
               <ProductImage
                 image={img}
-                alt={`${productName} ${index + 1}`}
+                alt=""
                 fill
                 className="object-cover"
                 sizes="80px"

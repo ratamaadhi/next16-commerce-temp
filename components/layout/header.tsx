@@ -4,8 +4,11 @@ import Link from "next/link";
 import { Menu, UserRound, Package, LogOut } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { CartDrawer } from "@/components/cart/cart-drawer";
+import { MobileSearch } from "@/components/common/mobile-search";
+import { SearchBar } from "@/components/common/search-bar";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -16,28 +19,49 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { useRouter } from "next/navigation";
-import { SearchBar } from "@/components/common/search-bar";
+import { useRouter, usePathname } from "next/navigation";
 
 export function Header() {
   const { isAuthenticated, user, logout } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
+
+  const navLinkClass = (href: string) =>
+    cn(
+      "px-3 py-1.5 text-sm font-medium transition-colors duration-200 whitespace-nowrap",
+      pathname === href || pathname.startsWith(href + "/")
+        ? "text-primary"
+        : "text-foreground hover:text-primary"
+    );
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto px-4 flex h-16 items-center justify-between gap-4">
-        <Link
-          href="/"
-          className="font-bold text-xl flex-shrink-0 font-[family-name:var(--font-playfair)]"
-        >
-          Cyra
-        </Link>
+      <div className="container mx-auto px-4 flex h-16 items-center gap-6 relative">
+        <div className="flex flex-1 items-center gap-6 min-w-0">
+          <Link
+            href="/"
+            className="font-bold text-xl font-[family-name:var(--font-playfair)]"
+          >
+            Cyra
+          </Link>
 
-        <div className="hidden md:flex flex-1 max-w-md mx-4">
+          <div className="hidden md:flex items-center gap-1">
+            <Link href="/products" className={navLinkClass("/products")}>
+              Semua Produk
+            </Link>
+            <Link href="/categories" className={navLinkClass("/categories")}>
+              Kategori
+            </Link>
+          </div>
+        </div>
+
+        <div className="hidden md:flex w-full max-w-md shrink-0">
           <SearchBar />
         </div>
 
-        <nav className="flex items-center gap-2">
+        <nav className="flex flex-1 items-center justify-end gap-1">
+          <MobileSearch />
+
           <CartDrawer />
 
           {isAuthenticated ? (
@@ -76,46 +100,98 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button variant="ghost" size="sm" onClick={() => router.push("/auth/login")}>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="hidden md:flex"
+              onClick={() => router.push("/auth/login")}
+            >
               Masuk
             </Button>
           )}
 
           <Sheet>
             <SheetTrigger
-              className={buttonVariants({ variant: "ghost", size: "icon", className: "md:hidden" })}
+              className={buttonVariants({
+                variant: "ghost",
+                size: "icon",
+                className: "md:hidden min-h-[44px] min-w-[44px]",
+              })}
+              aria-label="Buka menu navigasi"
             >
-              <Menu className="h-5 w-5" />
+              <Menu className="h-5 w-5" aria-hidden="true" />
             </SheetTrigger>
-            <SheetContent side="left">
-              <nav className="flex flex-col gap-4 mt-8">
-                <Link href="/products" className="text-lg font-medium">
+            <SheetContent side="left" className="bg-background flex flex-col">
+              <SheetTitle className="sr-only">Menu navigasi</SheetTitle>
+              <SheetDescription className="sr-only">Link navigasi utama dan akun</SheetDescription>
+
+              <div className="px-6 pt-10 pb-5 border-b border-border">
+                <span className="text-xl font-bold font-[family-name:var(--font-playfair)]">
+                  Cyra
+                </span>
+                <p className="text-xs text-muted-foreground mt-1">Preloved Beauty Terkurasi</p>
+              </div>
+
+              <nav className="flex flex-col px-4 pt-4 flex-1">
+                <Link
+                  href="/products"
+                  className={cn("py-3 px-2 text-base font-medium transition-colors duration-200",
+                    pathname === "/products" || pathname.startsWith("/products/") ? "text-primary" : "text-foreground hover:text-primary"
+                  )}
+                >
                   Semua Produk
                 </Link>
-                <Link href="/categories" className="text-lg font-medium">
+                <Link
+                  href="/categories"
+                  className={cn("py-3 px-2 text-base font-medium transition-colors duration-200",
+                    pathname === "/categories" || pathname.startsWith("/categories/") ? "text-primary" : "text-foreground hover:text-primary"
+                  )}
+                >
                   Kategori
                 </Link>
+
                 {isAuthenticated ? (
-                  <>
-                    <Link href="/orders" className="text-lg font-medium">
+                  <div className="mt-6 pt-6 border-t border-border flex flex-col">
+                    <Link
+                      href="/orders"
+                      className={cn("py-3 px-2 text-base font-medium transition-colors duration-200",
+                        pathname === "/orders" ? "text-primary" : "text-foreground hover:text-primary"
+                      )}
+                    >
                       Pesanan Saya
                     </Link>
-                    <Link href="/account" className="text-lg font-medium">
+                    <Link
+                      href="/account"
+                      className={cn("py-3 px-2 text-base font-medium transition-colors duration-200",
+                        pathname === "/account" ? "text-primary" : "text-foreground hover:text-primary"
+                      )}
+                    >
                       Akun
                     </Link>
                     <button
                       onClick={() => logout()}
-                      className="text-lg font-medium text-left text-destructive"
+                      className="mt-6 py-3 px-2 w-full text-base font-medium text-left text-destructive hover:text-destructive/80 transition-colors duration-200"
                     >
                       Keluar
                     </button>
-                  </>
+                  </div>
                 ) : (
-                  <Link href="/auth/login" className="text-lg font-medium">
-                    Masuk / Daftar
-                  </Link>
+                  <div className="mt-6 pt-6 border-t border-border">
+                    <Link
+                      href="/auth/login"
+                      className="py-3 px-2 text-base font-medium text-primary hover:text-primary/80 transition-colors duration-200"
+                    >
+                      Masuk / Daftar
+                    </Link>
+                  </div>
                 )}
               </nav>
+
+              <div className="px-6 py-6">
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Temukan koleksi preloved terkurasi — fashion & kecantikan berkualitas untuk Anda.
+                </p>
+              </div>
             </SheetContent>
           </Sheet>
         </nav>

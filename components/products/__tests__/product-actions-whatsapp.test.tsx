@@ -2,6 +2,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
 import { ProductActions } from "../product-actions";
+import type { ProductData } from "@/lib/products";
 
 // Mock useStoreSettings
 vi.mock("@/hooks/use-store-settings", () => ({
@@ -49,7 +50,7 @@ beforeEach(() => {
 describe("ProductActions — WhatsApp button", () => {
   it("renders WhatsApp link when whatsappNumber is set", () => {
     vi.mocked(useStoreSettings).mockReturnValue({ whatsappNumber: "628123456789" });
-    render(<ProductActions product={baseProduct as any} variants={[]} />);
+    render(<ProductActions product={baseProduct as ProductData} variants={[]} />);
     const link = screen.getByRole("link", { name: /tanyakan produk/i });
     expect(link).toBeDefined();
     expect(link.getAttribute("href")).toContain("wa.me/628123456789");
@@ -60,13 +61,13 @@ describe("ProductActions — WhatsApp button", () => {
 
   it("hides WhatsApp link when whatsappNumber is null", () => {
     vi.mocked(useStoreSettings).mockReturnValue({ whatsappNumber: null });
-    render(<ProductActions product={baseProduct as any} variants={[]} />);
+    render(<ProductActions product={baseProduct as ProductData} variants={[]} />);
     expect(screen.queryByRole("link", { name: /tanyakan produk/i })).toBeNull();
   });
 
   it("hides WhatsApp link when whatsappNumber is empty string", () => {
     vi.mocked(useStoreSettings).mockReturnValue({ whatsappNumber: "" });
-    render(<ProductActions product={baseProduct as any} variants={[]} />);
+    render(<ProductActions product={baseProduct as ProductData} variants={[]} />);
     expect(screen.queryByRole("link", { name: /tanyakan produk/i })).toBeNull();
   });
 });

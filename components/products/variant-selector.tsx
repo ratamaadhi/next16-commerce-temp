@@ -37,7 +37,7 @@ export function VariantSelector({ variants, selectedIndex, onSelect }: VariantSe
         ))}
       </div>
       {current && current.inventory !== undefined && current.inventory <= 5 && current.inventory > 0 && (
-        <p className="text-sm text-amber-600">
+        <p className="text-sm text-warning-foreground">
           Sisa {current.inventory} unit
         </p>
       )}

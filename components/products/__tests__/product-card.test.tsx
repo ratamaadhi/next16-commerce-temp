@@ -74,7 +74,7 @@ describe("ProductCard", () => {
 
   it("renders thumbnail strip when multiple images exist", () => {
     render(<ProductCard product={baseProduct} />);
-    expect(screen.getByAltText("Test image 2")).toBeInTheDocument();
+    expect(screen.getByLabelText("Pilih gambar 2 dari 2")).toBeInTheDocument();
   });
 
   it("does not render thumbnail strip for single-image products", () => {
@@ -83,7 +83,7 @@ describe("ProductCard", () => {
         product={{ ...baseProduct, images: [baseProduct.images![0]] }}
       />
     );
-    expect(screen.queryByAltText("Test image 2")).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("Pilih gambar 2 dari 2")).not.toBeInTheDocument();
   });
 
   it("links to product detail page", () => {

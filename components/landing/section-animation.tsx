@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef, type ReactNode } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { EASE, motionAllowed } from "./motion"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,14 +16,16 @@ export function FadeInSection({ children, className }: FadeInSectionProps) {
   const ref = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
+    if (!ref.current || !motionAllowed()) return
+
     const ctx = gsap.context(() => {
-      gsap.set(ref.current, { opacity: 0, y: 50 })
+      gsap.set(ref.current, { opacity: 0, y: 40 })
       gsap.to(ref.current, {
         opacity: 1,
         y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: { trigger: ref.current, start: "top 80%", toggleActions: "play none none none" },
+        duration: 0.75,
+        ease: EASE.enter,
+        scrollTrigger: { trigger: ref.current, start: "top 82%", toggleActions: "play none none none" },
       })
     }, ref)
     return () => ctx.revert()

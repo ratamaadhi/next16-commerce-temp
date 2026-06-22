@@ -76,13 +76,15 @@ export function QuickViewModal({ product, open, onOpenChange }: QuickViewModalPr
               <>
                 <button
                   onClick={prevImage}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 hover:bg-white p-1.5 shadow-md transition-colors"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-popover/80 hover:bg-popover p-1.5 shadow-md transition-colors"
+                  aria-label="Gambar sebelumnya"
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </button>
                 <button
                   onClick={nextImage}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 hover:bg-white p-1.5 shadow-md transition-colors"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-popover/80 hover:bg-popover p-1.5 shadow-md transition-colors"
+                  aria-label="Gambar berikutnya"
                 >
                   <ChevronRight className="h-4 w-4" />
                 </button>
@@ -97,7 +99,7 @@ export function QuickViewModal({ product, open, onOpenChange }: QuickViewModalPr
                     onClick={() => setImageIndex(i)}
                     className={cn(
                       "h-2 w-2 rounded-full transition-all duration-300",
-                      i === imageIndex ? "bg-primary w-4" : "bg-white/70 hover:bg-white",
+                      i === imageIndex ? "bg-primary w-4" : "bg-popover/70 hover:bg-popover",
                     )}
                   />
                 ))}
@@ -125,7 +127,7 @@ export function QuickViewModal({ product, open, onOpenChange }: QuickViewModalPr
               </div>
 
               <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-bold text-primary">{formatPrice(displayPrice)}</span>
+                <span className="text-2xl font-bold text-secondary-foreground">{formatPrice(displayPrice)}</span>
                 {hasDiscount && (
                   <span className="text-sm text-muted-foreground line-through">
                     {formatPrice(product.compareAtPrice!)}
@@ -146,7 +148,7 @@ export function QuickViewModal({ product, open, onOpenChange }: QuickViewModalPr
               )}
 
               {variants.length === 0 && isLowStock && (
-                <p className="text-sm text-amber-600 font-medium">Tersisa {inventory} unit</p>
+                <p className="text-sm text-warning-foreground font-medium">Tersisa {inventory} unit</p>
               )}
               {variants.length === 0 && isOutOfStock && (
                 <p className="text-sm text-destructive font-medium">Stok Habis</p>
