@@ -35,6 +35,7 @@ export async function strapiFetch<T>(
   urlParams: Record<string, unknown> = {},
   options: RequestInit = {},
   token?: string,
+  revalidate?: number,
 ): Promise<T> {
   const queryString = qs.stringify(urlParams, {
     encodeValuesOnly: true,
@@ -55,7 +56,9 @@ export async function strapiFetch<T>(
         ...headers,
         ...(options.headers as Record<string, string>),
       },
-      cache: "no-store",
+      ...(revalidate !== undefined
+        ? { next: { revalidate } }
+        : { cache: "no-store" }),
     });
 
     if (!response.ok) {
