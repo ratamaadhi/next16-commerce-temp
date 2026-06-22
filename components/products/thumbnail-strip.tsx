@@ -18,7 +18,7 @@ export function ThumbnailStrip({ images, activeIndex, onSelect }: ThumbnailStrip
     <div
       className={cn(
         "flex gap-1.5 px-3 sm:px-4 py-2",
-        images.length > 4 && "overflow-x-auto scrollbar-none snap-x snap-mandatory",
+        images.length > 4 && "overflow-x-auto scrollbar-none snap-x snap-mandatory scroll-pl-3 sm:scroll-pl-4",
       )}
     >
       {images.map((image, index) => (
