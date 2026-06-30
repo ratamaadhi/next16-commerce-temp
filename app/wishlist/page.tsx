@@ -7,7 +7,7 @@ import { Heart, ShoppingBag, ArrowLeft } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useWishlist } from "@/hooks/use-wishlist";
 import { WishlistButton } from "@/components/wishlist/wishlist-button";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { formatPrice, getStrapiMedia } from "@/lib/strapi";
 import { useEffect } from "react";
@@ -55,9 +55,9 @@ export default function WishlistPage() {
         <p className="text-muted-foreground mt-2">
               Yuk, tambahkan produk favorit kamu!
         </p>
-        <Button asChild className="mt-6">
-          <Link href="/products">Lihat Produk</Link>
-        </Button>
+        <Link href="/products" className={buttonVariants({ className: "mt-6" })}>
+          Lihat Produk
+        </Link>
       </main>
     );
   }
@@ -68,12 +68,10 @@ export default function WishlistPage() {
         <h1 className="text-2xl font-bold">
           Favorit Saya ({wishlist.length})
         </h1>
-        <Button variant="ghost" asChild>
-          <Link href="/products">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Lanjut Belanja
-          </Link>
-        </Button>
+        <Link href="/products" className={buttonVariants({ variant: "ghost" })}>
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Lanjut Belanja
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -123,12 +121,13 @@ export default function WishlistPage() {
               </Link>
 
               <div className="px-3 sm:px-4 pb-3 sm:pb-4">
-                <Button asChild size="sm" className="w-full">
-                  <Link href={`/products/${item.product.slug}`}>
-                    <ShoppingBag className="mr-2 h-4 w-4" />
-                    Lihat Detail
-                  </Link>
-                </Button>
+                <Link
+                  href={`/products/${item.product.slug}`}
+                  className={buttonVariants({ size: "sm", className: "w-full" })}
+                >
+                  <ShoppingBag className="mr-2 h-4 w-4" />
+                  Lihat Detail
+                </Link>
               </div>
             </Card>
           );
