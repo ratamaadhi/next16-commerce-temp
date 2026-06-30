@@ -7,6 +7,7 @@ import { formatPrice } from "@/lib/strapi";
 import { useStoreSettings } from "@/hooks/use-store-settings";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { WishlistButton } from "@/components/wishlist/wishlist-button";
 import type { ProductData } from "@/lib/products";
 
 function WhatsAppIcon() {
@@ -84,20 +85,27 @@ export function ProductActions({ product, variants }: ProductActionsProps) {
           />
         </div>
 
-        {whatsappNumber && (
-          <a
-            href={buildWhatsAppUrl(whatsappNumber, product.name)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              buttonVariants({ variant: "outline", size: "lg" }),
-              "w-full md:w-[30%] md:shrink-0 gap-2",
-            )}
-          >
-            <WhatsAppIcon />
-            Tanyakan Produk
-          </a>
-        )}
+        <div className="flex gap-2">
+          <WishlistButton
+            productDocumentId={product.documentId}
+            variant="detail"
+          />
+
+          {whatsappNumber && (
+            <a
+              href={buildWhatsAppUrl(whatsappNumber, product.name)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                buttonVariants({ variant: "outline", size: "lg" }),
+                "w-full md:w-[30%] md:shrink-0 gap-2",
+              )}
+            >
+              <WhatsAppIcon />
+              Tanyakan Produk
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );
