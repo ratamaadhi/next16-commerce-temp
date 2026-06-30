@@ -13,6 +13,7 @@ import {
   SheetDescription,
 } from "@/components/ui/sheet";
 import { CartDrawer } from "@/components/cart/cart-drawer";
+import { HeaderWishlistIcon } from "@/components/wishlist/header-wishlist-icon";
 import { MobileSearch } from "@/components/common/mobile-search";
 import { SearchBar } from "@/components/common/search-bar";
 import {
@@ -64,6 +65,8 @@ export function Header() {
 
         <nav className="flex flex-1 items-center justify-end gap-1">
           <MobileSearch />
+
+          <HeaderWishlistIcon />
 
           <CartDrawer />
 
