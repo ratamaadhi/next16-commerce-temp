@@ -1,7 +1,7 @@
 # Graph Report - next-commerce-temp  (2026-06-30)
 
 ## Corpus Check
-- 172 files · ~127,369 words
+- 172 files · ~127,382 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c560fdae`
+- Built from commit: `41604240`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -37,9 +37,9 @@
 - [[_COMMUNITY_Community 23|Community 23]]
 - [[_COMMUNITY_Community 25|Community 25]]
 - [[_COMMUNITY_Community 27|Community 27]]
-- [[_COMMUNITY_Community 30|Community 30]]
-- [[_COMMUNITY_Community 55|Community 55]]
-- [[_COMMUNITY_Community 72|Community 72]]
+- [[_COMMUNITY_Community 29|Community 29]]
+- [[_COMMUNITY_Community 54|Community 54]]
+- [[_COMMUNITY_Community 71|Community 71]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `cn()` - 40 edges
@@ -71,7 +71,7 @@
 - **BFF proxy layer for KiriminAja** — checkout_searchDistrictRoute, checkout_shippingCostRoute, shipping_KiriminAjaAPI, shipping_BFFPattern [INFERRED 0.85]
 - **Cart sync architecture (Zustand + Strapi)** — cart_CartSyncComponent, cart_useCartSync, cart_useCartStore, cart_cartSyncLib, shipping_ZustandPersist [INFERRED 0.80]
 
-## Communities (73 total, 9 thin omitted)
+## Communities (72 total, 9 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.06
@@ -113,11 +113,11 @@ Nodes (11): generateSessionId(), getOrCreateSessionId(), getSessionId(), resetSe
 Cohesion: 0.2
 Nodes (7): AccountTabs(), RadioGroup(), RadioGroupItem(), Tabs(), TabsContent(), TabsList(), TabsTrigger()
 
-### Community 10 - "Community 10"
+### Community 11 - "Community 11"
 Cohesion: 0.15
 Nodes (3): OrderListSkeleton(), ProductDetailSkeleton(), Skeleton()
 
-### Community 11 - "Community 11"
+### Community 12 - "Community 12"
 Cohesion: 0.18
 Nodes (4): CommandGroup(), CommandItem(), Popover(), PopoverTrigger()
 
@@ -133,7 +133,7 @@ Nodes (3): SpecificationsTable(), Table(), TableBody()
 Cohesion: 0.33
 Nodes (3): ReviewForm(), StarRatingInput(), Dialog()
 
-### Community 30 - "Community 30"
+### Community 29 - "Community 29"
 Cohesion: 0.67
 Nodes (3): File Icon, Globe Icon, Window Icon
 
@@ -145,7 +145,7 @@ Nodes (3): File Icon, Globe Icon, Window Icon
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `cn()` connect `Community 12` to `Community 0`, `Community 1`, `Community 4`, `Community 7`, `Community 9`, `Community 10`, `Community 11`, `Community 13`, `Community 14`, `Community 15`, `Community 16`, `Community 18`, `Community 19`, `Community 20`, `Community 21`, `Community 28`, `Community 29`?**
+- **Why does `cn()` connect `Community 10` to `Community 0`, `Community 1`, `Community 4`, `Community 7`, `Community 9`, `Community 11`, `Community 12`, `Community 13`, `Community 14`, `Community 15`, `Community 16`, `Community 18`, `Community 19`, `Community 20`, `Community 21`, `Community 28`?**
   _High betweenness centrality (0.252) - this node is a cross-community bridge._
 - **Why does `formatPrice()` connect `Community 1` to `Community 0`, `Community 2`, `Community 4`, `Community 6`, `Community 9`?**
   _High betweenness centrality (0.114) - this node is a cross-community bridge._

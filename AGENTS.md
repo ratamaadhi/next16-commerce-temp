@@ -88,3 +88,6 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
 
 ---
+
+
+always remember. do not try to commit in this project. let user do that later, just give me suggestion commit message under 50 char.

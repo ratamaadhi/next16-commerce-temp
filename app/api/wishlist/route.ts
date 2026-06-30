@@ -21,7 +21,7 @@ export async function GET() {
     const me = await meRes.json();
 
     const res = await fetch(
-      `${STRAPI_URL}/api/wishlist-items?filters[user][id][$eq]=${me.id}&populate[0]=product.images`,
+      `${STRAPI_URL}/api/wishlist-items?filters[user][id][$eq]=${me.id}&populate[0]=product.images&populate[1]=product.variants`,
       { headers: { Authorization: `Bearer ${token}` } },
     );
 

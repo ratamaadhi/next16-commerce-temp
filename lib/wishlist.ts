@@ -17,6 +17,7 @@ export interface WishlistItem {
       };
     }>;
     condition?: string;
+    variants?: Array<{ id?: number; name: string; sku?: string; price: number; inventory?: number }>;
   };
   createdAt: string;
 }
