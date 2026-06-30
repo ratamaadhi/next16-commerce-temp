@@ -56,16 +56,14 @@ export function ProductCard({ product }: ProductCardProps) {
               </div>
             )}
 
-            {/* Badges */}
-            <div className="absolute top-2 left-2 flex flex-col gap-1.5">
+            {/* Badges (left column) */}
+            <div className="absolute top-2 left-2 flex flex-col gap-1.5 items-start">
               {product.featured && (
                 <Badge variant="outline" className="text-xs border-primary/40 text-primary">
                   Featured
                 </Badge>
               )}
               {product.condition && <ProductConditionBadge condition={product.condition} />}
-            </div>
-            <div className="absolute top-2 right-2">
               {hasDiscount && (
                 <ProductDiscountBadge
                   originalPrice={product.compareAtPrice!}

@@ -43,29 +43,40 @@ export default async function ProductDetailPage({
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-start">
         <ProductImages images={product.images ?? []} productName={product.name} />
 
-        <ProductActions product={product} variants={variants} />
+        <div className="md:sticky md:top-24">
+          <ProductActions product={product} variants={variants} />
+        </div>
       </div>
 
       {product.description && (
-        <div className="mt-8 prose max-w-none">
-          <h2 className="text-lg font-semibold mb-2">Deskripsi</h2>
-          <ReactMarkdown>{product.description}</ReactMarkdown>
-        </div>
+        <section className="mt-12 border-t border-border pt-10">
+          <h2 className="mb-6 font-[family-name:var(--font-playfair)] text-2xl font-semibold tracking-tight text-foreground">
+            Deskripsi
+          </h2>
+          <div className="prose max-w-none">
+            <ReactMarkdown>{product.description}</ReactMarkdown>
+          </div>
+        </section>
       )}
 
       {specifications.length > 0 && (
-        <div className="mt-8">
+        <section className="mt-12 border-t border-border pt-10">
+          <h2 className="mb-6 font-[family-name:var(--font-playfair)] text-2xl font-semibold tracking-tight text-foreground">
+            Spesifikasi
+          </h2>
           <SpecificationsTable specifications={specifications} />
-        </div>
+        </section>
       )}
 
-      <div className="mt-12 pt-8 border-t">
-        <h2 className="text-2xl font-bold mb-6">Ulasan</h2>
+      <section className="mt-12 border-t border-border pt-10">
+        <h2 className="mb-6 font-[family-name:var(--font-playfair)] text-2xl font-semibold tracking-tight text-foreground">
+          Ulasan
+        </h2>
         <ReviewSection reviews={reviews} />
-      </div>
+      </section>
     </main>
   );
 }

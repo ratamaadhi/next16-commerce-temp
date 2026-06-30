@@ -4,6 +4,21 @@ import { render, screen, cleanup } from "@testing-library/react";
 import { ProductActions } from "../product-actions";
 import type { ProductData } from "@/lib/products";
 
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push: vi.fn() }),
+}));
+
+vi.mock("@/hooks/use-auth", () => ({
+  useAuth: () => ({ isAuthenticated: false, isLoading: false }),
+}));
+
+vi.mock("@/hooks/use-wishlist", () => ({
+  useWishlist: () => ({ data: [], isLoading: false }),
+  useIsInWishlist: () => false,
+  useAddToWishlist: () => ({ mutate: vi.fn(), isPending: false }),
+  useRemoveFromWishlist: () => ({ mutate: vi.fn(), isPending: false }),
+}));
+
 // Mock useStoreSettings
 vi.mock("@/hooks/use-store-settings", () => ({
   useStoreSettings: vi.fn(),

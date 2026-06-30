@@ -2,15 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
-import { Heart, ShoppingBag, ArrowLeft } from "lucide-react";
+import { Heart, ArrowLeft } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useWishlist } from "@/hooks/use-wishlist";
-import { WishlistButton } from "@/components/wishlist/wishlist-button";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { formatPrice, getStrapiMedia } from "@/lib/strapi";
+import { ProductCard } from "@/components/products/product-card";
 import { useEffect } from "react";
+import type { ProductData } from "@/lib/products";
 
 export default function WishlistPage() {
   const router = useRouter();
@@ -75,63 +74,9 @@ export default function WishlistPage() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {wishlist.map((item) => {
-          const image = item.product.images?.[0];
-          const imageUrl = image
-            ? getStrapiMedia(image.formats?.small?.url ?? image.url)
-            : null;
-
-          return (
-            <Card
-              key={item.documentId}
-              className="group/card flex flex-col overflow-hidden transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg ring-1 ring-border/50"
-            >
-              <div className="relative aspect-[3/4] overflow-hidden bg-secondary/50">
-                <Link href={`/products/${item.product.slug}`} className="block h-full">
-                  {imageUrl ? (
-                    <Image
-                      src={imageUrl}
-                      alt={item.product.name}
-                      fill
-                      className="object-cover transition-transform duration-400 ease-out group-hover/card:scale-105"
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-muted-foreground text-sm">No Image</span>
-                    </div>
-                  )}
-                </Link>
-
-                <WishlistButton
-                  productDocumentId={item.product.documentId}
-                  variant="card"
-                />
-              </div>
-
-              <Link href={`/products/${item.product.slug}`} className="flex-1">
-                <div className="p-3 sm:p-4">
-                  <h3 className="font-[family-name:var(--font-playfair)] font-semibold text-base sm:text-lg line-clamp-1">
-                    {item.product.name}
-                  </h3>
-                  <p className="font-bold text-primary mt-1">
-                    {formatPrice(item.product.price)}
-                  </p>
-                </div>
-              </Link>
-
-              <div className="px-3 sm:px-4 pb-3 sm:pb-4">
-                <Link
-                  href={`/products/${item.product.slug}`}
-                  className={buttonVariants({ size: "sm", className: "w-full" })}
-                >
-                  <ShoppingBag className="mr-2 h-4 w-4" />
-                  Lihat Detail
-                </Link>
-              </div>
-            </Card>
-          );
-        })}
+        {wishlist.map((item) => (
+          <ProductCard key={item.documentId} product={item.product as ProductData} />
+        ))}
       </div>
     </main>
   );

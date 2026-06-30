@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { VariantSelector } from "./variant-selector";
 import { AddToCartButton } from "@/components/cart/add-to-cart-button";
+import { ProductConditionBadge } from "@/components/products/product-condition-badge";
 import { formatPrice } from "@/lib/strapi";
 import { useStoreSettings } from "@/hooks/use-store-settings";
 import { buttonVariants } from "@/components/ui/button";
@@ -35,57 +36,107 @@ interface ProductActionsProps {
 
 export function ProductActions({ product, variants }: ProductActionsProps) {
   const [selectedVariant, setSelectedVariant] = useState<number | null>(null);
-  const selected = selectedVariant !== null ? variants?.[selectedVariant] : null;
+  const selected =
+    selectedVariant !== null ? variants?.[selectedVariant] : null;
   const displayPrice = selected?.price ?? product.price;
   const hasVariants = !!(variants && variants.length > 0);
   const needsVariant = hasVariants && selectedVariant === null;
   const { whatsappNumber } = useStoreSettings();
 
-  return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold">{product.name}</h1>
-        {product.shortDescription && (
-          <p className="text-muted-foreground mt-2">{product.shortDescription}</p>
-        )}
-      </div>
+  const inventory = Number(selected?.inventory ?? product.inventory ?? 0);
+  const isOutOfStock = inventory <= 0;
+  const isLowStock = !isOutOfStock && inventory <= 5;
+  const hasDiscount =
+    product.compareAtPrice != null && product.compareAtPrice > displayPrice;
 
-      <div className="flex items-baseline gap-2">
-        <span className="text-3xl font-bold">{formatPrice(displayPrice)}</span>
-        {product.compareAtPrice && product.compareAtPrice > displayPrice && (
-          <span className="text-lg text-muted-foreground line-through">
-            {formatPrice(product.compareAtPrice)}
+  return (
+    <div className="py-6 sm:py-8">
+      <header className="pb-5 space-y-3">
+        {product.condition && (
+          <ProductConditionBadge condition={product.condition} />
+        )}
+        <h1
+          className={cn(
+            "font-[family-name:var(--font-playfair)] font-semibold",
+            "text-3xl sm:text-4xl leading-[1.1] tracking-tight",
+            "text-foreground text-balance",
+          )}
+        >
+          {product.name}
+        </h1>
+        {product.shortDescription && (
+          <p className="text-muted-foreground text-base leading-relaxed max-w-prose">
+            {product.shortDescription}
+          </p>
+        )}
+      </header>
+
+      <div className="py-5">
+        <div className="flex items-baseline gap-3">
+          <span
+            className={cn(
+              "font-[family-name:var(--font-playfair)] font-semibold",
+              "text-3xl tracking-tight text-foreground",
+            )}
+          >
+            {formatPrice(displayPrice)}
           </span>
+          {hasDiscount && (
+            <span className="text-base text-muted-foreground line-through">
+              <span className="sr-only">Harga normal </span>
+              {formatPrice(product.compareAtPrice!)}
+            </span>
+          )}
+        </div>
+        {isLowStock && (
+          <p className="mt-2.5 flex items-center gap-1.5 text-xs font-medium text-warning-foreground">
+            <span
+              aria-hidden="true"
+              className="size-1.5 shrink-0 rounded-full bg-warning-foreground"
+            />
+            Sisa {inventory} unit — hampir habis
+          </p>
+        )}
+        {isOutOfStock && (
+          <p className="mt-2.5 flex items-center gap-1.5 text-xs font-medium text-destructive">
+            <span
+              aria-hidden="true"
+              className="size-1.5 shrink-0 rounded-full bg-destructive"
+            />
+            Stok Habis
+          </p>
         )}
       </div>
 
       {variants && variants.length > 0 && (
-        <VariantSelector
-          variants={variants}
-          selectedIndex={selectedVariant}
-          onSelect={setSelectedVariant}
-        />
-      )}
-
-      <div className="flex flex-col md:flex-row md:items-end gap-3">
-        <div className="md:flex-1">
-          <AddToCartButton
-            productId={product.id}
-            productDocumentId={product.documentId}
-            productName={product.name}
-            price={displayPrice}
-            image={product.images?.[0]?.formats?.small?.url ?? product.images?.[0]?.url}
-            variantId={selected?.id?.toString()}
-            variantName={selected?.name}
-            variantSku={selected?.sku}
-            dimensions={product.dimensions}
-            needsVariant={needsVariant}
-            maxQuantity={Number(selected?.inventory ?? product.inventory) || undefined}
-            disabled={needsVariant || (selected?.inventory ?? product.inventory ?? 0) <= 0}
+        <div className="py-5">
+          <VariantSelector
+            variants={variants}
+            selectedIndex={selectedVariant}
+            onSelect={setSelectedVariant}
           />
         </div>
+      )}
 
-        <div className="flex gap-2">
+      <div className="space-y-3 border-t border-border pt-6">
+        <AddToCartButton
+          productId={product.id}
+          productDocumentId={product.documentId}
+          productName={product.name}
+          price={displayPrice}
+          image={
+            product.images?.[0]?.formats?.small?.url ?? product.images?.[0]?.url
+          }
+          variantId={selected?.id?.toString()}
+          variantName={selected?.name}
+          variantSku={selected?.sku}
+          dimensions={product.dimensions}
+          needsVariant={needsVariant}
+          maxQuantity={inventory > 0 ? inventory : undefined}
+          disabled={needsVariant || isOutOfStock}
+        />
+
+        <div className="flex items-stretch gap-3">
           <WishlistButton
             productDocumentId={product.documentId}
             variant="detail"
@@ -97,8 +148,10 @@ export function ProductActions({ product, variants }: ProductActionsProps) {
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
-                buttonVariants({ variant: "outline", size: "lg" }),
-                "w-full md:w-[30%] md:shrink-0 gap-2",
+                buttonVariants({ variant: "outline", size: "default" }),
+                "flex-1 gap-2",
+                "border-2 hover:border-primary/40 hover:bg-secondary/40",
+                "h-9 px-5",
               )}
             >
               <WhatsAppIcon />
