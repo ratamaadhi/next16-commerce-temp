@@ -55,15 +55,22 @@ export function ProductActions({ product, variants }: ProductActionsProps) {
         {product.condition && (
           <ProductConditionBadge condition={product.condition} />
         )}
-        <h1
-          className={cn(
-            "font-[family-name:var(--font-playfair)] font-semibold",
-            "text-3xl sm:text-4xl leading-[1.1] tracking-tight",
-            "text-foreground text-balance",
-          )}
-        >
-          {product.name}
-        </h1>
+        <div className="flex items-start justify-between gap-3">
+          <h1
+            className={cn(
+              "font-[family-name:var(--font-playfair)] font-semibold",
+              "text-3xl sm:text-4xl leading-[1.1] tracking-tight",
+              "text-foreground text-balance",
+            )}
+          >
+            {product.name}
+          </h1>
+          <WishlistButton
+            productDocumentId={product.documentId}
+            variant="title"
+            className="-mr-1.5 -mt-1"
+          />
+        </div>
         {product.shortDescription && (
           <p className="text-muted-foreground text-base leading-relaxed max-w-prose">
             {product.shortDescription}
@@ -109,7 +116,7 @@ export function ProductActions({ product, variants }: ProductActionsProps) {
       </div>
 
       {variants && variants.length > 0 && (
-        <div className="py-5">
+        <div className="pb-6">
           <VariantSelector
             variants={variants}
             selectedIndex={selectedVariant}
@@ -118,29 +125,28 @@ export function ProductActions({ product, variants }: ProductActionsProps) {
         </div>
       )}
 
-      <div className="space-y-3 border-t border-border pt-6">
-        <AddToCartButton
-          productId={product.id}
-          productDocumentId={product.documentId}
-          productName={product.name}
-          price={displayPrice}
-          image={
-            product.images?.[0]?.formats?.small?.url ?? product.images?.[0]?.url
-          }
-          variantId={selected?.id?.toString()}
-          variantName={selected?.name}
-          variantSku={selected?.sku}
-          dimensions={product.dimensions}
-          needsVariant={needsVariant}
-          maxQuantity={inventory > 0 ? inventory : undefined}
-          disabled={needsVariant || isOutOfStock}
-        />
-
-        <div className="flex items-stretch gap-3">
-          <WishlistButton
-            productDocumentId={product.documentId}
-            variant="detail"
-          />
+      <div className="border-t border-border pt-6">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-stretch">
+          <div className="min-w-0 lg:flex-[6]">
+            <AddToCartButton
+              inline
+              productId={product.id}
+              productDocumentId={product.documentId}
+              productName={product.name}
+              price={displayPrice}
+              image={
+                product.images?.[0]?.formats?.small?.url ??
+                product.images?.[0]?.url
+              }
+              variantId={selected?.id?.toString()}
+              variantName={selected?.name}
+              variantSku={selected?.sku}
+              dimensions={product.dimensions}
+              needsVariant={needsVariant}
+              maxQuantity={inventory > 0 ? inventory : undefined}
+              disabled={needsVariant || isOutOfStock}
+            />
+          </div>
 
           {whatsappNumber && (
             <a
@@ -148,10 +154,9 @@ export function ProductActions({ product, variants }: ProductActionsProps) {
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
-                buttonVariants({ variant: "outline", size: "default" }),
-                "flex-1 gap-2",
+                buttonVariants({ variant: "outline", size: "lg" }),
+                "justify-center gap-2 px-5 lg:flex-[2]",
                 "border-2 hover:border-primary/40 hover:bg-secondary/40",
-                "h-9 px-5",
               )}
             >
               <WhatsAppIcon />

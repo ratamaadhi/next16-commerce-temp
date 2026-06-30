@@ -15,7 +15,7 @@ import { toast } from "sonner";
 
 interface WishlistButtonProps {
   productDocumentId: string;
-  variant?: "card" | "detail";
+  variant?: "card" | "detail" | "title";
   className?: string;
 }
 
@@ -99,6 +99,39 @@ export function WishlistButton({
             isInWishlist
               ? "fill-accent stroke-accent"
               : "stroke-muted-foreground group-hover/wishlist:stroke-accent hover:stroke-accent",
+            bouncing && "motion-safe:animate-heart-bounce",
+          )}
+        />
+      </button>
+    );
+  }
+
+  if (variant === "title") {
+    return (
+      <button
+        type="button"
+        onClick={handleClick}
+        disabled={isLoading}
+        aria-label={isInWishlist ? "Hapus dari favorit" : "Tambah ke favorit"}
+        aria-pressed={isInWishlist}
+        className={cn(
+          "flex shrink-0 items-center justify-center",
+          "size-9 rounded-full",
+          "transition-colors duration-200 ease-out",
+          "hover:bg-accent/10",
+          "active:scale-90",
+          baseInteractive,
+          isLoading && "opacity-60 cursor-not-allowed",
+          className,
+        )}
+      >
+        <Heart
+          className={cn(
+            "size-5",
+            "transition-[fill,stroke] duration-200 ease-out",
+            isInWishlist
+              ? "fill-accent stroke-accent"
+              : "stroke-muted-foreground hover:stroke-accent",
             bouncing && "motion-safe:animate-heart-bounce",
           )}
         />

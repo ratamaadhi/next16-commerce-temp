@@ -25,6 +25,7 @@ interface AddToCartButtonProps {
     weight?: number;
   };
   maxQuantity?: number;
+  inline?: boolean;
 }
 
 export function AddToCartButton({
@@ -41,6 +42,7 @@ export function AddToCartButton({
   weight,
   dimensions,
   maxQuantity,
+  inline,
 }: AddToCartButtonProps) {
   const [quantity, setQuantity] = useState(1);
   const addItem = useCartStore((s) => s.addItem);
@@ -74,6 +76,50 @@ export function AddToCartButton({
 
   const atMax = maxQuantity !== undefined && quantity >= maxQuantity;
 
+  const ctaLabel =
+    disabled && needsVariant
+      ? "Pilih Variant"
+      : disabled
+        ? "Stok Habis"
+        : "Tambah ke Keranjang";
+
+  if (inline) {
+    return (
+      <div className="flex items-stretch gap-2">
+        <div className="flex shrink-0 items-center gap-2">
+          <Button
+            variant="outline"
+            size="icon-lg"
+            onClick={() => setQuantity(Math.max(1, quantity - 1))}
+            disabled={disabled}
+          >
+            <Minus className="h-4 w-4" />
+          </Button>
+          <span className="w-14 text-center font-medium tabular-nums">
+            {quantity}
+          </span>
+          <Button
+            variant="outline"
+            size="icon-lg"
+            onClick={() => setQuantity(quantity + 1)}
+            disabled={disabled || atMax}
+          >
+            <Plus className="h-4 w-4" />
+          </Button>
+        </div>
+        <Button
+          onClick={handleAddToCart}
+          disabled={disabled}
+          className="min-w-0 flex-1"
+          size="lg"
+        >
+          <ShoppingCart className="mr-2 h-5 w-5" />
+          {ctaLabel}
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-3">
@@ -102,7 +148,11 @@ export function AddToCartButton({
         size="lg"
       >
         <ShoppingCart className="mr-2 h-5 w-5" />
-        {disabled && needsVariant ? "Pilih Variant" : disabled ? "Stok Habis" : "Tambah ke Keranjang"}
+        {disabled && needsVariant
+          ? "Pilih Variant"
+          : disabled
+            ? "Stok Habis"
+            : "Tambah ke Keranjang"}
       </Button>
     </div>
   );

@@ -89,5 +89,5 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ---
 
-
+setiap pertanyaan gunakan bahasa Indonesia.
 always remember. do not try to commit in this project. let user do that later, just give me suggestion commit message under 50 char.
