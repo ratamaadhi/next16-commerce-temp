@@ -12,6 +12,7 @@ import { ProductConditionBadge } from "@/components/products/product-condition-b
 import { ProductDiscountBadge } from "@/components/products/product-discount-badge";
 import { ThumbnailStrip } from "@/components/products/thumbnail-strip";
 import { QuickViewModal } from "@/components/products/quick-view-modal";
+import { WishlistButton } from "@/components/wishlist/wishlist-button";
 import type { ProductData } from "@/lib/products";
 
 interface ProductCardProps {
@@ -101,6 +102,11 @@ export function ProductCard({ product }: ProductCardProps) {
             <Eye className="h-4 w-4" />
             Quick View
           </button>
+
+          <WishlistButton
+            productDocumentId={product.documentId}
+            variant="card"
+          />
         </div>
 
         {/* Thumbnail Strip — outside Link */}
