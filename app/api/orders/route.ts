@@ -1,6 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
 import { createOrder, StrapiError } from "@/lib/orders";
+import { computeDiscount, toVoucherRules, type VoucherRules } from "@/lib/vouchers";
 import { strapiFetch } from "@/lib/strapi";
 
 async function resolveItemDocumentIds(items: Array<Record<string, unknown>>) {
@@ -23,6 +24,18 @@ async function resolveItemDocumentIds(items: Array<Record<string, unknown>>) {
   );
 }
 
+async function fetchVoucherByDocumentId(documentId: string) {
+  try {
+    const res = await strapiFetch<{ data: Array<Partial<VoucherRules>> }>("/vouchers", {
+      filters: { documentId: { $eq: documentId } },
+    });
+
+    return toVoucherRules(res.data?.[0] ?? null);
+  } catch {
+    return null;
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const cookieStore = await cookies();
@@ -35,6 +48,8 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
 
     const items = await resolveItemDocumentIds(body.items);
+    const voucher = typeof body.voucherDocumentId === "string" ? await fetchVoucherByDocumentId(body.voucherDocumentId) : null;
+    const discount = computeDiscount(voucher, Number(body.subtotal ?? 0));
 
     const order = await createOrder(
       {
@@ -43,13 +58,14 @@ export async function POST(req: NextRequest) {
         subtotal: body.subtotal,
         tax: body.tax ?? 0,
         shippingCost: body.shippingCost ?? 0,
-        discount: body.discount ?? 0,
+        discount,
         totalAmount: body.totalAmount,
         currency: body.currency || "IDR",
         notes: body.notes,
         items,
         shippingAddress: body.shippingAddress,
         billingAddress: body.billingAddress,
+        voucher: voucher?.documentId,
       },
       token,
     );

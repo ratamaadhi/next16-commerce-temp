@@ -212,6 +212,38 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/vouchers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["get/vouchers"];
+        put?: never;
+        post: operations["post/vouchers"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/vouchers/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["get/vouchers/{id}"];
+        put: operations["put/vouchers/{id}"];
+        post?: never;
+        delete: operations["delete/vouchers/{id}"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/wishlist-items": {
         parameters: {
             query?: never;
@@ -2123,6 +2155,46 @@ export interface components {
                         id?: string | number;
                         documentId?: string;
                     };
+                    voucher?: {
+                        id?: string | number;
+                        documentId?: string;
+                        code?: string;
+                        /** @enum {string} */
+                        discountType?: "percentage" | "fixed";
+                        /** Format: float */
+                        discountValue?: number;
+                        /** Format: float */
+                        maxDiscountAmount?: number;
+                        /** Format: float */
+                        minPurchase?: number;
+                        usageLimit?: number;
+                        usageLimitPerUser?: number;
+                        /** Format: date-time */
+                        startDate?: string;
+                        /** Format: date-time */
+                        endDate?: string;
+                        isActive?: boolean;
+                        description?: string;
+                        /** Format: date-time */
+                        createdAt?: string;
+                        /** Format: date-time */
+                        updatedAt?: string;
+                        /** Format: date-time */
+                        publishedAt?: string;
+                        createdBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        updatedBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        locale?: string;
+                        localizations?: {
+                            id?: string | number;
+                            documentId?: string;
+                        }[];
+                    };
                     items?: components["schemas"]["ProductOrderItemComponent"][];
                     shippingAddress?: components["schemas"]["CommonAddressComponent"];
                     billingAddress?: components["schemas"]["CommonAddressComponent"];
@@ -3457,6 +3529,46 @@ export interface components {
                                     id?: string | number;
                                     documentId?: string;
                                 };
+                                voucher?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                    code?: string;
+                                    /** @enum {string} */
+                                    discountType?: "percentage" | "fixed";
+                                    /** Format: float */
+                                    discountValue?: number;
+                                    /** Format: float */
+                                    maxDiscountAmount?: number;
+                                    /** Format: float */
+                                    minPurchase?: number;
+                                    usageLimit?: number;
+                                    usageLimitPerUser?: number;
+                                    /** Format: date-time */
+                                    startDate?: string;
+                                    /** Format: date-time */
+                                    endDate?: string;
+                                    isActive?: boolean;
+                                    description?: string;
+                                    /** Format: date-time */
+                                    createdAt?: string;
+                                    /** Format: date-time */
+                                    updatedAt?: string;
+                                    /** Format: date-time */
+                                    publishedAt?: string;
+                                    createdBy?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    updatedBy?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    locale?: string;
+                                    localizations?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    }[];
+                                };
                                 items?: components["schemas"]["ProductOrderItemComponent"][];
                                 shippingAddress?: components["schemas"]["CommonAddressComponent"];
                                 billingAddress?: components["schemas"]["CommonAddressComponent"];
@@ -3710,6 +3822,8 @@ export interface components {
                 originalOrder?: number | string;
                 /** @example string or id */
                 user?: number | string;
+                /** @example string or id */
+                voucher?: number | string;
                 items?: components["schemas"]["ProductOrderItemComponent"][];
                 shippingAddress?: components["schemas"]["CommonAddressComponent"];
                 billingAddress?: components["schemas"]["CommonAddressComponent"];
@@ -4428,6 +4542,46 @@ export interface components {
                         documentId?: string;
                     }[];
                 };
+                voucher?: {
+                    id?: string | number;
+                    documentId?: string;
+                    code?: string;
+                    /** @enum {string} */
+                    discountType?: "percentage" | "fixed";
+                    /** Format: float */
+                    discountValue?: number;
+                    /** Format: float */
+                    maxDiscountAmount?: number;
+                    /** Format: float */
+                    minPurchase?: number;
+                    usageLimit?: number;
+                    usageLimitPerUser?: number;
+                    /** Format: date-time */
+                    startDate?: string;
+                    /** Format: date-time */
+                    endDate?: string;
+                    isActive?: boolean;
+                    description?: string;
+                    /** Format: date-time */
+                    createdAt?: string;
+                    /** Format: date-time */
+                    updatedAt?: string;
+                    /** Format: date-time */
+                    publishedAt?: string;
+                    createdBy?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    updatedBy?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    locale?: string;
+                    localizations?: {
+                        id?: string | number;
+                        documentId?: string;
+                    }[];
+                };
                 items?: components["schemas"]["ProductOrderItemComponent"][];
                 shippingAddress?: components["schemas"]["CommonAddressComponent"];
                 billingAddress?: components["schemas"]["CommonAddressComponent"];
@@ -4452,6 +4606,10 @@ export interface components {
                 }[];
             };
             user?: {
+                id?: string | number;
+                documentId?: string;
+            };
+            voucher?: {
                 id?: string | number;
                 documentId?: string;
             };
@@ -5090,6 +5248,46 @@ export interface components {
                                     id?: string | number;
                                     documentId?: string;
                                 };
+                                voucher?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                    code?: string;
+                                    /** @enum {string} */
+                                    discountType?: "percentage" | "fixed";
+                                    /** Format: float */
+                                    discountValue?: number;
+                                    /** Format: float */
+                                    maxDiscountAmount?: number;
+                                    /** Format: float */
+                                    minPurchase?: number;
+                                    usageLimit?: number;
+                                    usageLimitPerUser?: number;
+                                    /** Format: date-time */
+                                    startDate?: string;
+                                    /** Format: date-time */
+                                    endDate?: string;
+                                    isActive?: boolean;
+                                    description?: string;
+                                    /** Format: date-time */
+                                    createdAt?: string;
+                                    /** Format: date-time */
+                                    updatedAt?: string;
+                                    /** Format: date-time */
+                                    publishedAt?: string;
+                                    createdBy?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    updatedBy?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    locale?: string;
+                                    localizations?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    }[];
+                                };
                                 items?: components["schemas"]["ProductOrderItemComponent"][];
                                 shippingAddress?: components["schemas"]["CommonAddressComponent"];
                                 billingAddress?: components["schemas"]["CommonAddressComponent"];
@@ -5631,6 +5829,46 @@ export interface components {
                     user?: {
                         id?: string | number;
                         documentId?: string;
+                    };
+                    voucher?: {
+                        id?: string | number;
+                        documentId?: string;
+                        code?: string;
+                        /** @enum {string} */
+                        discountType?: "percentage" | "fixed";
+                        /** Format: float */
+                        discountValue?: number;
+                        /** Format: float */
+                        maxDiscountAmount?: number;
+                        /** Format: float */
+                        minPurchase?: number;
+                        usageLimit?: number;
+                        usageLimitPerUser?: number;
+                        /** Format: date-time */
+                        startDate?: string;
+                        /** Format: date-time */
+                        endDate?: string;
+                        isActive?: boolean;
+                        description?: string;
+                        /** Format: date-time */
+                        createdAt?: string;
+                        /** Format: date-time */
+                        updatedAt?: string;
+                        /** Format: date-time */
+                        publishedAt?: string;
+                        createdBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        updatedBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        locale?: string;
+                        localizations?: {
+                            id?: string | number;
+                            documentId?: string;
+                        }[];
                     };
                     items?: components["schemas"]["ProductOrderItemComponent"][];
                     shippingAddress?: components["schemas"]["CommonAddressComponent"];
@@ -6306,6 +6544,288 @@ export interface components {
             data?: components["schemas"]["StoreSetting"];
             meta?: Record<string, never>;
         };
+        VoucherRequest: {
+            data: {
+                code: string;
+                /** @enum {string} */
+                discountType: "percentage" | "fixed";
+                /** Format: float */
+                discountValue: number;
+                /** Format: float */
+                maxDiscountAmount?: number;
+                /** Format: float */
+                minPurchase?: number;
+                usageLimit?: number;
+                usageLimitPerUser?: number;
+                /** Format: date-time */
+                startDate?: string;
+                /** Format: date-time */
+                endDate?: string;
+                isActive: boolean;
+                description?: string;
+                locale?: string;
+                localizations?: (number | string)[];
+            };
+        };
+        VoucherListResponse: {
+            data?: components["schemas"]["Voucher"][];
+            meta?: {
+                pagination?: {
+                    page?: number;
+                    pageSize?: number;
+                    pageCount?: number;
+                    total?: number;
+                };
+            };
+        };
+        Voucher: {
+            id?: string | number;
+            documentId?: string;
+            code: string;
+            /** @enum {string} */
+            discountType: "percentage" | "fixed";
+            /** Format: float */
+            discountValue: number;
+            /** Format: float */
+            maxDiscountAmount?: number;
+            /** Format: float */
+            minPurchase?: number;
+            usageLimit?: number;
+            usageLimitPerUser?: number;
+            /** Format: date-time */
+            startDate?: string;
+            /** Format: date-time */
+            endDate?: string;
+            isActive: boolean;
+            description?: string;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+            /** Format: date-time */
+            publishedAt?: string;
+            createdBy?: {
+                id?: string | number;
+                documentId?: string;
+                firstname?: string;
+                lastname?: string;
+                username?: string;
+                /** Format: email */
+                email?: string;
+                resetPasswordToken?: string;
+                registrationToken?: string;
+                isActive?: boolean;
+                roles?: {
+                    id?: string | number;
+                    documentId?: string;
+                    name?: string;
+                    code?: string;
+                    description?: string;
+                    users?: {
+                        id?: string | number;
+                        documentId?: string;
+                    }[];
+                    permissions?: {
+                        id?: string | number;
+                        documentId?: string;
+                        action?: string;
+                        actionParameters?: unknown;
+                        subject?: string;
+                        properties?: unknown;
+                        conditions?: unknown;
+                        role?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        apiToken?: {
+                            id?: string | number;
+                            documentId?: string;
+                            name?: string;
+                            description?: string;
+                            /** @enum {string} */
+                            kind?: "content-api" | "admin";
+                            /** @enum {string} */
+                            type?: "read-only" | "full-access" | "custom";
+                            accessKey?: string;
+                            encryptedKey?: string;
+                            /** Format: date-time */
+                            lastUsedAt?: string;
+                            permissions?: {
+                                id?: string | number;
+                                documentId?: string;
+                                action?: string;
+                                token?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                };
+                                /** Format: date-time */
+                                createdAt?: string;
+                                /** Format: date-time */
+                                updatedAt?: string;
+                                /** Format: date-time */
+                                publishedAt?: string;
+                                createdBy?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                };
+                                updatedBy?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                };
+                                locale?: string;
+                                localizations?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                }[];
+                            }[];
+                            adminPermissions?: {
+                                id?: string | number;
+                                documentId?: string;
+                            }[];
+                            adminUserOwner?: {
+                                id?: string | number;
+                                documentId?: string;
+                            };
+                            /** Format: date-time */
+                            expiresAt?: string;
+                            /** @example 123456789 */
+                            lifespan?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            /** Format: date-time */
+                            publishedAt?: string;
+                            createdBy?: {
+                                id?: string | number;
+                                documentId?: string;
+                            };
+                            updatedBy?: {
+                                id?: string | number;
+                                documentId?: string;
+                            };
+                            locale?: string;
+                            localizations?: {
+                                id?: string | number;
+                                documentId?: string;
+                            }[];
+                        };
+                        /** Format: date-time */
+                        createdAt?: string;
+                        /** Format: date-time */
+                        updatedAt?: string;
+                        /** Format: date-time */
+                        publishedAt?: string;
+                        createdBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        updatedBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        locale?: string;
+                        localizations?: {
+                            id?: string | number;
+                            documentId?: string;
+                        }[];
+                    }[];
+                    /** Format: date-time */
+                    createdAt?: string;
+                    /** Format: date-time */
+                    updatedAt?: string;
+                    /** Format: date-time */
+                    publishedAt?: string;
+                    createdBy?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    updatedBy?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    locale?: string;
+                    localizations?: {
+                        id?: string | number;
+                        documentId?: string;
+                    }[];
+                }[];
+                apiTokens?: {
+                    id?: string | number;
+                    documentId?: string;
+                }[];
+                blocked?: boolean;
+                preferedLanguage?: string;
+                /** Format: date-time */
+                createdAt?: string;
+                /** Format: date-time */
+                updatedAt?: string;
+                /** Format: date-time */
+                publishedAt?: string;
+                createdBy?: {
+                    id?: string | number;
+                    documentId?: string;
+                };
+                updatedBy?: {
+                    id?: string | number;
+                    documentId?: string;
+                };
+                locale?: string;
+                localizations?: {
+                    id?: string | number;
+                    documentId?: string;
+                }[];
+            };
+            updatedBy?: {
+                id?: string | number;
+                documentId?: string;
+            };
+            locale?: string;
+            localizations?: {
+                id?: string | number;
+                documentId?: string;
+                code?: string;
+                /** @enum {string} */
+                discountType?: "percentage" | "fixed";
+                /** Format: float */
+                discountValue?: number;
+                /** Format: float */
+                maxDiscountAmount?: number;
+                /** Format: float */
+                minPurchase?: number;
+                usageLimit?: number;
+                usageLimitPerUser?: number;
+                /** Format: date-time */
+                startDate?: string;
+                /** Format: date-time */
+                endDate?: string;
+                isActive?: boolean;
+                description?: string;
+                /** Format: date-time */
+                createdAt?: string;
+                /** Format: date-time */
+                updatedAt?: string;
+                /** Format: date-time */
+                publishedAt?: string;
+                createdBy?: {
+                    id?: string | number;
+                    documentId?: string;
+                };
+                updatedBy?: {
+                    id?: string | number;
+                    documentId?: string;
+                };
+                locale?: string;
+                localizations?: {
+                    id?: string | number;
+                    documentId?: string;
+                }[];
+            }[];
+        };
+        VoucherResponse: {
+            data?: components["schemas"]["Voucher"];
+            meta?: Record<string, never>;
+        };
         WishlistItemRequest: {
             data: {
                 /** @example string or id */
@@ -6607,6 +7127,46 @@ export interface components {
                     user?: {
                         id?: string | number;
                         documentId?: string;
+                    };
+                    voucher?: {
+                        id?: string | number;
+                        documentId?: string;
+                        code?: string;
+                        /** @enum {string} */
+                        discountType?: "percentage" | "fixed";
+                        /** Format: float */
+                        discountValue?: number;
+                        /** Format: float */
+                        maxDiscountAmount?: number;
+                        /** Format: float */
+                        minPurchase?: number;
+                        usageLimit?: number;
+                        usageLimitPerUser?: number;
+                        /** Format: date-time */
+                        startDate?: string;
+                        /** Format: date-time */
+                        endDate?: string;
+                        isActive?: boolean;
+                        description?: string;
+                        /** Format: date-time */
+                        createdAt?: string;
+                        /** Format: date-time */
+                        updatedAt?: string;
+                        /** Format: date-time */
+                        publishedAt?: string;
+                        createdBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        updatedBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        locale?: string;
+                        localizations?: {
+                            id?: string | number;
+                            documentId?: string;
+                        }[];
                     };
                     items?: components["schemas"]["ProductOrderItemComponent"][];
                     shippingAddress?: components["schemas"]["CommonAddressComponent"];
@@ -9495,6 +10055,368 @@ export interface operations {
             query?: never;
             header?: never;
             path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": number;
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    "get/vouchers": {
+        parameters: {
+            query?: {
+                /** @description Sort by attributes ascending (asc) or descending (desc) */
+                sort?: string;
+                /** @description Return page/pageSize (default: true) */
+                "pagination[withCount]"?: boolean;
+                /** @description Page number (default: 0) */
+                "pagination[page]"?: number;
+                /** @description Page size (default: 25) */
+                "pagination[pageSize]"?: number;
+                /** @description Offset value (default: 0) */
+                "pagination[start]"?: number;
+                /** @description Number of entities to return (default: 25) */
+                "pagination[limit]"?: number;
+                /** @description Fields to return (ex: title,author) */
+                fields?: string;
+                /** @description Relations to return */
+                populate?: string;
+                /** @description Filters to apply */
+                filters?: {
+                    [key: string]: unknown;
+                };
+                /** @description Locale to apply */
+                locale?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VoucherListResponse"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    "post/vouchers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["VoucherRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VoucherResponse"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    "get/vouchers/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VoucherResponse"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    "put/vouchers/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["VoucherRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VoucherResponse"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    "delete/vouchers/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
             cookie?: never;
         };
         requestBody?: never;

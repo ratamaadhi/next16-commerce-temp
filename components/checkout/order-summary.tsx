@@ -22,6 +22,7 @@ interface OrderSummaryItem {
 interface OrderSummaryProps {
   items: OrderSummaryItem[];
   subtotal: number;
+  discount: number;
   tax: number;
   selectedCourier?: ShippingOption | null;
   total: number;
@@ -30,7 +31,7 @@ interface OrderSummaryProps {
   canSubmit?: boolean;
 }
 
-export function OrderSummary({ items, subtotal, tax, selectedCourier, total, isSubmitting, isAuthenticated, canSubmit }: OrderSummaryProps) {
+export function OrderSummary({ items, subtotal, discount, tax, selectedCourier, total, isSubmitting, isAuthenticated, canSubmit }: OrderSummaryProps) {
   return (
     <div className="lg:sticky lg:top-24 lg:self-start">
       <Card>
@@ -95,6 +96,11 @@ export function OrderSummary({ items, subtotal, tax, selectedCourier, total, isS
             <div className="flex justify-between text-xs">
               <span className="text-muted-foreground">Subtotal</span>
               <span>{formatPrice(subtotal)}</span>
+            </div>
+
+            <div className="flex justify-between text-xs text-green-600">
+              <span>Diskon</span>
+              <span>{formatPrice(-discount)}</span>
             </div>
 
             <div className="flex justify-between text-xs">

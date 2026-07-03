@@ -21,7 +21,7 @@ import { MapPin } from "lucide-react";
 const TAX_RATE = 0.11;
 
 export default function CheckoutPage() {
-  const { items, getTotal, clearCart } = useCartStore();
+  const { items, getTotal, getDiscount, appliedVoucher, setAppliedVoucher, clearCart } = useCartStore();
   const { isAuthenticated } = useAuth();
   const { addresses, createAddress } = useAddresses();
   const router = useRouter();
@@ -61,9 +61,10 @@ export default function CheckoutPage() {
   const [selectedCourier, setSelectedCourier] = useState<ShippingOption | null>(null);
 
   const subtotal = getTotal();
-  const tax = Math.round(subtotal * TAX_RATE);
+  const discount = getDiscount();
+  const tax = Math.round((subtotal - discount) * TAX_RATE);
   const shipping = selectedCourier?.price ?? 0;
-  const total = subtotal + tax + shipping;
+  const total = subtotal - discount + tax + shipping;
   const cartDims = useMemo(() => getCartDimensions(items), [items]);
 
   const autoSubdistrict = useMemo<SubdistrictResult | null>(() => {
@@ -210,10 +211,12 @@ export default function CheckoutPage() {
           },
           notes: shippingNotes,
           subtotal,
+          discount,
           tax,
           shippingCost: shipping,
           totalAmount: total,
           currency: "IDR",
+          voucherDocumentId: appliedVoucher?.documentId ?? null,
         }),
       });
 
@@ -225,6 +228,17 @@ export default function CheckoutPage() {
           errorData?.error?.message ||
           "Gagal membuat pesanan";
         console.error("Checkout error response:", errorData);
+        const knownVoucherErrors = new Set([
+          "Voucher tidak ditemukan",
+          "Voucher tidak aktif",
+          "Voucher belum berlaku",
+          "Voucher sudah kadaluarsa",
+          "Kuota voucher sudah habis",
+          "Voucher ini sudah pernah kamu pakai",
+        ]);
+        if (knownVoucherErrors.has(message) || message.startsWith("Minimal belanja Rp")) {
+          setAppliedVoucher(null);
+        }
         toast.error(message);
         return;
       }
@@ -401,6 +415,7 @@ export default function CheckoutPage() {
             <OrderSummary
               items={items}
               subtotal={subtotal}
+              discount={discount}
               tax={tax}
               selectedCourier={selectedCourier}
               total={total}

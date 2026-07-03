@@ -26,7 +26,24 @@ Template e-commerce siap pakai dengan CMS terpisah (Strapi 5), pembayaran via Mi
 | Quick view | Lihat detail cepat via popup tanpa pindah halaman |
 | SEO siap | Meta title/description per produk, URL slug rapi |
 
-### 2. Keranjang Belanja
+### 2. Wishlist
+
+| Fitur | Keterangan |
+|-------|------------|
+| Simpan produk favorit | Tombol hati di kartu produk, halaman detail, dan quick view |
+| Halaman wishlist khusus | Pelanggan lihat semua produk favorit dalam satu halaman |
+| Terikat akun | Wishlist tersimpan per akun, aman meski ganti perangkat |
+
+### 3. Review & Rating Produk
+
+| Fitur | Keterangan |
+|-------|------------|
+| Rating bintang & ulasan tertulis | Judul + komentar per review, ringkasan rating rata-rata di halaman produk |
+| Verified purchase | Review hanya bisa dikirim pembeli dengan riwayat pesanan produk tersebut |
+| Moderasi | Review masuk antrian moderasi sebelum tampil publik |
+| Opsi anonim | Pelanggan bisa memilih tampil anonim saat mengirim review |
+
+### 4. Keranjang Belanja
 
 | Fitur | Keterangan |
 |-------|------------|
@@ -35,7 +52,7 @@ Template e-commerce siap pakai dengan CMS terpisah (Strapi 5), pembayaran via Mi
 | Validasi stok | Cegah pembelian melebihi stok, proteksi overselling |
 | Guest & logged-in | Belanja tanpa login tetap aman; saat login, keranjang menyatu otomatis |
 
-### 3. Pembayaran — Midtrans
+### 5. Pembayaran — Midtrans
 
 | Fitur | Keterangan |
 |-------|------------|
@@ -45,7 +62,7 @@ Template e-commerce siap pakai dengan CMS terpisah (Strapi 5), pembayaran via Mi
 | Cek status real-time | Polling otomatis tahu pembayaran lunas/gagal/pending |
 | Retry gagal bayar | Jika pembayaran gagal bisa bayar ulang dengan token baru |
 
-### 4. Ongkos Kirim — KiriminAja
+### 6. Ongkos Kirim — KiriminAja
 
 | Fitur | Keterangan |
 |-------|------------|
@@ -54,7 +71,7 @@ Template e-commerce siap pakai dengan CMS terpisah (Strapi 5), pembayaran via Mi
 | Grup layanan | Ekonomi, Reguler, Ekspres, Instant, Kargo — plus badge COD |
 | Estimasi sampai | Lihat perkiraan hari (ETD) langsung dari kurir |
 
-### 5. Manajemen Pesanan
+### 7. Manajemen Pesanan
 
 | Fitur | Keterangan |
 |-------|------------|
@@ -63,7 +80,7 @@ Template e-commerce siap pakai dengan CMS terpisah (Strapi 5), pembayaran via Mi
 | Timeline visual | Progress bar + badge warna — status jelas dalam sekali lihat |
 | Cari berdasarkan nomor | Cari pesanan cepat dengan nomor order |
 
-### 6. Akun Pelanggan
+### 8. Akun Pelanggan
 
 | Fitur | Keterangan |
 |-------|------------|
@@ -71,7 +88,7 @@ Template e-commerce siap pakai dengan CMS terpisah (Strapi 5), pembayaran via Mi
 | Konfirmasi email | Verifikasi alamat email sebelum transaksi |
 | Halaman akun | Profil, link ke riwayat pesanan, logout |
 
-### 7. Tampilan & Antarmuka
+### 9. Tampilan & Antarmuka
 
 | Fitur | Keterangan |
 |-------|------------|
@@ -80,7 +97,7 @@ Template e-commerce siap pakai dengan CMS terpisah (Strapi 5), pembayaran via Mi
 | Responsive | Desktop, tablet, mobile — tampil rapi di semua layar |
 | Notifikasi | Toast sukses/gagal/info — non-intrusif |
 
-### 8. CMS — Strapi 5
+### 10. CMS — Strapi 5
 
 | Fitur | Keterangan |
 |-------|------------|

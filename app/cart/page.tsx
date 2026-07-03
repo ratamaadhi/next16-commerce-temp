@@ -8,10 +8,14 @@ import { Trash2, Minus, Plus, ShoppingBag, ArrowLeft } from "lucide-react";
 import { useCartStore } from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/strapi";
 import { ProductImage } from "@/components/products/product-image";
+import { VoucherInput } from "@/components/cart/voucher-input";
 
 export default function CartPage() {
-  const { items, removeItem, updateQuantity, getTotal, getItemCount } = useCartStore();
+  const { items, removeItem, updateQuantity, getTotal, getDiscount, getItemCount } =
+    useCartStore();
   const subtotal = getTotal();
+  const discount = getDiscount();
+  const total = subtotal - discount;
 
   if (!items.length) {
     return (
@@ -124,11 +128,19 @@ export default function CartPage() {
           <div className="sticky top-24 space-y-3 rounded-lg border p-4">
             <p className="font-semibold text-sm">Ringkasan</p>
             <Separator />
+            <VoucherInput />
+            <Separator />
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Subtotal</span>
                 <span>{formatPrice(subtotal)}</span>
               </div>
+              {discount > 0 ? (
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Diskon</span>
+                  <span className="text-green-600">-{formatPrice(discount)}</span>
+                </div>
+              ) : null}
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Ongkir</span>
                 <span className="text-muted-foreground">—</span>
@@ -137,7 +149,7 @@ export default function CartPage() {
             <Separator />
             <div className="flex justify-between font-semibold">
               <span>Total</span>
-              <span>{formatPrice(subtotal)}</span>
+              <span>{formatPrice(total)}</span>
             </div>
             <Link href="/checkout" className={buttonVariants({ className: "w-full" })}>
               Checkout

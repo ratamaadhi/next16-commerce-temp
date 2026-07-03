@@ -2,6 +2,7 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { computeDiscount, type VoucherRules } from "@/lib/vouchers";
 
 export interface CartItem {
   productId: number;
@@ -26,6 +27,7 @@ export interface CartItem {
 
 interface CartStore {
   items: CartItem[];
+  appliedVoucher: VoucherRules | null;
 
   // Cart sync metadata
   sessionId: string | null;
@@ -37,12 +39,14 @@ interface CartStore {
   updateQuantity: (productId: number, quantity: number, variantId?: string) => void;
   clearCart: () => void;
   getTotal: () => number;
+  getDiscount: () => number;
   getItemCount: () => number;
   getTotalWeight: () => number;
 
   // New sync operations
   setSessionId: (id: string | null) => void;
   setCartDocumentId: (id: string | null) => void;
+  setAppliedVoucher: (voucher: VoucherRules | null) => void;
   setItems: (items: CartItem[]) => void;
   mergeItems: (incoming: CartItem[]) => void;
   mergeCart: (cartDocumentId: string, serverItems: CartItem[]) => void;
@@ -53,6 +57,7 @@ export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
       items: [],
+      appliedVoucher: null,
       sessionId: null,
       cartDocumentId: null,
 
@@ -104,10 +109,15 @@ export const useCartStore = create<CartStore>()(
         });
       },
 
-      clearCart: () => set({ items: [], cartDocumentId: null }),
+      clearCart: () => set({ items: [], cartDocumentId: null, appliedVoucher: null }),
 
       getTotal: () =>
         get().items.reduce((sum, i) => sum + i.price * i.quantity, 0),
+
+      getDiscount: () => {
+        const total = get().getTotal();
+        return computeDiscount(get().appliedVoucher, total);
+      },
 
       getItemCount: () =>
         get().items.reduce((sum, i) => sum + i.quantity, 0),
@@ -122,6 +132,8 @@ export const useCartStore = create<CartStore>()(
       setSessionId: (id) => set({ sessionId: id }),
 
       setCartDocumentId: (id) => set({ cartDocumentId: id }),
+
+      setAppliedVoucher: (voucher) => set({ appliedVoucher: voucher }),
 
       setItems: (items) => set({ items }),
 

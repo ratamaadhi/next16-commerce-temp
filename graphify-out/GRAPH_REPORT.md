@@ -1,7 +1,7 @@
-# Graph Report - next-commerce-temp  (2026-06-30)
+# Graph Report - next-commerce-temp  (2026-07-02)
 
 ## Corpus Check
-- 172 files · ~127,585 words
+- 172 files · ~127,704 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `1575a762`
+- Built from commit: `56a23206`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -32,13 +32,13 @@
 - [[_COMMUNITY_Community 15|Community 15]]
 - [[_COMMUNITY_Community 16|Community 16]]
 - [[_COMMUNITY_Community 17|Community 17]]
-- [[_COMMUNITY_Community 22|Community 22]]
+- [[_COMMUNITY_Community 21|Community 21]]
+- [[_COMMUNITY_Community 23|Community 23]]
 - [[_COMMUNITY_Community 24|Community 24]]
-- [[_COMMUNITY_Community 25|Community 25]]
-- [[_COMMUNITY_Community 27|Community 27]]
-- [[_COMMUNITY_Community 28|Community 28]]
-- [[_COMMUNITY_Community 53|Community 53]]
-- [[_COMMUNITY_Community 70|Community 70]]
+- [[_COMMUNITY_Community 26|Community 26]]
+- [[_COMMUNITY_Community 29|Community 29]]
+- [[_COMMUNITY_Community 54|Community 54]]
+- [[_COMMUNITY_Community 71|Community 71]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `cn()` - 40 edges
@@ -70,7 +70,7 @@
 - **BFF proxy layer for KiriminAja** — checkout_searchDistrictRoute, checkout_shippingCostRoute, shipping_KiriminAjaAPI, shipping_BFFPattern [INFERRED 0.85]
 - **Cart sync architecture (Zustand + Strapi)** — cart_CartSyncComponent, cart_useCartSync, cart_useCartStore, cart_cartSyncLib, shipping_ZustandPersist [INFERRED 0.80]
 
-## Communities (71 total, 9 thin omitted)
+## Communities (72 total, 9 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.07
@@ -128,7 +128,7 @@ Nodes (3): SpecificationsTable(), Table(), TableBody()
 Cohesion: 0.33
 Nodes (3): ReviewForm(), StarRatingInput(), Dialog()
 
-### Community 28 - "Community 28"
+### Community 29 - "Community 29"
 Cohesion: 0.67
 Nodes (3): File Icon, Globe Icon, Window Icon
 
@@ -140,7 +140,7 @@ Nodes (3): File Icon, Globe Icon, Window Icon
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `cn()` connect `Community 11` to `Community 0`, `Community 2`, `Community 4`, `Community 5`, `Community 8`, `Community 10`, `Community 12`, `Community 13`, `Community 14`, `Community 15`, `Community 17`, `Community 18`, `Community 19`, `Community 20`, `Community 21`?**
+- **Why does `cn()` connect `Community 11` to `Community 0`, `Community 2`, `Community 4`, `Community 5`, `Community 8`, `Community 10`, `Community 12`, `Community 13`, `Community 14`, `Community 15`, `Community 17`, `Community 18`, `Community 19`, `Community 20`, `Community 27`, `Community 28`?**
   _High betweenness centrality (0.253) - this node is a cross-community bridge._
 - **Why does `formatPrice()` connect `Community 0` to `Community 1`, `Community 4`, `Community 5`, `Community 7`?**
   _High betweenness centrality (0.114) - this node is a cross-community bridge._

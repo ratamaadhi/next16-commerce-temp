@@ -144,6 +144,7 @@ describe("createOrder", () => {
     subtotal: 250000,
     tax: 27500,
     shippingCost: 10000,
+    voucher: "voucher-doc-1",
     discount: 0,
     totalAmount: 287500,
     currency: "IDR",
