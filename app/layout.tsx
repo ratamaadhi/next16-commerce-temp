@@ -3,8 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import { cookies } from "next/headers";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Providers } from "@/providers/providers";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
+import { StoreChrome } from "@/components/layout/store-chrome";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -50,9 +49,7 @@ export default async function RootLayout({
     <html lang="id">
       <body className={`${inter.variable} ${playfair.variable} min-h-screen flex flex-col`}>
         <Providers dehydratedState={dehydrate(queryClient)}>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <StoreChrome>{children}</StoreChrome>
         </Providers>
       </body>
     </html>

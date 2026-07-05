@@ -2119,7 +2119,7 @@ export interface components {
                     documentId?: string;
                     orderNumber?: string;
                     /** @enum {string} */
-                    orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "cancelled" | "refunded";
+                    orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "completed" | "cancelled" | "refunded";
                     /** @enum {string} */
                     paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
                     /** Format: float */
@@ -2133,6 +2133,7 @@ export interface components {
                     /** Format: float */
                     totalAmount?: number;
                     currency?: string;
+                    sessionId?: string;
                     midtransTransactionId?: string;
                     midtransTransactionStatus?: string;
                     midtransPaymentType?: string;
@@ -3493,7 +3494,7 @@ export interface components {
                                 documentId?: string;
                                 orderNumber?: string;
                                 /** @enum {string} */
-                                orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "cancelled" | "refunded";
+                                orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "completed" | "cancelled" | "refunded";
                                 /** @enum {string} */
                                 paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
                                 /** Format: float */
@@ -3507,6 +3508,7 @@ export interface components {
                                 /** Format: float */
                                 totalAmount?: number;
                                 currency?: string;
+                                sessionId?: string;
                                 midtransTransactionId?: string;
                                 midtransTransactionStatus?: string;
                                 midtransPaymentType?: string;
@@ -3790,7 +3792,7 @@ export interface components {
             data: {
                 orderNumber?: string;
                 /** @enum {string} */
-                orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "cancelled" | "refunded";
+                orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "completed" | "cancelled" | "refunded";
                 /** @enum {string} */
                 paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
                 /** Format: float */
@@ -3804,6 +3806,7 @@ export interface components {
                 /** Format: float */
                 totalAmount?: number;
                 currency?: string;
+                sessionId?: string;
                 midtransTransactionId?: string;
                 midtransTransactionStatus?: string;
                 midtransPaymentType?: string;
@@ -3847,7 +3850,7 @@ export interface components {
             documentId?: string;
             orderNumber?: string;
             /** @enum {string} */
-            orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "cancelled" | "refunded";
+            orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "completed" | "cancelled" | "refunded";
             /** @enum {string} */
             paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
             /** Format: float */
@@ -3861,6 +3864,7 @@ export interface components {
             /** Format: float */
             totalAmount?: number;
             currency?: string;
+            sessionId?: string;
             midtransTransactionId?: string;
             midtransTransactionStatus?: string;
             midtransPaymentType?: string;
@@ -3880,7 +3884,7 @@ export interface components {
                 documentId?: string;
                 orderNumber?: string;
                 /** @enum {string} */
-                orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "cancelled" | "refunded";
+                orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "completed" | "cancelled" | "refunded";
                 /** @enum {string} */
                 paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
                 /** Format: float */
@@ -3894,6 +3898,7 @@ export interface components {
                 /** Format: float */
                 totalAmount?: number;
                 currency?: string;
+                sessionId?: string;
                 midtransTransactionId?: string;
                 midtransTransactionStatus?: string;
                 midtransPaymentType?: string;
@@ -5212,7 +5217,7 @@ export interface components {
                                 documentId?: string;
                                 orderNumber?: string;
                                 /** @enum {string} */
-                                orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "cancelled" | "refunded";
+                                orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "completed" | "cancelled" | "refunded";
                                 /** @enum {string} */
                                 paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
                                 /** Format: float */
@@ -5226,6 +5231,7 @@ export interface components {
                                 /** Format: float */
                                 totalAmount?: number;
                                 currency?: string;
+                                sessionId?: string;
                                 midtransTransactionId?: string;
                                 midtransTransactionStatus?: string;
                                 midtransPaymentType?: string;
@@ -5794,7 +5800,7 @@ export interface components {
                     documentId?: string;
                     orderNumber?: string;
                     /** @enum {string} */
-                    orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "cancelled" | "refunded";
+                    orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "completed" | "cancelled" | "refunded";
                     /** @enum {string} */
                     paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
                     /** Format: float */
@@ -5808,6 +5814,7 @@ export interface components {
                     /** Format: float */
                     totalAmount?: number;
                     currency?: string;
+                    sessionId?: string;
                     midtransTransactionId?: string;
                     midtransTransactionStatus?: string;
                     midtransPaymentType?: string;
@@ -7092,7 +7099,7 @@ export interface components {
                     documentId?: string;
                     orderNumber?: string;
                     /** @enum {string} */
-                    orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "cancelled" | "refunded";
+                    orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "completed" | "cancelled" | "refunded";
                     /** @enum {string} */
                     paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
                     /** Format: float */
@@ -7106,6 +7113,7 @@ export interface components {
                     /** Format: float */
                     totalAmount?: number;
                     currency?: string;
+                    sessionId?: string;
                     midtransTransactionId?: string;
                     midtransTransactionStatus?: string;
                     midtransPaymentType?: string;
