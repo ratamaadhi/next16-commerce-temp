@@ -16,6 +16,20 @@ Rules:
 
 
 
+## Agent skills
+
+### Issue tracker
+
+Issues live as GitHub issues in this repo; use the `gh` CLI for all operations. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default canonical labels (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout — `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+
 ## Commits
 
 - Always use [Conventional Commits](https://www.conventionalcommits.org/): `<type>(<scope>): <subject>` where type is one of `feat`, `fix`, `chore`, `perf`, `refactor`, `docs`, `test`, `build`, `ci`, `style`.

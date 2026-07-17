@@ -1,4 +1,4 @@
-# Graph Report - next-commerce-temp  (2026-07-05)
+# Graph Report - next-commerce-temp  (2026-07-11)
 
 ## Corpus Check
 - 190 files · ~142,130 words
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `5ab64001`
+- Built from commit: `8fd004f9`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -34,10 +34,10 @@
 - [[_COMMUNITY_Community 16|Community 16]]
 - [[_COMMUNITY_Community 17|Community 17]]
 - [[_COMMUNITY_Community 18|Community 18]]
-- [[_COMMUNITY_Community 19|Community 19]]
-- [[_COMMUNITY_Community 21|Community 21]]
-- [[_COMMUNITY_Community 23|Community 23]]
-- [[_COMMUNITY_Community 25|Community 25]]
+- [[_COMMUNITY_Community 20|Community 20]]
+- [[_COMMUNITY_Community 22|Community 22]]
+- [[_COMMUNITY_Community 24|Community 24]]
+- [[_COMMUNITY_Community 26|Community 26]]
 - [[_COMMUNITY_Community 27|Community 27]]
 - [[_COMMUNITY_Community 28|Community 28]]
 - [[_COMMUNITY_Community 30|Community 30]]
@@ -109,7 +109,7 @@ Nodes (7): ReviewForm(), StarRatingInput(), CommandGroup(), CommandItem(), Dialo
 Cohesion: 0.11
 Nodes (10): AddressCard(), handleSubmit(), CheckoutPage(), handleSubmit(), createAddress(), updateAddress(), useAddresses(), getCartDimensions() (+2 more)
 
-### Community 8 - "Community 8"
+### Community 9 - "Community 9"
 Cohesion: 0.17
 Nodes (13): GET(), buildSearch(), fetchConversion(), isConversionResponse(), DashboardFilters(), DashboardLayout(), defaultRange(), getConversion() (+5 more)
 
@@ -122,10 +122,14 @@ Cohesion: 0.24
 Nodes (11): generateSessionId(), getOrCreateSessionId(), getSessionId(), resetSessionId(), setSessionId(), createCart(), deleteCart(), fetchCart() (+3 more)
 
 ### Community 12 - "Community 12"
-Cohesion: 0.21
-Nodes (4): VoucherInput(), formatDate(), formatPrice(), OrderCard()
+Cohesion: 0.22
+Nodes (5): VoucherInput(), formatDate(), formatPrice(), OrderCard(), Badge()
 
 ### Community 13 - "Community 13"
+Cohesion: 0.15
+Nodes (3): AddToCartButton(), ProductConditionBadge(), VariantSelector()
+
+### Community 14 - "Community 14"
 Cohesion: 0.29
 Nodes (8): POST(), createOrder(), computeDiscount(), isVoucherCurrentlyValid(), toVoucherRules(), fetchVoucherByDocumentId(), POST(), resolveItemDocumentIds()
 
@@ -136,10 +140,6 @@ Nodes (5): SelectContent(), SelectGroup(), SelectItem(), SelectTrigger(), Select
 ### Community 17 - "Community 17"
 Cohesion: 0.31
 Nodes (4): SpecificationsTable(), Table(), TableBody(), TableHeader()
-
-### Community 19 - "Community 19"
-Cohesion: 0.43
-Nodes (4): ProductConditionBadge(), calcDiscount(), ProductDiscountBadge(), Badge()
 
 ### Community 31 - "Community 31"
 Cohesion: 0.67
@@ -153,11 +153,11 @@ Nodes (3): File Icon, Globe Icon, Window Icon
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `cn()` connect `Community 9` to `Community 0`, `Community 2`, `Community 4`, `Community 6`, `Community 10`, `Community 14`, `Community 15`, `Community 16`, `Community 17`, `Community 18`, `Community 19`, `Community 20`, `Community 22`, `Community 23`, `Community 24`?**
+- **Why does `cn()` connect `Community 8` to `Community 0`, `Community 2`, `Community 4`, `Community 6`, `Community 10`, `Community 13`, `Community 15`, `Community 16`, `Community 17`, `Community 18`, `Community 19`, `Community 21`, `Community 22`, `Community 23`, `Community 27`?**
   _High betweenness centrality (0.248) - this node is a cross-community bridge._
-- **Why does `formatPrice()` connect `Community 12` to `Community 0`, `Community 1`, `Community 2`, `Community 4`, `Community 7`, `Community 14`, `Community 18`, `Community 19`?**
+- **Why does `formatPrice()` connect `Community 12` to `Community 0`, `Community 1`, `Community 2`, `Community 4`, `Community 7`, `Community 13`, `Community 18`?**
   _High betweenness centrality (0.123) - this node is a cross-community bridge._
-- **Why does `strapiFetch()` connect `Community 1` to `Community 11`, `Community 12`, `Community 13`?**
+- **Why does `strapiFetch()` connect `Community 1` to `Community 11`, `Community 12`, `Community 14`?**
   _High betweenness centrality (0.096) - this node is a cross-community bridge._
 - **Are the 9 inferred relationships involving `strapiFetch()` (e.g. with `getProducts()` and `getProductBySlug()`) actually correct?**
   _`strapiFetch()` has 9 INFERRED edges - model-reasoned connections that need verification._
