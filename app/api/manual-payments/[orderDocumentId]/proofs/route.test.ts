@@ -8,6 +8,10 @@ vi.mock("next/headers", () => ({
 }));
 vi.stubGlobal("fetch", fetchMock);
 
+vi.hoisted(() => {
+  process.env.STRAPI_URL = "https://strapi.example.com";
+});
+
 import { POST } from "./route";
 
 beforeEach(() => {
@@ -21,10 +25,7 @@ function makeReq(hasImage: boolean) {
   if (hasImage) {
     form.append("image", new File(["x"], "proof.png", { type: "image/png" }));
   }
-  return new Request("http://localhost/api/manual-payments/doc-1/proofs", {
-    method: "POST",
-    body: form,
-  });
+  return { formData: async () => form } as unknown as Request;
 }
 
 const ctx = { params: Promise.resolve({ orderDocumentId: "doc-1" }) };
