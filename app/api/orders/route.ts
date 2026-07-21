@@ -61,6 +61,7 @@ export async function POST(req: NextRequest) {
         discount,
         totalAmount: body.totalAmount,
         currency: body.currency || "IDR",
+        paymentMethod: body.paymentMethod === "manual_transfer" ? "manual_transfer" : "gateway",
         notes: body.notes,
         items,
         shippingAddress: body.shippingAddress,
