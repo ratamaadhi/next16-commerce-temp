@@ -9,6 +9,7 @@ import { getStatusBadgeClass, ORDER_STATUS_TITLES } from "@/components/orders/co
 import { OrderTimeline } from "@/components/orders/order-timeline";
 import { OrderPaymentSection } from "@/components/orders/order-payment-section";
 import { ManualPaymentSection } from "@/components/orders/manual-payment-section";
+import type { ManualPaymentStatus } from "@/lib/payment";
 import Image from "next/image";
 import { ReviewDialog } from "@/components/reviews/review-dialog";
 import { ArrowLeft, MapPin } from "lucide-react";
@@ -185,8 +186,14 @@ export default async function OrderDetailPage({ params, searchParams }: OrderDet
               {order.paymentMethod === "manual_transfer" ? (
                 <ManualPaymentSection
                   orderDocumentId={order.documentId ?? ""}
-                  status={order.manualPayment?.status ?? null}
-                  rejectionReason={order.manualPayment?.rejectionReason ?? null}
+                  status={
+                    (order.manualPayment as { status?: ManualPaymentStatus } | undefined)?.status ??
+                    null
+                  }
+                  rejectionReason={
+                    (order.manualPayment as { rejectionReason?: string } | undefined)
+                      ?.rejectionReason ?? null
+                  }
                 />
               ) : (
                 <OrderPaymentSection
