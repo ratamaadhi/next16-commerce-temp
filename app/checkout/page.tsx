@@ -17,6 +17,9 @@ import { getCartDimensions } from "@/lib/shipping";
 import type { ShippingOption, SubdistrictResult } from "@/lib/shipping";
 import { toast } from "sonner";
 import { MapPin } from "lucide-react";
+import { usePaymentMethods } from "@/hooks/use-payment-methods";
+import { PaymentMethodSelector } from "@/components/checkout/payment-method-selector";
+import { resolveInitialMethod, type PaymentMethod } from "@/lib/payment";
 
 const TAX_RATE = 0.11;
 
@@ -25,6 +28,9 @@ export default function CheckoutPage() {
   const { isAuthenticated } = useAuth();
   const { addresses, createAddress } = useAddresses();
   const router = useRouter();
+  const { methods } = usePaymentMethods();
+  const [chosenMethod, setChosenMethod] = useState<PaymentMethod | null>(null);
+  const paymentMethod = chosenMethod ?? (methods ? resolveInitialMethod(methods) : null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userChosenAddressId, setUserChosenAddressId] = useState<string | null>(null);
   const [isAddingNewAddress, setIsAddingNewAddress] = useState(false);
@@ -93,8 +99,9 @@ export default function CheckoutPage() {
     if (!shippingAddress.addressLine1.trim()) return false;
     if (!effectiveSubdistrict?.id) return false;
     if (!selectedCourier) return false;
+    if (!paymentMethod) return false;
     return true;
-  }, [isAuthenticated, shippingAddress, effectiveSubdistrict, selectedCourier]);
+  }, [isAuthenticated, shippingAddress, effectiveSubdistrict, selectedCourier, paymentMethod]);
 
   useEffect(() => {
     if (!items.length) {
@@ -216,6 +223,7 @@ export default function CheckoutPage() {
           shippingCost: shipping,
           totalAmount: total,
           currency: "IDR",
+          paymentMethod,
           voucherDocumentId: appliedVoucher?.documentId ?? null,
         }),
       });
@@ -409,6 +417,14 @@ export default function CheckoutPage() {
                 />
               </CardContent>
             </Card>
+
+            {methods && (
+              <PaymentMethodSelector
+                methods={methods}
+                value={paymentMethod}
+                onChange={setChosenMethod}
+              />
+            )}
           </div>
 
           <div className="lg:col-span-1">
