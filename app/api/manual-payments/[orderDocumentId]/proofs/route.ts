@@ -16,16 +16,31 @@ export async function POST(
   }
 
   const incoming = await req.formData();
-  const image = incoming.get("image");
-  if (!image || typeof image === "string") {
+  const file = incoming.get("files");
+  if (!file || typeof file === "string") {
     return NextResponse.json(
       { error: "File bukti pembayaran wajib diisi" },
       { status: 400 },
     );
   }
 
+  const senderName = incoming.get("senderName");
+  if (typeof senderName !== "string" || senderName.trim() === "") {
+    return NextResponse.json(
+      { error: "Nama pengirim wajib diisi" },
+      { status: 400 },
+    );
+  }
+
   const forward = new FormData();
-  forward.append("image", image);
+  forward.append("files", file);
+  forward.append(
+    "data",
+    JSON.stringify({
+      senderName: senderName.trim(),
+      proofStatus: "pending",
+    }),
+  );
 
   const res = await fetch(
     `${STRAPI_URL}/api/manual-payments/${encodeURIComponent(orderDocumentId)}/proofs`,

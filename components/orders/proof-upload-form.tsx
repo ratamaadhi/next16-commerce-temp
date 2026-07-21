@@ -17,6 +17,7 @@ export function ProofUploadForm({ orderDocumentId }: { orderDocumentId: string }
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
+  const [senderName, setSenderName] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -39,11 +40,17 @@ export function ProofUploadForm({ orderDocumentId }: { orderDocumentId: string }
 
   const upload = () => {
     if (!file) return;
+    const trimmed = senderName.trim();
+    if (trimmed === "") {
+      setError("Nama pengirim wajib diisi");
+      return;
+    }
     setUploading(true);
     setProgress(0);
 
     const form = new FormData();
-    form.append("image", file);
+    form.append("files", file);
+    form.append("senderName", trimmed);
 
     const xhr = new XMLHttpRequest();
     xhr.open("POST", `/api/manual-payments/${orderDocumentId}/proofs`);
@@ -84,6 +91,17 @@ export function ProofUploadForm({ orderDocumentId }: { orderDocumentId: string }
   return (
     <div className="space-y-3">
       <div className="space-y-1.5">
+        <Label className="text-xs">Nama Pengirim</Label>
+        <input
+          type="text"
+          value={senderName}
+          onChange={(e) => setSenderName(e.target.value)}
+          disabled={uploading}
+          placeholder="Nama sesuai rekening pengirim"
+          className="block w-full rounded-md border border-input bg-background px-3 py-1.5 text-xs"
+        />
+      </div>
+      <div className="space-y-1.5">
         <Label className="text-xs">Bukti Transfer (JPG/PNG/WEBP/GIF, maks 5MB)</Label>
         <input
           ref={inputRef}
@@ -108,7 +126,7 @@ export function ProofUploadForm({ orderDocumentId }: { orderDocumentId: string }
       <Button
         type="button"
         onClick={upload}
-        disabled={!file || uploading}
+        disabled={!file || uploading || senderName.trim() === ""}
         className="w-full"
         size="sm"
       >

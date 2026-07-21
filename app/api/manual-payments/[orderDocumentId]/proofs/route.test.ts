@@ -20,10 +20,13 @@ beforeEach(() => {
   process.env.STRAPI_URL = "https://strapi.example.com";
 });
 
-function makeReq(hasImage: boolean) {
+function makeReq(hasImage: boolean, hasSender = true) {
   const form = new FormData();
   if (hasImage) {
-    form.append("image", new File(["x"], "proof.png", { type: "image/png" }));
+    form.append("files", new File(["x"], "proof.png", { type: "image/png" }));
+  }
+  if (hasSender) {
+    form.append("senderName", "Cyra");
   }
   return { formData: async () => form } as unknown as Request;
 }
@@ -40,6 +43,12 @@ describe("POST /api/manual-payments/:id/proofs", () => {
   it("400 when no image field", async () => {
     cookiesGet.mockReturnValue({ value: "t" });
     const res = await POST(makeReq(false), ctx);
+    expect(res.status).toBe(400);
+  });
+
+  it("400 when senderName missing", async () => {
+    cookiesGet.mockReturnValue({ value: "t" });
+    const res = await POST(makeReq(true, false), ctx);
     expect(res.status).toBe(400);
   });
 
@@ -62,7 +71,15 @@ describe("POST /api/manual-payments/:id/proofs", () => {
     expect(init.headers.Authorization).toBe("Bearer token-123");
     // must NOT set Content-Type manually (boundary is auto-generated)
     expect(init.headers["Content-Type"]).toBeUndefined();
-    expect(init.body).toBeInstanceOf(FormData);
+    const body = init.body as FormData;
+    expect(body).toBeInstanceOf(FormData);
+    // files must be a File (not string)
+    const files = body.get("files");
+    expect(files).toBeInstanceOf(File);
+    // data must contain senderName JSON
+    const data = JSON.parse(body.get("data") as string);
+    expect(data.senderName).toBe("Cyra");
+    expect(data.proofStatus).toBe("pending");
   });
 
   it("passes through Strapi error status and message", async () => {
