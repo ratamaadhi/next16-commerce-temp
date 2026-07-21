@@ -28,7 +28,7 @@ export async function POST(
   forward.append("image", image);
 
   const res = await fetch(
-    `${STRAPI_URL}/api/manual-payments/${orderDocumentId}/proofs`,
+    `${STRAPI_URL}/api/manual-payments/${encodeURIComponent(orderDocumentId)}/proofs`,
     {
       method: "POST",
       // NOTE: no Content-Type header — fetch sets the multipart boundary.
