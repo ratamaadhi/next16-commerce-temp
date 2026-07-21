@@ -109,7 +109,15 @@ describe("getOrderByNumber", () => {
     expect(result.data[0].orderNumber).toBe("ORD-1712345678-ABC123");
     expect(mockStrapiFetch).toHaveBeenCalledWith(
       "/orders",
-      { filters: { orderNumber: { $eq: "ORD-1712345678-ABC123" } }, populate: "*" },
+      {
+        filters: { orderNumber: { $eq: "ORD-1712345678-ABC123" } },
+        populate: {
+          items: true,
+          shippingAddress: true,
+          billingAddress: true,
+          manualPayment: { populate: { proofs: { populate: "image" } } },
+        },
+      },
       {},
       mockToken,
     );
