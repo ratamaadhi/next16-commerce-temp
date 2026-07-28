@@ -187,8 +187,9 @@ export default async function OrderDetailPage({ params, searchParams }: OrderDet
                 <ManualPaymentSection
                   orderDocumentId={order.documentId ?? ""}
                   status={
-                    (order.manualPayment as { status?: ManualPaymentStatus } | undefined)?.status ??
-                    null
+                    (order.manualPayment as
+                      | { reviewStatus?: ManualPaymentStatus }
+                      | undefined)?.reviewStatus ?? null
                   }
                   rejectionReason={
                     (order.manualPayment as { rejectionReason?: string } | undefined)

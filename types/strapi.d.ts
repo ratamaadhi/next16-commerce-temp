@@ -2218,7 +2218,7 @@ export interface components {
                         id?: string | number;
                         documentId?: string;
                         /** @enum {string} */
-                        status?: "awaiting_proof" | "under_review" | "approved" | "rejected";
+                        reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
                         /** Format: float */
                         expectedAmount?: number;
                         rejectionReason?: string;
@@ -3694,7 +3694,7 @@ export interface components {
                                     id?: string | number;
                                     documentId?: string;
                                     /** @enum {string} */
-                                    status?: "awaiting_proof" | "under_review" | "approved" | "rejected";
+                                    reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
                                     /** Format: float */
                                     expectedAmount?: number;
                                     rejectionReason?: string;
@@ -3945,7 +3945,7 @@ export interface components {
         ManualPaymentRequest: {
             data: {
                 /** @enum {string} */
-                status?: "awaiting_proof" | "under_review" | "approved" | "rejected";
+                reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
                 /** Format: float */
                 expectedAmount?: number;
                 rejectionReason?: string;
@@ -3962,7 +3962,7 @@ export interface components {
             id?: string | number;
             documentId?: string;
             /** @enum {string} */
-            status?: "awaiting_proof" | "under_review" | "approved" | "rejected";
+            reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
             /** Format: float */
             expectedAmount?: number;
             rejectionReason?: string;
@@ -4682,7 +4682,7 @@ export interface components {
                     id?: string | number;
                     documentId?: string;
                     /** @enum {string} */
-                    status?: "awaiting_proof" | "under_review" | "approved" | "rejected";
+                    reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
                     /** Format: float */
                     expectedAmount?: number;
                     rejectionReason?: string;
@@ -5572,7 +5572,7 @@ export interface components {
                     id?: string | number;
                     documentId?: string;
                     /** @enum {string} */
-                    status?: "awaiting_proof" | "under_review" | "approved" | "rejected";
+                    reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
                     /** Format: float */
                     expectedAmount?: number;
                     rejectionReason?: string;
@@ -6320,7 +6320,7 @@ export interface components {
                                     id?: string | number;
                                     documentId?: string;
                                     /** @enum {string} */
-                                    status?: "awaiting_proof" | "under_review" | "approved" | "rejected";
+                                    reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
                                     /** Format: float */
                                     expectedAmount?: number;
                                     rejectionReason?: string;
@@ -6940,7 +6940,7 @@ export interface components {
                         id?: string | number;
                         documentId?: string;
                         /** @enum {string} */
-                        status?: "awaiting_proof" | "under_review" | "approved" | "rejected";
+                        reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
                         /** Format: float */
                         expectedAmount?: number;
                         rejectionReason?: string;
@@ -8214,7 +8214,7 @@ export interface components {
                         id?: string | number;
                         documentId?: string;
                         /** @enum {string} */
-                        status?: "awaiting_proof" | "under_review" | "approved" | "rejected";
+                        reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
                         /** Format: float */
                         expectedAmount?: number;
                         rejectionReason?: string;

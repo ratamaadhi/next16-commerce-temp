@@ -55,7 +55,7 @@ describe("POST /api/manual-payments/:id/proofs", () => {
   it("forwards to Strapi and returns its payload", async () => {
     cookiesGet.mockReturnValue({ value: "token-123" });
     fetchMock.mockResolvedValue(
-      new Response(JSON.stringify({ data: { status: "under_review" } }), {
+      new Response(JSON.stringify({ data: { reviewStatus: "under_review" } }), {
         status: 200,
       }),
     );
@@ -63,7 +63,7 @@ describe("POST /api/manual-payments/:id/proofs", () => {
     const res = await POST(makeReq(true), ctx);
 
     expect(res.status).toBe(200);
-    await expect(res.json()).resolves.toEqual({ data: { status: "under_review" } });
+    await expect(res.json()).resolves.toEqual({ data: { reviewStatus: "under_review" } });
 
     const [url, init] = fetchMock.mock.calls[0];
     expect(url).toBe("https://strapi.example.com/api/manual-payments/doc-1/proofs");
