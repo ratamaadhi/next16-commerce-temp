@@ -100,6 +100,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/manual-payments/{orderDocumentId}/proofs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["post/manual-payments/{orderDocumentId}/proofs"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/orders": {
         parameters: {
             query?: never;
@@ -2133,6 +2149,8 @@ export interface components {
                     /** Format: float */
                     totalAmount?: number;
                     currency?: string;
+                    /** @enum {string} */
+                    paymentMethod?: "gateway" | "manual_transfer";
                     sessionId?: string;
                     midtransTransactionId?: string;
                     midtransTransactionStatus?: string;
@@ -2176,6 +2194,41 @@ export interface components {
                         endDate?: string;
                         isActive?: boolean;
                         description?: string;
+                        /** Format: date-time */
+                        createdAt?: string;
+                        /** Format: date-time */
+                        updatedAt?: string;
+                        /** Format: date-time */
+                        publishedAt?: string;
+                        createdBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        updatedBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        locale?: string;
+                        localizations?: {
+                            id?: string | number;
+                            documentId?: string;
+                        }[];
+                    };
+                    manualPayment?: {
+                        id?: string | number;
+                        documentId?: string;
+                        /** @enum {string} */
+                        reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
+                        /** Format: float */
+                        expectedAmount?: number;
+                        rejectionReason?: string;
+                        /** Format: date-time */
+                        reviewedAt?: string;
+                        order?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        proofs?: components["schemas"]["PaymentPaymentProofComponent"][];
                         /** Format: date-time */
                         createdAt?: string;
                         /** Format: date-time */
@@ -2278,84 +2331,6 @@ export interface components {
                             folder?: {
                                 id?: string | number;
                                 documentId?: string;
-                                name?: string;
-                                pathId?: number;
-                                parent?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                };
-                                children?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                }[];
-                                files?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                    name?: string;
-                                    alternativeText?: string;
-                                    caption?: string;
-                                    focalPoint?: unknown;
-                                    width?: number;
-                                    height?: number;
-                                    formats?: unknown;
-                                    hash?: string;
-                                    ext?: string;
-                                    mime?: string;
-                                    /** Format: float */
-                                    size?: number;
-                                    url?: string;
-                                    previewUrl?: string;
-                                    provider?: string;
-                                    provider_metadata?: unknown;
-                                    related?: {
-                                        id?: string | number;
-                                        documentId?: string;
-                                    }[];
-                                    folder?: {
-                                        id?: string | number;
-                                        documentId?: string;
-                                    };
-                                    folderPath?: string;
-                                    /** Format: date-time */
-                                    createdAt?: string;
-                                    /** Format: date-time */
-                                    updatedAt?: string;
-                                    /** Format: date-time */
-                                    publishedAt?: string;
-                                    createdBy?: {
-                                        id?: string | number;
-                                        documentId?: string;
-                                    };
-                                    updatedBy?: {
-                                        id?: string | number;
-                                        documentId?: string;
-                                    };
-                                    locale?: string;
-                                    localizations?: {
-                                        id?: string | number;
-                                        documentId?: string;
-                                    }[];
-                                }[];
-                                path?: string;
-                                /** Format: date-time */
-                                createdAt?: string;
-                                /** Format: date-time */
-                                updatedAt?: string;
-                                /** Format: date-time */
-                                publishedAt?: string;
-                                createdBy?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                };
-                                updatedBy?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                };
-                                locale?: string;
-                                localizations?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                }[];
                             };
                             folderPath?: string;
                             /** Format: date-time */
@@ -2632,6 +2607,148 @@ export interface components {
         AddressResponse: {
             data?: components["schemas"]["Address"];
             meta?: Record<string, never>;
+        };
+        PaymentPaymentProofComponent: {
+            id?: string | number;
+            image?: {
+                id?: string | number;
+                documentId?: string;
+                name?: string;
+                alternativeText?: string;
+                caption?: string;
+                focalPoint?: unknown;
+                width?: number;
+                height?: number;
+                formats?: unknown;
+                hash?: string;
+                ext?: string;
+                mime?: string;
+                /** Format: float */
+                size?: number;
+                url?: string;
+                previewUrl?: string;
+                provider?: string;
+                provider_metadata?: unknown;
+                related?: {
+                    id?: string | number;
+                    documentId?: string;
+                }[];
+                folder?: {
+                    id?: string | number;
+                    documentId?: string;
+                    name?: string;
+                    pathId?: number;
+                    parent?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    children?: {
+                        id?: string | number;
+                        documentId?: string;
+                    }[];
+                    files?: {
+                        id?: string | number;
+                        documentId?: string;
+                        name?: string;
+                        alternativeText?: string;
+                        caption?: string;
+                        focalPoint?: unknown;
+                        width?: number;
+                        height?: number;
+                        formats?: unknown;
+                        hash?: string;
+                        ext?: string;
+                        mime?: string;
+                        /** Format: float */
+                        size?: number;
+                        url?: string;
+                        previewUrl?: string;
+                        provider?: string;
+                        provider_metadata?: unknown;
+                        related?: {
+                            id?: string | number;
+                            documentId?: string;
+                        }[];
+                        folder?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        folderPath?: string;
+                        /** Format: date-time */
+                        createdAt?: string;
+                        /** Format: date-time */
+                        updatedAt?: string;
+                        /** Format: date-time */
+                        publishedAt?: string;
+                        createdBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        updatedBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        locale?: string;
+                        localizations?: {
+                            id?: string | number;
+                            documentId?: string;
+                        }[];
+                    }[];
+                    path?: string;
+                    /** Format: date-time */
+                    createdAt?: string;
+                    /** Format: date-time */
+                    updatedAt?: string;
+                    /** Format: date-time */
+                    publishedAt?: string;
+                    createdBy?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    updatedBy?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    locale?: string;
+                    localizations?: {
+                        id?: string | number;
+                        documentId?: string;
+                    }[];
+                };
+                folderPath?: string;
+                /** Format: date-time */
+                createdAt?: string;
+                /** Format: date-time */
+                updatedAt?: string;
+                /** Format: date-time */
+                publishedAt?: string;
+                createdBy?: {
+                    id?: string | number;
+                    documentId?: string;
+                };
+                updatedBy?: {
+                    id?: string | number;
+                    documentId?: string;
+                };
+                locale?: string;
+                localizations?: {
+                    id?: string | number;
+                    documentId?: string;
+                }[];
+            };
+            senderName?: string;
+            senderBank?: string;
+            /** Format: float */
+            transferAmount?: number;
+            /** Format: date-time */
+            transferDate?: string;
+            referenceNote?: string;
+            destinationBankName?: string;
+            destinationAccountNumber?: string;
+            /** @enum {string} */
+            proofStatus?: "pending" | "approved" | "rejected";
+            /** Format: date-time */
+            submittedAt?: string;
         };
         ProductOrderItemComponent: {
             id?: string | number;
@@ -3508,6 +3625,8 @@ export interface components {
                                 /** Format: float */
                                 totalAmount?: number;
                                 currency?: string;
+                                /** @enum {string} */
+                                paymentMethod?: "gateway" | "manual_transfer";
                                 sessionId?: string;
                                 midtransTransactionId?: string;
                                 midtransTransactionStatus?: string;
@@ -3551,6 +3670,41 @@ export interface components {
                                     endDate?: string;
                                     isActive?: boolean;
                                     description?: string;
+                                    /** Format: date-time */
+                                    createdAt?: string;
+                                    /** Format: date-time */
+                                    updatedAt?: string;
+                                    /** Format: date-time */
+                                    publishedAt?: string;
+                                    createdBy?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    updatedBy?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    locale?: string;
+                                    localizations?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    }[];
+                                };
+                                manualPayment?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                    /** @enum {string} */
+                                    reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
+                                    /** Format: float */
+                                    expectedAmount?: number;
+                                    rejectionReason?: string;
+                                    /** Format: date-time */
+                                    reviewedAt?: string;
+                                    order?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    proofs?: components["schemas"]["PaymentPaymentProofComponent"][];
                                     /** Format: date-time */
                                     createdAt?: string;
                                     /** Format: date-time */
@@ -3788,98 +3942,33 @@ export interface components {
             data?: components["schemas"]["Category"];
             meta?: Record<string, never>;
         };
-        OrderRequest: {
+        ManualPaymentRequest: {
             data: {
-                orderNumber?: string;
                 /** @enum {string} */
-                orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "completed" | "cancelled" | "refunded";
-                /** @enum {string} */
-                paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
+                reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
                 /** Format: float */
-                subtotal: number;
-                /** Format: float */
-                tax?: number;
-                /** Format: float */
-                shippingCost?: number;
-                /** Format: float */
-                discount?: number;
-                /** Format: float */
-                totalAmount?: number;
-                currency?: string;
-                sessionId?: string;
-                midtransTransactionId?: string;
-                midtransTransactionStatus?: string;
-                midtransPaymentType?: string;
-                midtransSnapToken?: string;
+                expectedAmount?: number;
+                rejectionReason?: string;
                 /** Format: date-time */
-                paidAt?: string;
-                notes?: string;
-                adminNotes?: string;
-                trackingNumber?: string;
-                /** Format: date-time */
-                shippedAt?: string;
-                /** Format: date-time */
-                deliveredAt?: string;
-                retryCount?: number;
+                reviewedAt?: string;
                 /** @example string or id */
-                originalOrder?: number | string;
-                /** @example string or id */
-                user?: number | string;
-                /** @example string or id */
-                voucher?: number | string;
-                items?: components["schemas"]["ProductOrderItemComponent"][];
-                shippingAddress?: components["schemas"]["CommonAddressComponent"];
-                billingAddress?: components["schemas"]["CommonAddressComponent"];
+                order?: number | string;
+                proofs?: components["schemas"]["PaymentPaymentProofComponent"][];
                 locale?: string;
                 localizations?: (number | string)[];
             };
         };
-        OrderListResponse: {
-            data?: components["schemas"]["Order"][];
-            meta?: {
-                pagination?: {
-                    page?: number;
-                    pageSize?: number;
-                    pageCount?: number;
-                    total?: number;
-                };
-            };
-        };
-        Order: {
+        ManualPayment: {
             id?: string | number;
             documentId?: string;
-            orderNumber?: string;
             /** @enum {string} */
-            orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "completed" | "cancelled" | "refunded";
-            /** @enum {string} */
-            paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
+            reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
             /** Format: float */
-            subtotal: number;
-            /** Format: float */
-            tax?: number;
-            /** Format: float */
-            shippingCost?: number;
-            /** Format: float */
-            discount?: number;
-            /** Format: float */
-            totalAmount?: number;
-            currency?: string;
-            sessionId?: string;
-            midtransTransactionId?: string;
-            midtransTransactionStatus?: string;
-            midtransPaymentType?: string;
-            midtransSnapToken?: string;
+            expectedAmount?: number;
+            rejectionReason?: string;
             /** Format: date-time */
-            paidAt?: string;
-            notes?: string;
-            adminNotes?: string;
-            trackingNumber?: string;
-            /** Format: date-time */
-            shippedAt?: string;
-            /** Format: date-time */
-            deliveredAt?: string;
-            retryCount?: number;
-            originalOrder?: {
+            reviewedAt?: string;
+            order?: {
                 id?: string | number;
                 documentId?: string;
                 orderNumber?: string;
@@ -3898,6 +3987,8 @@ export interface components {
                 /** Format: float */
                 totalAmount?: number;
                 currency?: string;
+                /** @enum {string} */
+                paymentMethod?: "gateway" | "manual_transfer";
                 sessionId?: string;
                 midtransTransactionId?: string;
                 midtransTransactionStatus?: string;
@@ -4587,6 +4678,931 @@ export interface components {
                         documentId?: string;
                     }[];
                 };
+                manualPayment?: {
+                    id?: string | number;
+                    documentId?: string;
+                    /** @enum {string} */
+                    reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
+                    /** Format: float */
+                    expectedAmount?: number;
+                    rejectionReason?: string;
+                    /** Format: date-time */
+                    reviewedAt?: string;
+                    order?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    proofs?: components["schemas"]["PaymentPaymentProofComponent"][];
+                    /** Format: date-time */
+                    createdAt?: string;
+                    /** Format: date-time */
+                    updatedAt?: string;
+                    /** Format: date-time */
+                    publishedAt?: string;
+                    createdBy?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    updatedBy?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    locale?: string;
+                    localizations?: {
+                        id?: string | number;
+                        documentId?: string;
+                    }[];
+                };
+                items?: components["schemas"]["ProductOrderItemComponent"][];
+                shippingAddress?: components["schemas"]["CommonAddressComponent"];
+                billingAddress?: components["schemas"]["CommonAddressComponent"];
+                /** Format: date-time */
+                createdAt?: string;
+                /** Format: date-time */
+                updatedAt?: string;
+                /** Format: date-time */
+                publishedAt?: string;
+                createdBy?: {
+                    id?: string | number;
+                    documentId?: string;
+                };
+                updatedBy?: {
+                    id?: string | number;
+                    documentId?: string;
+                };
+                locale?: string;
+                localizations?: {
+                    id?: string | number;
+                    documentId?: string;
+                }[];
+            };
+            proofs?: components["schemas"]["PaymentPaymentProofComponent"][];
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+            /** Format: date-time */
+            publishedAt?: string;
+            createdBy?: {
+                id?: string | number;
+                documentId?: string;
+            };
+            updatedBy?: {
+                id?: string | number;
+                documentId?: string;
+            };
+            locale?: string;
+            localizations?: {
+                id?: string | number;
+                documentId?: string;
+            }[];
+        };
+        ManualPaymentResponse: {
+            data?: components["schemas"]["ManualPayment"];
+            meta?: Record<string, never>;
+        };
+        OrderRequest: {
+            data: {
+                orderNumber?: string;
+                /** @enum {string} */
+                orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "completed" | "cancelled" | "refunded";
+                /** @enum {string} */
+                paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
+                /** Format: float */
+                subtotal: number;
+                /** Format: float */
+                tax?: number;
+                /** Format: float */
+                shippingCost?: number;
+                /** Format: float */
+                discount?: number;
+                /** Format: float */
+                totalAmount?: number;
+                currency?: string;
+                /** @enum {string} */
+                paymentMethod?: "gateway" | "manual_transfer";
+                sessionId?: string;
+                midtransTransactionId?: string;
+                midtransTransactionStatus?: string;
+                midtransPaymentType?: string;
+                midtransSnapToken?: string;
+                /** Format: date-time */
+                paidAt?: string;
+                notes?: string;
+                adminNotes?: string;
+                trackingNumber?: string;
+                /** Format: date-time */
+                shippedAt?: string;
+                /** Format: date-time */
+                deliveredAt?: string;
+                retryCount?: number;
+                /** @example string or id */
+                originalOrder?: number | string;
+                /** @example string or id */
+                user?: number | string;
+                /** @example string or id */
+                voucher?: number | string;
+                /** @example string or id */
+                manualPayment?: number | string;
+                items?: components["schemas"]["ProductOrderItemComponent"][];
+                shippingAddress?: components["schemas"]["CommonAddressComponent"];
+                billingAddress?: components["schemas"]["CommonAddressComponent"];
+                locale?: string;
+                localizations?: (number | string)[];
+            };
+        };
+        OrderListResponse: {
+            data?: components["schemas"]["Order"][];
+            meta?: {
+                pagination?: {
+                    page?: number;
+                    pageSize?: number;
+                    pageCount?: number;
+                    total?: number;
+                };
+            };
+        };
+        Order: {
+            id?: string | number;
+            documentId?: string;
+            orderNumber?: string;
+            /** @enum {string} */
+            orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "completed" | "cancelled" | "refunded";
+            /** @enum {string} */
+            paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
+            /** Format: float */
+            subtotal: number;
+            /** Format: float */
+            tax?: number;
+            /** Format: float */
+            shippingCost?: number;
+            /** Format: float */
+            discount?: number;
+            /** Format: float */
+            totalAmount?: number;
+            currency?: string;
+            /** @enum {string} */
+            paymentMethod?: "gateway" | "manual_transfer";
+            sessionId?: string;
+            midtransTransactionId?: string;
+            midtransTransactionStatus?: string;
+            midtransPaymentType?: string;
+            midtransSnapToken?: string;
+            /** Format: date-time */
+            paidAt?: string;
+            notes?: string;
+            adminNotes?: string;
+            trackingNumber?: string;
+            /** Format: date-time */
+            shippedAt?: string;
+            /** Format: date-time */
+            deliveredAt?: string;
+            retryCount?: number;
+            originalOrder?: {
+                id?: string | number;
+                documentId?: string;
+                orderNumber?: string;
+                /** @enum {string} */
+                orderStatus?: "pending" | "processing" | "shipped" | "delivered" | "completed" | "cancelled" | "refunded";
+                /** @enum {string} */
+                paymentStatus?: "pending" | "paid" | "failed" | "refunded" | "cancelled";
+                /** Format: float */
+                subtotal?: number;
+                /** Format: float */
+                tax?: number;
+                /** Format: float */
+                shippingCost?: number;
+                /** Format: float */
+                discount?: number;
+                /** Format: float */
+                totalAmount?: number;
+                currency?: string;
+                /** @enum {string} */
+                paymentMethod?: "gateway" | "manual_transfer";
+                sessionId?: string;
+                midtransTransactionId?: string;
+                midtransTransactionStatus?: string;
+                midtransPaymentType?: string;
+                midtransSnapToken?: string;
+                /** Format: date-time */
+                paidAt?: string;
+                notes?: string;
+                adminNotes?: string;
+                trackingNumber?: string;
+                /** Format: date-time */
+                shippedAt?: string;
+                /** Format: date-time */
+                deliveredAt?: string;
+                retryCount?: number;
+                originalOrder?: {
+                    id?: string | number;
+                    documentId?: string;
+                };
+                user?: {
+                    id?: string | number;
+                    documentId?: string;
+                    username?: string;
+                    /** Format: email */
+                    email?: string;
+                    provider?: string;
+                    resetPasswordToken?: string;
+                    confirmationToken?: string;
+                    confirmed?: boolean;
+                    blocked?: boolean;
+                    role?: {
+                        id?: string | number;
+                        documentId?: string;
+                        name?: string;
+                        description?: string;
+                        type?: string;
+                        permissions?: {
+                            id?: string | number;
+                            documentId?: string;
+                            action?: string;
+                            role?: {
+                                id?: string | number;
+                                documentId?: string;
+                            };
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            /** Format: date-time */
+                            publishedAt?: string;
+                            createdBy?: {
+                                id?: string | number;
+                                documentId?: string;
+                                firstname?: string;
+                                lastname?: string;
+                                username?: string;
+                                /** Format: email */
+                                email?: string;
+                                resetPasswordToken?: string;
+                                registrationToken?: string;
+                                isActive?: boolean;
+                                roles?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                    name?: string;
+                                    code?: string;
+                                    description?: string;
+                                    users?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    }[];
+                                    permissions?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                        action?: string;
+                                        actionParameters?: unknown;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                            id?: string | number;
+                                            documentId?: string;
+                                        };
+                                        apiToken?: {
+                                            id?: string | number;
+                                            documentId?: string;
+                                            name?: string;
+                                            description?: string;
+                                            /** @enum {string} */
+                                            kind?: "content-api" | "admin";
+                                            /** @enum {string} */
+                                            type?: "read-only" | "full-access" | "custom";
+                                            accessKey?: string;
+                                            encryptedKey?: string;
+                                            /** Format: date-time */
+                                            lastUsedAt?: string;
+                                            permissions?: {
+                                                id?: string | number;
+                                                documentId?: string;
+                                                action?: string;
+                                                token?: {
+                                                    id?: string | number;
+                                                    documentId?: string;
+                                                };
+                                                /** Format: date-time */
+                                                createdAt?: string;
+                                                /** Format: date-time */
+                                                updatedAt?: string;
+                                                /** Format: date-time */
+                                                publishedAt?: string;
+                                                createdBy?: {
+                                                    id?: string | number;
+                                                    documentId?: string;
+                                                };
+                                                updatedBy?: {
+                                                    id?: string | number;
+                                                    documentId?: string;
+                                                };
+                                                locale?: string;
+                                                localizations?: {
+                                                    id?: string | number;
+                                                    documentId?: string;
+                                                }[];
+                                            }[];
+                                            adminPermissions?: {
+                                                id?: string | number;
+                                                documentId?: string;
+                                            }[];
+                                            adminUserOwner?: {
+                                                id?: string | number;
+                                                documentId?: string;
+                                            };
+                                            /** Format: date-time */
+                                            expiresAt?: string;
+                                            /** @example 123456789 */
+                                            lifespan?: string;
+                                            /** Format: date-time */
+                                            createdAt?: string;
+                                            /** Format: date-time */
+                                            updatedAt?: string;
+                                            /** Format: date-time */
+                                            publishedAt?: string;
+                                            createdBy?: {
+                                                id?: string | number;
+                                                documentId?: string;
+                                            };
+                                            updatedBy?: {
+                                                id?: string | number;
+                                                documentId?: string;
+                                            };
+                                            locale?: string;
+                                            localizations?: {
+                                                id?: string | number;
+                                                documentId?: string;
+                                            }[];
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        /** Format: date-time */
+                                        publishedAt?: string;
+                                        createdBy?: {
+                                            id?: string | number;
+                                            documentId?: string;
+                                        };
+                                        updatedBy?: {
+                                            id?: string | number;
+                                            documentId?: string;
+                                        };
+                                        locale?: string;
+                                        localizations?: {
+                                            id?: string | number;
+                                            documentId?: string;
+                                        }[];
+                                    }[];
+                                    /** Format: date-time */
+                                    createdAt?: string;
+                                    /** Format: date-time */
+                                    updatedAt?: string;
+                                    /** Format: date-time */
+                                    publishedAt?: string;
+                                    createdBy?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    updatedBy?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    locale?: string;
+                                    localizations?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    }[];
+                                }[];
+                                apiTokens?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                }[];
+                                blocked?: boolean;
+                                preferedLanguage?: string;
+                                /** Format: date-time */
+                                createdAt?: string;
+                                /** Format: date-time */
+                                updatedAt?: string;
+                                /** Format: date-time */
+                                publishedAt?: string;
+                                createdBy?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                };
+                                updatedBy?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                };
+                                locale?: string;
+                                localizations?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                }[];
+                            };
+                            updatedBy?: {
+                                id?: string | number;
+                                documentId?: string;
+                            };
+                            locale?: string;
+                            localizations?: {
+                                id?: string | number;
+                                documentId?: string;
+                            }[];
+                        }[];
+                        users?: {
+                            id?: string | number;
+                            documentId?: string;
+                        }[];
+                        /** Format: date-time */
+                        createdAt?: string;
+                        /** Format: date-time */
+                        updatedAt?: string;
+                        /** Format: date-time */
+                        publishedAt?: string;
+                        createdBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        updatedBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        locale?: string;
+                        localizations?: {
+                            id?: string | number;
+                            documentId?: string;
+                        }[];
+                    };
+                    orders?: {
+                        id?: string | number;
+                        documentId?: string;
+                    }[];
+                    reviews?: {
+                        id?: string | number;
+                        documentId?: string;
+                        rating?: number;
+                        title?: string;
+                        comment?: string;
+                        verified?: boolean;
+                        /** @enum {string} */
+                        reviewStatus?: "pending" | "approved" | "rejected";
+                        /** @example 123456789 */
+                        helpful?: string;
+                        isAnonymous?: boolean;
+                        displayName?: string;
+                        user?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        product?: {
+                            id?: string | number;
+                            documentId?: string;
+                            name?: string;
+                            slug?: string;
+                            shortDescription?: string;
+                            description?: string;
+                            /** Format: float */
+                            price?: number;
+                            /** Format: float */
+                            compareAtPrice?: number;
+                            sku?: string;
+                            barcode?: string;
+                            /** @example 123456789 */
+                            inventory?: string;
+                            lowStockThreshold?: number;
+                            images?: {
+                                id?: string | number;
+                                documentId?: string;
+                                name?: string;
+                                alternativeText?: string;
+                                caption?: string;
+                                focalPoint?: unknown;
+                                width?: number;
+                                height?: number;
+                                formats?: unknown;
+                                hash?: string;
+                                ext?: string;
+                                mime?: string;
+                                /** Format: float */
+                                size?: number;
+                                url?: string;
+                                previewUrl?: string;
+                                provider?: string;
+                                provider_metadata?: unknown;
+                                related?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                }[];
+                                folder?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                    name?: string;
+                                    pathId?: number;
+                                    parent?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    children?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    }[];
+                                    files?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                        name?: string;
+                                        alternativeText?: string;
+                                        caption?: string;
+                                        focalPoint?: unknown;
+                                        width?: number;
+                                        height?: number;
+                                        formats?: unknown;
+                                        hash?: string;
+                                        ext?: string;
+                                        mime?: string;
+                                        /** Format: float */
+                                        size?: number;
+                                        url?: string;
+                                        previewUrl?: string;
+                                        provider?: string;
+                                        provider_metadata?: unknown;
+                                        related?: {
+                                            id?: string | number;
+                                            documentId?: string;
+                                        }[];
+                                        folder?: {
+                                            id?: string | number;
+                                            documentId?: string;
+                                        };
+                                        folderPath?: string;
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        /** Format: date-time */
+                                        publishedAt?: string;
+                                        createdBy?: {
+                                            id?: string | number;
+                                            documentId?: string;
+                                        };
+                                        updatedBy?: {
+                                            id?: string | number;
+                                            documentId?: string;
+                                        };
+                                        locale?: string;
+                                        localizations?: {
+                                            id?: string | number;
+                                            documentId?: string;
+                                        }[];
+                                    }[];
+                                    path?: string;
+                                    /** Format: date-time */
+                                    createdAt?: string;
+                                    /** Format: date-time */
+                                    updatedAt?: string;
+                                    /** Format: date-time */
+                                    publishedAt?: string;
+                                    createdBy?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    updatedBy?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    locale?: string;
+                                    localizations?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    }[];
+                                };
+                                folderPath?: string;
+                                /** Format: date-time */
+                                createdAt?: string;
+                                /** Format: date-time */
+                                updatedAt?: string;
+                                /** Format: date-time */
+                                publishedAt?: string;
+                                createdBy?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                };
+                                updatedBy?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                };
+                                locale?: string;
+                                localizations?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                }[];
+                            }[];
+                            featured?: boolean;
+                            categories?: {
+                                id?: string | number;
+                                documentId?: string;
+                                name?: string;
+                                slug?: string;
+                                description?: string;
+                                image?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                    name?: string;
+                                    alternativeText?: string;
+                                    caption?: string;
+                                    focalPoint?: unknown;
+                                    width?: number;
+                                    height?: number;
+                                    formats?: unknown;
+                                    hash?: string;
+                                    ext?: string;
+                                    mime?: string;
+                                    /** Format: float */
+                                    size?: number;
+                                    url?: string;
+                                    previewUrl?: string;
+                                    provider?: string;
+                                    provider_metadata?: unknown;
+                                    related?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    }[];
+                                    folder?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    folderPath?: string;
+                                    /** Format: date-time */
+                                    createdAt?: string;
+                                    /** Format: date-time */
+                                    updatedAt?: string;
+                                    /** Format: date-time */
+                                    publishedAt?: string;
+                                    createdBy?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    updatedBy?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    locale?: string;
+                                    localizations?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    }[];
+                                };
+                                /** @example 123456789 */
+                                order?: string;
+                                children?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                }[];
+                                parent?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                };
+                                products?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                }[];
+                                /** Format: date-time */
+                                createdAt?: string;
+                                /** Format: date-time */
+                                updatedAt?: string;
+                                /** Format: date-time */
+                                publishedAt?: string;
+                                createdBy?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                };
+                                updatedBy?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                };
+                                locale?: string;
+                                localizations?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                }[];
+                            }[];
+                            variants?: components["schemas"]["ProductProductVariantComponent"][];
+                            specifications?: components["schemas"]["ProductSpecificationComponent"][];
+                            dimensions?: components["schemas"]["ProductDimensionsComponent"];
+                            reviews?: {
+                                id?: string | number;
+                                documentId?: string;
+                            }[];
+                            wishlistItems?: {
+                                id?: string | number;
+                                documentId?: string;
+                                user?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                };
+                                product?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                };
+                                /** Format: date-time */
+                                createdAt?: string;
+                                /** Format: date-time */
+                                updatedAt?: string;
+                                /** Format: date-time */
+                                publishedAt?: string;
+                                createdBy?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                };
+                                updatedBy?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                };
+                                locale?: string;
+                                localizations?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                }[];
+                            }[];
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            /** Format: date-time */
+                            publishedAt?: string;
+                            createdBy?: {
+                                id?: string | number;
+                                documentId?: string;
+                            };
+                            updatedBy?: {
+                                id?: string | number;
+                                documentId?: string;
+                            };
+                            locale?: string;
+                            localizations?: {
+                                id?: string | number;
+                                documentId?: string;
+                            }[];
+                        };
+                        /** Format: date-time */
+                        createdAt?: string;
+                        /** Format: date-time */
+                        updatedAt?: string;
+                        /** Format: date-time */
+                        publishedAt?: string;
+                        createdBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        updatedBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        locale?: string;
+                        localizations?: {
+                            id?: string | number;
+                            documentId?: string;
+                        }[];
+                    }[];
+                    addresses?: {
+                        id?: string | number;
+                        documentId?: string;
+                        label?: string;
+                        isDefault?: boolean;
+                        firstName?: string;
+                        lastName?: string;
+                        phone?: string;
+                        addressLine1?: string;
+                        addressLine2?: string;
+                        city?: string;
+                        state?: string;
+                        postalCode?: string;
+                        country?: string;
+                        user?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        subdistrictId?: string;
+                        /** Format: date-time */
+                        createdAt?: string;
+                        /** Format: date-time */
+                        updatedAt?: string;
+                        /** Format: date-time */
+                        publishedAt?: string;
+                        createdBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        updatedBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        locale?: string;
+                        localizations?: {
+                            id?: string | number;
+                            documentId?: string;
+                        }[];
+                    }[];
+                    wishlistItems?: {
+                        id?: string | number;
+                        documentId?: string;
+                    }[];
+                    /** Format: date-time */
+                    createdAt?: string;
+                    /** Format: date-time */
+                    updatedAt?: string;
+                    /** Format: date-time */
+                    publishedAt?: string;
+                    createdBy?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    updatedBy?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    locale?: string;
+                    localizations?: {
+                        id?: string | number;
+                        documentId?: string;
+                    }[];
+                };
+                voucher?: {
+                    id?: string | number;
+                    documentId?: string;
+                    code?: string;
+                    /** @enum {string} */
+                    discountType?: "percentage" | "fixed";
+                    /** Format: float */
+                    discountValue?: number;
+                    /** Format: float */
+                    maxDiscountAmount?: number;
+                    /** Format: float */
+                    minPurchase?: number;
+                    usageLimit?: number;
+                    usageLimitPerUser?: number;
+                    /** Format: date-time */
+                    startDate?: string;
+                    /** Format: date-time */
+                    endDate?: string;
+                    isActive?: boolean;
+                    description?: string;
+                    /** Format: date-time */
+                    createdAt?: string;
+                    /** Format: date-time */
+                    updatedAt?: string;
+                    /** Format: date-time */
+                    publishedAt?: string;
+                    createdBy?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    updatedBy?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    locale?: string;
+                    localizations?: {
+                        id?: string | number;
+                        documentId?: string;
+                    }[];
+                };
+                manualPayment?: {
+                    id?: string | number;
+                    documentId?: string;
+                    /** @enum {string} */
+                    reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
+                    /** Format: float */
+                    expectedAmount?: number;
+                    rejectionReason?: string;
+                    /** Format: date-time */
+                    reviewedAt?: string;
+                    order?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    proofs?: components["schemas"]["PaymentPaymentProofComponent"][];
+                    /** Format: date-time */
+                    createdAt?: string;
+                    /** Format: date-time */
+                    updatedAt?: string;
+                    /** Format: date-time */
+                    publishedAt?: string;
+                    createdBy?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    updatedBy?: {
+                        id?: string | number;
+                        documentId?: string;
+                    };
+                    locale?: string;
+                    localizations?: {
+                        id?: string | number;
+                        documentId?: string;
+                    }[];
+                };
                 items?: components["schemas"]["ProductOrderItemComponent"][];
                 shippingAddress?: components["schemas"]["CommonAddressComponent"];
                 billingAddress?: components["schemas"]["CommonAddressComponent"];
@@ -4615,6 +5631,10 @@ export interface components {
                 documentId?: string;
             };
             voucher?: {
+                id?: string | number;
+                documentId?: string;
+            };
+            manualPayment?: {
                 id?: string | number;
                 documentId?: string;
             };
@@ -5231,6 +6251,8 @@ export interface components {
                                 /** Format: float */
                                 totalAmount?: number;
                                 currency?: string;
+                                /** @enum {string} */
+                                paymentMethod?: "gateway" | "manual_transfer";
                                 sessionId?: string;
                                 midtransTransactionId?: string;
                                 midtransTransactionStatus?: string;
@@ -5274,6 +6296,41 @@ export interface components {
                                     endDate?: string;
                                     isActive?: boolean;
                                     description?: string;
+                                    /** Format: date-time */
+                                    createdAt?: string;
+                                    /** Format: date-time */
+                                    updatedAt?: string;
+                                    /** Format: date-time */
+                                    publishedAt?: string;
+                                    createdBy?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    updatedBy?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    locale?: string;
+                                    localizations?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    }[];
+                                };
+                                manualPayment?: {
+                                    id?: string | number;
+                                    documentId?: string;
+                                    /** @enum {string} */
+                                    reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
+                                    /** Format: float */
+                                    expectedAmount?: number;
+                                    rejectionReason?: string;
+                                    /** Format: date-time */
+                                    reviewedAt?: string;
+                                    order?: {
+                                        id?: string | number;
+                                        documentId?: string;
+                                    };
+                                    proofs?: components["schemas"]["PaymentPaymentProofComponent"][];
                                     /** Format: date-time */
                                     createdAt?: string;
                                     /** Format: date-time */
@@ -5814,6 +6871,8 @@ export interface components {
                     /** Format: float */
                     totalAmount?: number;
                     currency?: string;
+                    /** @enum {string} */
+                    paymentMethod?: "gateway" | "manual_transfer";
                     sessionId?: string;
                     midtransTransactionId?: string;
                     midtransTransactionStatus?: string;
@@ -5857,6 +6916,41 @@ export interface components {
                         endDate?: string;
                         isActive?: boolean;
                         description?: string;
+                        /** Format: date-time */
+                        createdAt?: string;
+                        /** Format: date-time */
+                        updatedAt?: string;
+                        /** Format: date-time */
+                        publishedAt?: string;
+                        createdBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        updatedBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        locale?: string;
+                        localizations?: {
+                            id?: string | number;
+                            documentId?: string;
+                        }[];
+                    };
+                    manualPayment?: {
+                        id?: string | number;
+                        documentId?: string;
+                        /** @enum {string} */
+                        reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
+                        /** Format: float */
+                        expectedAmount?: number;
+                        rejectionReason?: string;
+                        /** Format: date-time */
+                        reviewedAt?: string;
+                        order?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        proofs?: components["schemas"]["PaymentPaymentProofComponent"][];
                         /** Format: date-time */
                         createdAt?: string;
                         /** Format: date-time */
@@ -5959,84 +7053,6 @@ export interface components {
                             folder?: {
                                 id?: string | number;
                                 documentId?: string;
-                                name?: string;
-                                pathId?: number;
-                                parent?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                };
-                                children?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                }[];
-                                files?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                    name?: string;
-                                    alternativeText?: string;
-                                    caption?: string;
-                                    focalPoint?: unknown;
-                                    width?: number;
-                                    height?: number;
-                                    formats?: unknown;
-                                    hash?: string;
-                                    ext?: string;
-                                    mime?: string;
-                                    /** Format: float */
-                                    size?: number;
-                                    url?: string;
-                                    previewUrl?: string;
-                                    provider?: string;
-                                    provider_metadata?: unknown;
-                                    related?: {
-                                        id?: string | number;
-                                        documentId?: string;
-                                    }[];
-                                    folder?: {
-                                        id?: string | number;
-                                        documentId?: string;
-                                    };
-                                    folderPath?: string;
-                                    /** Format: date-time */
-                                    createdAt?: string;
-                                    /** Format: date-time */
-                                    updatedAt?: string;
-                                    /** Format: date-time */
-                                    publishedAt?: string;
-                                    createdBy?: {
-                                        id?: string | number;
-                                        documentId?: string;
-                                    };
-                                    updatedBy?: {
-                                        id?: string | number;
-                                        documentId?: string;
-                                    };
-                                    locale?: string;
-                                    localizations?: {
-                                        id?: string | number;
-                                        documentId?: string;
-                                    }[];
-                                }[];
-                                path?: string;
-                                /** Format: date-time */
-                                createdAt?: string;
-                                /** Format: date-time */
-                                updatedAt?: string;
-                                /** Format: date-time */
-                                publishedAt?: string;
-                                createdBy?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                };
-                                updatedBy?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                };
-                                locale?: string;
-                                localizations?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                }[];
                             };
                             folderPath?: string;
                             /** Format: date-time */
@@ -6320,6 +7336,9 @@ export interface components {
         StoreSettingRequest: {
             data: {
                 whatsappNumber?: string;
+                gatewayEnabled?: boolean;
+                manualTransferEnabled?: boolean;
+                bankAccounts?: components["schemas"]["PaymentBankAccountComponent"][];
                 locale?: string;
                 localizations?: (number | string)[];
             };
@@ -6339,6 +7358,9 @@ export interface components {
             id?: string | number;
             documentId?: string;
             whatsappNumber?: string;
+            gatewayEnabled?: boolean;
+            manualTransferEnabled?: boolean;
+            bankAccounts?: components["schemas"]["PaymentBankAccountComponent"][];
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -6526,6 +7548,9 @@ export interface components {
                 id?: string | number;
                 documentId?: string;
                 whatsappNumber?: string;
+                gatewayEnabled?: boolean;
+                manualTransferEnabled?: boolean;
+                bankAccounts?: components["schemas"]["PaymentBankAccountComponent"][];
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -6550,6 +7575,13 @@ export interface components {
         StoreSettingResponse: {
             data?: components["schemas"]["StoreSetting"];
             meta?: Record<string, never>;
+        };
+        PaymentBankAccountComponent: {
+            id?: string | number;
+            bankName?: string;
+            accountNumber?: string;
+            accountHolder?: string;
+            isActive?: boolean;
         };
         VoucherRequest: {
             data: {
@@ -7113,6 +8145,8 @@ export interface components {
                     /** Format: float */
                     totalAmount?: number;
                     currency?: string;
+                    /** @enum {string} */
+                    paymentMethod?: "gateway" | "manual_transfer";
                     sessionId?: string;
                     midtransTransactionId?: string;
                     midtransTransactionStatus?: string;
@@ -7156,6 +8190,41 @@ export interface components {
                         endDate?: string;
                         isActive?: boolean;
                         description?: string;
+                        /** Format: date-time */
+                        createdAt?: string;
+                        /** Format: date-time */
+                        updatedAt?: string;
+                        /** Format: date-time */
+                        publishedAt?: string;
+                        createdBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        updatedBy?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        locale?: string;
+                        localizations?: {
+                            id?: string | number;
+                            documentId?: string;
+                        }[];
+                    };
+                    manualPayment?: {
+                        id?: string | number;
+                        documentId?: string;
+                        /** @enum {string} */
+                        reviewStatus?: "awaiting_proof" | "under_review" | "approved" | "rejected";
+                        /** Format: float */
+                        expectedAmount?: number;
+                        rejectionReason?: string;
+                        /** Format: date-time */
+                        reviewedAt?: string;
+                        order?: {
+                            id?: string | number;
+                            documentId?: string;
+                        };
+                        proofs?: components["schemas"]["PaymentPaymentProofComponent"][];
                         /** Format: date-time */
                         createdAt?: string;
                         /** Format: date-time */
@@ -7258,84 +8327,6 @@ export interface components {
                             folder?: {
                                 id?: string | number;
                                 documentId?: string;
-                                name?: string;
-                                pathId?: number;
-                                parent?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                };
-                                children?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                }[];
-                                files?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                    name?: string;
-                                    alternativeText?: string;
-                                    caption?: string;
-                                    focalPoint?: unknown;
-                                    width?: number;
-                                    height?: number;
-                                    formats?: unknown;
-                                    hash?: string;
-                                    ext?: string;
-                                    mime?: string;
-                                    /** Format: float */
-                                    size?: number;
-                                    url?: string;
-                                    previewUrl?: string;
-                                    provider?: string;
-                                    provider_metadata?: unknown;
-                                    related?: {
-                                        id?: string | number;
-                                        documentId?: string;
-                                    }[];
-                                    folder?: {
-                                        id?: string | number;
-                                        documentId?: string;
-                                    };
-                                    folderPath?: string;
-                                    /** Format: date-time */
-                                    createdAt?: string;
-                                    /** Format: date-time */
-                                    updatedAt?: string;
-                                    /** Format: date-time */
-                                    publishedAt?: string;
-                                    createdBy?: {
-                                        id?: string | number;
-                                        documentId?: string;
-                                    };
-                                    updatedBy?: {
-                                        id?: string | number;
-                                        documentId?: string;
-                                    };
-                                    locale?: string;
-                                    localizations?: {
-                                        id?: string | number;
-                                        documentId?: string;
-                                    }[];
-                                }[];
-                                path?: string;
-                                /** Format: date-time */
-                                createdAt?: string;
-                                /** Format: date-time */
-                                updatedAt?: string;
-                                /** Format: date-time */
-                                publishedAt?: string;
-                                createdBy?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                };
-                                updatedBy?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                };
-                                locale?: string;
-                                localizations?: {
-                                    id?: string | number;
-                                    documentId?: string;
-                                }[];
                             };
                             folderPath?: string;
                             /** Format: date-time */
@@ -8766,6 +9757,77 @@ export interface operations {
                 };
                 content: {
                     "application/json": number;
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    "post/manual-payments/{orderDocumentId}/proofs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                orderDocumentId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ManualPaymentRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManualPaymentResponse"];
                 };
             };
             /** @description Bad Request */

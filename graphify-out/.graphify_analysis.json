@@ -1,0 +1,958 @@
+{
+  "communities": {
+    "0": [
+      "app_api_orders_ordernumber_route_ts",
+      "app_api_orders_route_test_ts",
+      "app_api_orders_route_ts",
+      "app_api_reviews_route_ts",
+      "app_api_vouchers_apply_route_test_ts",
+      "app_api_vouchers_apply_route_ts",
+      "app_categories_page_tsx",
+      "app_products_page_tsx",
+      "apply_route_post",
+      "categories_page_categoriespage",
+      "components_products_category_filter_tsx",
+      "hooks_use_cart_ts",
+      "lib_categories_getcategories",
+      "lib_categories_getcategorybyslug",
+      "lib_categories_ts",
+      "lib_inventory_checkinventory",
+      "lib_inventory_ts",
+      "lib_orders_createorder",
+      "lib_orders_getorderbynumber",
+      "lib_orders_getorders",
+      "lib_orders_ts",
+      "lib_products_getfeaturedproducts",
+      "lib_products_getproducts",
+      "lib_products_ts",
+      "lib_reviews_createreview",
+      "lib_reviews_ts",
+      "lib_strapi_strapifetch",
+      "lib_tests_inventory_test_ts",
+      "lib_tests_orders_test_ts",
+      "lib_tests_reviews_test_ts",
+      "lib_tests_vouchers_test_ts",
+      "lib_vouchers_computediscount",
+      "lib_vouchers_isvouchercurrentlyvalid",
+      "lib_vouchers_tovoucherrules",
+      "lib_vouchers_ts",
+      "ordernumber_route_get",
+      "orders_route_fetchvoucherbydocumentid",
+      "orders_route_post",
+      "orders_route_resolveitemdocumentids",
+      "orders_route_test_bodyof",
+      "products_category_filter_categoryfilter",
+      "products_page_productspage",
+      "products_sort_select_sortselect",
+      "reviews_route_post"
+    ],
+    "1": [
+      "addresses_address_card_addresscard",
+      "addresses_address_card_isclickable",
+      "addresses_address_picker_sheet_checkmobile",
+      "addresses_address_picker_sheet_handleselect",
+      "addresses_address_sheet_handlesubmit",
+      "cart_cart_drawer_close",
+      "cart_cart_drawer_getserversnapshot",
+      "cart_cart_drawer_getsnapshot",
+      "cart_cart_drawer_subscribe",
+      "checkout_page_handlesubmit",
+      "components_addresses_address_card_tsx",
+      "components_addresses_address_list_tsx",
+      "components_addresses_address_picker_sheet_tsx",
+      "components_addresses_address_selector_tsx",
+      "components_addresses_address_sheet_tsx",
+      "components_cart_cart_drawer_tsx",
+      "components_layout_header_tsx",
+      "components_ui_dropdown_menu_tsx",
+      "components_ui_sheet_tsx",
+      "hooks_use_addresses_createaddress",
+      "hooks_use_addresses_deleteaddress",
+      "hooks_use_addresses_fetchaddresses",
+      "hooks_use_addresses_setdefaultaddress",
+      "hooks_use_addresses_ts",
+      "hooks_use_addresses_updateaddress",
+      "hooks_use_addresses_useaddresses",
+      "layout_header_handlesearch",
+      "layout_header_navlinkclass",
+      "lib_utils_address_ts",
+      "ui_dropdown_menu_cn",
+      "ui_dropdown_menu_dropdownmenu",
+      "ui_dropdown_menu_dropdownmenucheckboxitem",
+      "ui_dropdown_menu_dropdownmenuportal",
+      "ui_dropdown_menu_dropdownmenutrigger",
+      "ui_sheet_cn",
+      "ui_sheet_sheet",
+      "ui_sheet_sheetclose",
+      "ui_sheet_sheetdescription",
+      "ui_sheet_sheetportal",
+      "ui_sheet_sheettitle",
+      "ui_sheet_sheettrigger",
+      "utils_address_sortaddressesbydefault"
+    ],
+    "2": [
+      "app_auth_login_page_tsx",
+      "app_layout_rootlayout",
+      "app_layout_tsx",
+      "app_wishlist_page_tsx",
+      "auth_logout_button_logoutbutton",
+      "cart_cart_sync_cartsync",
+      "components_auth_logout_button_tsx",
+      "components_cart_cart_sync_tsx",
+      "components_layout_footer_tsx",
+      "components_layout_store_chrome_tsx",
+      "components_wishlist_header_wishlist_icon_tsx",
+      "components_wishlist_wishlist_button_tsx",
+      "hooks_tests_use_cart_sync_test_ts",
+      "hooks_use_auth_fetchcurrentuser",
+      "hooks_use_auth_ts",
+      "hooks_use_auth_useauth",
+      "hooks_use_cart_sync_usecartsync",
+      "hooks_use_wishlist_ts",
+      "hooks_use_wishlist_useaddtowishlist",
+      "hooks_use_wishlist_useisinwishlist",
+      "hooks_use_wishlist_useremovefromwishlist",
+      "hooks_use_wishlist_usewishlist",
+      "layout_footer_footer",
+      "layout_store_chrome_storechrome",
+      "login_page_handlesubmit",
+      "login_page_loginpage",
+      "providers_providers_providers",
+      "providers_providers_tsx",
+      "tests_use_cart_sync_test_setupcartsync",
+      "wishlist_header_wishlist_icon_headerwishlisticon",
+      "wishlist_wishlist_button_handleclick",
+      "wishlist_wishlist_button_wishlistbutton"
+    ],
+    "3": [
+      "app_router",
+      "auth_route_handlers",
+      "cart_content_type",
+      "category_content_type",
+      "coding_guidelines",
+      "create_next_app",
+      "docker_standalone",
+      "dokploy_vps",
+      "geist_font",
+      "graphify_workflow",
+      "http_only_cookie_auth",
+      "hybrid_data_fetching",
+      "minio_s3",
+      "next_commerce_temp",
+      "nextjs_16",
+      "nextjs_breaking_changes",
+      "openapi_typescript_gen",
+      "order_content_type",
+      "pnpm_workspace",
+      "postgresql_17",
+      "product_content_type",
+      "proxy_migration",
+      "review_content_type",
+      "separate_repos",
+      "server_components",
+      "shadcn_ui",
+      "strapi_api_client",
+      "strapi_v5",
+      "tailwind_css_4",
+      "tanstack_react_query",
+      "vercel",
+      "zustand_cart_store"
+    ],
+    "4": [
+      "cart_AddToCartButton",
+      "cart_CartItem",
+      "cart_CartSyncComponent",
+      "cart_cartSyncLib",
+      "cart_useCartStore",
+      "cart_useCartSync",
+      "checkout_CheckoutPage",
+      "checkout_OrderSummary",
+      "checkout_ShippingOptions",
+      "checkout_SubdistrictSearch",
+      "checkout_TAX_RATE_11",
+      "checkout_searchDistrictRoute",
+      "checkout_shippingCostRoute",
+      "homepage_HomePage",
+      "plan_shippingCostCheck",
+      "products_ProductActions",
+      "products_ProductData",
+      "shipping_BFFPattern",
+      "shipping_KiriminAjaAPI",
+      "shipping_ShippingOption",
+      "shipping_SubdistrictResult",
+      "shipping_ZustandPersist",
+      "shipping_getDimensionsByWeight",
+      "shipping_packageDimensionsTable",
+      "shipping_weightFallback500g",
+      "spec_shippingCostCheck"
+    ],
+    "5": [
+      "checkout_subdistrict_search_formatfulllocation",
+      "checkout_subdistrict_search_handleselect",
+      "components_checkout_subdistrict_search_tsx",
+      "components_reviews_review_dialog_tsx",
+      "components_reviews_review_form_tsx",
+      "components_reviews_star_rating_input_tsx",
+      "components_ui_command_tsx",
+      "components_ui_dialog_tsx",
+      "components_ui_popover_tsx",
+      "reviews_review_form_reviewform",
+      "reviews_star_rating_input_starratinginput",
+      "ui_command_cn",
+      "ui_command_commandgroup",
+      "ui_command_commanditem",
+      "ui_dialog_cn",
+      "ui_dialog_dialog",
+      "ui_dialog_dialogclose",
+      "ui_dialog_dialogportal",
+      "ui_dialog_dialogtrigger",
+      "ui_popover_cn",
+      "ui_popover_popover",
+      "ui_popover_popoverdescription",
+      "ui_popover_popovertitle",
+      "ui_popover_popovertrigger"
+    ],
+    "6": [
+      "addresses_address_form_addressform",
+      "addresses_address_form_buildinitialsubdistrict",
+      "addresses_address_form_handlesubmit",
+      "app_auth_register_page_tsx",
+      "common_search_bar_searchbar",
+      "components_addresses_address_form_tsx",
+      "components_common_mobile_search_tsx",
+      "components_common_search_bar_tsx",
+      "components_common_tests_search_bar_test_tsx",
+      "components_dashboard_analytics_dashboard_tsx",
+      "components_dashboard_filters_tsx",
+      "components_ui_input_group_tsx",
+      "components_ui_input_tsx",
+      "dashboard_analytics_dashboard_buildsearch",
+      "dashboard_analytics_dashboard_fetchconversion",
+      "dashboard_analytics_dashboard_isconversionresponse",
+      "dashboard_analytics_dashboard_isempty",
+      "dashboard_filters_dashboardfilters",
+      "dashboard_filters_isodaysago",
+      "dashboard_filters_set",
+      "register_page_handlesubmit",
+      "ui_input_group_cn",
+      "ui_input_input"
+    ],
+    "7": [
+      "app_checkout_page_tsx",
+      "checkout_page_checkoutpage",
+      "checkout_page_handleaddnew",
+      "checkout_page_handleinputchange",
+      "checkout_page_handleselectaddress",
+      "components_orders_manual_payment_section_tsx",
+      "components_orders_proof_upload_form_tsx",
+      "hooks_use_payment_methods_fetchpaymentmethods",
+      "hooks_use_payment_methods_ts",
+      "hooks_use_payment_methods_usepaymentmethods",
+      "lib_payment_mapproofuploaderror",
+      "lib_payment_resolveinitialmethod",
+      "lib_payment_ts",
+      "lib_payment_validateprooffile",
+      "lib_shipping_getcartdimensions",
+      "lib_shipping_getdimensionsbyweight",
+      "lib_shipping_getitemdimensions",
+      "lib_shipping_ts",
+      "lib_tests_payment_test_ts",
+      "lib_tests_shipping_test_ts",
+      "orders_proof_upload_form_onpick",
+      "orders_proof_upload_form_upload"
+    ],
+    "8": [
+      "app_cart_page_tsx",
+      "app_orders_ordernumber_page_tsx",
+      "app_orders_page_tsx",
+      "cart_voucher_input_voucherinput",
+      "common_price_price",
+      "components_cart_voucher_input_tsx",
+      "components_checkout_order_summary_tsx",
+      "components_common_price_tsx",
+      "components_orders_constants_ts",
+      "components_orders_order_card_tsx",
+      "components_orders_order_timeline_tsx",
+      "components_orders_tests_constants_test_ts",
+      "components_ui_badge_tsx",
+      "lib_strapi_formatdate",
+      "lib_strapi_formatprice",
+      "lib_strapi_ts",
+      "ordernumber_page_formatprice",
+      "orders_constants_getstatusbadgeclass",
+      "orders_constants_gettimelinesteps",
+      "orders_order_card_ordercard",
+      "orders_page_filterorders",
+      "ui_badge_badge"
+    ],
+    "9": [
+      "hooks_use_cart_sync_sleep",
+      "hooks_use_cart_sync_ts",
+      "lib_cart_session_generatesessionid",
+      "lib_cart_session_getorcreatesessionid",
+      "lib_cart_session_getsessionid",
+      "lib_cart_session_resetsessionid",
+      "lib_cart_session_setsessionid",
+      "lib_cart_session_ts",
+      "lib_cart_sync_createcart",
+      "lib_cart_sync_deletecart",
+      "lib_cart_sync_fetchcart",
+      "lib_cart_sync_mapitems",
+      "lib_cart_sync_resolvecartitems",
+      "lib_cart_sync_ts",
+      "lib_cart_sync_updatecart",
+      "lib_strapi_strapierror",
+      "lib_strapi_strapierror_constructor",
+      "lib_tests_cart_session_test_ts",
+      "lib_tests_cart_sync_test_ts",
+      "tests_cart_session_test_clearcartsessioncookie"
+    ],
+    "10": [
+      "app_page_tsx",
+      "components_landing_categories_tsx",
+      "components_landing_hero_tsx",
+      "components_landing_motion_ts",
+      "components_landing_promo_banner_tsx",
+      "components_landing_section_animation_tsx",
+      "components_landing_testimonials_tsx",
+      "components_landing_why_cyra_tsx",
+      "components_products_product_grid_tsx",
+      "components_ui_carousel_tsx",
+      "landing_categories_getcategoryicon",
+      "landing_motion_motionallowed",
+      "landing_section_animation_fadeinsection",
+      "landing_why_cyra_whycyrasection",
+      "products_product_grid_productgrid",
+      "ui_carousel_carousel",
+      "ui_carousel_carouselnext",
+      "ui_carousel_cn",
+      "ui_carousel_usecarousel"
+    ],
+    "11": [
+      "addresses_account_tabs_accounttabs",
+      "app_account_page_tsx",
+      "checkout_shipping_options_fetchcost",
+      "checkout_shipping_options_optionkey",
+      "components_addresses_account_tabs_tsx",
+      "components_checkout_payment_method_selector_tsx",
+      "components_checkout_shipping_options_tsx",
+      "components_ui_radio_group_tsx",
+      "components_ui_tabs_tsx",
+      "ui_radio_group_radiogroup",
+      "ui_radio_group_radiogroupitem",
+      "ui_tabs_cn",
+      "ui_tabs_tabs",
+      "ui_tabs_tabscontent",
+      "ui_tabs_tabslist",
+      "ui_tabs_tabstrigger"
+    ],
+    "12": [
+      "cart_add_to_cart_button_addtocartbutton",
+      "cart_add_to_cart_button_handleaddtocart",
+      "components_cart_add_to_cart_button_tsx",
+      "components_cart_tests_add_to_cart_button_test_tsx",
+      "components_products_product_actions_tsx",
+      "components_products_product_condition_badge_tsx",
+      "components_products_quick_view_modal_tsx",
+      "components_products_variant_selector_tsx",
+      "products_product_actions_buildwhatsappurl",
+      "products_product_actions_whatsappicon",
+      "products_product_condition_badge_productconditionbadge",
+      "products_quick_view_modal_handleopenchange",
+      "products_quick_view_modal_nextimage",
+      "products_quick_view_modal_previmage",
+      "products_variant_selector_variantselector"
+    ],
+    "13": [
+      "app_products_slug_page_tsx",
+      "components_dashboard_daily_chart_tsx",
+      "components_products_specifications_table_tsx",
+      "components_reviews_review_section_tsx",
+      "components_ui_table_tsx",
+      "dashboard_daily_chart_shortdate",
+      "lib_products_getproductbyslug",
+      "products_product_images_productimages",
+      "products_specifications_table_specificationstable",
+      "reviews_review_section_reviewsection",
+      "slug_page_generatemetadata",
+      "ui_table_cn",
+      "ui_table_table",
+      "ui_table_tablebody",
+      "ui_table_tableheader"
+    ],
+    "14": [
+      "app_orders_loading_tsx",
+      "app_products_slug_loading_tsx",
+      "components_dashboard_states_tsx",
+      "components_landing_landing_skeleton_tsx",
+      "components_orders_order_skeleton_tsx",
+      "components_products_product_detail_skeleton_tsx",
+      "components_products_product_grid_skeleton_tsx",
+      "components_ui_skeleton_tsx",
+      "orders_loading_ordersloading",
+      "orders_order_skeleton_cardskeleton",
+      "orders_order_skeleton_orderlistskeleton",
+      "products_product_detail_skeleton_productdetailskeleton",
+      "slug_loading_productdetailloading",
+      "ui_skeleton_skeleton"
+    ],
+    "15": [
+      "app_api_analytics_conversion_route_ts",
+      "app_dashboard_layout_tsx",
+      "conversion_route_get",
+      "dashboard_layout_dashboardlayout",
+      "lib_analytics_defaultrange",
+      "lib_analytics_getconversion",
+      "lib_analytics_getstaffuser",
+      "lib_analytics_isstaff",
+      "lib_analytics_mapconversion",
+      "lib_analytics_parseconversionquery",
+      "lib_analytics_toisodate",
+      "lib_analytics_ts"
+    ],
+    "16": [
+      "components_products_sort_select_tsx",
+      "components_ui_select_tsx",
+      "ui_select_selectcontent",
+      "ui_select_selectgroup",
+      "ui_select_selectitem",
+      "ui_select_selectlabel",
+      "ui_select_selectscrolldownbutton",
+      "ui_select_selectscrollupbutton",
+      "ui_select_selectseparator",
+      "ui_select_selecttrigger",
+      "ui_select_selectvalue"
+    ],
+    "17": [
+      "components_products_thumbnail_strip_tsx",
+      "components_ui_button_tsx",
+      "components_ui_label_tsx",
+      "components_ui_separator_tsx",
+      "components_ui_textarea_tsx",
+      "lib_utils_cn",
+      "lib_utils_ts",
+      "ui_button_cn",
+      "ui_label_cn",
+      "ui_separator_cn",
+      "ui_textarea_cn"
+    ],
+    "18": [
+      "components_orders_order_payment_section_tsx",
+      "components_ui_alert_dialog_tsx",
+      "orders_order_payment_section_getsnapscripturl",
+      "orders_order_payment_section_loadsnapscript",
+      "orders_order_payment_section_pollpaymentstatus",
+      "orders_order_payment_section_regeneratetoken",
+      "ui_alert_dialog_alertdialog",
+      "ui_alert_dialog_alertdialogcancel",
+      "ui_alert_dialog_cn"
+    ],
+    "19": [
+      "components_ui_navigation_menu_tsx",
+      "ui_navigation_menu_navigationmenu",
+      "ui_navigation_menu_navigationmenucontent",
+      "ui_navigation_menu_navigationmenuitem",
+      "ui_navigation_menu_navigationmenulink",
+      "ui_navigation_menu_navigationmenulist",
+      "ui_navigation_menu_navigationmenutrigger"
+    ],
+    "20": [
+      "categories_categories_view_getcategoryicon",
+      "components_categories_categories_view_tsx",
+      "components_products_product_card_tsx",
+      "components_products_product_image_tsx",
+      "components_products_product_images_tsx",
+      "lib_strapi_getstrapimedia",
+      "products_product_image_productimage"
+    ],
+    "21": [
+      "components_products_tests_product_actions_whatsapp_test_tsx",
+      "hooks_tests_use_store_settings_test_ts",
+      "hooks_use_store_settings_fetchstoresettings",
+      "hooks_use_store_settings_ts",
+      "hooks_use_store_settings_usestoresettings",
+      "tests_use_store_settings_test_makewrapper"
+    ],
+    "22": [
+      "components_orders_order_filter_bar_tsx",
+      "orders_order_filter_bar_cn",
+      "orders_order_filter_bar_handleclearsearch",
+      "orders_order_filter_bar_handlesearchchange",
+      "orders_order_filter_bar_handlestatusclick"
+    ],
+    "23": [
+      "components_ui_accordion_tsx",
+      "ui_accordion_accordion",
+      "ui_accordion_accordioncontent",
+      "ui_accordion_accordionitem",
+      "ui_accordion_accordiontrigger"
+    ],
+    "24": [
+      "app_categories_slug_page_tsx",
+      "app_not_found_notfound",
+      "app_not_found_tsx",
+      "slug_page_categorypage"
+    ],
+    "25": [
+      "app_api_cart_documentid_route_ts",
+      "app_api_wishlist_documentid_route_ts",
+      "documentid_route_delete",
+      "documentid_route_put"
+    ],
+    "26": [
+      "app_api_manual_payments_orderdocumentid_proofs_route_test_ts",
+      "app_api_manual_payments_orderdocumentid_proofs_route_ts",
+      "proofs_route_post",
+      "proofs_route_test_makereq"
+    ],
+    "27": [
+      "components_orders_tests_order_payment_section_test_tsx",
+      "tests_order_payment_section_test_mockfetch",
+      "tests_order_payment_section_test_rendersection",
+      "tests_order_payment_section_test_setupsnap"
+    ],
+    "28": [
+      "addresses_route_get",
+      "addresses_route_post",
+      "app_api_addresses_route_ts"
+    ],
+    "29": [
+      "app_api_addresses_id_route_ts",
+      "id_route_delete",
+      "id_route_put"
+    ],
+    "30": [
+      "app_api_store_setting_payment_methods_route_test_ts",
+      "app_api_store_setting_payment_methods_route_ts",
+      "payment_methods_route_get"
+    ],
+    "31": [
+      "app_api_wishlist_route_ts",
+      "wishlist_route_get",
+      "wishlist_route_post"
+    ],
+    "32": [
+      "components_ui_card_tsx",
+      "ui_card_cardaction",
+      "ui_card_cn"
+    ],
+    "33": [
+      "components_products_product_discount_badge_tsx",
+      "products_product_discount_badge_calcdiscount",
+      "products_product_discount_badge_productdiscountbadge"
+    ],
+    "34": [
+      "components_ui_chart_tsx",
+      "ui_chart_cn",
+      "ui_chart_usechart"
+    ],
+    "35": [
+      "components_ui_avatar_tsx",
+      "ui_avatar_avatarbadge",
+      "ui_avatar_cn"
+    ],
+    "36": [
+      "public_file_icon",
+      "public_globe_icon",
+      "public_window_icon"
+    ],
+    "37": [
+      "next_commerce_temp_proxy_proxy",
+      "proxy_ts"
+    ],
+    "38": [
+      "app_error_error",
+      "app_error_tsx"
+    ],
+    "39": [
+      "app_loading_loading",
+      "app_loading_tsx"
+    ],
+    "40": [
+      "app_products_loading_tsx",
+      "products_loading_productsloading"
+    ],
+    "41": [
+      "app_auth_layout_tsx",
+      "auth_layout_authlayout"
+    ],
+    "42": [
+      "app_auth_confirm_success_page_tsx",
+      "confirm_success_page_confirmsuccesspage"
+    ],
+    "43": [
+      "app_dashboard_page_tsx",
+      "dashboard_page_dashboardpage"
+    ],
+    "44": [
+      "app_api_auth_logout_route_ts",
+      "logout_route_post"
+    ],
+    "45": [
+      "app_api_auth_register_route_ts",
+      "register_route_post"
+    ],
+    "46": [
+      "app_api_auth_me_route_ts",
+      "me_route_get"
+    ],
+    "47": [
+      "app_api_auth_login_route_ts",
+      "login_route_post"
+    ],
+    "48": [
+      "app_api_shipping_search_district_route_ts",
+      "search_district_route_get"
+    ],
+    "49": [
+      "app_api_shipping_cost_route_ts",
+      "cost_route_get"
+    ],
+    "50": [
+      "app_api_addresses_id_default_route_ts",
+      "default_route_patch"
+    ],
+    "51": [
+      "app_api_cart_route_ts",
+      "cart_route_post"
+    ],
+    "52": [
+      "app_api_orders_ordernumber_cancel_route_ts",
+      "cancel_route_post"
+    ],
+    "53": [
+      "app_api_orders_ordernumber_retry_route_ts",
+      "retry_route_post"
+    ],
+    "54": [
+      "app_api_orders_ordernumber_regenerate_snap_token_route_ts",
+      "regenerate_snap_token_route_post"
+    ],
+    "55": [
+      "app_api_store_setting_route_ts",
+      "store_setting_route_get"
+    ],
+    "56": [
+      "app_orders_error_tsx",
+      "orders_error_orderserror"
+    ],
+    "57": [
+      "app_orders_ordernumber_error_tsx",
+      "ordernumber_error_orderdetailerror"
+    ],
+    "58": [
+      "app_orders_ordernumber_loading_tsx",
+      "ordernumber_loading_orderdetailloading"
+    ],
+    "59": [
+      "account_layout_accountlayout",
+      "app_account_layout_tsx"
+    ],
+    "60": [
+      "checkout_bank_account_list_copy",
+      "components_checkout_bank_account_list_tsx"
+    ],
+    "61": [
+      "components_checkout_tests_shipping_options_test_tsx",
+      "tests_shipping_options_test_makepending"
+    ],
+    "62": [
+      "components_dashboard_kpi_cards_tsx",
+      "dashboard_kpi_cards_formatpercent"
+    ],
+    "63": [
+      "common_pagination_navigatetopage",
+      "components_common_pagination_tsx"
+    ],
+    "64": [
+      "components_reviews_rating_summary_tsx",
+      "reviews_rating_summary_getstarcounts"
+    ],
+    "65": [
+      "public_nextjs_logo",
+      "public_vercel_logo"
+    ],
+    "66": [
+      "postcss_config_mjs"
+    ],
+    "67": [
+      "next_env_d_ts"
+    ],
+    "68": [
+      "vitest_config_ts"
+    ],
+    "69": [
+      "eslint_config_mjs"
+    ],
+    "70": [
+      "next_config_ts"
+    ],
+    "71": [
+      "types_strapi_d_ts"
+    ],
+    "72": [
+      "types_address_ts"
+    ],
+    "73": [
+      "app_wishlist_loading_tsx"
+    ],
+    "74": [
+      "components_ui_sonner_tsx"
+    ],
+    "75": [
+      "components_products_tests_product_card_test_tsx"
+    ],
+    "76": [
+      "components_dashboard_funnel_chart_tsx"
+    ],
+    "77": [
+      "components_common_tests_mobile_search_test_tsx"
+    ],
+    "78": [
+      "components_orders_order_empty_state_tsx"
+    ],
+    "79": [
+      "components_reviews_review_list_tsx"
+    ],
+    "80": [
+      "hooks_tests_use_cart_test_ts"
+    ],
+    "81": [
+      "lib_wishlist_ts"
+    ],
+    "82": [
+      "shipping_freeShippingThreshold"
+    ]
+  },
+  "cohesion": {
+    "0": 0.08,
+    "1": 0.06,
+    "2": 0.1,
+    "3": 0.07,
+    "4": 0.1,
+    "5": 0.09,
+    "6": 0.09,
+    "7": 0.12,
+    "8": 0.15,
+    "9": 0.21,
+    "10": 0.12,
+    "11": 0.19,
+    "12": 0.15,
+    "13": 0.17,
+    "14": 0.14,
+    "15": 0.36,
+    "16": 0.25,
+    "17": 0.18,
+    "18": 0.25,
+    "19": 0.29,
+    "20": 0.43,
+    "21": 0.33,
+    "22": 0.4,
+    "23": 0.4,
+    "24": 0.5,
+    "25": 0.5,
+    "26": 0.5,
+    "27": 0.5,
+    "28": 1.0,
+    "29": 0.67,
+    "30": 0.67,
+    "31": 1.0,
+    "32": 0.67,
+    "33": 1.0,
+    "34": 0.67,
+    "35": 0.67,
+    "36": 0.67,
+    "37": 1.0,
+    "38": 1.0,
+    "39": 1.0,
+    "40": 1.0,
+    "41": 1.0,
+    "42": 1.0,
+    "43": 1.0,
+    "44": 1.0,
+    "45": 1.0,
+    "46": 1.0,
+    "47": 1.0,
+    "48": 1.0,
+    "49": 1.0,
+    "50": 1.0,
+    "51": 1.0,
+    "52": 1.0,
+    "53": 1.0,
+    "54": 1.0,
+    "55": 1.0,
+    "56": 1.0,
+    "57": 1.0,
+    "58": 1.0,
+    "59": 1.0,
+    "60": 1.0,
+    "61": 1.0,
+    "62": 1.0,
+    "63": 1.0,
+    "64": 1.0,
+    "65": 1.0,
+    "66": 1.0,
+    "67": 1.0,
+    "68": 1.0,
+    "69": 1.0,
+    "70": 1.0,
+    "71": 1.0,
+    "72": 1.0,
+    "73": 1.0,
+    "74": 1.0,
+    "75": 1.0,
+    "76": 1.0,
+    "77": 1.0,
+    "78": 1.0,
+    "79": 1.0,
+    "80": 1.0,
+    "81": 1.0,
+    "82": 1.0
+  },
+  "gods": [
+    {
+      "id": "lib_utils_cn",
+      "label": "cn()",
+      "degree": 41
+    },
+    {
+      "id": "lib_strapi_strapifetch",
+      "label": "strapiFetch()",
+      "degree": 18
+    },
+    {
+      "id": "lib_strapi_formatprice",
+      "label": "formatPrice()",
+      "degree": 18
+    },
+    {
+      "id": "hooks_use_auth_useauth",
+      "label": "useAuth()",
+      "degree": 17
+    },
+    {
+      "id": "ui_badge_badge",
+      "label": "Badge()",
+      "degree": 15
+    },
+    {
+      "id": "nextjs_16",
+      "label": "Next.js 16",
+      "degree": 12
+    },
+    {
+      "id": "ui_input_input",
+      "label": "Input()",
+      "degree": 11
+    },
+    {
+      "id": "strapi_v5",
+      "label": "Strapi v5 CMS",
+      "degree": 10
+    },
+    {
+      "id": "lib_strapi_getstrapimedia",
+      "label": "getStrapiMedia()",
+      "degree": 9
+    },
+    {
+      "id": "wishlist_wishlist_button_wishlistbutton",
+      "label": "WishlistButton()",
+      "degree": 9
+    }
+  ],
+  "surprises": [
+    {
+      "source": "useAuth()",
+      "target": "CheckoutPage()",
+      "source_files": [
+        "hooks/use-auth.ts",
+        "app/checkout/page.tsx"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities; peripheral node `CheckoutPage()` unexpectedly reaches hub `useAuth()`"
+    },
+    {
+      "source": "Next.js Breaking Changes Awareness",
+      "target": "middleware.ts to proxy.ts Migration",
+      "source_files": [
+        "AGENTS.md",
+        "docs/strapi5-next16-integration.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "Search district API route",
+      "target": "BFF proxy pattern for API credentials",
+      "source_files": [
+        "app/api/shipping/search-district/route.ts",
+        "docs/superpowers/specs/2026-06-06-shipping-cost-check-design.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "implements",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (code \u2194 doc); connects across different repos/directories"
+    },
+    {
+      "source": "Shipping cost API route",
+      "target": "BFF proxy pattern for API credentials",
+      "source_files": [
+        "app/api/shipping/cost/route.ts",
+        "docs/superpowers/specs/2026-06-06-shipping-cost-check-design.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "implements",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (code \u2194 doc); connects across different repos/directories"
+    },
+    {
+      "source": "TAX_RATE 11% constant",
+      "target": "Shipping Cost Check design spec",
+      "source_files": [
+        "app/checkout/page.tsx",
+        "docs/superpowers/specs/2026-06-06-shipping-cost-check-design.md"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `TAX_RATE 11% constant` unexpectedly reaches hub `Shipping Cost Check design spec`"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `cn()` connect `Community 17` to `Community 1`, `Community 2`, `Community 5`, `Community 6`, `Community 8`, `Community 10`, `Community 11`, `Community 12`, `Community 13`, `Community 14`, `Community 16`, `Community 18`, `Community 19`, `Community 20`, `Community 22`, `Community 23`, `Community 32`, `Community 33`, `Community 34`, `Community 35`?",
+      "why": "High betweenness centrality (0.237) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `formatPrice()` connect `Community 8` to `Community 1`, `Community 2`, `Community 7`, `Community 11`, `Community 12`, `Community 13`, `Community 20`?",
+      "why": "High betweenness centrality (0.129) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `strapiFetch()` connect `Community 0` to `Community 8`, `Community 9`, `Community 13`?",
+      "why": "High betweenness centrality (0.096) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 9 inferred relationships involving `strapiFetch()` (e.g. with `getProducts()` and `getProductBySlug()`) actually correct?",
+      "why": "`strapiFetch()` has 9 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 6 inferred relationships involving `useAuth()` (e.g. with `LoginPage()` and `LogoutButton()`) actually correct?",
+      "why": "`useAuth()` has 6 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `PostgreSQL 17`, `MinIO S3 Storage`, `Dokploy VPS` to the rest of the system?",
+      "why": "35 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 0` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.08 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

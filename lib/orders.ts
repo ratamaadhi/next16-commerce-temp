@@ -24,7 +24,12 @@ export async function getOrderByNumber(orderNumber: string, token: string) {
     "/orders",
     {
       filters: { orderNumber: { $eq: orderNumber } },
-      populate: "*",
+      populate: {
+        items: true,
+        shippingAddress: true,
+        billingAddress: true,
+        manualPayment: { populate: { proofs: { populate: "image" } } },
+      },
     },
     {},
     token,

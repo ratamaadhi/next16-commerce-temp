@@ -8,6 +8,8 @@ import { getOrderByNumber } from "@/lib/orders";
 import { getStatusBadgeClass, ORDER_STATUS_TITLES } from "@/components/orders/constants";
 import { OrderTimeline } from "@/components/orders/order-timeline";
 import { OrderPaymentSection } from "@/components/orders/order-payment-section";
+import { ManualPaymentSection } from "@/components/orders/manual-payment-section";
+import type { ManualPaymentStatus } from "@/lib/payment";
 import Image from "next/image";
 import { ReviewDialog } from "@/components/reviews/review-dialog";
 import { ArrowLeft, MapPin } from "lucide-react";
@@ -181,15 +183,30 @@ export default async function OrderDetailPage({ params, searchParams }: OrderDet
                 <span className="text-primary">{formatPrice(order.totalAmount ?? 0, order.currency)}</span>
               </div>
               <Separator />
-              <OrderPaymentSection
-                orderNumber={orderNumber}
-                paymentStatus={order.paymentStatus ?? "pending"}
-                orderStatus={order.orderStatus ?? "pending"}
-                totalAmount={order.totalAmount ?? 0}
-                currency={order.currency}
-                snapToken={order.midtransSnapToken ?? null}
-                autoPay={autoPay === "true"}
-              />
+              {order.paymentMethod === "manual_transfer" ? (
+                <ManualPaymentSection
+                  orderDocumentId={order.documentId ?? ""}
+                  status={
+                    (order.manualPayment as
+                      | { reviewStatus?: ManualPaymentStatus }
+                      | undefined)?.reviewStatus ?? null
+                  }
+                  rejectionReason={
+                    (order.manualPayment as { rejectionReason?: string } | undefined)
+                      ?.rejectionReason ?? null
+                  }
+                />
+              ) : (
+                <OrderPaymentSection
+                  orderNumber={orderNumber}
+                  paymentStatus={order.paymentStatus ?? "pending"}
+                  orderStatus={order.orderStatus ?? "pending"}
+                  totalAmount={order.totalAmount ?? 0}
+                  currency={order.currency}
+                  snapToken={order.midtransSnapToken ?? null}
+                  autoPay={autoPay === "true"}
+                />
+              )}
             </div>
           </div>
         </div>

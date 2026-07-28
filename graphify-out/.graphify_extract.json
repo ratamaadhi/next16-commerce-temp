@@ -1,0 +1,805 @@
+{
+  "nodes": [
+    {
+      "id": "types_strapi_d_ts",
+      "label": "strapi.d.ts",
+      "file_type": "code",
+      "source_file": "types/strapi.d.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_api_manual_payments_orderdocumentid_proofs_route_test_ts",
+      "label": "route.test.ts",
+      "file_type": "code",
+      "source_file": "app/api/manual-payments/[orderDocumentId]/proofs/route.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "proofs_route_test_makereq",
+      "label": "makeReq()",
+      "file_type": "code",
+      "source_file": "app/api/manual-payments/[orderDocumentId]/proofs/route.test.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "app_api_manual_payments_orderdocumentid_proofs_route_ts",
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "app/api/manual-payments/[orderDocumentId]/proofs/route.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "proofs_route_post",
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "app/api/manual-payments/[orderDocumentId]/proofs/route.ts",
+      "source_location": "L6"
+    },
+    {
+      "id": "app_orders_ordernumber_page_tsx",
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_products_product_card_tsx",
+      "label": "product-card.tsx",
+      "file_type": "code",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_orders_proof_upload_form_tsx",
+      "label": "proof-upload-form.tsx",
+      "file_type": "code",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "orders_proof_upload_form_onpick",
+      "label": "onPick()",
+      "file_type": "code",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L25"
+    },
+    {
+      "id": "orders_proof_upload_form_upload",
+      "label": "upload()",
+      "file_type": "code",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L41"
+    }
+  ],
+  "edges": [
+    {
+      "source": "app_api_manual_payments_orderdocumentid_proofs_route_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/manual-payments/[orderDocumentId]/proofs/route.test.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "app_api_manual_payments_orderdocumentid_proofs_route_test_ts",
+      "target": "users_tama_tamadev_next_commerce_temp_app_api_manual_payments_orderdocumentid_proofs_route",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/manual-payments/[orderDocumentId]/proofs/route.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "app_api_manual_payments_orderdocumentid_proofs_route_test_ts",
+      "target": "proofs_route_post",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/manual-payments/[orderDocumentId]/proofs/route.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "app_api_manual_payments_orderdocumentid_proofs_route_test_ts",
+      "target": "proofs_route_test_makereq",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/manual-payments/[orderDocumentId]/proofs/route.test.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "app_api_manual_payments_orderdocumentid_proofs_route_ts",
+      "target": "headers",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/manual-payments/[orderDocumentId]/proofs/route.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "app_api_manual_payments_orderdocumentid_proofs_route_ts",
+      "target": "server",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/manual-payments/[orderDocumentId]/proofs/route.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "app_api_manual_payments_orderdocumentid_proofs_route_ts",
+      "target": "proofs_route_post",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/manual-payments/[orderDocumentId]/proofs/route.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "headers",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "navigation",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "link",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_components_ui_badge",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "ui_badge_badge",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_components_ui_separator",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "ui_separator_separator",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_lib_strapi",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "lib_strapi_formatprice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "lib_strapi_formatdate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_lib_orders",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "lib_orders_getorderbynumber",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_components_orders_constants",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "orders_constants_getstatusbadgeclass",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "orders_constants_order_status_titles",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_components_orders_order_timeline",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "orders_order_timeline_ordertimeline",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_components_orders_order_payment_section",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "orders_order_payment_section_orderpaymentsection",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_components_orders_manual_payment_section",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "orders_manual_payment_section_manualpaymentsection",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_lib_payment",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "lib_payment_manualpaymentstatus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "image",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_components_reviews_review_dialog",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "reviews_review_dialog_reviewdialog",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "app_orders_ordernumber_page_tsx",
+      "target": "lucide_react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/orders/[orderNumber]/page.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "link",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "image",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "lucide_react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_components_ui_card",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "ui_card_card",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_components_ui_badge",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "ui_badge_badge",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_lib_strapi",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "lib_strapi_formatprice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "lib_strapi_getstrapimedia",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_lib_utils",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "lib_utils_cn",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_components_products_product_condition_badge",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "products_product_condition_badge_productconditionbadge",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_components_products_product_discount_badge",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "products_product_discount_badge_productdiscountbadge",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_components_products_thumbnail_strip",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "products_thumbnail_strip_thumbnailstrip",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_components_products_quick_view_modal",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "products_quick_view_modal_quickviewmodal",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_components_wishlist_wishlist_button",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "wishlist_wishlist_button_wishlistbutton",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_lib_products",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "components_products_product_card_tsx",
+      "target": "lib_products_productdata",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/products/product-card.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "components_orders_proof_upload_form_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "components_orders_proof_upload_form_tsx",
+      "target": "navigation",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "components_orders_proof_upload_form_tsx",
+      "target": "sonner",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "components_orders_proof_upload_form_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_components_ui_button",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "components_orders_proof_upload_form_tsx",
+      "target": "ui_button_button",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "components_orders_proof_upload_form_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_components_ui_label",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "components_orders_proof_upload_form_tsx",
+      "target": "ui_label_label",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "components_orders_proof_upload_form_tsx",
+      "target": "lucide_react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "components_orders_proof_upload_form_tsx",
+      "target": "users_tama_tamadev_next_commerce_temp_lib_payment",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "components_orders_proof_upload_form_tsx",
+      "target": "lib_payment_validateprooffile",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "components_orders_proof_upload_form_tsx",
+      "target": "lib_payment_mapproofuploaderror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "components_orders_proof_upload_form_tsx",
+      "target": "lib_payment_proof_allowed_mime",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "components_orders_proof_upload_form_tsx",
+      "target": "orders_proof_upload_form_onpick",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "components_orders_proof_upload_form_tsx",
+      "target": "orders_proof_upload_form_upload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/orders/proof-upload-form.tsx",
+      "source_location": "L41",
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "input_tokens": 0,
+  "output_tokens": 0
+}
